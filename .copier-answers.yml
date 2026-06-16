@@ -1,0 +1,16 @@
+# Changes here will be overwritten by Copier
+_commit: v0.5.0
+_src_path: https://github.com/linkml/linkml-project-copier
+add_example: true
+copyright_year: '2026'
+email: smoxon@lbl.gov
+existing_license_file: ''
+full_name: Sierra Moxon
+gh_action_docs_preview: true
+gh_action_pypi: true
+github_org: microbiomedata
+license: Apache-2.0
+project_description: This is the project description.
+project_name: nmdc-lakehouse-schema
+project_slug: nmdc_lakehouse_schema
+
