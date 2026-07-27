@@ -1,5 +1,5 @@
-# generated part of documentation
-/docs/elements/*.md
+# documentation build dir, assembled from src/docs and the LinkML generators
+/docs/
 # linkml-run-examples output (not useful to have in git in its current form)
 /examples/output/
 
