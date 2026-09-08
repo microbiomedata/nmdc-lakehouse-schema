@@ -27,6 +27,8 @@ dev = [
     "jupyter>=1.0.0",
     "mknotebooks>= 0.8.0",
     "pytest>=8.0",
+    # Backs the schema-diff markdown-rendering tests (a real CommonMark parser).
+    "markdown-it-py>=3.0",
     # Used by scripts/ (flattened-schema generation + flatten preview)
     "nmdc-schema",
     "pymongo>=4.9",

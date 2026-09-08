@@ -14,10 +14,12 @@ hold them sparsely.
 
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Iterable
 
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import (
+    Annotation,
     ClassDefinition,
     Prefix,
     SchemaDefinition,
@@ -44,6 +46,27 @@ def _is_inlined(slot: SlotDefinition, schema_view: SchemaView) -> bool:
 REF_NOTE = "Reference by identifier; original range was class '{range}'."
 NESTED_NOTE = "Flattened from nested slot '{parent}.{inner}'."
 DISPATCH_NOTE = "Polymorphic subclass-specific slot (from '{subclass}')."
+DEFAULT_FLATTENED_SCHEMA_ID = "https://w3id.org/nmdc/nmdc-schema-flattened"
+# These are opaque provenance labels persisted in Parquet footers and snapshot manifests, not
+# import paths that get resolved. They keep their historical `nmdc_lakehouse.*` spelling so data
+# already published continues to validate; replacing them with a package name + version is the
+# planned identity redesign (microbiomedata/nmdc-lakehouse#333, advancing #14 / #146 / #293).
+PRIMARY_MAPPING_ID = "nmdc_lakehouse.transforms.flatteners.SchemaDrivenFlattener"
+SIDE_TABLE_MAPPING_ID = "nmdc_lakehouse.transforms.flatteners.side_table_rows"
+SCHEMA_GENERATOR_ID = "nmdc_lakehouse.transforms.schema_generator.flatten_database_schema"
+
+# The projection's own version, bumped when THIS code changes what it emits, never when
+# nmdc-schema changes. Until 2026-08-25 the flat schema declared the upstream version instead, so
+# three committed revisions all said 11.23.0 while differing in content (a638437c, 72cdacd0,
+# b4e0f7a8). A consumer holding two of those tables could not tell them apart, which is the
+# question a consumer asks first. Raise the minor part when a shape changes, the patch part when
+# only descriptions or annotations move.
+FLATTENER_VERSION = "1.0.0"
+
+# Filled in after rendering, because a document cannot contain its own digest. The generator
+# renders with this placeholder in place, hashes that exact text, then substitutes. Verifying
+# runs the same substitution in reverse, so the check is arithmetic rather than trust.
+UNRESOLVED_CONTENT_SHA256 = "0" * 64
 
 
 def flatten_class_def(
@@ -82,9 +105,12 @@ def flatten_class_def(
     """
     target_name = target_name or f"{root_class}Flat"
     cls = ClassDefinition(name=target_name)
-    cls.description = (
-        f"Flattened tabular form of '{root_class}' produced by "
-        f"`SchemaDrivenFlattener`. Attributes are the union of base-class "
+    source_class = schema_view.get_class(root_class)
+    source_description = f"{source_class.description} " if source_class and source_class.description else ""
+    # The producing loader is recorded once, in the `mapping` annotation. Naming it here too
+    # would contradict that annotation for any table produced by a different loader.
+    cls.description = source_description + (
+        f"Flattened tabular form of '{root_class}'. Attributes are the union of base-class "
         f"slots and slots from concrete subclasses of '{root_class}' that "
         f"may appear via the 'type' field."
     )
@@ -113,36 +139,75 @@ def flatten_class_def(
     return cls
 
 
+def flat_schema_version(source_schema_version: str) -> str:
+    """Return the flat schema's own version, which names both halves of what produced it.
+
+    `<source>+flat.<flattener>`, so a reader can still see which nmdc-schema this derives from
+    while two schemas built by different flatteners from the same upstream release are no longer
+    identical strings. The build-metadata form is deliberate: it is the semver part that says
+    "same upstream, different projection".
+    """
+    return f"{source_schema_version}+flat.{FLATTENER_VERSION}"
+
+
 def flatten_database_schema(
     schema_view: SchemaView,
     database_class: str = "Database",
-    schema_id: str = "https://w3id.org/nmdc/nmdc-schema-flattened",
+    schema_id: str = DEFAULT_FLATTENED_SCHEMA_ID,
     schema_name: str = "nmdc_schema_flattened",
+    source_package_version: str | None = None,
+    table_mapping_overrides: dict[str, str] | None = None,
 ) -> SchemaDefinition:
-    """Emit a full SchemaDefinition with one flat class per Database slot.
+    """Emit the complete primary and side-table schema for a database model.
 
-    Walks each multivalued slot on ``database_class`` (the 17 NMDC collections),
-    resolves its range, and calls :func:`flatten_class_def` to produce a flat
-    class for each.
+    Walks each multivalued slot on ``database_class``, resolves its range, and
+    emits the primary flat class plus every possible junction or inlined-child
+    class produced by :func:`side_table_class_defs`.
+
+    Each primary table is annotated with the mapping identity that will produce
+    it. Tables default to :data:`PRIMARY_MAPPING_ID` (the schema-driven
+    flattener); a caller that routes a collection to a different loader passes
+    ``table_mapping_overrides={table_name: mapping_id}`` so the generated schema
+    records the identity actually written to the Parquet footer. Routing is a
+    consumer (ETL) concern, so it is injected here rather than known by this
+    package.
     """
+    source_schema_id = schema_view.schema.id or "unidentified"
+    source_schema_version = schema_view.schema.version or "unversioned"
     out = SchemaDefinition(
         id=schema_id,
         name=schema_name,
+        version=flat_schema_version(source_schema_version),
         description=(
-            "Flattened LinkML schema describing the tabular output of "
-            "`SchemaDrivenFlattener` applied to each schema-specified "
-            "collection. Generated — do not edit by hand."
+            "Flattened LinkML schema describing primary and side-table output "
+            "for every schema-specified collection. Generated; do not edit by hand."
         ),
-        prefixes={
+        annotations={
+            "source_schema_id": Annotation(tag="source_schema_id", value=source_schema_id),
+            "source_schema_version": Annotation(tag="source_schema_version", value=source_schema_version),
+            "source_package_version": Annotation(
+                tag="source_package_version", value=source_package_version or source_schema_version
+            ),
+            "schema_generator": Annotation(tag="schema_generator", value=SCHEMA_GENERATOR_ID),
+            "flattener_version": Annotation(tag="flattener_version", value=FLATTENER_VERSION),
+            "flat_schema_sha256": Annotation(tag="flat_schema_sha256", value=UNRESOLVED_CONTENT_SHA256),
+            "primary_mapping": Annotation(tag="primary_mapping", value=PRIMARY_MAPPING_ID),
+            "side_table_mapping": Annotation(tag="side_table_mapping", value=SIDE_TABLE_MAPPING_ID),
+        },
+        prefixes=deepcopy(schema_view.schema.prefixes)
+        or {
             "linkml": Prefix(
                 prefix_prefix="linkml",
                 prefix_reference="https://w3id.org/linkml/",
             ),
         },
-        imports=["linkml:types"],
+        imports=list(schema_view.schema.imports),
+        types=deepcopy(schema_view.schema.types),
+        enums=deepcopy(schema_view.schema.enums),
         default_range="string",
     )
 
+    overrides = table_mapping_overrides or {}
     db_slots = schema_view.class_induced_slots(database_class)
     for slot in db_slots:
         if not slot.multivalued or not slot.range:
@@ -151,9 +216,47 @@ def flatten_database_schema(
         if range_class is None:
             continue
         flat = flatten_class_def(schema_view, slot.range)
-        out.classes[flat.name] = flat
+        _annotate_target_class(
+            flat,
+            table_name=slot.name,
+            source_class=slot.range,
+            mapping=overrides.get(slot.name, PRIMARY_MAPPING_ID),
+        )
+        _add_target_class(out, flat)
+        for table_name, side_class in side_table_class_defs(schema_view, slot.range, slot.name):
+            _annotate_target_class(
+                side_class,
+                table_name=table_name,
+                source_class=slot.range,
+                mapping=SIDE_TABLE_MAPPING_ID,
+            )
+            _add_target_class(out, side_class)
 
     return out
+
+
+def _annotate_target_class(
+    class_def: ClassDefinition,
+    *,
+    table_name: str,
+    source_class: str,
+    mapping: str,
+) -> None:
+    """Attach the table and mapping identity used by Parquet footers."""
+    class_def.annotations.update(
+        {
+            "table_name": Annotation(tag="table_name", value=table_name),
+            "source_class": Annotation(tag="source_class", value=source_class),
+            "mapping": Annotation(tag="mapping", value=mapping),
+        }
+    )
+
+
+def _add_target_class(schema: SchemaDefinition, class_def: ClassDefinition) -> None:
+    """Reject ambiguous target-class identities instead of overwriting them."""
+    if class_def.name in schema.classes:
+        raise ValueError(f"Duplicate generated target class: {class_def.name}")
+    schema.classes[class_def.name] = class_def
 
 
 def side_table_class_defs(
@@ -207,13 +310,31 @@ def side_table_class_defs(
                 child_flat = flatten_class_def(
                     schema_view, range_class.name, target_name=table_name, expand_embedded_refs=True
                 )
-                child_flat.attributes["parent_id"] = SlotDefinition(name="parent_id", range="string")
+                child_flat.attributes["parent_id"] = SlotDefinition(
+                    name="parent_id",
+                    range="string",
+                    description=f"Identifier of the parent '{root_class}' record.",
+                )
                 result.append((table_name, child_flat))
             elif range_class is not None:
                 # Ref-class multivalued → junction table (ARRAY also in primary)
                 cls = ClassDefinition(name=table_name)
-                cls.attributes["parent_id"] = SlotDefinition(name="parent_id", range="string")
-                cls.attributes[slot.name] = SlotDefinition(name=slot.name, range="string")
+                cls.description = (
+                    f"References from multivalued slot '{class_name}.{slot.name}'; "
+                    "one row per parent and referenced identifier."
+                )
+                cls.attributes["parent_id"] = SlotDefinition(
+                    name="parent_id",
+                    range="string",
+                    description=f"Identifier of the parent '{root_class}' record.",
+                )
+                cls.attributes[slot.name] = SlotDefinition(
+                    name=slot.name,
+                    range="string",
+                    description=(
+                        f"{slot.description + ' ' if slot.description else ''}{REF_NOTE.format(range=slot.range)}"
+                    ),
+                )
                 result.append((table_name, cls))
             # Scalar multivalued: ARRAY in primary table, no ClassDef
 
@@ -254,6 +375,7 @@ def _flatten_slot(
                 description=ref_desc or None,
                 required=(slot.required if not dispatch_subclass else False),
             )
+            _carry_identifier(new_slot, slot)
             _attach_notes(new_slot, notes)
             yield new_slot
             return
@@ -268,6 +390,7 @@ def _flatten_slot(
             description=slot.description or None,
             required=(slot.required if not dispatch_subclass else False),
         )
+        _carry_identifier(new_slot, slot)
         _attach_notes(new_slot, notes)
         yield new_slot
         return
@@ -296,6 +419,7 @@ def _flatten_slot(
                 description=nested_desc or None,
                 required=False,
             )
+            _carry_identifier(new_slot, inner_slot, nested=True)
             _attach_notes(new_slot, notes)
             yield new_slot
             continue
@@ -320,6 +444,7 @@ def _flatten_slot(
                     description=nested_desc or None,
                     required=False,
                 )
+                _carry_identifier(new_slot, deepest, nested=True)
                 _attach_notes(new_slot, notes)
                 yield new_slot
 
@@ -329,6 +454,29 @@ def _range_class(slot: SlotDefinition, schema_view: SchemaView):
     if not slot.range:
         return None
     return schema_view.get_class(slot.range)
+
+
+def _carry_identifier(
+    new_slot: SlotDefinition,
+    source_slot: SlotDefinition,
+    *,
+    nested: bool = False,
+) -> None:
+    """Propagate a root identifier without changing target ``type`` semantics.
+
+    Required columns and identifiers are protected from empty-column pruning
+    by :class:`ParquetSink`. A source ``designates_type`` slot is retained as
+    data but cannot designate the generated target class: its values still
+    identify source NMDC classes rather than flattened target classes.
+
+    An identifier on an embedded class does not identify the flattened parent
+    class. Nested expansions therefore retain its value and description but
+    not that class-level metaslot.
+    """
+    if nested:
+        return
+    if source_slot.identifier:
+        new_slot.identifier = True
 
 
 def _attach_notes(slot: SlotDefinition, notes: list[str]) -> None:

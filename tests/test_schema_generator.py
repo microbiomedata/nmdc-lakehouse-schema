@@ -6,15 +6,23 @@ validate generated flattened column names and related slot behavior.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from linkml_runtime import SchemaView
 
+from nmdc_lakehouse_schema.transforms import schema_generator as _sg
 from nmdc_lakehouse_schema.transforms.flatteners import side_table_rows
 from nmdc_lakehouse_schema.transforms.schema_generator import (
+    PRIMARY_MAPPING_ID,
+    SIDE_TABLE_MAPPING_ID,
     flatten_class_def,
     flatten_database_schema,
     side_table_class_defs,
 )
+
+# Published by nmdc-lakehouse-schema#4; tests that read it skip until it exists.
+_CANONICAL_SCHEMA = Path(_sg.__file__).parents[1] / "schemas" / "nmdc_metadata.yaml"
 
 _SCHEMA_YAML = """
 id: https://example.org/test
@@ -38,6 +46,7 @@ classes:
       has_raw_value:
       term:
         range: Term
+      type:
 
   TextValue:
     attributes:
@@ -48,6 +57,8 @@ classes:
       id:
         required: true
       type:
+        designates_type: true
+        required: true
   Pooling:
     is_a: Process
     attributes:
@@ -61,6 +72,7 @@ classes:
   Record:
     attributes:
       id:
+        identifier: true
         required: true
       name:
       depth:
@@ -145,6 +157,24 @@ def test_flat_class_expands_inlined_object(sv):
     assert "env_broad_scale_term_id" in flat.attributes
 
 
+def test_flat_class_preserves_type_column_without_target_designation(sv):
+    """A source type remains required data but does not designate the target.
+
+    The value identifies a source class, not the generated flat class. Required
+    columns are independently protected from empty-column pruning.
+    """
+    flat = flatten_class_def(sv, "Process")
+    assert flat.attributes["type"].required is True
+    assert flat.attributes["type"].designates_type is not True
+
+
+def test_flat_class_does_not_promote_nested_identifier(sv):
+    """An embedded object's identifier does not become the parent identifier."""
+    flat = flatten_class_def(sv, "Record")
+    assert flat.attributes["id"].identifier is True
+    assert flat.attributes["env_broad_scale_term_id"].identifier is not True
+
+
 def test_flat_class_unions_subclass_slots(sv):
     """Polymorphic dispatch: subclass slots appear on the base flat class."""
     flat = flatten_class_def(sv, "Process")
@@ -162,11 +192,18 @@ def test_flat_class_subclass_slots_carry_dispatch_note(sv):
     assert "Pooling" in desc
 
 
-def test_flatten_database_schema_yields_one_class_per_collection(sv):
-    """Walking Database produces one flat class per multivalued slot."""
-    out = flatten_database_schema(sv, database_class="Database")
+def test_flatten_database_schema_yields_primary_and_side_table_classes(sv):
+    """Walking Database produces complete primary and side-table topology."""
+    out = flatten_database_schema(sv, database_class="Database", source_package_version="1.2.3")
     assert "RecordFlat" in out.classes
     assert "ProcessFlat" in out.classes
+    assert "record_set_associated_studies" in out.classes
+    assert "record_set_chem_admin" in out.classes
+    assert out.annotations["source_schema_id"].value == "https://example.org/test"
+    assert out.annotations["source_package_version"].value == "1.2.3"
+    assert out.classes["RecordFlat"].annotations["table_name"].value == "record_set"
+    assert out.classes["RecordFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
+    assert out.classes["record_set_chem_admin"].annotations["mapping"].value == SIDE_TABLE_MAPPING_ID
 
 
 # Note: a generator/runtime consistency test ("every column flatten_record
@@ -207,6 +244,37 @@ def test_side_table_inlined_class_child(sv):
     assert "term_id" in cls.attributes
     assert "term_name" in cls.attributes
     assert "term" not in cls.attributes
+    # The child class's own `type` slot is a normal top-level induced slot on
+    # ControlledTermValue, so it is declared like any other attribute.
+    assert "type" in cls.attributes
+
+
+def test_side_table_type_column_declared_and_populated(sv):
+    """The schema-declared ``type`` column on a side table is actually populated at runtime.
+
+    Regression test for microbiomedata/nmdc-lakehouse#122: `side_table_class_defs`
+    already declared a `type` column for the child class's own top-level `type`
+    slot, but `_expand_inlined` unconditionally dropped that value when building
+    the runtime row. Companion to `test_side_table_inlined_class_multivalued_populates_type`
+    in test_flatteners.py, which checks the runtime side; this checks the schema
+    side agrees.
+    """
+    defs = dict(side_table_class_defs(sv, "Record", "record_set"))
+    assert "type" in defs["record_set_chem_admin"].attributes
+
+    rows = list(
+        side_table_rows(
+            {
+                "id": "r1",
+                "chem_admin": [{"type": "test:ChemicalAdministration", "has_raw_value": "NaCl"}],
+            },
+            sv,
+            "Record",
+            "record_set",
+        )
+    )
+    _, row = rows[0]
+    assert row["type"] == "test:ChemicalAdministration"
 
 
 def test_side_table_single_valued_slots_excluded(sv):
@@ -260,3 +328,46 @@ def test_side_table_schema_covers_runtime_row_keys(sv):
         schema_cols = {attr for attr in defs[table_name].attributes}
         extra = set(row.keys()) - schema_cols
         assert not extra, f"side_table_rows emitted keys {extra} not in ClassDef for {table_name!r}"
+
+
+def test_tables_default_to_the_flattener_identity(sv) -> None:
+    """With no overrides, every primary table records the schema-driven flattener."""
+    out = flatten_database_schema(sv, database_class="Database")
+    assert out.classes["RecordFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
+    assert out.classes["ProcessFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
+
+
+def test_table_mapping_overrides_change_the_recorded_identity(sv) -> None:
+    """A collection routed to a non-default loader records that loader's identity.
+
+    Routing is a consumer (ETL) concern — e.g. the lakehouse routes some collections to a direct
+    loader — so the caller injects it via ``table_mapping_overrides`` rather than this package
+    knowing about any specific loader. Tables with no override keep the flattener identity, so the
+    published mapping still matches whatever the run actually writes to the Parquet footer.
+    """
+    out = flatten_database_schema(
+        sv,
+        database_class="Database",
+        table_mapping_overrides={"record_set": "direct:SomeDirectLoader"},
+    )
+    assert out.classes["RecordFlat"].annotations["mapping"].value == "direct:SomeDirectLoader"
+    assert out.classes["ProcessFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
+
+
+@pytest.mark.skipif(
+    not _CANONICAL_SCHEMA.exists(),
+    reason="canonical nmdc_metadata.yaml is published by nmdc-lakehouse-schema#4; not generated yet",
+)
+def test_class_descriptions_do_not_name_a_producing_loader() -> None:
+    """The producer is recorded once, in the mapping annotation, so prose cannot contradict it."""
+    import yaml
+
+    schema_path = _CANONICAL_SCHEMA
+    schema = yaml.safe_load(schema_path.read_text(encoding="utf-8"))
+    offenders = [
+        name
+        for name, definition in schema["classes"].items()
+        if "SchemaDrivenFlattener" in (definition.get("description") or "")
+        or "DirectMongoToParquetJob" in (definition.get("description") or "")
+    ]
+    assert offenders == []
