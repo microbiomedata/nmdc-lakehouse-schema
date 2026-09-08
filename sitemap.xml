@@ -2,142 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/about/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Boolean/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Curie/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Date/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/DateOrDatetime/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Datetime/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Decimal/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Double/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Float/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Integer/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Jsonpath/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Jsonpointer/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/NamedThing/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Ncname/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Nodeidentifier/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Objectidentifier/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Person/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/PersonCollection/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/PersonStatus/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Sparqlpath/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/String/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Time/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Uri/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/Uriorcurie/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/age_in_years/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/birth_date/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/description/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/id/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/name/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/nmdc-lakehouse-schema/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/people/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/primary_email/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/vital_status/</loc>
-         <lastmod>2026-06-16</lastmod>
+         <lastmod>2026-09-08</lastmod>
     </url>
 </urlset>
