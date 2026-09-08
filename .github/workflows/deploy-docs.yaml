@@ -23,8 +23,9 @@ jobs:
 
     steps:
       # https://github.com/actions/checkout
+      # Pinned to v5.0.0: checkout v6.0.0-v6.0.2 fail the clone with "repository not found".
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v5.0.0
         with:
           fetch-depth: 0  # otherwise, you will fail to push refs to dest repo
 

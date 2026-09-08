@@ -25,8 +25,10 @@ jobs:
     steps:
 
       # https://github.com/actions/checkout
+      # Pinned to v5.0.0: checkout v6.0.0-v6.0.2 fail same-repo PR checkouts with
+      # "repository not found". Match the version the other workflows here already use.
       - name: Check out repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v5.0.0
         with:
           persist-credentials: false
 
