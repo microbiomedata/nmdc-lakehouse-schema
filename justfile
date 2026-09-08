@@ -40,8 +40,10 @@ src := "src"
 dest := "project"
 pymodel := src / schema_name / "datamodel"
 source_schema_path := source_schema_dir / schema_name + ".yaml"
-docdir := "docs/elements"  # Directory for generated documentation
-distrib_schema_path := "docs/schema"  # Directory for publishing schema artifacts
+docs_src := "src/docs"  # Authored documentation sources (version controlled)
+docs_build := "docs"  # Assembled mkdocs build dir (regenerated, git-ignored)
+docdir := docs_build / "elements"  # Directory for generated documentation
+distrib_schema_path := docs_build / "schema"  # Directory for publishing schema artifacts
 
 # ============== Project recipes ==============
 
@@ -100,7 +102,7 @@ update: _update-template _update-linkml
 [group('project management')]
 clean: _wsl2_compat_check _clean_project
   rm -rf tmp
-  rm -rf {{docdir}}/*.md
+  rm -rf {{docs_build}}
 
 # (Re-)Generate project and documentation locally
 [group('model development')]
@@ -122,8 +124,13 @@ lint:
 
 # Generate md documentation for the schema and add artifacts
 [group('model development')]
-gen-doc: _gen-yaml && _add-artifacts
+gen-doc: _copy-docs _gen-yaml && _add-artifacts
   uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
+
+# Assemble the docs build dir from authored sources in src/docs
+_copy-docs:
+  mkdir -p {{docs_build}}
+  cp -R {{docs_src}}/. {{docs_build}}/
 
 # Build docs and run test server
 [group('model development')]
