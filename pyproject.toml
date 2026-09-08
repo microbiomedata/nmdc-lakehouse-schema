@@ -1,5 +1,10 @@
 [build-system]
-requires = ["hatchling", "uv-dynamic-versioning"]
+# Cap hatchling at 1.27.x: it emits core-metadata 2.4 (still carrying the SPDX
+# License-Expression), which the twine bundled in pypa/gh-action-pypi-publish
+# accepts. hatchling >= 1.28 emits metadata 2.5, which that twine rejects with
+# "'2.5' is not a valid metadata version". Revisit when the publish action ships
+# a twine that understands 2.5.
+requires = ["hatchling>=1.27,<1.28", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [project]
