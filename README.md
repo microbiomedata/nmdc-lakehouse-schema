@@ -2,7 +2,19 @@
 
 # nmdc-lakehouse-schema
 
-This is the project description.
+The NMDC flattened-schema **product**. It owns the definition of the flat, tabular shape the
+NMDC lakehouse writes to Parquet, independent of the data-generation, publication, and
+validation code that consumes it:
+
+- **`transforms.schema_generator`** — generates the flat LinkML target schema from a source
+  schema (e.g. `nmdc-schema`).
+- **`transforms.flatteners`** — the schema-driven flattener that turns nested LinkML records
+  into flat rows, mirroring the generator's decision tree one-to-one.
+- **`transforms.schema_diff`** — diffs two generated flat schemas so "what changed and why"
+  is answerable.
+
+Downstream ETL (the [nmdc-lakehouse](https://github.com/microbiomedata/nmdc-lakehouse) repo)
+depends on this package rather than defining the engine itself.
 
 ## Documentation Website
 

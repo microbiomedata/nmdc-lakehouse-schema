@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nmdc_lakehouse_schema"
-description = "This is the project description."
+description = "The NMDC flattened-schema product: the LinkML flat-schema generator, the schema-driven flattener that realises that shape, and a schema-diff tool. Consumed by the NMDC lakehouse ETL."
 authors = [
   {name = "Sierra Moxon", email = "smoxon@lbl.gov"},
 ]
