@@ -423,23 +423,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -486,9 +469,8 @@
 
 
 <h1 id="slot-id">Slot: id</h1>
-<p><em>A unique identifier for a thing</em></p>
 <div>
-<p>URI: <a href="http://schema.org/identifier">schema:identifier</a></p>
+<p>URI: <a href="https://w3id.org/nmdc/nmdc-schema-flattened/id">https://w3id.org/nmdc/nmdc-schema-flattened/id</a></p>
 <!-- no inheritance hierarchy -->
 <h2 id="applicable-classes">Applicable Classes</h2>
 <table>
@@ -501,13 +483,88 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../NamedThing/">NamedThing</a></td>
-<td>A generic grouping for any identifiable entity</td>
+<td><a href="../BiosampleFlat/">BiosampleFlat</a></td>
+<td>Biological source material which can be characterized by an experiment</td>
 <td>no</td>
 </tr>
 <tr>
-<td><a href="../Person/">Person</a></td>
-<td>Represents a Person</td>
+<td><a href="../CalibrationInformationFlat/">CalibrationInformationFlat</a></td>
+<td>A calibration object that is associated with a process</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../CollectingBiosamplesFromSiteFlat/">CollectingBiosamplesFromSiteFlat</a></td>
+<td>Flattened tabular form of 'CollectingBiosamplesFromSite'</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ConfigurationFlat/">ConfigurationFlat</a></td>
+<td>A set of parameters that define the actions of a process and is shared among ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../DataGenerationFlat/">DataGenerationFlat</a></td>
+<td>The methods and processes used to generate omics data from a biosample or org...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../DataObjectFlat/">DataObjectFlat</a></td>
+<td>An object that primarily consists of symbols that represent information</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../FieldResearchSiteFlat/">FieldResearchSiteFlat</a></td>
+<td>A site, outside of a laboratory, from which biosamples may be collected</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../InstrumentFlat/">InstrumentFlat</a></td>
+<td>A material entity that is designed to perform a function in a scientific inve...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ManifestFlat/">ManifestFlat</a></td>
+<td>A qualified collection of DataObjects that can be analyzed together in the sa...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../MaterialProcessingFlat/">MaterialProcessingFlat</a></td>
+<td>A process that takes one or more samples as inputs and generates one or more ...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../OrganismSampleFlat/">OrganismSampleFlat</a></td>
+<td>A material sample in which all cells are expected to share the same genome</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../OrganismFlat/">OrganismFlat</a></td>
+<td>A material entity that is a living or once-living individual</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../OrganismSetClassifiedAs/">OrganismSetClassifiedAs</a></td>
+<td>A taxonomy term from NCBI Taxonomy</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ProcessedSampleFlat/">ProcessedSampleFlat</a></td>
+<td>Flattened tabular form of 'ProcessedSample'</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../StorageProcessFlat/">StorageProcessFlat</a></td>
+<td>A planned process with the objective to preserve and protect material entitie...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../StudyFlat/">StudyFlat</a></td>
+<td>A study summarizes the overall goal of a research initiative and outlines the...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../WorkflowExecutionFlat/">WorkflowExecutionFlat</a></td>
+<td>Represents an instance of an execution of a particular workflow Flattened tab...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -524,15 +581,11 @@
 <tbody>
 <tr>
 <td>Range</td>
-<td><a href="../Uriorcurie/">Uriorcurie</a></td>
+<td><a href="../String/">String</a></td>
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../NamedThing/">NamedThing</a></td>
-</tr>
-<tr>
-<td>Slot URI</td>
-<td><a href="http://schema.org/identifier">schema:identifier</a></td>
+<td><a href="../BiosampleFlat/">BiosampleFlat</a>, <a href="../CalibrationInformationFlat/">CalibrationInformationFlat</a>, <a href="../CollectingBiosamplesFromSiteFlat/">CollectingBiosamplesFromSiteFlat</a>, <a href="../ConfigurationFlat/">ConfigurationFlat</a>, <a href="../DataGenerationFlat/">DataGenerationFlat</a>, <a href="../DataObjectFlat/">DataObjectFlat</a>, <a href="../FieldResearchSiteFlat/">FieldResearchSiteFlat</a>, <a href="../InstrumentFlat/">InstrumentFlat</a>, <a href="../ManifestFlat/">ManifestFlat</a>, <a href="../MaterialProcessingFlat/">MaterialProcessingFlat</a>, <a href="../OrganismSampleFlat/">OrganismSampleFlat</a>, <a href="../OrganismFlat/">OrganismFlat</a>, <a href="../OrganismSetClassifiedAs/">OrganismSetClassifiedAs</a>, <a href="../ProcessedSampleFlat/">ProcessedSampleFlat</a>, <a href="../StorageProcessFlat/">StorageProcessFlat</a>, <a href="../StudyFlat/">StudyFlat</a>, <a href="../WorkflowExecutionFlat/">WorkflowExecutionFlat</a></td>
 </tr>
 </tbody>
 </table>
@@ -546,34 +599,12 @@
 </thead>
 <tbody>
 <tr>
-<td>Required</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>### Slot Characteristics</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Identifier</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: <a href="https://w3id.org/microbiomedata/nmdc-lakehouse-schema">https://w3id.org/microbiomedata/nmdc-lakehouse-schema</a></li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -585,26 +616,36 @@
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:identifier</td>
+<td><a href="https://w3id.org/nmdc/nmdc-schema-flattened/id">https://w3id.org/nmdc/nmdc-schema-flattened/id</a></td>
 </tr>
 <tr>
 <td>native</td>
-<td>nmdc_lakehouse_schema:id</td>
+<td><a href="https://w3id.org/nmdc/nmdc-schema-flattened/id">https://w3id.org/nmdc/nmdc-schema-flattened/id</a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A unique identifier for a thing</span>
-<span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/microbiomedata/nmdc-lakehouse-schema</span>
-<span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schema:identifier</span>
-<span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">domain_of</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NamedThing</span>
-<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uriorcurie</span>
-<span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CalibrationInformationFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CollectingBiosamplesFromSiteFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigurationFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DataGenerationFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DataObjectFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FieldResearchSiteFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InstrumentFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManifestFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MaterialProcessingFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OrganismSampleFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OrganismFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">organism_set_classified_as</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProcessedSampleFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StorageProcessFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StudyFlat</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WorkflowExecutionFlat</span>
+<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 </code></pre></div>
 </details>
 </div>
