@@ -24,6 +24,10 @@ shebang := if os() == 'windows' {
 # Environment variables with defaults
 schema_name := env_var_or_default("LINKML_SCHEMA_NAME", "_no_schema_given_")
 source_schema_dir := env_var_or_default("LINKML_SCHEMA_SOURCE_DIR", "")
+# Schema documented and published on the docs site. Defaults to schema_name so the
+# template behaves unchanged; set LINKML_DOC_SCHEMA_NAME to document a different
+# schema (here: the flattened product schema rather than the datamodel boilerplate).
+doc_schema_name := env_var_or_default("LINKML_DOC_SCHEMA_NAME", schema_name)
 config_yaml := if env_var_or_default("LINKML_GENERATORS_CONFIG_YAML", "") != "" {
   "--config-file " + env_var_or_default("LINKML_GENERATORS_CONFIG_YAML", "")
 } else {
@@ -40,6 +44,7 @@ src := "src"
 dest := "project"
 pymodel := src / schema_name / "datamodel"
 source_schema_path := source_schema_dir / schema_name + ".yaml"
+doc_schema_path := source_schema_dir / doc_schema_name + ".yaml"
 docs_src := "src/docs"  # Authored documentation sources (version controlled)
 docs_build := "docs"  # Assembled mkdocs build dir (regenerated, git-ignored)
 docdir := docs_build / "elements"  # Directory for generated documentation
@@ -125,7 +130,7 @@ lint:
 # Generate md documentation for the schema and add artifacts
 [group('model development')]
 gen-doc: _copy-docs _gen-yaml && _add-artifacts
-  uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
+  uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{doc_schema_path}}
 
 # Assemble the docs build dir from authored sources in src/docs
 _copy-docs:
@@ -241,7 +246,7 @@ _test-examples: _ensure_examples_output
 # Add the merged model to docs/schema.
 _gen-yaml:
   -mkdir -p {{distrib_schema_path}}
-  uv run gen-yaml {{source_schema_path}} > {{distrib_schema_path}}/{{schema_name}}.yaml
+  uv run gen-yaml {{doc_schema_path}} > {{distrib_schema_path}}/{{doc_schema_name}}.yaml
 
 # Overridable recipe to add project-specific artifacts to the distribution schema path
 _add-artifacts:
