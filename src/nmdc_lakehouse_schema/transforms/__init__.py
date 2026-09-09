@@ -21,8 +21,6 @@ from nmdc_lakehouse_schema.transforms.schema_diff import (
     render_diff,
 )
 from nmdc_lakehouse_schema.transforms.schema_generator import (
-    PRIMARY_MAPPING_ID,
-    SIDE_TABLE_MAPPING_ID,
     flatten_class_def,
     flatten_database_schema,
     side_table_class_defs,
@@ -35,8 +33,6 @@ __all__ = [
     "flatten_class_def",
     "flatten_database_schema",
     "side_table_class_defs",
-    "PRIMARY_MAPPING_ID",
-    "SIDE_TABLE_MAPPING_ID",
     "diff_schemas",
     "render_diff",
     "SchemaDiffError",
