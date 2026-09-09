@@ -479,7 +479,7 @@ classes:
     tree_root: true
 metamodel_version: 1.11.0
 source_file: nmdc_lakehouse_schema.yaml
-source_file_date: '2026-09-09T15:23:07'
+source_file_date: '2026-09-09T15:23:57'
 source_file_size: 2342
-generation_date: '2026-09-09T15:23:17'
+generation_date: '2026-09-09T15:24:05'
 
