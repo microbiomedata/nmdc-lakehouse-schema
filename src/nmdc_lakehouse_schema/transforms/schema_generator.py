@@ -47,12 +47,11 @@ REF_NOTE = "Reference by identifier; original range was class '{range}'."
 NESTED_NOTE = "Flattened from nested slot '{parent}.{inner}'."
 DISPATCH_NOTE = "Polymorphic subclass-specific slot (from '{subclass}')."
 DEFAULT_FLATTENED_SCHEMA_ID = "https://w3id.org/nmdc/nmdc-schema-flattened"
-# These are opaque provenance labels persisted in Parquet footers and snapshot manifests, not
-# import paths that get resolved. They keep their historical `nmdc_lakehouse.*` spelling so data
-# already published continues to validate; replacing them with a package name + version is the
-# planned identity redesign (microbiomedata/nmdc-lakehouse#333, advancing #14 / #146 / #293).
-PRIMARY_MAPPING_ID = "nmdc_lakehouse.transforms.flatteners.SchemaDrivenFlattener"
-SIDE_TABLE_MAPPING_ID = "nmdc_lakehouse.transforms.flatteners.side_table_rows"
+# Identifies the generator that produced this schema artifact (schema-artifact provenance, not the
+# per-table data producer). An opaque label; the code-path-vs-version question is microbiomedata/
+# nmdc-lakehouse#333. The per-table producer identity ("which loader wrote this table") was
+# deliberately removed: it is ETL/deployment provenance that belongs with the data (Parquet footer
+# + snapshot manifest), not in a structural schema (microbiomedata/nmdc-lakehouse#336).
 SCHEMA_GENERATOR_ID = "nmdc_lakehouse.transforms.schema_generator.flatten_database_schema"
 
 # The projection's own version, bumped when THIS code changes what it emits, never when
@@ -61,7 +60,7 @@ SCHEMA_GENERATOR_ID = "nmdc_lakehouse.transforms.schema_generator.flatten_databa
 # b4e0f7a8). A consumer holding two of those tables could not tell them apart, which is the
 # question a consumer asks first. Raise the minor part when a shape changes, the patch part when
 # only descriptions or annotations move.
-FLATTENER_VERSION = "1.0.0"
+FLATTENER_VERSION = "1.0.1"
 
 # Filled in after rendering, because a document cannot contain its own digest. The generator
 # renders with this placeholder in place, hashes that exact text, then substitutes. Verifying
@@ -107,8 +106,8 @@ def flatten_class_def(
     cls = ClassDefinition(name=target_name)
     source_class = schema_view.get_class(root_class)
     source_description = f"{source_class.description} " if source_class and source_class.description else ""
-    # The producing loader is recorded once, in the `mapping` annotation. Naming it here too
-    # would contradict that annotation for any table produced by a different loader.
+    # Do not name a producing loader in the description: which loader wrote a table is per-write
+    # ETL provenance (Parquet footer / snapshot manifest), not a structural fact of the schema.
     cls.description = source_description + (
         f"Flattened tabular form of '{root_class}'. Attributes are the union of base-class "
         f"slots and slots from concrete subclasses of '{root_class}' that "
@@ -156,7 +155,6 @@ def flatten_database_schema(
     schema_id: str = DEFAULT_FLATTENED_SCHEMA_ID,
     schema_name: str = "nmdc_schema_flattened",
     source_package_version: str | None = None,
-    table_mapping_overrides: dict[str, str] | None = None,
 ) -> SchemaDefinition:
     """Emit the complete primary and side-table schema for a database model.
 
@@ -164,13 +162,11 @@ def flatten_database_schema(
     emits the primary flat class plus every possible junction or inlined-child
     class produced by :func:`side_table_class_defs`.
 
-    Each primary table is annotated with the mapping identity that will produce
-    it. Tables default to :data:`PRIMARY_MAPPING_ID` (the schema-driven
-    flattener); a caller that routes a collection to a different loader passes
-    ``table_mapping_overrides={table_name: mapping_id}`` so the generated schema
-    records the identity actually written to the Parquet footer. Routing is a
-    consumer (ETL) concern, so it is injected here rather than known by this
-    package.
+    The output is purely structural: it describes the shape of each table
+    (columns, ranges, side-tables), not which loader produces it. "Who wrote
+    this table" is per-write ETL provenance that belongs with the data (Parquet
+    footer + snapshot manifest), not in the schema
+    (microbiomedata/nmdc-lakehouse#336).
     """
     source_schema_id = schema_view.schema.id or "unidentified"
     source_schema_version = schema_view.schema.version or "unversioned"
@@ -191,8 +187,6 @@ def flatten_database_schema(
             "schema_generator": Annotation(tag="schema_generator", value=SCHEMA_GENERATOR_ID),
             "flattener_version": Annotation(tag="flattener_version", value=FLATTENER_VERSION),
             "flat_schema_sha256": Annotation(tag="flat_schema_sha256", value=UNRESOLVED_CONTENT_SHA256),
-            "primary_mapping": Annotation(tag="primary_mapping", value=PRIMARY_MAPPING_ID),
-            "side_table_mapping": Annotation(tag="side_table_mapping", value=SIDE_TABLE_MAPPING_ID),
         },
         prefixes=deepcopy(schema_view.schema.prefixes)
         or {
@@ -207,7 +201,6 @@ def flatten_database_schema(
         default_range="string",
     )
 
-    overrides = table_mapping_overrides or {}
     db_slots = schema_view.class_induced_slots(database_class)
     for slot in db_slots:
         if not slot.multivalued or not slot.range:
@@ -216,20 +209,10 @@ def flatten_database_schema(
         if range_class is None:
             continue
         flat = flatten_class_def(schema_view, slot.range)
-        _annotate_target_class(
-            flat,
-            table_name=slot.name,
-            source_class=slot.range,
-            mapping=overrides.get(slot.name, PRIMARY_MAPPING_ID),
-        )
+        _annotate_target_class(flat, table_name=slot.name, source_class=slot.range)
         _add_target_class(out, flat)
         for table_name, side_class in side_table_class_defs(schema_view, slot.range, slot.name):
-            _annotate_target_class(
-                side_class,
-                table_name=table_name,
-                source_class=slot.range,
-                mapping=SIDE_TABLE_MAPPING_ID,
-            )
+            _annotate_target_class(side_class, table_name=table_name, source_class=slot.range)
             _add_target_class(out, side_class)
 
     return out
@@ -240,14 +223,17 @@ def _annotate_target_class(
     *,
     table_name: str,
     source_class: str,
-    mapping: str,
 ) -> None:
-    """Attach the table and mapping identity used by Parquet footers."""
+    """Attach the structural identity of a generated target class.
+
+    ``table_name`` and ``source_class`` describe what the table is and where it came from. The
+    producing loader is deliberately not recorded here: that is per-write ETL provenance carried by
+    the Parquet footer and snapshot manifest (microbiomedata/nmdc-lakehouse#336).
+    """
     class_def.annotations.update(
         {
             "table_name": Annotation(tag="table_name", value=table_name),
             "source_class": Annotation(tag="source_class", value=source_class),
-            "mapping": Annotation(tag="mapping", value=mapping),
         }
     )
 

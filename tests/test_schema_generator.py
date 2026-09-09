@@ -14,8 +14,6 @@ from linkml_runtime import SchemaView
 from nmdc_lakehouse_schema.transforms import schema_generator as _sg
 from nmdc_lakehouse_schema.transforms.flatteners import side_table_rows
 from nmdc_lakehouse_schema.transforms.schema_generator import (
-    PRIMARY_MAPPING_ID,
-    SIDE_TABLE_MAPPING_ID,
     flatten_class_def,
     flatten_database_schema,
     side_table_class_defs,
@@ -202,8 +200,21 @@ def test_flatten_database_schema_yields_primary_and_side_table_classes(sv):
     assert out.annotations["source_schema_id"].value == "https://example.org/test"
     assert out.annotations["source_package_version"].value == "1.2.3"
     assert out.classes["RecordFlat"].annotations["table_name"].value == "record_set"
-    assert out.classes["RecordFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
-    assert out.classes["record_set_chem_admin"].annotations["mapping"].value == SIDE_TABLE_MAPPING_ID
+    assert out.classes["RecordFlat"].annotations["source_class"].value == "Record"
+
+
+def test_generated_schema_is_purely_structural(sv):
+    """The schema records shape, not the producing loader.
+
+    "Who wrote this table" is per-write ETL provenance (Parquet footer / snapshot manifest), so no
+    `mapping` annotation appears on any class and no producer identity appears at the schema level
+    (microbiomedata/nmdc-lakehouse#336).
+    """
+    out = flatten_database_schema(sv, database_class="Database")
+    for class_def in out.classes.values():
+        assert "mapping" not in class_def.annotations
+    assert "primary_mapping" not in out.annotations
+    assert "side_table_mapping" not in out.annotations
 
 
 # Note: a generator/runtime consistency test ("every column flatten_record
@@ -328,30 +339,6 @@ def test_side_table_schema_covers_runtime_row_keys(sv):
         schema_cols = {attr for attr in defs[table_name].attributes}
         extra = set(row.keys()) - schema_cols
         assert not extra, f"side_table_rows emitted keys {extra} not in ClassDef for {table_name!r}"
-
-
-def test_tables_default_to_the_flattener_identity(sv) -> None:
-    """With no overrides, every primary table records the schema-driven flattener."""
-    out = flatten_database_schema(sv, database_class="Database")
-    assert out.classes["RecordFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
-    assert out.classes["ProcessFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
-
-
-def test_table_mapping_overrides_change_the_recorded_identity(sv) -> None:
-    """A collection routed to a non-default loader records that loader's identity.
-
-    Routing is a consumer (ETL) concern — e.g. the lakehouse routes some collections to a direct
-    loader — so the caller injects it via ``table_mapping_overrides`` rather than this package
-    knowing about any specific loader. Tables with no override keep the flattener identity, so the
-    published mapping still matches whatever the run actually writes to the Parquet footer.
-    """
-    out = flatten_database_schema(
-        sv,
-        database_class="Database",
-        table_mapping_overrides={"record_set": "direct:SomeDirectLoader"},
-    )
-    assert out.classes["RecordFlat"].annotations["mapping"].value == "direct:SomeDirectLoader"
-    assert out.classes["ProcessFlat"].annotations["mapping"].value == PRIMARY_MAPPING_ID
 
 
 @pytest.mark.skipif(
