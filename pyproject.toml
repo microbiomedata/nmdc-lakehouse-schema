@@ -34,8 +34,10 @@ dev = [
     "pytest>=8.0",
     # Backs the schema-diff markdown-rendering tests (a real CommonMark parser).
     "markdown-it-py>=3.0",
-    # Used by scripts/ (flattened-schema generation + flatten preview)
-    "nmdc-schema",
+    # Used by scripts/ (flattened-schema generation + flatten preview). Pinned: the shipped
+    # nmdc_schema_flattened.yaml is a function of this exact source version, and consumers
+    # (nmdc-lakehouse) must flatten with the same one — bump both repos together.
+    "nmdc-schema==11.23.0",
     "pymongo>=4.9",
 ]
 

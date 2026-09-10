@@ -19,8 +19,8 @@ from nmdc_lakehouse_schema.transforms.schema_generator import (
     side_table_class_defs,
 )
 
-# Published by nmdc-lakehouse-schema#4; tests that read it skip until it exists.
-_CANONICAL_SCHEMA = Path(_sg.__file__).parents[1] / "schemas" / "nmdc_metadata.yaml"
+# The repo's published flattened-schema artifact.
+_CANONICAL_SCHEMA = Path(_sg.__file__).parents[1] / "schema" / "nmdc_schema_flattened.yaml"
 
 _SCHEMA_YAML = """
 id: https://example.org/test

@@ -9,7 +9,7 @@ and writes the complete primary and side-table schema to deterministic YAML.
 Usage:
     uv run python scripts/generate_flattened_schema.py [--check] [OUTPUT_PATH]
 
-Default OUTPUT_PATH: src/nmdc_lakehouse_schema/schemas/nmdc_metadata.yaml
+Default OUTPUT_PATH: src/nmdc_lakehouse_schema/schema/nmdc_schema_flattened.yaml
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ from nmdc_lakehouse_schema.transforms.schema_generator import (
     flatten_database_schema,
 )
 
-CANONICAL_OUTPUT = Path(__file__).resolve().parents[1] / "src/nmdc_lakehouse_schema/schemas/nmdc_metadata.yaml"
+CANONICAL_OUTPUT = Path(__file__).resolve().parents[1] / "src/nmdc_lakehouse_schema/schema/nmdc_schema_flattened.yaml"
 
 
 class SchemaArtifactError(ValueError):
