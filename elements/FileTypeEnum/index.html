@@ -510,6 +510,31 @@
 <td>Read 2 raw metatranscriptome sequencing data, aka reverse reads</td>
 </tr>
 <tr>
+<td>Unpaired raw sequencing data</td>
+<td>None</td>
+<td>Reads from a single-end sequencing library (not forward/reverse pairs)</td>
+</tr>
+<tr>
+<td>Paired interleaved raw sequencing data</td>
+<td>None</td>
+<td>Paired-end reads with forward and reverse mates interleaved in a single file</td>
+</tr>
+<tr>
+<td>Raw sequencing data read 1</td>
+<td>None</td>
+<td>Read 1 (forward) of a paired-end run, as a separate file</td>
+</tr>
+<tr>
+<td>Raw sequencing data read 2</td>
+<td>None</td>
+<td>Read 2 (reverse) of a paired-end run, as a separate file</td>
+</tr>
+<tr>
+<td>SRA toolkit-accessible sequence data</td>
+<td>None</td>
+<td>Files that are available for download via SRA Toolkit by providing an INSDC a...</td>
+</tr>
+<tr>
 <td>Direct Infusion FT-ICR MS Analysis Results</td>
 <td>None</td>
 <td>FT-ICR MS based molecular formula assignment results table</td>
@@ -1075,6 +1100,52 @@
 <span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">^.+_R2\.fastq(\.gz)?$</span>
 <span class="w">    </span><span class="nt">examples</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BMI_H25VYBGXH_19S_31WellG1_R2.fastq.gz</span>
+<span class="w">  </span><span class="nt">Unpaired raw sequencing data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unpaired raw sequencing data</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reads from a single-end sequencing library (not forward/reverse pairs).</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use when the analyte category is not part of the value, for example amplicon</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">or isolate data. For metagenome or metatranscriptome reads, prefer the analyte-specific</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">values above.</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Oxford Nanopore and PacBio runs commonly have a single (unpaired) library layout.</span>
+<span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.ebi.ac.uk/ena/browser/about/read-formats</span>
+<span class="w">  </span><span class="nt">Paired interleaved raw sequencing data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Paired interleaved raw sequencing data</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Paired-end reads with forward and reverse mates interleaved in a</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">single file.</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use when the analyte category is not part of the value, for example amplicon</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">or isolate data. For metagenome or metatranscriptome interleaved reads, prefer</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&quot;Metagenome Raw Reads&quot; or &quot;Metatranscriptome Raw Reads&quot; above.</span>
+<span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump</span>
+<span class="w">  </span><span class="nt">Raw sequencing data read 1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raw sequencing data read 1</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read 1 (forward) of a paired-end run, as a separate file.</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use when the analyte category is not part of the value, for example amplicon</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">or isolate data. For metagenome or metatranscriptome forward reads, prefer &quot;Metagenome</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">Raw Read 1&quot; or &quot;Metatranscriptome Raw Read 1&quot; above.</span>
+<span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump</span>
+<span class="w">  </span><span class="nt">Raw sequencing data read 2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Raw sequencing data read 2</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read 2 (reverse) of a paired-end run, as a separate file.</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Use when the analyte category is not part of the value, for example amplicon</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">ingest or isolate data. For metagenome or metatranscriptome reverse reads, prefer</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&quot;Metagenome Raw Read 2&quot; or &quot;Metatranscriptome Raw Read 2&quot; above.</span>
+<span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump</span>
+<span class="w">  </span><span class="nt">SRA toolkit-accessible sequence data</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SRA toolkit-accessible sequence data</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Files that are available for download via SRA Toolkit by providing</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">an INSDC accession</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">File format will depend on options specified to SRA Toolkit</span>
+<span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/ncbi/sra-tools/wiki</span>
 <span class="w">  </span><span class="nt">Direct Infusion FT-ICR MS Analysis Results</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Direct Infusion FT-ICR MS Analysis Results</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FT-ICR MS based molecular formula assignment results table</span>

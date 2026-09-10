@@ -698,6 +698,17 @@
 
 
 
+      BiosampleFlat : badges
+
+
+
+
+
+        BiosampleFlat --&gt; "*" MetadataBadgeEnum : badges
+        click MetadataBadgeEnum href "../MetadataBadgeEnum/"
+
+
+
       BiosampleFlat : barometric_press_has_maximum_numeric_value
 
       BiosampleFlat : barometric_press_has_minimum_numeric_value
@@ -6285,6 +6296,12 @@
 <td><a href="../bacteria_carb_prod_has_unit/">bacteria_carb_prod_has_unit</a></td>
 <td>0..1 <br/> <a href="../UnitEnum/">UnitEnum</a></td>
 <td>The unit of the quantity Flattened from nested slot 'bacteria_carb_prod</td>
+<td>direct</td>
+</tr>
+<tr>
+<td><a href="../badges/">badges</a></td>
+<td>* <br/> <a href="../MetadataBadgeEnum/">MetadataBadgeEnum</a></td>
+<td>Metadata-quality badges awarded to this record</td>
 <td>direct</td>
 </tr>
 <tr>
@@ -15302,6 +15319,19 @@
 <span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UnitEnum</span>
 <span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">badges</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">badges</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">'Metadata-quality</span><span class="nv"> </span><span class="s">badges</span><span class="nv"> </span><span class="s">awarded</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">record.</span><span class="nv"> </span><span class="s">Each</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">names</span>
+<span class="w">      </span><span class="s">one</span><span class="nv"> </span><span class="s">badge,</span><span class="nv"> </span><span class="s">which</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">present</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">absent;</span><span class="nv"> </span><span class="s">there</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">no</span><span class="nv"> </span><span class="s">levels</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">tiers.</span><span class="nv"> </span><span class="s">Most</span><span class="nv"> </span><span class="s">badges</span>
+<span class="w">      </span><span class="s">name</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">completeness</span><span class="nv"> </span><span class="s">subset,</span><span class="nv"> </span><span class="s">but</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">do:</span><span class="nv"> </span><span class="s">expert_curation</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">awarded</span><span class="nv"> </span><span class="s">from</span>
+<span class="w">      </span><span class="s">provenance</span><span class="nv"> </span><span class="s">instead.</span><span class="nv"> </span><span class="s">Awarded</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">downstream</span><span class="nv"> </span><span class="s">service,</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">asserted</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">submitters,</span>
+<span class="w">      </span><span class="s">and</span><span class="nv"> </span><span class="s">recalculated</span><span class="nv"> </span><span class="s">whenever</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">record</span><span class="se">''</span><span class="s">s</span><span class="nv"> </span><span class="s">ProvenanceMetadata.mod_date</span><span class="nv"> </span><span class="s">changes.'</span>
+<span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
+<span class="w">    </span><span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetadataBadgeEnum</span>
+<span class="w">    </span><span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">barometric_press_has_maximum_numeric_value</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">barometric_press_has_maximum_numeric_value</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The maximum value part, expressed as number, of the quantity value</span>
@@ -30427,6 +30457,20 @@
 <span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UnitEnum</span>
 <span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">badges</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">badges</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">'Metadata-quality</span><span class="nv"> </span><span class="s">badges</span><span class="nv"> </span><span class="s">awarded</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">record.</span><span class="nv"> </span><span class="s">Each</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">names</span>
+<span class="w">      </span><span class="s">one</span><span class="nv"> </span><span class="s">badge,</span><span class="nv"> </span><span class="s">which</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">present</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">absent;</span><span class="nv"> </span><span class="s">there</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">no</span><span class="nv"> </span><span class="s">levels</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">tiers.</span><span class="nv"> </span><span class="s">Most</span><span class="nv"> </span><span class="s">badges</span>
+<span class="w">      </span><span class="s">name</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">completeness</span><span class="nv"> </span><span class="s">subset,</span><span class="nv"> </span><span class="s">but</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">do:</span><span class="nv"> </span><span class="s">expert_curation</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">awarded</span><span class="nv"> </span><span class="s">from</span>
+<span class="w">      </span><span class="s">provenance</span><span class="nv"> </span><span class="s">instead.</span><span class="nv"> </span><span class="s">Awarded</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">downstream</span><span class="nv"> </span><span class="s">service,</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">asserted</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">submitters,</span>
+<span class="w">      </span><span class="s">and</span><span class="nv"> </span><span class="s">recalculated</span><span class="nv"> </span><span class="s">whenever</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">record</span><span class="se">''</span><span class="s">s</span><span class="nv"> </span><span class="s">ProvenanceMetadata.mod_date</span><span class="nv"> </span><span class="s">changes.'</span>
+<span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
+<span class="w">    </span><span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetadataBadgeEnum</span>
+<span class="w">    </span><span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">barometric_press_has_maximum_numeric_value</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">barometric_press_has_maximum_numeric_value</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The maximum value part, expressed as number, of the quantity value</span>

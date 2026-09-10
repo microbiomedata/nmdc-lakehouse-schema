@@ -987,6 +987,10 @@
 <td>The unit of the quantity Flattened from nested slot 'abs_air_humidity</td>
 </tr>
 <tr>
+<td><a href="adapters/">adapters</a></td>
+<td>Adapters provide priming sequences for both amplification and sequencing of t...</td>
+</tr>
+<tr>
 <td><a href="add_recov_method/">add_recov_method</a></td>
 <td>Additional (i</td>
 </tr>
@@ -1461,6 +1465,10 @@
 <tr>
 <td><a href="bacteria_carb_prod_has_unit/">bacteria_carb_prod_has_unit</a></td>
 <td>The unit of the quantity Flattened from nested slot 'bacteria_carb_prod</td>
+</tr>
+<tr>
+<td><a href="badges/">badges</a></td>
+<td>Metadata-quality badges awarded to this record</td>
 </tr>
 <tr>
 <td><a href="barometric_press_has_maximum_numeric_value/">barometric_press_has_maximum_numeric_value</a></td>
@@ -3400,7 +3408,7 @@
 </tr>
 <tr>
 <td><a href="has_attribute_label/">has_attribute_label</a></td>
-<td>Human-readable label for the property (e</td>
+<td>Human-readable label for the property, taken from its MIxS slot, NMDC slot, o...</td>
 </tr>
 <tr>
 <td><a href="has_boolean_value/">has_boolean_value</a></td>
@@ -3444,7 +3452,7 @@
 </tr>
 <tr>
 <td><a href="has_quantity_kind_id/">has_quantity_kind_id</a></td>
-<td>Optional CURIE or IRI for the physical quantity kind (e</td>
+<td>Optional CURIE or IRI for the physical quantity kind, which is a qudt:Quantit...</td>
 </tr>
 <tr>
 <td><a href="has_raw_value/">has_raw_value</a></td>
@@ -4076,7 +4084,11 @@
 </tr>
 <tr>
 <td><a href="insdc_experiment_identifiers/">insdc_experiment_identifiers</a></td>
-<td>Polymorphic subclass-specific slot (from 'NucleotideSequencing')</td>
+<td>INSDC identifiers for the unique sequencing result for a specific sample</td>
+</tr>
+<tr>
+<td><a href="insdc_run_identifiers/">insdc_run_identifiers</a></td>
+<td>Identifiers for the manifest of data file(s) that are derived from sequencing...</td>
 </tr>
 <tr>
 <td><a href="inside_lux_has_maximum_numeric_value/">inside_lux_has_maximum_numeric_value</a></td>
@@ -4235,8 +4247,24 @@
 <td>The unit of the quantity Flattened from nested slot 'lbceq</td>
 </tr>
 <tr>
+<td><a href="lib_layout/">lib_layout</a></td>
+<td>Specify whether to expect single, paired, or other configuration of reads</td>
+</tr>
+<tr>
 <td><a href="library_preparation_kit/">library_preparation_kit</a></td>
 <td>Polymorphic subclass-specific slot (from 'LibraryPreparation')</td>
+</tr>
+<tr>
+<td><a href="library_selection/">library_selection</a></td>
+<td>Library selection or enrichment method used</td>
+</tr>
+<tr>
+<td><a href="library_source/">library_source</a></td>
+<td>The molecular source of the sequencing library</td>
+</tr>
+<tr>
+<td><a href="library_strategy/">library_strategy</a></td>
+<td>Sequencing technique intended for this library</td>
 </tr>
 <tr>
 <td><a href="library_type/">library_type</a></td>
@@ -4700,15 +4728,15 @@
 </tr>
 <tr>
 <td><a href="num_16s/">num_16s</a></td>
-<td>Number of 16s sequences detected, a subunit of prokaryotic ribosomes</td>
+<td>Number of 16S sequences detected, a subunit of prokaryotic ribosomes</td>
 </tr>
 <tr>
 <td><a href="num_23s/">num_23s</a></td>
-<td>Number of 23 seqeuences detected, a subunit of ribosomes</td>
+<td>Number of 23S sequences detected, a subunit of ribosomes</td>
 </tr>
 <tr>
 <td><a href="num_5s/">num_5s</a></td>
-<td>Number of 5s seqeuences detected, a subunit of ribosomes</td>
+<td>Number of 5S sequences detected, a subunit of ribosomes</td>
 </tr>
 <tr>
 <td><a href="num_aligned_reads/">num_aligned_reads</a></td>
@@ -4720,7 +4748,7 @@
 </tr>
 <tr>
 <td><a href="num_t_rna/">num_t_rna</a></td>
-<td>Number of transfer transfer RNAs</td>
+<td>Number of transfer RNAs</td>
 </tr>
 <tr>
 <td><a href="number_of_contig/">number_of_contig</a></td>
@@ -8074,6 +8102,22 @@
 <td></td>
 </tr>
 <tr>
+<td><a href="LibLayoutEnum/">LibLayoutEnum</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="LibrarySelectionEnum/">LibrarySelectionEnum</a></td>
+<td>Library selection or enrichment method</td>
+</tr>
+<tr>
+<td><a href="LibrarySourceEnum/">LibrarySourceEnum</a></td>
+<td>Molecular source of the sequencing library</td>
+</tr>
+<tr>
+<td><a href="LibraryStrategyEnum/">LibraryStrategyEnum</a></td>
+<td>Sequencing strategy used for library preparation</td>
+</tr>
+<tr>
 <td><a href="LibraryTypeEnum/">LibraryTypeEnum</a></td>
 <td></td>
 </tr>
@@ -8112,6 +8156,10 @@
 <tr>
 <td><a href="MetabolomicsAnalysisCategoryEnum/">MetabolomicsAnalysisCategoryEnum</a></td>
 <td>The category of metabolomics analysis being performed</td>
+</tr>
+<tr>
+<td><a href="MetadataBadgeEnum/">MetadataBadgeEnum</a></td>
+<td>Metadata-quality badges a Biosample can be awarded</td>
 </tr>
 <tr>
 <td><a href="MetaproteomicsAnalysisCategoryEnum/">MetaproteomicsAnalysisCategoryEnum</a></td>
@@ -8314,7 +8362,7 @@
 <td></td>
 </tr>
 <tr>
-<td><a href="TargetGeneEnum/">TargetGeneEnum</a></td>
+<td><a href="TargetGeneOrLocusEnum/">TargetGeneOrLocusEnum</a></td>
 <td></td>
 </tr>
 <tr>

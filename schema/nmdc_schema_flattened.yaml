@@ -5,23 +5,23 @@ annotations:
     value: https://w3id.org/nmdc/nmdc
   source_schema_version:
     tag: source_schema_version
-    value: 11.20.1
+    value: 11.23.0
   source_package_version:
     tag: source_package_version
-    value: 11.20.1
+    value: 11.23.0
   schema_generator:
     tag: schema_generator
-    value: nmdc_lakehouse.transforms.schema_generator.flatten_database_schema
+    value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.0.1
+    value: 1.0.2
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: 333e44ccb47818b6909d829b0bf30668084bc0710ea64070d6bc85ffd3b2e723
+    value: 97b116ecdc2c626a304f59d2dd7f52607fc59a798a707dd24489dd29950931ca
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.20.1+flat.1.0.1
+version: 11.23.0+flat.1.0.2
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -239,6 +239,9 @@ prefixes:
   insdc.sra:
     prefix_prefix: insdc.sra
     prefix_reference: 'https://bioregistry.io/insdc.sra:'
+  insdc.run:
+    prefix_prefix: insdc.run
+    prefix_reference: 'https://bioregistry.io/insdc.run:'
   jgi.analysis:
     prefix_prefix: jgi.analysis
     prefix_reference: https://data.jgi.doe.gov/search?q=
@@ -278,8 +281,8 @@ prefixes:
   prov:
     prefix_prefix: prov
     prefix_reference: http://www.w3.org/ns/prov#
-  qud:
-    prefix_prefix: qud
+  qudt:
+    prefix_prefix: qudt
     prefix_reference: http://qudt.org/1.1/schema/qudt#
   rdf:
     prefix_prefix: rdf
@@ -305,6 +308,9 @@ prefixes:
   xsd:
     prefix_prefix: xsd
     prefix_reference: http://www.w3.org/2001/XMLSchema#
+  pubmed:
+    prefix_prefix: pubmed
+    prefix_reference: 'https://bioregistry.io/pubmed:'
   shex:
     prefix_prefix: shex
     prefix_reference: http://www.w3.org/ns/shex#
@@ -1127,7 +1133,7 @@ enums:
         exact_mappings:
         - UO:0000027
         - wikidata:Q25267
-        - qud:DEG_C
+        - qudt:DEG_C
         - OM:degreeCelsius
       cm:
         text: cm
@@ -1991,6 +1997,145 @@ enums:
         aliases:
         - inch
         - inches
+  MetadataBadgeEnum:
+    name: MetadataBadgeEnum
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/MetadataBadgeEnum
+    description: Metadata-quality badges a Biosample can be awarded. Each permissible
+      value names one badge topic and is present or absent; there are no levels or
+      tiers. Badges are awarded in two ways. A completeness badge names a badge subset
+      (a subset whose in_subset includes badge_topic) and is awarded when the record
+      populates at least that subset's badge_minimum_slots slots; a test keeps those
+      permissible values and subsets in sync. A provenance badge is awarded from a
+      recorded fact about where the metadata came from, has no subset, and names its
+      source in its own description.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    see_also:
+    - https://github.com/microbiomedata/nmdc-schema/issues/3227
+    permissible_values:
+      biogeochemistry:
+        text: biogeochemistry
+        description: Completeness badge. Awarded when the Biosample populates at least
+          badge_minimum_slots of the biogeochemistry subset.
+      host_information:
+        text: host_information
+        description: Completeness badge. Awarded when the Biosample populates at least
+          badge_minimum_slots of the host_information subset.
+      expert_curation:
+        text: expert_curation
+        description: Provenance badge. Awarded when the Biosample's ProvenanceMetadata.source_system_of_record
+          identifies the NMDC submission portal, rather than an ETL process over an
+          external database. Not a completeness measure, so it has no badge subset
+          and no badge_minimum_slots.
+        comments:
+        - source_system_of_record is not yet backpopulated for existing biosamples,
+          so this badge cannot be awarded on historical records until that backfill
+          happens.
+  LibraryStrategyEnum:
+    name: LibraryStrategyEnum
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/LibraryStrategyEnum
+    description: Sequencing strategy used for library preparation
+    comments:
+    - NMDC intentionally supports a curated subset of the INSDC library strategy vocabulary.
+      The complete controlled vocabulary is defined in the referenced SRA.experiment.xsd;
+      values can be added as needed.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    see_also:
+    - https://github.com/enasequence/webin-xml/blob/2.1.0/src/main/resources/uk/ac/ebi/ena/sra/schema/SRA.experiment.xsd
+    permissible_values:
+      WGA:
+        text: WGA
+        description: Whole genome amplification followed by random sequencing.
+        title: Whole Genome Amplification
+        see_also:
+        - pubmed:1631067
+        - pubmed:8962113
+      WGS:
+        text: WGS
+        description: Random sequencing of the whole genome.
+        title: Whole Genome Sequencing
+        see_also:
+        - pubmed:10731132
+      RNA-Seq:
+        text: RNA-Seq
+        description: Random sequencing of whole transcriptome
+        see_also:
+        - pubmed:18611170
+        aliases:
+        - Whole Transcriptome Shotgun Sequencing
+        - WTSS
+      AMPLICON:
+        text: AMPLICON
+        description: Sequencing of overlapping or distinct PCR or RT-PCR products
+        comments:
+        - metagenomic community profiling using SSU rRNA, for example
+  LibrarySourceEnum:
+    name: LibrarySourceEnum
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/LibrarySourceEnum
+    description: Molecular source of the sequencing library
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    see_also:
+    - https://github.com/enasequence/webin-xml/blob/2.1.0/src/main/resources/uk/ac/ebi/ena/sra/schema/SRA.experiment.xsd
+    permissible_values:
+      GENOMIC:
+        text: GENOMIC
+        description: Genomic DNA (includes PCR products from genomic DNA)
+      TRANSCRIPTOMIC:
+        text: TRANSCRIPTOMIC
+        description: Transcription products or non-genomic DNA
+        comments:
+        - for example EST cDNA, RT-PCR, or screened libraries
+      METAGENOMIC:
+        text: METAGENOMIC
+        description: Mixed material from metagenome
+      METATRANSCRIPTOMIC:
+        text: METATRANSCRIPTOMIC
+        description: Transcription products from community targets
+      SYNTHETIC:
+        text: SYNTHETIC
+        description: Synthetic DNA
+      VIRAL RNA:
+        text: VIRAL RNA
+        description: Viral RNA
+      GENOMIC SINGLE CELL:
+        text: GENOMIC SINGLE CELL
+        description: Single cell genomic DNA source
+      TRANSCRIPTOMIC SINGLE CELL:
+        text: TRANSCRIPTOMIC SINGLE CELL
+        description: Single cell transcriptomic source
+      OTHER:
+        text: OTHER
+        description: 'Other, unspecified, or unknown library source material '
+  LibrarySelectionEnum:
+    name: LibrarySelectionEnum
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/LibrarySelectionEnum
+    description: Library selection or enrichment method
+    comments:
+    - NMDC intentionally supports a curated subset of the INSDC library selection
+      vocabulary. The complete controlled vocabulary is defined in the referenced
+      SRA.experiment.xsd; values can be added as needed.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    see_also:
+    - https://github.com/enasequence/webin-xml/blob/2.1.0/src/main/resources/uk/ac/ebi/ena/sra/schema/SRA.experiment.xsd
+    permissible_values:
+      RANDOM:
+        text: RANDOM
+        description: Random selection by shearing or other method
+      PCR:
+        text: PCR
+        description: Source material was selected by designed primers
+      MDA:
+        text: MDA
+        description: Multiple displacement amplification
+      other:
+        text: other
+        description: Other library enrichment, screening, or selection process (please
+          include additional info in the design description)
+      PolyA:
+        text: PolyA
+        description: PolyA selection or enrichment for messenger RNA (mRNA)
+      size fractionation:
+        text: size fractionation
+        description: Physical selection of size appropriate targets
   ExecutionResourceEnum:
     name: ExecutionResourceEnum
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/ExecutionResourceEnum
@@ -2109,6 +2254,54 @@ enums:
             value: ^.+_R2\.fastq(\.gz)?$
         examples:
         - value: BMI_H25VYBGXH_19S_31WellG1_R2.fastq.gz
+      Unpaired raw sequencing data:
+        text: Unpaired raw sequencing data
+        description: Reads from a single-end sequencing library (not forward/reverse
+          pairs).
+        comments:
+        - Use when the analyte category is not part of the value, for example amplicon
+          or isolate data. For metagenome or metatranscriptome reads, prefer the analyte-specific
+          values above.
+        - Oxford Nanopore and PacBio runs commonly have a single (unpaired) library
+          layout.
+        see_also:
+        - https://www.ebi.ac.uk/ena/browser/about/read-formats
+      Paired interleaved raw sequencing data:
+        text: Paired interleaved raw sequencing data
+        description: Paired-end reads with forward and reverse mates interleaved in
+          a single file.
+        comments:
+        - Use when the analyte category is not part of the value, for example amplicon
+          or isolate data. For metagenome or metatranscriptome interleaved reads,
+          prefer "Metagenome Raw Reads" or "Metatranscriptome Raw Reads" above.
+        see_also:
+        - https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump
+      Raw sequencing data read 1:
+        text: Raw sequencing data read 1
+        description: Read 1 (forward) of a paired-end run, as a separate file.
+        comments:
+        - Use when the analyte category is not part of the value, for example amplicon
+          or isolate data. For metagenome or metatranscriptome forward reads, prefer
+          "Metagenome Raw Read 1" or "Metatranscriptome Raw Read 1" above.
+        see_also:
+        - https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump
+      Raw sequencing data read 2:
+        text: Raw sequencing data read 2
+        description: Read 2 (reverse) of a paired-end run, as a separate file.
+        comments:
+        - Use when the analyte category is not part of the value, for example amplicon
+          ingest or isolate data. For metagenome or metatranscriptome reverse reads,
+          prefer "Metagenome Raw Read 2" or "Metatranscriptome Raw Read 2" above.
+        see_also:
+        - https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump
+      SRA toolkit-accessible sequence data:
+        text: SRA toolkit-accessible sequence data
+        description: Files that are available for download via SRA Toolkit by providing
+          an INSDC accession
+        comments:
+        - File format will depend on options specified to SRA Toolkit
+        see_also:
+        - https://github.com/ncbi/sra-tools/wiki
       Direct Infusion FT-ICR MS Analysis Results:
         text: Direct Infusion FT-ICR MS Analysis Results
         description: FT-ICR MS based molecular formula assignment results table
@@ -2729,6 +2922,16 @@ enums:
         text: amplicon_sequencing_assay
         meaning: OBI:0002767
         title: Amplicon
+      isolate_genome:
+        text: isolate_genome
+        description: Sequencing of a single organism's genome, typically from a pure
+          culture or isolate.
+        title: Isolate Genome
+      isolate_transcriptome:
+        text: isolate_transcriptome
+        description: Sequencing of a single organism's transcriptome, typically from
+          a pure culture or isolate.
+        title: Isolate Transcriptome
   MassSpectrometryEnum:
     name: MassSpectrometryEnum
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/MassSpectrometryEnum
@@ -4458,6 +4661,19 @@ enums:
         text: wall
       window:
         text: window
+  LibLayoutEnum:
+    name: LibLayoutEnum
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/LibLayoutEnum
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    permissible_values:
+      other:
+        text: other
+      paired:
+        text: paired
+      single:
+        text: single
+      vector:
+        text: vector
   LightTypeEnum:
     name: LightTypeEnum
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/LightTypeEnum
@@ -5559,14 +5775,21 @@ enums:
             value: vine crops (grapes)
         examples:
         - value: grapes
-  TargetGeneEnum:
-    name: TargetGeneEnum
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/TargetGeneEnum
+  TargetGeneOrLocusEnum:
+    name: TargetGeneOrLocusEnum
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/TargetGeneOrLocusEnum
+    comments:
+    - NMDC constrains the MIxS target_gene slot to this enumeration; upstream MIxS
+      leaves it as free text. MIxS defines the slot as the "targeted gene or locus
+      name for marker gene studies." NMDC reads "locus" to include regions larger
+      than a single gene, such as the ribosomal RNA operon or cistron, so that long-read
+      amplicon studies that span the operon can record their target here.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     permissible_values:
       16S_rRNA:
         text: 16S_rRNA
-        description: the small subunit of the bacterial/archean ribosome
+        description: the small subunit of the bacterial/archaeal ribosome
+        meaning: SO:0001000
         aliases:
         - 16S rRNA
         - 16S ribosomal RNA
@@ -5574,22 +5797,46 @@ enums:
         - OBI:0002763
       23S_rRNA:
         text: 23S_rRNA
-        description: the large subunit  of the bacterial/archean ribosome
+        description: the large subunit of the bacterial/archaeal ribosome
+        meaning: SO:0001001
         aliases:
         - 23S rRNA
         - 23S ribosomal RNA
       18S_rRNA:
         text: 18S_rRNA
         description: the small subunit of the eukaryotic ribosome
+        meaning: SO:0000407
         aliases:
         - 18S rRNA
         - 18S ribosomal RNA
       28S_rRNA:
         text: 28S_rRNA
         description: the large subunit of the eukaryotic ribosome
+        meaning: SO:0000653
         aliases:
         - 28S rRNA
         - 28S ribosomal RNA
+      bacterial_rRNA_operon:
+        text: bacterial_rRNA_operon
+        description: 'Bacterial ribosomal RNA operon (rrn): the transcript containing
+          the 16S rRNA gene (SO:0001000), the 16S-23S intergenic spacer, and the 23S
+          rRNA gene (SO:0001001), with the 5S rRNA gene (SO:0000652) typically further
+          downstream. Recorded as the target for near-full-length operon amplicon
+          sequencing; the example primers 8F and 2490R span 16S through 23S.'
+        aliases:
+        - bacterial rRNA operon
+        - 16S-23S rRNA operon
+        - rrn operon
+      eukaryotic_rRNA_operon:
+        text: eukaryotic_rRNA_operon
+        description: 'Eukaryotic ribosomal RNA cistron: the transcript containing
+          the 18S rRNA gene (SO:0000407), internal transcribed spacer 1, the 5.8S
+          rRNA gene (SO:0000375), internal transcribed spacer 2, and the 28S rRNA
+          gene (SO:0000653). Recorded as the target for near-full-length operon amplicon
+          sequencing, for example with primers 3NDF and 21R.'
+        aliases:
+        - eukaryotic rRNA operon
+        - 18S-28S rRNA operon
   BinQualityEnum:
     name: BinQualityEnum
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BinQualityEnum
@@ -7438,6 +7685,21 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__badges:
+    name: biosampleFlat__badges
+    description: 'Metadata-quality badges awarded to this record. Each value names
+      one badge, which is present or absent; there are no levels or tiers. Most badges
+      name a completeness subset, but not all do: expert_curation is awarded from
+      provenance instead. Awarded by a downstream service, not asserted by submitters,
+      and recalculated whenever the record''s ProvenanceMetadata.mod_date changes.'
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/badges
+    alias: badges
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: MetadataBadgeEnum
+    multivalued: true
   biosampleFlat__barometric_press_has_maximum_numeric_value:
     name: biosampleFlat__barometric_press_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -24723,8 +24985,8 @@ slots:
     multivalued: false
   biosampleSetMiscParam__has_attribute_label:
     name: biosampleSetMiscParam__has_attribute_label
-    description: Human-readable label for the property (e.g., MIxS label, ENVO term
-      label).
+    description: Human-readable label for the property, taken from its MIxS slot,
+      NMDC slot, or ontology term (ENVO, OBI, etc.) label.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/has_attribute_label
     alias: has_attribute_label
@@ -24792,7 +25054,8 @@ slots:
     multivalued: false
   biosampleSetMiscParam__has_quantity_kind_id:
     name: biosampleSetMiscParam__has_quantity_kind_id
-    description: Optional CURIE or IRI for the physical quantity kind (e.g., qudt:QuantityKind).
+    description: Optional CURIE or IRI for the physical quantity kind, which is a
+      qudt:QuantityKind.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/has_quantity_kind_id
     alias: has_quantity_kind_id
@@ -26869,7 +27132,8 @@ slots:
     multivalued: true
   dataGenerationFlat__insdc_experiment_identifiers:
     name: dataGenerationFlat__insdc_experiment_identifiers
-    description: Polymorphic subclass-specific slot (from 'NucleotideSequencing').
+    description: INSDC identifiers for the unique sequencing result for a specific
+      sample. Polymorphic subclass-specific slot (from 'NucleotideSequencing').
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/insdc_experiment_identifiers
     alias: insdc_experiment_identifiers
@@ -27434,9 +27698,23 @@ slots:
     multivalued: true
   dataObjectFlat__insdc_experiment_identifiers:
     name: dataObjectFlat__insdc_experiment_identifiers
+    description: INSDC identifiers for the unique sequencing result for a specific
+      sample
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/insdc_experiment_identifiers
     alias: insdc_experiment_identifiers
+    owner: DataObjectFlat
+    domain_of:
+    - DataObjectFlat
+    range: external_identifier
+    multivalued: true
+  dataObjectFlat__insdc_run_identifiers:
+    name: dataObjectFlat__insdc_run_identifiers
+    description: Identifiers for the manifest of data file(s) that are derived from
+      sequencing a library described by the associated INSDC experiment.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/insdc_run_identifiers
+    alias: insdc_run_identifiers
     owner: DataObjectFlat
     domain_of:
     - DataObjectFlat
@@ -28369,6 +28647,20 @@ slots:
     range: uriorcurie
     required: true
     multivalued: false
+  materialProcessingFlat__adapters:
+    name: materialProcessingFlat__adapters
+    description: Adapters provide priming sequences for both amplification and sequencing
+      of the sample-library fragments. Both adapters should be reported; in uppercase
+      letters. Polymorphic subclass-specific slot (from 'LibraryPreparation').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/adapters
+    alias: adapters
+    owner: MaterialProcessingFlat
+    domain_of:
+    - MaterialProcessingFlat
+    range: string
+    required: false
+    multivalued: false
   materialProcessingFlat__alternative_identifiers:
     name: materialProcessingFlat__alternative_identifiers
     description: A list of alternative identifiers for the entity.
@@ -28844,6 +29136,19 @@ slots:
     range: boolean
     required: false
     multivalued: false
+  materialProcessingFlat__lib_layout:
+    name: materialProcessingFlat__lib_layout
+    description: Specify whether to expect single, paired, or other configuration
+      of reads. Polymorphic subclass-specific slot (from 'LibraryPreparation').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/lib_layout
+    alias: lib_layout
+    owner: MaterialProcessingFlat
+    domain_of:
+    - MaterialProcessingFlat
+    range: LibLayoutEnum
+    required: false
+    multivalued: false
   materialProcessingFlat__library_preparation_kit:
     name: materialProcessingFlat__library_preparation_kit
     description: Polymorphic subclass-specific slot (from 'LibraryPreparation').
@@ -28854,6 +29159,45 @@ slots:
     domain_of:
     - MaterialProcessingFlat
     range: string
+    required: false
+    multivalued: false
+  materialProcessingFlat__library_selection:
+    name: materialProcessingFlat__library_selection
+    description: Library selection or enrichment method used. Polymorphic subclass-specific
+      slot (from 'LibraryPreparation').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/library_selection
+    alias: library_selection
+    owner: MaterialProcessingFlat
+    domain_of:
+    - MaterialProcessingFlat
+    range: LibrarySelectionEnum
+    required: false
+    multivalued: false
+  materialProcessingFlat__library_source:
+    name: materialProcessingFlat__library_source
+    description: The molecular source of the sequencing library. Polymorphic subclass-specific
+      slot (from 'LibraryPreparation').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/library_source
+    alias: library_source
+    owner: MaterialProcessingFlat
+    domain_of:
+    - MaterialProcessingFlat
+    range: LibrarySourceEnum
+    required: false
+    multivalued: false
+  materialProcessingFlat__library_strategy:
+    name: materialProcessingFlat__library_strategy
+    description: Sequencing technique intended for this library. Polymorphic subclass-specific
+      slot (from 'LibraryPreparation').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/library_strategy
+    alias: library_strategy
+    owner: MaterialProcessingFlat
+    domain_of:
+    - MaterialProcessingFlat
+    range: LibraryStrategyEnum
     required: false
     multivalued: false
   materialProcessingFlat__library_type:
@@ -29257,7 +29601,7 @@ slots:
     owner: MaterialProcessingFlat
     domain_of:
     - MaterialProcessingFlat
-    range: TargetGeneEnum
+    range: TargetGeneOrLocusEnum
     required: false
     multivalued: false
   materialProcessingFlat__target_subfragment_has_raw_value:
@@ -33751,7 +34095,7 @@ slots:
     multivalued: true
   workflowExecutionSetMagsList__num_16s:
     name: workflowExecutionSetMagsList__num_16s
-    description: Number of 16s sequences detected, a subunit of prokaryotic ribosomes.
+    description: Number of 16S sequences detected, a subunit of prokaryotic ribosomes.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/num_16s
     alias: num_16s
@@ -33762,7 +34106,7 @@ slots:
     multivalued: false
   workflowExecutionSetMagsList__num_23s:
     name: workflowExecutionSetMagsList__num_23s
-    description: Number of 23 seqeuences detected, a subunit of ribosomes.
+    description: Number of 23S sequences detected, a subunit of ribosomes.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/num_23s
     alias: num_23s
@@ -33773,7 +34117,7 @@ slots:
     multivalued: false
   workflowExecutionSetMagsList__num_5s:
     name: workflowExecutionSetMagsList__num_5s
-    description: Number of 5s seqeuences detected, a subunit of ribosomes.
+    description: Number of 5S sequences detected, a subunit of ribosomes.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/num_5s
     alias: num_5s
@@ -33784,7 +34128,7 @@ slots:
     multivalued: false
   workflowExecutionSetMagsList__num_t_rna:
     name: workflowExecutionSetMagsList__num_t_rna
-    description: Number of transfer transfer RNAs.
+    description: Number of transfer RNAs.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/num_t_rna
     alias: num_t_rna
@@ -34009,6 +34353,7 @@ classes:
     - biosampleFlat__bacteria_carb_prod_has_numeric_value
     - biosampleFlat__bacteria_carb_prod_has_raw_value
     - biosampleFlat__bacteria_carb_prod_has_unit
+    - biosampleFlat__badges
     - biosampleFlat__barometric_press_has_maximum_numeric_value
     - biosampleFlat__barometric_press_has_minimum_numeric_value
     - biosampleFlat__barometric_press_has_numeric_value
@@ -36046,6 +36391,16 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      badges:
+        name: badges
+        description: 'Metadata-quality badges awarded to this record. Each value names
+          one badge, which is present or absent; there are no levels or tiers. Most
+          badges name a completeness subset, but not all do: expert_curation is awarded
+          from provenance instead. Awarded by a downstream service, not asserted by
+          submitters, and recalculated whenever the record''s ProvenanceMetadata.mod_date
+          changes.'
+        range: MetadataBadgeEnum
+        multivalued: true
       barometric_press_has_maximum_numeric_value:
         name: barometric_press_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -45580,8 +45935,8 @@ classes:
         multivalued: false
       has_attribute_label:
         name: has_attribute_label
-        description: Human-readable label for the property (e.g., MIxS label, ENVO
-          term label).
+        description: Human-readable label for the property, taken from its MIxS slot,
+          NMDC slot, or ontology term (ENVO, OBI, etc.) label.
         range: string
         multivalued: false
       has_boolean_value:
@@ -45613,7 +45968,8 @@ classes:
         multivalued: false
       has_quantity_kind_id:
         name: has_quantity_kind_id
-        description: Optional CURIE or IRI for the physical quantity kind (e.g., qudt:QuantityKind).
+        description: Optional CURIE or IRI for the physical quantity kind, which is
+          a qudt:QuantityKind.
         range: uriorcurie
         multivalued: false
       has_raw_value:
@@ -47329,7 +47685,8 @@ classes:
         multivalued: true
       insdc_experiment_identifiers:
         name: insdc_experiment_identifiers
-        description: Polymorphic subclass-specific slot (from 'NucleotideSequencing').
+        description: INSDC identifiers for the unique sequencing result for a specific
+          sample. Polymorphic subclass-specific slot (from 'NucleotideSequencing').
         range: external_identifier
         required: false
         multivalued: true
@@ -47683,6 +48040,7 @@ classes:
     - dataObjectFlat__id
     - dataObjectFlat__in_manifest
     - dataObjectFlat__insdc_experiment_identifiers
+    - dataObjectFlat__insdc_run_identifiers
     - dataObjectFlat__md5_checksum
     - dataObjectFlat__name
     - dataObjectFlat__superseded_by
@@ -47740,6 +48098,14 @@ classes:
         multivalued: true
       insdc_experiment_identifiers:
         name: insdc_experiment_identifiers
+        description: INSDC identifiers for the unique sequencing result for a specific
+          sample
+        range: external_identifier
+        multivalued: true
+      insdc_run_identifiers:
+        name: insdc_run_identifiers
+        description: Identifiers for the manifest of data file(s) that are derived
+          from sequencing a library described by the associated INSDC experiment.
         range: external_identifier
         multivalued: true
       md5_checksum:
@@ -48451,6 +48817,7 @@ classes:
       of 'MaterialProcessing' that may appear via the 'type' field.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slots:
+    - materialProcessingFlat__adapters
     - materialProcessingFlat__alternative_identifiers
     - materialProcessingFlat__chemical_conversion_category
     - materialProcessingFlat__chromatographic_category
@@ -48487,7 +48854,11 @@ classes:
     - materialProcessingFlat__instrument_used
     - materialProcessingFlat__is_pressurized
     - materialProcessingFlat__is_stranded
+    - materialProcessingFlat__lib_layout
     - materialProcessingFlat__library_preparation_kit
+    - materialProcessingFlat__library_selection
+    - materialProcessingFlat__library_source
+    - materialProcessingFlat__library_strategy
     - materialProcessingFlat__library_type
     - materialProcessingFlat__mass_has_maximum_numeric_value
     - materialProcessingFlat__mass_has_minimum_numeric_value
@@ -48533,6 +48904,14 @@ classes:
     - materialProcessingFlat__volume_has_raw_value
     - materialProcessingFlat__volume_has_unit
     attributes:
+      adapters:
+        name: adapters
+        description: Adapters provide priming sequences for both amplification and
+          sequencing of the sample-library fragments. Both adapters should be reported;
+          in uppercase letters. Polymorphic subclass-specific slot (from 'LibraryPreparation').
+        range: string
+        required: false
+        multivalued: false
       alternative_identifiers:
         name: alternative_identifiers
         description: A list of alternative identifiers for the entity.
@@ -48794,10 +49173,38 @@ classes:
         range: boolean
         required: false
         multivalued: false
+      lib_layout:
+        name: lib_layout
+        description: Specify whether to expect single, paired, or other configuration
+          of reads. Polymorphic subclass-specific slot (from 'LibraryPreparation').
+        range: LibLayoutEnum
+        required: false
+        multivalued: false
       library_preparation_kit:
         name: library_preparation_kit
         description: Polymorphic subclass-specific slot (from 'LibraryPreparation').
         range: string
+        required: false
+        multivalued: false
+      library_selection:
+        name: library_selection
+        description: Library selection or enrichment method used. Polymorphic subclass-specific
+          slot (from 'LibraryPreparation').
+        range: LibrarySelectionEnum
+        required: false
+        multivalued: false
+      library_source:
+        name: library_source
+        description: The molecular source of the sequencing library. Polymorphic subclass-specific
+          slot (from 'LibraryPreparation').
+        range: LibrarySourceEnum
+        required: false
+        multivalued: false
+      library_strategy:
+        name: library_strategy
+        description: Sequencing technique intended for this library. Polymorphic subclass-specific
+          slot (from 'LibraryPreparation').
+        range: LibraryStrategyEnum
         required: false
         multivalued: false
       library_type:
@@ -49017,7 +49424,7 @@ classes:
         name: target_gene
         description: Targeted gene or locus name for marker gene studies. Polymorphic
           subclass-specific slot (from 'LibraryPreparation').
-        range: TargetGeneEnum
+        range: TargetGeneOrLocusEnum
         required: false
         multivalued: false
       target_subfragment_has_raw_value:
@@ -52183,22 +52590,22 @@ classes:
         multivalued: true
       num_16s:
         name: num_16s
-        description: Number of 16s sequences detected, a subunit of prokaryotic ribosomes.
+        description: Number of 16S sequences detected, a subunit of prokaryotic ribosomes.
         range: integer
         multivalued: false
       num_23s:
         name: num_23s
-        description: Number of 23 seqeuences detected, a subunit of ribosomes.
+        description: Number of 23S sequences detected, a subunit of ribosomes.
         range: integer
         multivalued: false
       num_5s:
         name: num_5s
-        description: Number of 5s seqeuences detected, a subunit of ribosomes.
+        description: Number of 5S sequences detected, a subunit of ribosomes.
         range: integer
         multivalued: false
       num_t_rna:
         name: num_t_rna
-        description: Number of transfer transfer RNAs.
+        description: Number of transfer RNAs.
         range: integer
         multivalued: false
       number_of_contig:
@@ -52278,7 +52685,7 @@ classes:
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/WorkflowExecutionSetWasInformedBy
 metamodel_version: 1.11.0
 source_file: nmdc_schema_flattened.yaml
-source_file_date: '2026-09-09T17:51:09'
-source_file_size: 858506
-generation_date: '2026-09-09T17:51:23'
+source_file_date: '2026-09-10T23:38:57'
+source_file_size: 871970
+generation_date: '2026-09-10T23:39:06'
 
