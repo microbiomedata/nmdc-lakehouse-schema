@@ -52,7 +52,7 @@ DEFAULT_FLATTENED_SCHEMA_ID = "https://w3id.org/nmdc/nmdc-schema-flattened"
 # nmdc-lakehouse#333. The per-table producer identity ("which loader wrote this table") was
 # deliberately removed: it is ETL/deployment provenance that belongs with the data (Parquet footer
 # + snapshot manifest), not in a structural schema (microbiomedata/nmdc-lakehouse#336).
-SCHEMA_GENERATOR_ID = "nmdc_lakehouse.transforms.schema_generator.flatten_database_schema"
+SCHEMA_GENERATOR_ID = "nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema"
 
 # The projection's own version, bumped when THIS code changes what it emits, never when
 # nmdc-schema changes. Until 2026-08-25 the flat schema declared the upstream version instead, so
@@ -60,7 +60,7 @@ SCHEMA_GENERATOR_ID = "nmdc_lakehouse.transforms.schema_generator.flatten_databa
 # b4e0f7a8). A consumer holding two of those tables could not tell them apart, which is the
 # question a consumer asks first. Raise the minor part when a shape changes, the patch part when
 # only descriptions or annotations move.
-FLATTENER_VERSION = "1.0.1"
+FLATTENER_VERSION = "1.0.2"
 
 # Filled in after rendering, because a document cannot contain its own digest. The generator
 # renders with this placeholder in place, hashes that exact text, then substitutes. Verifying
