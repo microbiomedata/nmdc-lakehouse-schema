@@ -20,7 +20,9 @@ from nmdc_lakehouse_schema.transforms.schema_generator import (
 )
 
 # The repo's published flattened-schema artifact.
-_CANONICAL_SCHEMA = Path(_sg.__file__).parents[1] / "schema" / "nmdc_schema_flattened.yaml"
+_CANONICAL_SCHEMA = (
+    Path(_sg.__file__).parents[1] / "schema" / "nmdc_schema_flattened.yaml"
+)
 
 _SCHEMA_YAML = """
 id: https://example.org/test
@@ -149,7 +151,8 @@ def test_flat_class_multivalued_ref_is_array_of_strings(sv):
 def test_flat_class_expands_inlined_object(sv):
     """Single-valued inlined class slot expands to <slot>_<subslot>."""
     flat = flatten_class_def(sv, "Record")
-    assert "description_has_raw_value" in flat.attributes
+    assert flat.attributes["description"].range == "string"
+    assert "description_has_raw_value" not in flat.attributes
     assert "env_broad_scale_has_raw_value" in flat.attributes
     # Two-level expansion through controlled term's term.id
     assert "env_broad_scale_term_id" in flat.attributes
@@ -192,7 +195,9 @@ def test_flat_class_subclass_slots_carry_dispatch_note(sv):
 
 def test_flatten_database_schema_yields_primary_and_side_table_classes(sv):
     """Walking Database produces complete primary and side-table topology."""
-    out = flatten_database_schema(sv, database_class="Database", source_package_version="1.2.3")
+    out = flatten_database_schema(
+        sv, database_class="Database", source_package_version="1.2.3"
+    )
     assert "RecordFlat" in out.classes
     assert "ProcessFlat" in out.classes
     assert "record_set_associated_studies" in out.classes
@@ -277,7 +282,9 @@ def test_side_table_type_column_declared_and_populated(sv):
         side_table_rows(
             {
                 "id": "r1",
-                "chem_admin": [{"type": "test:ChemicalAdministration", "has_raw_value": "NaCl"}],
+                "chem_admin": [
+                    {"type": "test:ChemicalAdministration", "has_raw_value": "NaCl"}
+                ],
             },
             sv,
             "Record",
@@ -329,16 +336,23 @@ def test_side_table_schema_covers_runtime_row_keys(sv):
     record = {
         "id": "r1",
         "chem_admin": [
-            {"has_raw_value": "NaCl", "term": {"id": "CHEBI:26710", "name": "sodium chloride"}},
+            {
+                "has_raw_value": "NaCl",
+                "term": {"id": "CHEBI:26710", "name": "sodium chloride"},
+            },
         ],
         "associated_studies": ["study:1", "study:2"],
     }
 
     for table_name, row in side_table_rows(record, sv, "Record", "record_set"):
-        assert table_name in defs, f"side_table_rows emitted unknown table {table_name!r}"
+        assert table_name in defs, (
+            f"side_table_rows emitted unknown table {table_name!r}"
+        )
         schema_cols = {attr for attr in defs[table_name].attributes}
         extra = set(row.keys()) - schema_cols
-        assert not extra, f"side_table_rows emitted keys {extra} not in ClassDef for {table_name!r}"
+        assert not extra, (
+            f"side_table_rows emitted keys {extra} not in ClassDef for {table_name!r}"
+        )
 
 
 @pytest.mark.skipif(

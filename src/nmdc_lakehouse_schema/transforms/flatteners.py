@@ -15,6 +15,8 @@ def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> di
 
     - scalar slot, not multivalued: pass the value through unchanged
     - scalar slot, multivalued: emit a native Python list
+    - TextValue: extract has_raw_value as a string; repeated values go to
+      child side tables with one string per occurrence
     - class range, not inlined (reference by ID): treat the value(s) as
       scalar identifiers — pass through or emit as list
     - class range, inlined, not multivalued: expand the nested object's
@@ -53,6 +55,13 @@ def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> di
         if value is None:
             continue
 
+        if slot.range == "TextValue":
+            if not slot.multivalued:
+                text = _text_value(value)
+                if text is not None:
+                    out[slot.name] = text
+            continue
+
         range_class = _range_class(slot, schema_view)
 
         # Class ranges that aren't inlined are references — IDs as scalars or lists.
@@ -76,13 +85,48 @@ def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> di
 
         # Single-valued inlined object: expand to <slot>_<subslot>.
         if isinstance(value, dict):
-            for sub_key, sub_value in _expand_inlined(value, range_class, schema_view, include_type=False).items():
+            for sub_key, sub_value in _expand_inlined(
+                value, range_class, schema_view, include_type=False
+            ).items():
                 out[f"{slot.name}_{sub_key}"] = sub_value
 
     return out
 
 
-def _range_class(slot: SlotDefinition, schema_view: SchemaView) -> ClassDefinition | None:
+def _text_value(value: Any) -> str | None:
+    """Extract a TextValue without silently dropping populated content.
+
+    Missing/null raw values become null columns; empty strings remain strings.
+    Errors contain no source values or user-supplied field names.
+    """
+    if value is None:
+        return None
+    if not isinstance(value, dict):
+        raise ValueError("TextValue projection requires an object.")
+    for key, extra in value.items():
+        if key in ("has_raw_value", "type"):
+            continue
+        if extra is not None and extra != "" and extra != [] and extra != {}:
+            raise ValueError("TextValue projection would discard populated content.")
+    if value.get("type") not in (
+        None,
+        "",
+        "TextValue",
+        "nmdc:TextValue",
+        "https://w3id.org/nmdc/TextValue",
+    ):
+        raise ValueError(
+            "TextValue projection received an unexpected type discriminator."
+        )
+    raw = value.get("has_raw_value")
+    if raw is not None and not isinstance(raw, str):
+        raise ValueError("TextValue has_raw_value must be a string or null.")
+    return raw
+
+
+def _range_class(
+    slot: SlotDefinition, schema_view: SchemaView
+) -> ClassDefinition | None:
     """Return the class range of a slot, or None if the range is a type/enum."""
     if not slot.range:
         return None
@@ -131,7 +175,10 @@ def _dispatch_class(record: dict, declared_class: str, schema_view: SchemaView) 
 
 
 def _expand_inlined(
-    value: dict, class_def: ClassDefinition, schema_view: SchemaView, include_type: bool = False
+    value: dict,
+    class_def: ClassDefinition,
+    schema_view: SchemaView,
+    include_type: bool = False,
 ) -> dict[str, Any]:
     """Flatten a single-valued inlined object one level deep.
 
@@ -172,6 +219,15 @@ def _expand_inlined(
         sub_value = value[sub_slot.name]
         if sub_value is None:
             continue
+        if sub_slot.range == "TextValue":
+            if sub_slot.multivalued:
+                raise ValueError(
+                    "Nested multivalued TextValue slots require a child-table mapping."
+                )
+            text = _text_value(sub_value)
+            if text is not None:
+                out[sub_slot.name] = text
+            continue
         sub_range = _range_class(sub_slot, schema_view)
         if sub_range is None:
             # Scalar.
@@ -188,6 +244,15 @@ def _expand_inlined(
                     continue
                 inner_value = sub_value[inner_slot.name]
                 if inner_value is None:
+                    continue
+                if inner_slot.range == "TextValue":
+                    if inner_slot.multivalued:
+                        raise ValueError(
+                            "Nested multivalued TextValue slots require a child-table mapping."
+                        )
+                    text = _text_value(inner_value)
+                    if text is not None:
+                        out[f"{sub_slot.name}_{inner_slot.name}"] = text
                     continue
                 if _range_class(inner_slot, schema_view) is not None:
                     # Three levels deep — dropped.
@@ -206,12 +271,14 @@ def side_table_rows(
 ) -> Iterator[tuple[str, dict]]:
     """Yield ``(table_name, row_dict)`` for every side table row from one record.
 
-    Two slot types produce side table rows:
+    The following multivalued slots produce side table rows:
 
     - **ref_class multivalued** (class range, not inlined) — one
       ``(parent_id, <slot_name>)`` junction row per referenced ID.
     - **inlined_class multivalued** — one flattened child-object row per element,
       with ``parent_id`` prepended.
+    - **TextValue multivalued** — one ``(parent_id, <slot_name>)`` row per
+      occurrence, extracting only the raw string from each TextValue.
 
     Scalar multivalued slots are stored as native Parquet ARRAY columns in the
     primary table and do NOT produce side table rows.
@@ -253,12 +320,21 @@ def side_table_rows(
         table_name = f"{collection}_{slot.name}"
         range_class = _range_class(slot, schema_view)
 
-        if range_class is not None and _is_inlined(slot, schema_view):
+        if slot.range == "TextValue":
+            for child in value:
+                text = _text_value(child)
+                row = {"parent_id": parent_id}
+                if text is not None:
+                    row[slot.name] = text
+                yield table_name, row
+        elif range_class is not None and _is_inlined(slot, schema_view):
             # Inlined multivalued → child side table
             for child in value:
                 if not isinstance(child, dict):
                     continue
-                row = _expand_inlined(child, range_class, schema_view, include_type=True)
+                row = _expand_inlined(
+                    child, range_class, schema_view, include_type=True
+                )
                 row["parent_id"] = parent_id
                 yield table_name, row
         elif range_class is not None:

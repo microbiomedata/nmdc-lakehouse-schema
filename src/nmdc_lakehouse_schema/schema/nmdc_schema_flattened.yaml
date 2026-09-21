@@ -14,14 +14,14 @@ annotations:
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.0.2
+    value: 1.1.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: '97b116ecdc2c626a304f59d2dd7f52607fc59a798a707dd24489dd29950931ca'
+    value: '54a1be1a3a3e112962694282dd9bb4cafe56a2f1c934b21fc8b13b0363231fe6'
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.23.0+flat.1.0.2
+version: 11.23.0+flat.1.1.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -6142,18 +6142,12 @@ classes:
           info" field
         range: string
         multivalued: false
-      additional_info_has_raw_value:
-        name: additional_info_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'additional_info.has_raw_value'.
+      additional_info:
+        name: additional_info
+        description: Information that doesn't fit anywhere else. Can also be used
+          to propose new entries for fields with controlled vocabulary String projected
+          from 'additional_info.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      additional_info_language:
-        name: additional_info_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'additional_info.language'.
-        range: language_code
         required: false
         multivalued: false
       address:
@@ -6161,18 +6155,11 @@ classes:
         description: The street name and building number where the sampling occurred
         range: string
         multivalued: false
-      adj_room_has_raw_value:
-        name: adj_room_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'adj_room.has_raw_value'.
+      adj_room:
+        name: adj_room
+        description: List of rooms (room number, room name) immediately adjacent to
+          the sampling room String projected from 'adj_room.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      adj_room_language:
-        name: adj_room_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'adj_room.language'.
-        range: language_code
         required: false
         multivalued: false
       aero_struc:
@@ -6516,18 +6503,13 @@ classes:
         description: Select all the data types associated or available for this biosample
         range: AnalysisTypeEnum
         multivalued: true
-      ances_data_has_raw_value:
-        name: ances_data_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'ances_data.has_raw_value'.
+      ances_data:
+        name: ances_data
+        description: Information about either pedigree or other ancestral information
+          description (e.g. parental variety in case of mutant or selection), e.g.
+          A/3*B (meaning [(A x B) x B] x B) String projected from 'ances_data.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      ances_data_language:
-        name: ances_data_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'ances_data.language'.
-        range: language_code
         required: false
         multivalued: false
       annual_precpt_has_maximum_numeric_value:
@@ -6635,32 +6617,26 @@ classes:
           outdoor construction
         range: ArchStrucEnum
         multivalued: false
-      aromatics_pc_has_raw_value:
-        name: aromatics_pc_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'aromatics_pc.has_raw_value'.
+      aromatics_pc:
+        name: aromatics_pc
+        description: 'Saturate, Aromatic, Resin and Asphaltene (SARA) is an analysis
+          method that divides crude oil components according to their polarizability
+          and polarity. There are three main methods to obtain SARA results. The most
+          popular one is known as the Iatroscan TLC-FID and is referred to as IP-143
+          (source: https://en.wikipedia.org/wiki/Saturate,_aromatic,_resin_and_asphaltene)
+          String projected from ''aromatics_pc.has_raw_value'' (TextValue).'
         range: string
         required: false
         multivalued: false
-      aromatics_pc_language:
-        name: aromatics_pc_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'aromatics_pc.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      asphaltenes_pc_has_raw_value:
-        name: asphaltenes_pc_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'asphaltenes_pc.has_raw_value'.
+      asphaltenes_pc:
+        name: asphaltenes_pc
+        description: 'Saturate, Aromatic, Resin and Asphaltene (SARA) is an analysis
+          method that divides crude oil components according to their polarizability
+          and polarity. There are three main methods to obtain SARA results. The most
+          popular one is known as the Iatroscan TLC-FID and is referred to as IP-143
+          (source: https://en.wikipedia.org/wiki/Saturate,_aromatic,_resin_and_asphaltene)
+          String projected from ''asphaltenes_pc.has_raw_value'' (TextValue).'
         range: string
-        required: false
-        multivalued: false
-      asphaltenes_pc_language:
-        name: asphaltenes_pc_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'asphaltenes_pc.language'.
-        range: language_code
         required: false
         multivalued: false
       associated_studies:
@@ -6703,18 +6679,12 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      avg_occup_has_raw_value:
-        name: avg_occup_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'avg_occup.has_raw_value'.
+      avg_occup:
+        name: avg_occup
+        description: Daily average occupancy of room. Indicate the number of person(s)
+          daily occupying the sampling room String projected from 'avg_occup.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      avg_occup_language:
-        name: avg_occup_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'avg_occup.language'.
-        range: language_code
         required: false
         multivalued: false
       avg_temp_has_maximum_numeric_value:
@@ -6892,46 +6862,25 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      basin_has_raw_value:
-        name: basin_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'basin.has_raw_value'.
+      basin:
+        name: basin
+        description: Name of the basin String projected from 'basin.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      basin_language:
-        name: basin_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'basin.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      bathroom_count_has_raw_value:
-        name: bathroom_count_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'bathroom_count.has_raw_value'.
+      bathroom_count:
+        name: bathroom_count
+        description: The number of bathrooms in the building String projected from
+          'bathroom_count.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      bathroom_count_language:
-        name: bathroom_count_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'bathroom_count.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      bedroom_count_has_raw_value:
-        name: bedroom_count_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'bedroom_count.has_raw_value'.
+      bedroom_count:
+        name: bedroom_count
+        description: The number of bedrooms in the building String projected from
+          'bedroom_count.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      bedroom_count_language:
-        name: bedroom_count_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'bedroom_count.language'.
-        range: language_code
         required: false
         multivalued: false
       benzene_has_maximum_numeric_value:
@@ -7022,18 +6971,12 @@ classes:
         name: biosample_categories
         range: BiosampleCategoryEnum
         multivalued: true
-      biotic_regm_has_raw_value:
-        name: biotic_regm_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'biotic_regm.has_raw_value'.
+      biotic_regm:
+        name: biotic_regm
+        description: Information about treatment(s) involving use of biotic factors,
+          such as bacteria, viruses or fungi String projected from 'biotic_regm.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      biotic_regm_language:
-        name: biotic_regm_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'biotic_regm.language'.
-        range: language_code
         required: false
         multivalued: false
       biotic_relationship:
@@ -7231,18 +7174,12 @@ classes:
           high or low human density
         range: BuiltStrucSetEnum
         multivalued: false
-      built_struc_type_has_raw_value:
-        name: built_struc_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'built_struc_type.has_raw_value'.
+      built_struc_type:
+        name: built_struc_type
+        description: A physical structure that is a body or assemblage of bodies in
+          space to form a system capable of supporting loads String projected from
+          'built_struc_type.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      built_struc_type_language:
-        name: built_struc_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'built_struc_type.language'.
-        range: language_code
         required: false
         multivalued: false
       bulk_elect_conductivity_has_maximum_numeric_value:
@@ -7692,46 +7629,28 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      cool_syst_id_has_raw_value:
-        name: cool_syst_id_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'cool_syst_id.has_raw_value'.
+      cool_syst_id:
+        name: cool_syst_id
+        description: The cooling system identifier String projected from 'cool_syst_id.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      cool_syst_id_language:
-        name: cool_syst_id_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'cool_syst_id.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      crop_rotation_has_raw_value:
-        name: crop_rotation_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'crop_rotation.has_raw_value'.
+      crop_rotation:
+        name: crop_rotation
+        description: Whether or not crop is rotated, and if yes, rotation schedule
+          String projected from 'crop_rotation.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      crop_rotation_language:
-        name: crop_rotation_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'crop_rotation.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      cult_root_med_has_raw_value:
-        name: cult_root_med_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'cult_root_med.has_raw_value'.
+      cult_root_med:
+        name: cult_root_med
+        description: Name or reference for the hydroponic or in vitro culture rooting
+          medium; can be the name of a commonly used medium or reference to a specific
+          medium, e.g. Murashige and Skoog medium. If the medium has not been formally
+          published, use the rooting medium descriptors String projected from 'cult_root_med.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      cult_root_med_language:
-        name: cult_root_med_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'cult_root_med.language'.
-        range: language_code
         required: false
         multivalued: false
       cur_land_use:
@@ -7739,18 +7658,12 @@ classes:
         description: Present state of sample site
         range: string
         multivalued: false
-      cur_vegetation_has_raw_value:
-        name: cur_vegetation_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'cur_vegetation.has_raw_value'.
+      cur_vegetation:
+        name: cur_vegetation
+        description: Vegetation classification from one or more standard classification
+          systems, or agricultural crop String projected from 'cur_vegetation.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      cur_vegetation_language:
-        name: cur_vegetation_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'cur_vegetation.language'.
-        range: language_code
         required: false
         multivalued: false
       cur_vegetation_meth:
@@ -8414,18 +8327,11 @@ classes:
           the surface, such as an aircraft in flight or a spacecraft in orbit
         range: float
         multivalued: false
-      elevator_has_raw_value:
-        name: elevator_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'elevator.has_raw_value'.
+      elevator:
+        name: elevator
+        description: The number of elevators within the built structure String projected
+          from 'elevator.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      elevator_language:
-        name: elevator_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'elevator.language'.
-        range: language_code
         required: false
         multivalued: false
       embargoed:
@@ -8639,32 +8545,22 @@ classes:
         range: string
         required: false
         multivalued: false
-      env_package_has_raw_value:
-        name: env_package_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'env_package.has_raw_value'.
+      env_package:
+        name: env_package
+        description: MIxS extension for reporting of measurements and observations
+          obtained from one or more of the environments where the sample was obtained.
+          All environmental packages listed here are further defined in separate subtables.
+          By giving the name of the environmental package, a selection of fields can
+          be made from the subtables and can be reported String projected from 'env_package.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      env_package_language:
-        name: env_package_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'env_package.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      escalator_has_raw_value:
-        name: escalator_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'escalator.has_raw_value'.
+      escalator:
+        name: escalator
+        description: The number of escalators within the built structure String projected
+          from 'escalator.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      escalator_language:
-        name: escalator_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'escalator.language'.
-        range: language_code
         required: false
         multivalued: false
       ethylbenzene_has_maximum_numeric_value:
@@ -8838,18 +8734,11 @@ classes:
         range: string
         required: false
         multivalued: false
-      ext_door_has_raw_value:
-        name: ext_door_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'ext_door.has_raw_value'.
+      ext_door:
+        name: ext_door
+        description: The number of exterior doors in the built structure String projected
+          from 'ext_door.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      ext_door_language:
-        name: ext_door_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'ext_door.language'.
-        range: language_code
         required: false
         multivalued: false
       ext_wall_orient:
@@ -8874,18 +8763,11 @@ classes:
           available soil classifications can be found at https://www.isric.org/explore/world-soil-distribution
         range: FaoClassEnum
         multivalued: false
-      field_has_raw_value:
-        name: field_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'field.has_raw_value'.
+      field:
+        name: field
+        description: Name of the hydrocarbon field (e.g. Albacora) String projected
+          from 'field.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      field_language:
-        name: field_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'field.language'.
-        range: language_code
         required: false
         multivalued: false
       filter_method:
@@ -8987,18 +8869,11 @@ classes:
           areas
         range: DamagedEnum
         multivalued: false
-      floor_count_has_raw_value:
-        name: floor_count_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'floor_count.has_raw_value'.
+      floor_count:
+        name: floor_count
+        description: The number of floors in the building, including basements and
+          mechanical penthouse String projected from 'floor_count.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      floor_count_language:
-        name: floor_count_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'floor_count.language'.
-        range: language_code
         required: false
         multivalued: false
       floor_finish_mat:
@@ -9168,18 +9043,14 @@ classes:
           of transient transfection
         range: string
         multivalued: false
-      geo_loc_name_has_raw_value:
-        name: geo_loc_name_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'geo_loc_name.has_raw_value'.
+      geo_loc_name:
+        name: geo_loc_name
+        description: The geographical origin of the sample as defined by the country
+          or sea name followed by specific region name. Country or sea names should
+          be chosen from the INSDC country list (http://insdc.org/country.html), or
+          the GAZ ontology (http://purl.bioontology.org/ontology/GAZ) String projected
+          from 'geo_loc_name.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      geo_loc_name_language:
-        name: geo_loc_name_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'geo_loc_name.language'.
-        range: language_code
         required: false
         multivalued: false
       glucosidase_act_has_maximum_numeric_value:
@@ -9221,18 +9092,12 @@ classes:
           the NMDC submitted biosample
         range: uriorcurie
         multivalued: true
-      gravidity_has_raw_value:
-        name: gravidity_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'gravidity.has_raw_value'.
+      gravidity:
+        name: gravidity
+        description: Whether or not subject is gravid, and if yes date due or date
+          post-conception, specifying which is used String projected from 'gravidity.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      gravidity_language:
-        name: gravidity_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'gravidity.language'.
-        range: language_code
         required: false
         multivalued: false
       growth_facil_has_raw_value:
@@ -9310,18 +9175,11 @@ classes:
         name: habitat
         range: string
         multivalued: false
-      hall_count_has_raw_value:
-        name: hall_count_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'hall_count.has_raw_value'.
+      hall_count:
+        name: hall_count
+        description: The total count of hallways and corridors in the built structure
+          String projected from 'hall_count.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      hall_count_language:
-        name: hall_count_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'hall_count.language'.
-        range: language_code
         required: false
         multivalued: false
       handidness:
@@ -9386,32 +9244,18 @@ classes:
           If "other" is specified, please propose entry in "additional info" field'
         range: GeolAgeEnum
         multivalued: false
-      hcr_pressure_has_raw_value:
-        name: hcr_pressure_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'hcr_pressure.has_raw_value'.
+      hcr_pressure:
+        name: hcr_pressure
+        description: Original pressure of the hydrocarbon resource String projected
+          from 'hcr_pressure.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      hcr_pressure_language:
-        name: hcr_pressure_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'hcr_pressure.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      hcr_temp_has_raw_value:
-        name: hcr_temp_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'hcr_temp.has_raw_value'.
+      hcr_temp:
+        name: hcr_temp
+        description: Original temperature of the hydrocarbon resource String projected
+          from 'hcr_temp.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      hcr_temp_language:
-        name: hcr_temp_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'hcr_temp.language'.
-        range: language_code
         required: false
         multivalued: false
       heat_cool_type:
@@ -9429,18 +9273,11 @@ classes:
         description: The method by which the heat is delivered through the system
         range: string
         multivalued: false
-      heat_system_id_has_raw_value:
-        name: heat_system_id_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'heat_system_id.has_raw_value'.
+      heat_system_id:
+        name: heat_system_id
+        description: The heating system identifier String projected from 'heat_system_id.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      heat_system_id_language:
-        name: heat_system_id_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'heat_system_id.language'.
-        range: language_code
         required: false
         multivalued: false
       heavy_metals_meth:
@@ -9519,18 +9356,11 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      host_body_habitat_has_raw_value:
-        name: host_body_habitat_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_body_habitat.has_raw_value'.
+      host_body_habitat:
+        name: host_body_habitat
+        description: Original body habitat where the sample was obtained from String
+          projected from 'host_body_habitat.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_body_habitat_language:
-        name: host_body_habitat_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_body_habitat.language'.
-        range: language_code
         required: false
         multivalued: false
       host_body_product_has_raw_value:
@@ -9698,32 +9528,18 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      host_color_has_raw_value:
-        name: host_color_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_color.has_raw_value'.
+      host_color:
+        name: host_color
+        description: The color of host String projected from 'host_color.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      host_color_language:
-        name: host_color_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_color.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      host_common_name_has_raw_value:
-        name: host_common_name_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_common_name.has_raw_value'.
+      host_common_name:
+        name: host_common_name
+        description: Common name of the host String projected from 'host_common_name.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_common_name_language:
-        name: host_common_name_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_common_name.language'.
-        range: language_code
         required: false
         multivalued: false
       host_disease_stat:
@@ -9773,18 +9589,11 @@ classes:
           include multiple relationships.
         range: string
         multivalued: true
-      host_genotype_has_raw_value:
-        name: host_genotype_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_genotype.has_raw_value'.
+      host_genotype:
+        name: host_genotype
+        description: Observed genotype String projected from 'host_genotype.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_genotype_language:
-        name: host_genotype_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_genotype.language'.
-        range: language_code
         required: false
         multivalued: false
       host_genus:
@@ -9792,18 +9601,11 @@ classes:
         description: Genus of the host organism that the sample was collected from.
         range: string
         multivalued: false
-      host_growth_cond_has_raw_value:
-        name: host_growth_cond_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_growth_cond.has_raw_value'.
+      host_growth_cond:
+        name: host_growth_cond
+        description: Literature reference giving growth conditions of the host String
+          projected from 'host_growth_cond.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_growth_cond_language:
-        name: host_growth_cond_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_growth_cond.language'.
-        range: language_code
         required: false
         multivalued: false
       host_height_has_maximum_numeric_value:
@@ -9878,18 +9680,11 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      host_life_stage_has_raw_value:
-        name: host_life_stage_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_life_stage.has_raw_value'.
+      host_life_stage:
+        name: host_life_stage
+        description: Description of life stage of host String projected from 'host_life_stage.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_life_stage_language:
-        name: host_life_stage_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_life_stage.language'.
-        range: language_code
         required: false
         multivalued: false
       host_name:
@@ -9967,18 +9762,11 @@ classes:
         description: Gender or physical sex of the host
         range: string
         multivalued: false
-      host_shape_has_raw_value:
-        name: host_shape_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_shape.has_raw_value'.
+      host_shape:
+        name: host_shape
+        description: Morphological shape of host String projected from 'host_shape.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_shape_language:
-        name: host_shape_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_shape.language'.
-        range: language_code
         required: false
         multivalued: false
       host_species:
@@ -9991,18 +9779,11 @@ classes:
         description: Strain of the host organism that the sample was collected from.
         range: string
         multivalued: false
-      host_subject_id_has_raw_value:
-        name: host_subject_id_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_subject_id.has_raw_value'.
+      host_subject_id:
+        name: host_subject_id
+        description: A unique identifier by which each subject can be referred to,
+          de-identified String projected from 'host_subject_id.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_subject_id_language:
-        name: host_subject_id_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_subject_id.language'.
-        range: language_code
         required: false
         multivalued: false
       host_subspecf_genlin:
@@ -10014,18 +9795,11 @@ classes:
           the lineage name and the lineage rank separated by a colon, e.g., biovar:abc123
         range: string
         multivalued: true
-      host_substrate_has_raw_value:
-        name: host_substrate_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'host_substrate.has_raw_value'.
+      host_substrate:
+        name: host_substrate
+        description: The growth substrate of the host String projected from 'host_substrate.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      host_substrate_language:
-        name: host_substrate_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'host_substrate.language'.
-        range: language_code
         required: false
         multivalued: false
       host_symbiont:
@@ -10483,18 +10257,12 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      light_regm_has_raw_value:
-        name: light_regm_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'light_regm.has_raw_value'.
+      light_regm:
+        name: light_regm
+        description: Information about treatment(s) involving exposure to light, including
+          both light intensity and quality String projected from 'light_regm.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      light_regm_language:
-        name: light_regm_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'light_regm.language'.
-        range: language_code
         required: false
         multivalued: false
       light_type:
@@ -10505,18 +10273,11 @@ classes:
           Can also include absence of light
         range: LightTypeEnum
         multivalued: true
-      link_addit_analys_has_raw_value:
-        name: link_addit_analys_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'link_addit_analys.has_raw_value'.
+      link_addit_analys:
+        name: link_addit_analys
+        description: Link to additional analysis results performed on the sample String
+          projected from 'link_addit_analys.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      link_addit_analys_language:
-        name: link_addit_analys_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'link_addit_analys.language'.
-        range: language_code
         required: false
         multivalued: false
       link_class_info:
@@ -10524,18 +10285,11 @@ classes:
         description: Link to digitized soil maps or other soil classification information
         range: string
         multivalued: false
-      link_climate_info_has_raw_value:
-        name: link_climate_info_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'link_climate_info.has_raw_value'.
+      link_climate_info:
+        name: link_climate_info
+        description: Link to climate resource String projected from 'link_climate_info.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      link_climate_info_language:
-        name: link_climate_info_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'link_climate_info.language'.
-        range: language_code
         required: false
         multivalued: false
       lithology:
@@ -10545,18 +10299,11 @@ classes:
           is specified, please propose entry in "additional info" field'
         range: LithologyEnum
         multivalued: false
-      local_class_has_raw_value:
-        name: local_class_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'local_class.has_raw_value'.
+      local_class:
+        name: local_class
+        description: Soil classification based on local soil classification system
+          String projected from 'local_class.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      local_class_language:
-        name: local_class_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'local_class.language'.
-        range: language_code
         required: false
         multivalued: false
       local_class_meth:
@@ -11469,18 +11216,12 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      permeability_has_raw_value:
-        name: permeability_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'permeability.has_raw_value'.
+      permeability:
+        name: permeability
+        description: 'Measure of the ability of a hydrocarbon resource to allow fluids
+          to pass through it. (Additional information: https://en.wikipedia.org/wiki/Permeability_(earth_sciences))
+          String projected from ''permeability.has_raw_value'' (TextValue).'
         range: string
-        required: false
-        multivalued: false
-      permeability_language:
-        name: permeability_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'permeability.language'.
-        range: language_code
         required: false
         multivalued: false
       petroleum_hydrocarb_has_maximum_numeric_value:
@@ -11522,18 +11263,11 @@ classes:
           aqueous phase of the fluid
         range: float
         multivalued: false
-      ph_meth_has_raw_value:
-        name: ph_meth_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'ph_meth.has_raw_value'.
+      ph_meth:
+        name: ph_meth
+        description: Reference or method used in determining pH String projected from
+          'ph_meth.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      ph_meth_language:
-        name: ph_meth_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'ph_meth.language'.
-        range: language_code
         required: false
         multivalued: false
       phosphate_has_maximum_numeric_value:
@@ -11668,18 +11402,11 @@ classes:
         range: string
         required: false
         multivalued: false
-      plant_product_has_raw_value:
-        name: plant_product_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'plant_product.has_raw_value'.
+      plant_product:
+        name: plant_product
+        description: Substance produced by the plant, where the sample was obtained
+          from String projected from 'plant_product.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      plant_product_language:
-        name: plant_product_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'plant_product.language'.
-        range: language_code
         required: false
         multivalued: false
       plant_sex:
@@ -11754,18 +11481,12 @@ classes:
         range: string
         required: false
         multivalued: false
-      porosity_has_raw_value:
-        name: porosity_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'porosity.has_raw_value'.
+      porosity:
+        name: porosity
+        description: Porosity of deposited sediment is volume of voids divided by
+          the total volume of sample String projected from 'porosity.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      porosity_language:
-        name: porosity_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'porosity.language'.
-        range: language_code
         required: false
         multivalued: false
       potassium_has_maximum_numeric_value:
@@ -11834,18 +11555,12 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      pre_treatment_has_raw_value:
-        name: pre_treatment_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'pre_treatment.has_raw_value'.
+      pre_treatment:
+        name: pre_treatment
+        description: The process of pre-treatment removes materials that can be easily
+          collected from the raw wastewater String projected from 'pre_treatment.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      pre_treatment_language:
-        name: pre_treatment_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'pre_treatment.language'.
-        range: language_code
         required: false
         multivalued: false
       pres_animal_insect:
@@ -11931,18 +11646,12 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      primary_treatment_has_raw_value:
-        name: primary_treatment_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'primary_treatment.has_raw_value'.
+      primary_treatment:
+        name: primary_treatment
+        description: The process to produce both a generally homogeneous liquid capable
+          of being treated biologically and a sludge that can be separately treated
+          or processed String projected from 'primary_treatment.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      primary_treatment_language:
-        name: primary_treatment_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'primary_treatment.language'.
-        range: language_code
         required: false
         multivalued: false
       prod_rate_has_maximum_numeric_value:
@@ -12047,18 +11756,13 @@ classes:
         description: The quadrant position of the sampling room within the building
         range: QuadPosEnum
         multivalued: false
-      reactor_type_has_raw_value:
-        name: reactor_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'reactor_type.has_raw_value'.
+      reactor_type:
+        name: reactor_type
+        description: Anaerobic digesters can be designed and engineered to operate
+          using a number of different process configurations, as batch or continuous,
+          mesophilic, high solid or low solid, and single stage or multistage String
+          projected from 'reactor_type.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      reactor_type_language:
-        name: reactor_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'reactor_type.language'.
-        range: language_code
         required: false
         multivalued: false
       redox_potential_has_maximum_numeric_value:
@@ -12170,32 +11874,22 @@ classes:
         description: If sending biological replicates, indicate the rep number here.
         range: integer
         multivalued: false
-      reservoir_has_raw_value:
-        name: reservoir_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'reservoir.has_raw_value'.
+      reservoir:
+        name: reservoir
+        description: Name of the reservoir (e.g. Carapebus) String projected from
+          'reservoir.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      reservoir_language:
-        name: reservoir_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'reservoir.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      resins_pc_has_raw_value:
-        name: resins_pc_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'resins_pc.has_raw_value'.
+      resins_pc:
+        name: resins_pc
+        description: 'Saturate, Aromatic, Resin and Asphaltene (SARA) is an analysis
+          method that divides crude oil components according to their polarizability
+          and polarity. There are three main methods to obtain SARA results. The most
+          popular one is known as the Iatroscan TLC-FID and is referred to as IP-143
+          (source: https://en.wikipedia.org/wiki/Saturate,_aromatic,_resin_and_asphaltene)
+          String projected from ''resins_pc.has_raw_value'' (TextValue).'
         range: string
-        required: false
-        multivalued: false
-      resins_pc_language:
-        name: resins_pc_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'resins_pc.language'.
-        range: language_code
         required: false
         multivalued: false
       rna_isolate_meth:
@@ -12252,74 +11946,42 @@ classes:
         description: List of rooms connected to the sampling room by a doorway
         range: RoomConnectedEnum
         multivalued: false
-      room_count_has_raw_value:
-        name: room_count_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_count.has_raw_value'.
+      room_count:
+        name: room_count
+        description: The total count of rooms in the built structure including all
+          room types String projected from 'room_count.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      room_count_language:
-        name: room_count_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_count.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      room_dim_has_raw_value:
-        name: room_dim_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_dim.has_raw_value'.
+      room_dim:
+        name: room_dim
+        description: The length, width and height of sampling room String projected
+          from 'room_dim.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      room_dim_language:
-        name: room_dim_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_dim.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      room_door_dist_has_raw_value:
-        name: room_door_dist_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_door_dist.has_raw_value'.
+      room_door_dist:
+        name: room_door_dist
+        description: Distance between doors (meters) in the hallway between the sampling
+          room and adjacent rooms String projected from 'room_door_dist.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      room_door_dist_language:
-        name: room_door_dist_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_door_dist.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      room_door_share_has_raw_value:
-        name: room_door_share_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_door_share.has_raw_value'.
+      room_door_share:
+        name: room_door_share
+        description: List of room(s) (room number, room name) sharing a door with
+          the sampling room String projected from 'room_door_share.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      room_door_share_language:
-        name: room_door_share_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_door_share.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      room_hallway_has_raw_value:
-        name: room_hallway_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_hallway.has_raw_value'.
+      room_hallway:
+        name: room_hallway
+        description: List of room(s) (room number, room name) located in the same
+          hallway as sampling room String projected from 'room_hallway.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      room_hallway_language:
-        name: room_hallway_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_hallway.language'.
-        range: language_code
         required: false
         multivalued: false
       room_loc:
@@ -12333,18 +11995,11 @@ classes:
           Number of events of moisture damage or mold observed
         range: integer
         multivalued: false
-      room_net_area_has_raw_value:
-        name: room_net_area_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_net_area.has_raw_value'.
+      room_net_area:
+        name: room_net_area
+        description: The net floor area of sampling room. Net area excludes wall thicknesses
+          String projected from 'room_net_area.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      room_net_area_language:
-        name: room_net_area_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_net_area.language'.
-        range: language_code
         required: false
         multivalued: false
       room_occup_has_maximum_numeric_value:
@@ -12392,32 +12047,19 @@ classes:
           any distinguishable space within a structure
         range: string
         multivalued: false
-      room_vol_has_raw_value:
-        name: room_vol_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_vol.has_raw_value'.
+      room_vol:
+        name: room_vol
+        description: Volume of sampling room String projected from 'room_vol.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      room_vol_language:
-        name: room_vol_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_vol.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      room_wall_share_has_raw_value:
-        name: room_wall_share_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'room_wall_share.has_raw_value'.
+      room_wall_share:
+        name: room_wall_share
+        description: List of room(s) (room number, room name) sharing a wall with
+          the sampling room String projected from 'room_wall_share.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      room_wall_share_language:
-        name: room_wall_share_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'room_wall_share.language'.
-        range: language_code
         required: false
         multivalued: false
       room_window_count:
@@ -12425,60 +12067,34 @@ classes:
         description: Number of windows in the room
         range: integer
         multivalued: false
-      root_cond_has_raw_value:
-        name: root_cond_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_cond.has_raw_value'.
+      root_cond:
+        name: root_cond
+        description: Relevant rooting conditions such as field plot size, sowing density,
+          container dimensions, number of plants per container String projected from
+          'root_cond.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      root_cond_language:
-        name: root_cond_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_cond.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      root_med_carbon_has_raw_value:
-        name: root_med_carbon_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_med_carbon.has_raw_value'.
+      root_med_carbon:
+        name: root_med_carbon
+        description: Source of organic carbon in the culture rooting medium String
+          projected from 'root_med_carbon.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      root_med_carbon_language:
-        name: root_med_carbon_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_med_carbon.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      root_med_macronutr_has_raw_value:
-        name: root_med_macronutr_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_med_macronutr.has_raw_value'.
+      root_med_macronutr:
+        name: root_med_macronutr
+        description: Measurement of the culture rooting medium macronutrients (N,P,
+          K, Ca, Mg, S) String projected from 'root_med_macronutr.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      root_med_macronutr_language:
-        name: root_med_macronutr_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_med_macronutr.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      root_med_micronutr_has_raw_value:
-        name: root_med_micronutr_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_med_micronutr.has_raw_value'.
+      root_med_micronutr:
+        name: root_med_micronutr
+        description: Measurement of the culture rooting medium micronutrients (Fe,
+          Mn, Zn, B, Cu, Mo) String projected from 'root_med_micronutr.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      root_med_micronutr_language:
-        name: root_med_micronutr_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_med_micronutr.language'.
-        range: language_code
         required: false
         multivalued: false
       root_med_ph_has_maximum_numeric_value:
@@ -12514,46 +12130,27 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      root_med_regl_has_raw_value:
-        name: root_med_regl_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_med_regl.has_raw_value'.
+      root_med_regl:
+        name: root_med_regl
+        description: Growth regulators in the culture rooting medium such as cytokinins,
+          auxins, gybberellins, abscisic acid; e.g. 0.5  mg/L NAA String projected
+          from 'root_med_regl.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      root_med_regl_language:
-        name: root_med_regl_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_med_regl.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      root_med_solid_has_raw_value:
-        name: root_med_solid_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_med_solid.has_raw_value'.
+      root_med_solid:
+        name: root_med_solid
+        description: Specification of the solidifying agent in the culture rooting
+          medium String projected from 'root_med_solid.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      root_med_solid_language:
-        name: root_med_solid_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_med_solid.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      root_med_suppl_has_raw_value:
-        name: root_med_suppl_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'root_med_suppl.has_raw_value'.
+      root_med_suppl:
+        name: root_med_suppl
+        description: Organic supplements of the culture rooting medium, such as vitamins,
+          amino acids, organic acids, antibiotics, activated charcoal String projected
+          from 'root_med_suppl.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      root_med_suppl_language:
-        name: root_med_suppl_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'root_med_suppl.language'.
-        range: language_code
         required: false
         multivalued: false
       salinity_category:
@@ -12638,18 +12235,17 @@ classes:
         description: The floor of the building, where the sampling room is located
         range: string
         multivalued: false
-      samp_loc_corr_rate_has_raw_value:
-        name: samp_loc_corr_rate_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_loc_corr_rate.has_raw_value'.
+      samp_loc_corr_rate:
+        name: samp_loc_corr_rate
+        description: Metal corrosion rate is the speed of metal deterioration due
+          to environmental conditions. As environmental conditions change corrosion
+          rates change accordingly. Therefore, long term corrosion rates are generally
+          more informative than short term rates and for that reason they are preferred
+          during reporting. In the case of suspected MIC, corrosion rate measurements
+          at the time of sampling might provide insights into the involvement of certain
+          microbial community members in MIC as well as potential microbial interplays
+          String projected from 'samp_loc_corr_rate.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      samp_loc_corr_rate_language:
-        name: samp_loc_corr_rate_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_loc_corr_rate.language'.
-        range: language_code
         required: false
         multivalued: false
       samp_mat_process_has_raw_value:
@@ -12762,32 +12358,20 @@ classes:
           for the field source_mat_id is recommended in addition to sample_name
         range: string
         multivalued: false
-      samp_preserv_has_raw_value:
-        name: samp_preserv_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_preserv.has_raw_value'.
+      samp_preserv:
+        name: samp_preserv
+        description: Preservative added to the sample (e.g. Rnalater, alcohol, formaldehyde,
+          etc.). Where appropriate include volume added (e.g. Rnalater; 2 ml) String
+          projected from 'samp_preserv.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      samp_preserv_language:
-        name: samp_preserv_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_preserv.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      samp_room_id_has_raw_value:
-        name: samp_room_id_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_room_id.has_raw_value'.
+      samp_room_id:
+        name: samp_room_id
+        description: Sampling room number. This ID should be consistent with the designations
+          on the building floor plans String projected from 'samp_room_id.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      samp_room_id_language:
-        name: samp_room_id_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_room_id.language'.
-        range: language_code
         required: false
         multivalued: false
       samp_size_has_maximum_numeric_value:
@@ -12831,32 +12415,19 @@ classes:
           in a cascade impactor
         range: string
         multivalued: true
-      samp_store_dur_has_raw_value:
-        name: samp_store_dur_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_store_dur.has_raw_value'.
+      samp_store_dur:
+        name: samp_store_dur
+        description: Duration for which the sample was stored. Indicate the duration
+          for which the sample was stored written in ISO 8601 format String projected
+          from 'samp_store_dur.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      samp_store_dur_language:
-        name: samp_store_dur_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_store_dur.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      samp_store_loc_has_raw_value:
-        name: samp_store_loc_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_store_loc.has_raw_value'.
+      samp_store_loc:
+        name: samp_store_loc
+        description: Location at which sample was stored, usually name of a specific
+          freezer/room String projected from 'samp_store_loc.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      samp_store_loc_language:
-        name: samp_store_loc_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_store_loc.language'.
-        range: language_code
         required: false
         multivalued: false
       samp_store_temp_has_maximum_numeric_value:
@@ -12965,60 +12536,40 @@ classes:
         range: string
         required: false
         multivalued: false
-      samp_time_out_has_raw_value:
-        name: samp_time_out_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_time_out.has_raw_value'.
+      samp_time_out:
+        name: samp_time_out
+        description: The recent and long term history of outside sampling String projected
+          from 'samp_time_out.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      samp_time_out_language:
-        name: samp_time_out_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_time_out.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      samp_transport_cond_has_raw_value:
-        name: samp_transport_cond_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_transport_cond.has_raw_value'.
+      samp_transport_cond:
+        name: samp_transport_cond
+        description: Sample transport duration (in days or hrs) and temperature the
+          sample was exposed to (e.g. 5.5 days; 20   C) String projected from 'samp_transport_cond.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      samp_transport_cond_language:
-        name: samp_transport_cond_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_transport_cond.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      samp_tvdss_has_raw_value:
-        name: samp_tvdss_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_tvdss.has_raw_value'.
+      samp_tvdss:
+        name: samp_tvdss
+        description: Depth of the sample i.e. The vertical distance between the sea
+          level and the sampled position in the subsurface. Depth can be reported
+          as an interval for subsurface samples e.g. 1325.75-1362.25 m String projected
+          from 'samp_tvdss.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      samp_tvdss_language:
-        name: samp_tvdss_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_tvdss.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      samp_type_has_raw_value:
-        name: samp_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_type.has_raw_value'.
+      samp_type:
+        name: samp_type
+        description: The type of material from which the sample was obtained. For
+          the Hydrocarbon package, samples include types like core, rock trimmings,
+          drill cuttings, piping section, coupon, pigging debris, solid deposit, produced
+          fluid, produced water, injected water, swabs, etc. For the Food Package,
+          samples are usually categorized as food, body products or tissues, or environmental
+          material. This field accepts terms listed under environmental specimen (http://purl.obolibrary.org/obo/GENEPIO_0001246)
+          String projected from 'samp_type.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      samp_type_language:
-        name: samp_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_type.language'.
-        range: language_code
         required: false
         multivalued: false
       samp_weather:
@@ -13026,18 +12577,11 @@ classes:
         description: The weather on the sampling day
         range: SampWeatherEnum
         multivalued: false
-      samp_well_name_has_raw_value:
-        name: samp_well_name_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'samp_well_name.has_raw_value'.
+      samp_well_name:
+        name: samp_well_name
+        description: Name of the well (e.g. BXA1123) where sample was taken String
+          projected from 'samp_well_name.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      samp_well_name_language:
-        name: samp_well_name_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'samp_well_name.language'.
-        range: language_code
         required: false
         multivalued: false
       sample_collection_site:
@@ -13064,18 +12608,15 @@ classes:
         description: Type of sample being submitted
         range: SampleTypeEnum
         multivalued: false
-      saturates_pc_has_raw_value:
-        name: saturates_pc_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'saturates_pc.has_raw_value'.
+      saturates_pc:
+        name: saturates_pc
+        description: 'Saturate, Aromatic, Resin and Asphaltene (SARA) is an analysis
+          method that divides crude oil components according to their polarizability
+          and polarity. There are three main methods to obtain SARA results. The most
+          popular one is known as the Iatroscan TLC-FID and is referred to as IP-143
+          (source: https://en.wikipedia.org/wiki/Saturate,_aromatic,_resin_and_asphaltene)
+          String projected from ''saturates_pc.has_raw_value'' (TextValue).'
         range: string
-        required: false
-        multivalued: false
-      saturates_pc_language:
-        name: saturates_pc_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'saturates_pc.language'.
-        range: language_code
         required: false
         multivalued: false
       season:
@@ -13156,18 +12697,12 @@ classes:
         description: The seasons the space is occupied
         range: SeasonUseEnum
         multivalued: false
-      secondary_treatment_has_raw_value:
-        name: secondary_treatment_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'secondary_treatment.has_raw_value'.
+      secondary_treatment:
+        name: secondary_treatment
+        description: The process for substantially degrading the biological content
+          of the sewage String projected from 'secondary_treatment.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      secondary_treatment_language:
-        name: secondary_treatment_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'secondary_treatment.language'.
-        range: language_code
         required: false
         multivalued: false
       sediment_type:
@@ -13175,18 +12710,11 @@ classes:
         description: Information about the sediment type based on major constituents
         range: SedimentTypeEnum
         multivalued: false
-      sewage_type_has_raw_value:
-        name: sewage_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'sewage_type.has_raw_value'.
+      sewage_type:
+        name: sewage_type
+        description: Type of wastewater treatment plant as municipial or industrial
+          String projected from 'sewage_type.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      sewage_type_language:
-        name: sewage_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'sewage_type.language'.
-        range: language_code
         required: false
         multivalued: false
       shad_dev_water_mold:
@@ -13204,18 +12732,11 @@ classes:
         description: The location of the shading device in relation to the built structure
         range: ShadingDeviceLocEnum
         multivalued: false
-      shading_device_mat_has_raw_value:
-        name: shading_device_mat_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'shading_device_mat.has_raw_value'.
+      shading_device_mat:
+        name: shading_device_mat
+        description: The material the shading device is composed of String projected
+          from 'shading_device_mat.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      shading_device_mat_language:
-        name: shading_device_mat_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'shading_device_mat.language'.
-        range: language_code
         required: false
         multivalued: false
       shading_device_type:
@@ -13223,18 +12744,11 @@ classes:
         description: The type of shading device
         range: ShadingDeviceTypeEnum
         multivalued: false
-      sieving_has_raw_value:
-        name: sieving_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'sieving.has_raw_value'.
+      sieving:
+        name: sieving
+        description: Collection design of pooled samples and/or sieve size and amount
+          of sample sieved String projected from 'sieving.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      sieving_language:
-        name: sieving_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'sieving.language'.
-        range: language_code
         required: false
         multivalued: false
       silicate_has_maximum_numeric_value:
@@ -13270,18 +12784,11 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      size_frac_has_raw_value:
-        name: size_frac_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'size_frac.has_raw_value'.
+      size_frac:
+        name: size_frac
+        description: Filtering pore size used in sample preparation String projected
+          from 'size_frac.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      size_frac_language:
-        name: size_frac_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'size_frac.language'.
-        range: language_code
         required: false
         multivalued: false
       size_frac_low_has_maximum_numeric_value:
@@ -13502,32 +13009,21 @@ classes:
         description: Reference or method used in determining soil texture
         range: string
         multivalued: false
-      soil_type_has_raw_value:
-        name: soil_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'soil_type.has_raw_value'.
+      soil_type:
+        name: soil_type
+        description: Description of the soil type or classification. This field accepts
+          terms under soil (http://purl.obolibrary.org/obo/ENVO_00001998).  Multiple
+          terms can be separated by pipes String projected from 'soil_type.has_raw_value'
+          (TextValue).
         range: string
         required: false
         multivalued: false
-      soil_type_language:
-        name: soil_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'soil_type.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      soil_type_meth_has_raw_value:
-        name: soil_type_meth_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'soil_type_meth.has_raw_value'.
+      soil_type_meth:
+        name: soil_type_meth
+        description: Reference or method used in determining soil series name or other
+          lower-level classification String projected from 'soil_type_meth.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      soil_type_meth_language:
-        name: soil_type_meth_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'soil_type_meth.language'.
-        range: language_code
         required: false
         multivalued: false
       solar_irradiance_has_maximum_numeric_value:
@@ -13600,18 +13096,11 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      source_mat_id_has_raw_value:
-        name: source_mat_id_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'source_mat_id.has_raw_value'.
+      source_mat_id:
+        name: source_mat_id
+        description: A globally unique identifier assigned to the biological sample.
+          String projected from 'source_mat_id.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      source_mat_id_language:
-        name: source_mat_id_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'source_mat_id.language'.
-        range: language_code
         required: false
         multivalued: false
       space_typ_state:
@@ -13704,18 +13193,12 @@ classes:
           samples.
         range: string
         multivalued: false
-      store_cond_has_raw_value:
-        name: store_cond_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'store_cond.has_raw_value'.
+      store_cond:
+        name: store_cond
+        description: Explain how and for how long the soil sample was stored before
+          DNA extraction (fresh/frozen/other) String projected from 'store_cond.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      store_cond_language:
-        name: store_cond_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'store_cond.language'.
-        range: language_code
         required: false
         multivalued: false
       substructure_type:
@@ -14108,18 +13591,12 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      tertiary_treatment_has_raw_value:
-        name: tertiary_treatment_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'tertiary_treatment.has_raw_value'.
+      tertiary_treatment:
+        name: tertiary_treatment
+        description: The process providing a final treatment stage to raise the effluent
+          quality before it is discharged to the receiving environment String projected
+          from 'tertiary_treatment.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      tertiary_treatment_language:
-        name: tertiary_treatment_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'tertiary_treatment.language'.
-        range: language_code
         required: false
         multivalued: false
       tidal_stage:
@@ -14132,18 +13609,11 @@ classes:
         description: Note method(s) used for tilling
         range: TillageEnum
         multivalued: true
-      tiss_cult_growth_med_has_raw_value:
-        name: tiss_cult_growth_med_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'tiss_cult_growth_med.has_raw_value'.
+      tiss_cult_growth_med:
+        name: tiss_cult_growth_med
+        description: Description of plant tissue culture growth media used String
+          projected from 'tiss_cult_growth_med.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      tiss_cult_growth_med_language:
-        name: tiss_cult_growth_med_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'tiss_cult_growth_med.language'.
-        range: language_code
         required: false
         multivalued: false
       toluene_has_maximum_numeric_value:
@@ -14743,18 +14213,11 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-      ventilation_type_has_raw_value:
-        name: ventilation_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'ventilation_type.has_raw_value'.
+      ventilation_type:
+        name: ventilation_type
+        description: Ventilation system used in the sampled premises String projected
+          from 'ventilation_type.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      ventilation_type_language:
-        name: ventilation_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'ventilation_type.language'.
-        range: language_code
         required: false
         multivalued: false
       vfa_fw_has_maximum_numeric_value:
@@ -14828,18 +14291,12 @@ classes:
         description: The building visual media
         range: string
         multivalued: false
-      viscosity_has_raw_value:
-        name: viscosity_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'viscosity.has_raw_value'.
+      viscosity:
+        name: viscosity
+        description: A measure of oil's resistance to gradual deformation by shear
+          stress or tensile stress (e.g. 3.5 cp; 100 °C) String projected from 'viscosity.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      viscosity_language:
-        name: viscosity_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'viscosity.language'.
-        range: language_code
         required: false
         multivalued: false
       wall_area_has_maximum_numeric_value:
@@ -14972,18 +14429,11 @@ classes:
         description: Signs of the presence of mold or mildew on a wall
         range: MoldVisibilityEnum
         multivalued: false
-      wastewater_type_has_raw_value:
-        name: wastewater_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'wastewater_type.has_raw_value'.
+      wastewater_type:
+        name: wastewater_type
+        description: The origin of wastewater such as human waste, rainfall, storm
+          drains, etc String projected from 'wastewater_type.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      wastewater_type_language:
-        name: wastewater_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'wastewater_type.language'.
-        range: language_code
         required: false
         multivalued: false
       water_cont_soil_meth:
@@ -15139,32 +14589,22 @@ classes:
         description: The day of the week when sampling occurred
         range: WeekdayEnum
         multivalued: false
-      win_has_raw_value:
-        name: win_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'win.has_raw_value'.
+      win:
+        name: win
+        description: 'A unique identifier of a well or wellbore. This is part of the
+          Global Framework for Well Identification initiative which is compiled by
+          the Professional Petroleum Data Management Association (PPDM) in an effort
+          to improve well identification systems. (Supporting information: https://ppdm.org/
+          and http://dl.ppdm.org/dl/690) String projected from ''win.has_raw_value''
+          (TextValue).'
         range: string
         required: false
         multivalued: false
-      win_language:
-        name: win_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'win.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      wind_direction_has_raw_value:
-        name: wind_direction_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'wind_direction.has_raw_value'.
+      wind_direction:
+        name: wind_direction
+        description: Wind direction is the direction from which a wind originates
+          String projected from 'wind_direction.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      wind_direction_language:
-        name: wind_direction_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'wind_direction.language'.
-        range: language_code
         required: false
         multivalued: false
       wind_speed_has_maximum_numeric_value:
@@ -15225,32 +14665,18 @@ classes:
         description: The type of material used to finish a window
         range: WindowMatEnum
         multivalued: false
-      window_open_freq_has_raw_value:
-        name: window_open_freq_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'window_open_freq.has_raw_value'.
+      window_open_freq:
+        name: window_open_freq
+        description: The number of times windows are opened per week String projected
+          from 'window_open_freq.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
-      window_open_freq_language:
-        name: window_open_freq_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'window_open_freq.language'.
-        range: language_code
-        required: false
-        multivalued: false
-      window_size_has_raw_value:
-        name: window_size_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'window_size.has_raw_value'.
+      window_size:
+        name: window_size
+        description: The window's length and width String projected from 'window_size.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      window_size_language:
-        name: window_size_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'window_size.language'.
-        range: language_code
         required: false
         multivalued: false
       window_status:
@@ -15349,31 +14775,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.agrochem_addition';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      agrochem_addition:
+        name: agrochem_addition
+        description: Addition of fertilizers, pesticides, etc. - amount and time of
+          applications String projected from 'agrochem_addition.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_air_temp_regm:
     name: biosample_set_air_temp_regm
     annotations:
@@ -15383,31 +14798,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.air_temp_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      air_temp_regm:
+        name: air_temp_regm
+        description: Information about treatment involving an exposure to varying
+          temperatures; should include the temperature, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include different
+          temperature regimens String projected from 'air_temp_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_antibiotic_regm:
     name: biosample_set_antibiotic_regm
     annotations:
@@ -15417,31 +14825,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.antibiotic_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      antibiotic_regm:
+        name: antibiotic_regm
+        description: Information about treatment involving antibiotic administration;
+          should include the name of antibiotic, amount administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple antibiotic regimens String projected from 'antibiotic_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_associated_studies:
     name: biosample_set_associated_studies
     annotations:
@@ -15472,31 +14873,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.atmospheric_data';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      atmospheric_data:
+        name: atmospheric_data
+        description: Measurement of atmospheric data; can include multiple data String
+          projected from 'atmospheric_data.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_biomass:
     name: biosample_set_biomass
     annotations:
@@ -15506,31 +14896,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.biomass';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      biomass:
+        name: biomass
+        description: Amount of biomass; should include the name for the part of biomass
+          measured, e.g. Microbial, total. Can include multiple measurements String
+          projected from 'biomass.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_chem_administration:
     name: biosample_set_chem_administration
     annotations:
@@ -15629,31 +15009,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.chem_mutagen';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      chem_mutagen:
+        name: chem_mutagen
+        description: Treatment involving use of mutagens; should include the name
+          of mutagen, amount administered, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple mutagen regimens
+          String projected from 'chem_mutagen.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_climate_environment:
     name: biosample_set_climate_environment
     annotations:
@@ -15663,31 +15035,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.climate_environment';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      climate_environment:
+        name: climate_environment
+        description: Treatment involving an exposure to a particular climate; treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple climates String projected from 'climate_environment.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_diether_lipids:
     name: biosample_set_diether_lipids
     annotations:
@@ -15697,31 +15061,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.diether_lipids';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      diether_lipids:
+        name: diether_lipids
+        description: Concentration of diether lipids; can include multiple types of
+          diether lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_emulsions:
     name: biosample_set_emulsions
     annotations:
@@ -15731,31 +15084,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.emulsions';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      emulsions:
+        name: emulsions
+        description: Amount or concentration of substances such as paints, adhesives,
+          mayonnaise, hair colorants, emulsified oils, etc.; can include multiple
+          emulsion types String projected from 'emulsions.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_fertilizer_regm:
     name: biosample_set_fertilizer_regm
     annotations:
@@ -15765,31 +15108,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.fertilizer_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      fertilizer_regm:
+        name: fertilizer_regm
+        description: Information about treatment involving the use of fertilizers;
+          should include the name of fertilizer, amount administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple fertilizer regimens String projected from 'fertilizer_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_fungicide_regm:
     name: biosample_set_fungicide_regm
     annotations:
@@ -15799,31 +15135,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.fungicide_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      fungicide_regm:
+        name: fungicide_regm
+        description: Information about treatment involving use of fungicides; should
+          include the name of fungicide, amount administered, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include multiple
+          fungicide regimens String projected from 'fungicide_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_gaseous_environment:
     name: biosample_set_gaseous_environment
     annotations:
@@ -15833,31 +15162,22 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.gaseous_environment';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      gaseous_environment:
+        name: gaseous_environment
+        description: Use of conditions with differing gaseous environments; should
+          include the name of gaseous compound, amount administered, treatment duration,
+          interval and total experimental duration; can include multiple gaseous environment
+          regimens String projected from 'gaseous_environment.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_gaseous_substances:
     name: biosample_set_gaseous_substances
     annotations:
@@ -15867,31 +15187,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.gaseous_substances';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      gaseous_substances:
+        name: gaseous_substances
+        description: Amount or concentration of substances such as hydrogen sulfide,
+          carbon dioxide, methane, etc.; can include multiple substances String projected
+          from 'gaseous_substances.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_gravity:
     name: biosample_set_gravity
     annotations:
@@ -15901,31 +15211,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.gravity';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      gravity:
+        name: gravity
+        description: Information about treatment involving use of gravity factor to
+          study various types of responses in presence, absence or modified levels
+          of gravity; treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple treatments String projected from
+          'gravity.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_growth_hormone_regm:
     name: biosample_set_growth_hormone_regm
     annotations:
@@ -15935,31 +15238,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.growth_hormone_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      growth_hormone_regm:
+        name: growth_hormone_regm
+        description: Information about treatment involving use of growth hormones;
+          should include the name of growth hormone, amount administered, treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple growth hormone regimens String projected from 'growth_hormone_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_heavy_metals:
     name: biosample_set_heavy_metals
     annotations:
@@ -15969,31 +15265,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.heavy_metals';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      heavy_metals:
+        name: heavy_metals
+        description: Heavy metals present in the sample and their concentrations.
+          String projected from 'heavy_metals.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_herbicide_regm:
     name: biosample_set_herbicide_regm
     annotations:
@@ -16003,31 +15288,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.herbicide_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      herbicide_regm:
+        name: herbicide_regm
+        description: Information about treatment involving use of herbicides; information
+          about treatment involving use of growth hormones; should include the name
+          of herbicide, amount administered, treatment regimen including how many
+          times the treatment was repeated, how long each treatment lasted, and the
+          start and end time of the entire treatment; can include multiple regimens
+          String projected from 'herbicide_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_host_diet:
     name: biosample_set_host_diet
     annotations:
@@ -16037,31 +15315,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.host_diet';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      host_diet:
+        name: host_diet
+        description: Type of diet depending on the host, for animals omnivore, herbivore
+          etc., for humans high-fat, meditteranean etc.; can include multiple diet
+          types String projected from 'host_diet.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_humidity_regm:
     name: biosample_set_humidity_regm
     annotations:
@@ -16071,31 +15339,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.humidity_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      humidity_regm:
+        name: humidity_regm
+        description: Information about treatment involving an exposure to varying
+          degree of humidity; information about treatment involving use of growth
+          hormones; should include amount of humidity administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple regimens String projected from 'humidity_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_inorg_particles:
     name: biosample_set_inorg_particles
     annotations:
@@ -16105,31 +15366,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.inorg_particles';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      inorg_particles:
+        name: inorg_particles
+        description: Concentration of particles such as sand, grit, metal particles,
+          ceramics, etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_mineral_nutr_regm:
     name: biosample_set_mineral_nutr_regm
     annotations:
@@ -16139,31 +15390,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.mineral_nutr_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      mineral_nutr_regm:
+        name: mineral_nutr_regm
+        description: Information about treatment involving the use of mineral supplements;
+          should include the name of mineral nutrient, amount administered, treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_misc_param:
     name: biosample_set_misc_param
     annotations:
@@ -16260,31 +15504,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.n_alkanes';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      n_alkanes:
+        name: n_alkanes
+        description: Concentration of n-alkanes; can include multiple n-alkanes String
+          projected from 'n_alkanes.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_org_particles:
     name: biosample_set_org_particles
     annotations:
@@ -16294,31 +15527,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.org_particles';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      org_particles:
+        name: org_particles
+        description: Concentration of particles such as faeces, hairs, food, vomit,
+          paper fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_organism_count:
     name: biosample_set_organism_count
     annotations:
@@ -16380,31 +15603,22 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.particle_class';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      particle_class:
+        name: particle_class
+        description: Particles are classified, based on their size, into six general
+          categories:clay, silt, sand, gravel, cobbles, and boulders; should include
+          amount of particle preceded by the name of the particle type; can include
+          multiple values String projected from 'particle_class.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_perturbation:
     name: biosample_set_perturbation
     annotations:
@@ -16414,31 +15628,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.perturbation';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      perturbation:
+        name: perturbation
+        description: Type of perturbation, e.g. chemical administration, physical
+          disturbance, etc., coupled with perturbation regimen including how many
+          times the perturbation was repeated, how long each perturbation lasted,
+          and the start and end time of the entire perturbation period; can include
+          multiple perturbation types String projected from 'perturbation.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_pesticide_regm:
     name: biosample_set_pesticide_regm
     annotations:
@@ -16448,31 +15655,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.pesticide_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      pesticide_regm:
+        name: pesticide_regm
+        description: Information about treatment involving use of insecticides; should
+          include the name of pesticide, amount administered, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include multiple
+          pesticide regimens String projected from 'pesticide_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_ph_regm:
     name: biosample_set_ph_regm
     annotations:
@@ -16482,31 +15682,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.ph_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      ph_regm:
+        name: ph_regm
+        description: Information about treatment involving exposure of plants to varying
+          levels of ph of the growth media, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple regimen String
+          projected from 'ph_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_phaeopigments:
     name: biosample_set_phaeopigments
     annotations:
@@ -16516,31 +15708,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.phaeopigments';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      phaeopigments:
+        name: phaeopigments
+        description: Concentration of phaeopigments; can include multiple phaeopigments
+          String projected from 'phaeopigments.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_phosplipid_fatt_acid:
     name: biosample_set_phosplipid_fatt_acid
     annotations:
@@ -16550,31 +15731,20 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.phosplipid_fatt_acid';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      phosplipid_fatt_acid:
+        name: phosplipid_fatt_acid
+        description: Concentration of phospholipid fatty acids; can include multiple
+          values String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_pollutants:
     name: biosample_set_pollutants
     annotations:
@@ -16584,31 +15754,22 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.pollutants';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      pollutants:
+        name: pollutants
+        description: Pollutant types and, amount or concentrations measured at the
+          time of sampling; can report multiple pollutants by entering numeric values
+          preceded by name of pollutant String projected from 'pollutants.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_radiation_regm:
     name: biosample_set_radiation_regm
     annotations:
@@ -16618,31 +15779,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.radiation_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      radiation_regm:
+        name: radiation_regm
+        description: Information about treatment involving exposure of plant or a
+          plant part to a particular radiation regimen; should include the radiation
+          type, amount or intensity administered, treatment regimen including how
+          many times the treatment was repeated, how long each treatment lasted, and
+          the start and end time of the entire treatment; can include multiple radiation
+          regimens String projected from 'radiation_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_rainfall_regm:
     name: biosample_set_rainfall_regm
     annotations:
@@ -16652,31 +15806,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.rainfall_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      rainfall_regm:
+        name: rainfall_regm
+        description: Information about treatment involving an exposure to a given
+          amount of rainfall, treatment regimen including how many times the treatment
+          was repeated, how long each treatment lasted, and the start and end time
+          of the entire treatment; can include multiple regimens String projected
+          from 'rainfall_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_salt_regm:
     name: biosample_set_salt_regm
     annotations:
@@ -16686,31 +15832,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.salt_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      salt_regm:
+        name: salt_regm
+        description: Information about treatment involving use of salts as supplement
+          to liquid and soil growth media; should include the name of salt, amount
+          administered, treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple salt regimens String projected
+          from 'salt_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_season_environment:
     name: biosample_set_season_environment
     annotations:
@@ -16720,31 +15859,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.season_environment';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      season_environment:
+        name: season_environment
+        description: Treatment involving an exposure to a particular season (e.g.
+          Winter, summer, rabi, rainy etc.), treatment regimen including how many
+          times the treatment was repeated, how long each treatment lasted, and the
+          start and end time of the entire treatment String projected from 'season_environment.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_soluble_inorg_mat:
     name: biosample_set_soluble_inorg_mat
     annotations:
@@ -16754,31 +15885,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.soluble_inorg_mat';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      soluble_inorg_mat:
+        name: soluble_inorg_mat
+        description: Concentration of substances such as ammonia, road-salt, sea-salt,
+          cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
+          from 'soluble_inorg_mat.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_soluble_org_mat:
     name: biosample_set_soluble_org_mat
     annotations:
@@ -16788,31 +15909,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.soluble_org_mat';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      soluble_org_mat:
+        name: soluble_org_mat
+        description: Concentration of substances such as urea, fruit sugars, soluble
+          proteins, drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_standing_water_regm:
     name: biosample_set_standing_water_regm
     annotations:
@@ -16822,31 +15933,24 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.standing_water_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      standing_water_regm:
+        name: standing_water_regm
+        description: Treatment involving an exposure to standing water during a plant's
+          life span, types can be flood water or standing water, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple regimens String projected from 'standing_water_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_suspend_solids:
     name: biosample_set_suspend_solids
     annotations:
@@ -16856,31 +15960,21 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.suspend_solids';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      suspend_solids:
+        name: suspend_solids
+        description: Concentration of substances including a wide variety of material,
+          such as silt, decaying plant and animal matter; can include multiple substances
+          String projected from 'suspend_solids.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_volatile_org_comp:
     name: biosample_set_volatile_org_comp
     annotations:
@@ -16890,31 +15984,22 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.volatile_org_comp';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      volatile_org_comp:
+        name: volatile_org_comp
+        description: Concentration of carbon-based chemicals that easily evaporate
+          at room temperature; can report multiple volatile organic compounds by entering
+          numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_water_temp_regm:
     name: biosample_set_water_temp_regm
     annotations:
@@ -16924,31 +16009,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.water_temp_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      water_temp_regm:
+        name: water_temp_regm
+        description: Information about treatment involving an exposure to water with
+          varying degree of temperature, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple regimens String
+          projected from 'water_temp_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   biosample_set_watering_regm:
     name: biosample_set_watering_regm
     annotations:
@@ -16958,31 +16035,23 @@ classes:
       source_class:
         tag: source_class
         value: Biosample
-    description: A basic string value Flattened tabular form of 'TextValue'. Attributes
-      are the union of base-class slots and slots from concrete subclasses of 'TextValue'
-      that may appear via the 'type' field.
+    description: Raw strings from multivalued TextValue slot 'Biosample.watering_regm';
+      one row per occurrence.
     attributes:
-      has_raw_value:
-        name: has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm"
-        range: string
-        multivalued: false
-      language:
-        name: language
-        description: Should use ISO 639-1 code e.g. "en", "fr"
-        range: language_code
-        multivalued: false
-      type:
-        name: type
-        description: the class_uri of the class that has been instantiated
-        range: uriorcurie
-        required: true
-        multivalued: false
       parent_id:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
+      watering_regm:
+        name: watering_regm
+        description: Information about treatment involving an exposure to watering
+          frequencies, treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple regimens String projected from
+          'watering_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: false
   CalibrationInformationFlat:
     name: CalibrationInformationFlat
     annotations:
@@ -18069,18 +17138,12 @@ classes:
         description: A list of alternative identifiers for the entity.
         range: uriorcurie
         multivalued: true
-      cur_vegetation_has_raw_value:
-        name: cur_vegetation_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'cur_vegetation.has_raw_value'.
+      cur_vegetation:
+        name: cur_vegetation
+        description: Vegetation classification from one or more standard classification
+          systems, or agricultural crop String projected from 'cur_vegetation.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      cur_vegetation_language:
-        name: cur_vegetation_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'cur_vegetation.language'.
-        range: language_code
         required: false
         multivalued: false
       description:
@@ -18096,18 +17159,14 @@ classes:
           the surface, such as an aircraft in flight or a spacecraft in orbit
         range: float
         multivalued: false
-      geo_loc_name_has_raw_value:
-        name: geo_loc_name_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'geo_loc_name.has_raw_value'.
+      geo_loc_name:
+        name: geo_loc_name
+        description: The geographical origin of the sample as defined by the country
+          or sea name followed by specific region name. Country or sea names should
+          be chosen from the INSDC country list (http://insdc.org/country.html), or
+          the GAZ ontology (http://purl.bioontology.org/ontology/GAZ) String projected
+          from 'geo_loc_name.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      geo_loc_name_language:
-        name: geo_loc_name_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'geo_loc_name.language'.
-        range: language_code
         required: false
         multivalued: false
       habitat:
@@ -18141,18 +17200,11 @@ classes:
         range: decimal_degree
         required: false
         multivalued: false
-      local_class_has_raw_value:
-        name: local_class_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'local_class.has_raw_value'.
+      local_class:
+        name: local_class
+        description: Soil classification based on local soil classification system
+          String projected from 'local_class.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      local_class_language:
-        name: local_class_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'local_class.language'.
-        range: language_code
         required: false
         multivalued: false
       name:
@@ -18167,18 +17219,13 @@ classes:
           'FieldResearchSite'.
         range: string
         multivalued: true
-      soil_type_has_raw_value:
-        name: soil_type_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'soil_type.has_raw_value'.
+      soil_type:
+        name: soil_type
+        description: Description of the soil type or classification. This field accepts
+          terms under soil (http://purl.obolibrary.org/obo/ENVO_00001998).  Multiple
+          terms can be separated by pipes String projected from 'soil_type.has_raw_value'
+          (TextValue).
         range: string
-        required: false
-        multivalued: false
-      soil_type_language:
-        name: soil_type_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'soil_type.language'.
-        range: language_code
         required: false
         multivalued: false
       type:
@@ -18951,20 +17998,13 @@ classes:
         description: A human readable label for an entity
         range: string
         multivalued: false
-      nucl_acid_amp_has_raw_value:
-        name: nucl_acid_amp_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'nucl_acid_amp.has_raw_value'..
-          Polymorphic subclass-specific slot (from 'LibraryPreparation').
+      nucl_acid_amp:
+        name: nucl_acid_amp
+        description: A link to a literature reference, electronic resource or a standard
+          operating procedure (SOP), that describes the enzymatic amplification (PCR,
+          TMA, NASBA) of specific nucleic acids String projected from 'nucl_acid_amp.has_raw_value'
+          (TextValue).. Polymorphic subclass-specific slot (from 'LibraryPreparation').
         range: string
-        required: false
-        multivalued: false
-      nucl_acid_amp_language:
-        name: nucl_acid_amp_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'nucl_acid_amp.language'.. Polymorphic subclass-specific slot (from
-          'LibraryPreparation').
-        range: language_code
         required: false
         multivalued: false
       pcr_cond:
@@ -19122,20 +18162,13 @@ classes:
         range: TargetGeneOrLocusEnum
         required: false
         multivalued: false
-      target_subfragment_has_raw_value:
-        name: target_subfragment_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'target_subfragment.has_raw_value'..
-          Polymorphic subclass-specific slot (from 'LibraryPreparation').
+      target_subfragment:
+        name: target_subfragment
+        description: Name of subfragment of a gene or locus. Important to e.g. identify
+          special regions on marker genes like V6 on 16S rRNA String projected from
+          'target_subfragment.has_raw_value' (TextValue).. Polymorphic subclass-specific
+          slot (from 'LibraryPreparation').
         range: string
-        required: false
-        multivalued: false
-      target_subfragment_language:
-        name: target_subfragment_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'target_subfragment.language'.. Polymorphic subclass-specific slot
-          (from 'LibraryPreparation').
-        range: language_code
         required: false
         multivalued: false
       temperature_has_maximum_numeric_value:
@@ -19787,18 +18820,11 @@ classes:
           for the field source_mat_id is recommended in addition to sample_name
         range: string
         multivalued: false
-      source_mat_id_has_raw_value:
-        name: source_mat_id_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'source_mat_id.has_raw_value'.
+      source_mat_id:
+        name: source_mat_id
+        description: Culture collection identifier for the source of this organism
+          sample. String projected from 'source_mat_id.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      source_mat_id_language:
-        name: source_mat_id_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'source_mat_id.language'.
-        range: language_code
         required: false
         multivalued: false
       type:
@@ -19895,18 +18921,13 @@ classes:
         description: Species of the organism.
         range: string
         multivalued: false
-      ref_biomaterial_has_raw_value:
-        name: ref_biomaterial_has_raw_value
-        description: The value that was specified for an annotation in raw form, i.e.
-          a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'ref_biomaterial.has_raw_value'.
+      ref_biomaterial:
+        name: ref_biomaterial
+        description: Reference for the organism, preferentially a DOI when a primary
+          publication or genome report exists; PMID and URL are also accepted per
+          the MIxS ref_biomaterial pattern (`{PMID}|{DOI}|{URL}`). Reuses MIxS ref_biomaterial
+          (MIXS:0000025). String projected from 'ref_biomaterial.has_raw_value' (TextValue).
         range: string
-        required: false
-        multivalued: false
-      ref_biomaterial_language:
-        name: ref_biomaterial_language
-        description: Should use ISO 639-1 code e.g. "en", "fr" Flattened from nested
-          slot 'ref_biomaterial.language'.
-        range: language_code
         required: false
         multivalued: false
       strain_name:
