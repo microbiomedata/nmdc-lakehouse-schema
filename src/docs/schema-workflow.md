@@ -2,9 +2,10 @@
 
 This repository owns the NMDC flat-schema generator, the runtime flattener,
 and the checked-in schema describing their output. The source model comes from
-the separate `nmdc-schema` package. This guide describes the workflow after
-[PR #18](https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/18), merged
-on 2026-09-22, with source schema 11.23.0 and projection 1.2.0.
+the separate `nmdc-schema` package. The current input is tagged release
+**v11.24.0**, with projection **1.2.0**. Upgrades select the latest tagged source
+release deliberately and pin it; ordinary regeneration never follows upstream
+main or selects a newer release automatically.
 
 ## Which repository generates what?
 
@@ -42,12 +43,12 @@ Both files are currently under `src/nmdc_lakehouse_schema/schema/`:
 
 | File | Role |
 | --- | --- |
-| `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Projection 1.2.0 has 58 table classes: 19 primary and 39 non-TextValue side tables. Includes version, source provenance, and a content digest. |
+| `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.24.0 with projection 1.2.0 has 59 table classes: 19 primary and 40 non-TextValue side tables. Includes version, source provenance, and a content digest. |
 | `nmdc_lakehouse_schema.yaml` | Leftover LinkML project-template example with `NamedThing`, `Person`, `PersonCollection`, and `PersonStatus`. It is not the NMDC source model or an input to the flat-schema generator. |
 
 `scripts/generate_flattened_schema.py` reads the installed
 `nmdc_schema/nmdc_materialized_patterns.yaml` and writes the canonical product.
-The development dependency pins `nmdc-schema==11.23.0` in `pyproject.toml` and
+The development dependency pins `nmdc-schema==11.24.0` in `pyproject.toml` and
 `uv.lock`; regeneration does not select the newest upstream schema automatically.
 
 The template's removal is tracked in
@@ -91,6 +92,7 @@ Then run:
 just generate-flat-schema
 just check-flat-schema
 just test
+just test-dist
 just gen-doc
 uv run mkdocs build
 ```
@@ -101,6 +103,10 @@ checks both reproducibility and the artifact's digest. `just test` also includes
 those guards, runtime/generator tests, and the remaining template example tests.
 The template Python generator can rewrite its generated timestamp; review that
 separately from intended changes.
+
+`just test-dist` builds a wheel and source archive in a temporary directory and
+checks that each contains exactly the verified canonical schema bytes. The same
+check gates package publication, before the archives are uploaded to PyPI.
 
 Edit authored documentation under `src/docs/`. Commit source/generator changes,
 the regenerated canonical YAML when it changes, and authored docs through a PR.
@@ -163,7 +169,7 @@ There are three separate identities:
 
 | Identity | Source | Example |
 | --- | --- | --- |
-| Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.23.0` |
+| Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.24.0` |
 | Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.2.0` |
 | Python package version | Git-derived build metadata via `uv-dynamic-versioning` in `pyproject.toml` | A release tag or development version |
 
@@ -171,7 +177,7 @@ There are three separate identities:
 
 ```text
 <source schema version>+flat.<FLATTENER_VERSION>
-11.23.0+flat.1.2.0
+11.24.0+flat.1.2.0
 ```
 
 Just and the generator do not increment the projection version automatically.
@@ -198,6 +204,40 @@ updates it; it is not another manually assigned version. Use the canonical
 repository/package artifact for byte-level digest checks. The website's
 `schema/` download is a LinkML-expanded rendering produced by `gen-yaml`, so it
 is not the same byte stream even though it carries the source annotations.
+
+## Adopting source release 11.24.0
+
+The source upgrade retains projection rules 1.2.0 and changes the artifact identity
+to `11.24.0+flat.1.2.0`. Relative to the 11.23.0 artifact it:
+
+- adds `data_generation_set_has_credit_associations` (58 to 59 table classes);
+- replaces `applies_to_person_*` with `applies_to_agent_*` on study credit rows,
+  including Person email/ORCID and Organization ROR columns;
+- removes `principal_investigator_*` from Study and DataGeneration; and
+- removes `collection_date_inc` from Biosample.
+
+The installed release package supplies the input YAML. The corresponding Git tag's
+checked-in materialized file contains a placeholder `0.0.0` version, so downloading
+that file alone is not equivalent to using the release wheel.
+
+Regression tests exercise Person and Organization credits under Study and both
+DataGeneration subtypes, verify row-key coverage, and preserve collection and
+credit-association types. Consumer-side tests must also verify Parquet round trips
+and target validation. The [earlier production audit](data-audit.md) used 11.23.0;
+it does not establish that production has adopted the renamed 11.24.0 fields.
+
+Before the first 11.24.0 export, audit populated removed/renamed source paths and
+the [unsupported nested paths](transformation-support.md). Resolve populated
+incompatibilities before treating the output as complete; changing the schema pin
+does not migrate MongoDB. The coordinated rollout is tracked in
+[schema #11](https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/11) and
+[lakehouse #345](https://github.com/microbiomedata/nmdc-lakehouse/issues/345).
+
+After this upgrade merges, publish a new schema-package release from merged main
+using the existing tag/release workflow. Verify the published distribution, then
+pin that exact release together with `nmdc-schema==11.24.0` in the lakehouse
+adoption PR. A temporary commit-pinned candidate can support pre-release testing;
+the production dependency must move to the published release before rollout.
 
 ## What a merge publishes
 

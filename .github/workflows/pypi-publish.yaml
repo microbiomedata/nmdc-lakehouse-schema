@@ -58,8 +58,13 @@ jobs:
         run: |
           uv tool install rust-just
 
-      - name: Build source and wheel archives
-        run: uv build
+      - name: Install pinned source-schema tooling
+        run: uv sync --locked --group dev
+
+      - name: Build and verify source and wheel archives
+        run: |
+          uv build
+          uv run python scripts/check_distribution_schema.py dist/*.whl dist/*.tar.gz
 
       # https://github.com/actions/upload-artifact
       - name: Store built distribution

@@ -7,7 +7,7 @@ schema comparison tools, and the canonical generated LinkML target schema.
 Projection `1.2.0` puts TextValue strings directly on their containing records.
 For example, `BiosampleFlat.host_diet` is a multivalued string slot; there is no
 `BiosampleSetHostDiet` class or separate TextValue table. With source schema
-11.23.0, the product has 58 table classes.
+11.24.0, the product has 59 table classes.
 
 - [Generated schema reference](elements/index.md)
 - [TextValue projection and migration](textvalue-projection.md)

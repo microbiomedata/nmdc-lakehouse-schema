@@ -371,6 +371,6 @@ def test_all_pinned_nmdc_textvalue_paths_have_string_columns_and_keep_primary_ty
             assert attribute.range == "string"
             assert attribute.multivalued == bool(slot.multivalued)
     assert (single, repeated) == (101, 41)
-    assert len(flat.classes) == 58
+    assert len(flat.classes) == 59
     assert "biosample_set_host_diet" not in flat.classes
     assert flat.classes["BiosampleFlat"].attributes["host_diet"].multivalued is True

@@ -122,6 +122,15 @@ deploy: site
 [group('model development')]
 test: _test-schema _test-python _test-examples
 
+# Build distributions and verify their canonical schema bytes.
+test-dist:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  scratch="$(mktemp -d)"
+  trap 'rm -rf "$scratch"' EXIT
+  uv build --out-dir "$scratch"
+  uv run python scripts/check_distribution_schema.py "$scratch"/*.whl "$scratch"/*.tar.gz
+
 # Run linting
 [group('model development')]
 lint:
