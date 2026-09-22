@@ -1,13 +1,23 @@
 # TextValue projection
 
-Projection version `1.2.0` maps every slot whose declared range is exactly
+Projection version `1.2.0` maps slots whose declared range is exactly
 `TextValue` to a string slot on its containing record. Single-valued source slots
 become scalar strings; multivalued source slots become string arrays. TextValue
 slots never create a separate class or child table.
 
+This rule applies at paths the flattener visits. It does not overcome unsupported
+enclosing structures or general depth limits; the
+[transformation support guide](transformation-support.md) documents those limits
+and a known child-schema/runtime depth mismatch.
+
 The source schema identifies these slots. Other classes that contain
 `has_raw_value`, including QuantityValue, TimestampValue, PersonValue, and
 ControlledIdentifiedTermValue, keep their existing projection rules.
+
+For repository ownership, the two YAML files, version numbering, and build/deploy
+commands, see the [workflow guide](schema-workflow.md). The dated
+[audit report](data-audit.md) records the MongoDB evidence and polymorphic
+collection inventory.
 
 ## Parent columns
 
@@ -41,7 +51,16 @@ The generated `BiosampleFlat` class declares `geo_loc_name` with `range: string`
 and `multivalued: false`, and `host_diet` with `range: string` and
 `multivalued: true`. The latter becomes a Parquet ARRAY of strings, following the
 existing rule for multivalued scalar slots. There is no `biosample_set_host_diet`
-class, table, or emitted side-table row.
+class, table, or emitted side-table row. The relevant generated schema structure is:
+
+```yaml
+classes:
+  BiosampleFlat:
+    attributes:
+      host_diet:
+        range: string
+        multivalued: true
+```
 
 Columns keep the source slot's name, description, and applicable requiredness,
 plus an extraction note. A TextValue inside another inlined object retains the

@@ -8,8 +8,8 @@ validation code that consumes it:
 
 - **`transforms.schema_generator`** — generates the flat LinkML target schema from a source
   schema (e.g. `nmdc-schema`).
-- **`transforms.flatteners`** — the schema-driven flattener that turns nested LinkML records
-  into flat rows, mirroring the generator's decision tree one-to-one.
+- **`transforms.flatteners`** — the schema-driven flattener that turns supported nested
+  LinkML shapes into flat rows. See the support guide for depth limits and known mismatches.
 - **`transforms.schema_diff`** — diffs two generated flat schemas so "what changed and why"
   is answerable.
 
@@ -28,26 +28,41 @@ validation behavior, and migration from earlier artifacts.
 
 [https://microbiomedata.github.io/nmdc-lakehouse-schema](https://microbiomedata.github.io/nmdc-lakehouse-schema)
 
-## Repository Structure
+## Development and documentation
 
-* [docs/](docs/) - mkdocs-managed documentation
-  * [elements/](docs/elements/) - generated schema documentation
-* [examples/](examples/) - Examples of using the schema
-* [project/](project/) - project files (these files are auto-generated, do not edit)
-* [src/](src/) - source files (edit these)
-  * [nmdc_lakehouse_schema](src/nmdc_lakehouse_schema)
-    * [schema/](src/nmdc_lakehouse_schema/schema) -- LinkML schema
-      (edit this)
-    * [datamodel/](src/nmdc_lakehouse_schema/datamodel) -- generated
-      Python datamodel
-* [tests/](tests/) - Python tests
-  * [data/](tests/data) - Example data
+- [Schema ownership, versions, Just syntax, and build/deploy workflow](src/docs/schema-workflow.md)
+- [TextValue projection and migration](src/docs/textvalue-projection.md)
+- [Supported transformations, helper tables, and known data-loss boundaries](src/docs/transformation-support.md)
+- [Production TextValue and record-type audit](src/docs/data-audit.md)
 
-## Developer Tools
+From an updated feature checkout:
 
-There are several pre-defined command-recipes available.
-They are written for the command runner [just](https://github.com/casey/just/).
-To list all pre-defined commands, run `just` or `just --list`.
+```sh
+just install
+just generate-flat-schema
+just check-flat-schema
+just test
+just gen-doc
+uv run mkdocs build
+```
+
+A merge to `main` rebuilds and deploys documentation from the checked-in schema.
+It does not regenerate that canonical artifact or publish a new Python package.
+Run `just --list` to see available recipes and `just --dry-run gen-doc` to inspect
+resolved documentation commands.
+
+## Repository structure
+
+| Location | Purpose |
+| --- | --- |
+| `src/nmdc_lakehouse_schema/transforms/` | Generator, runtime flattener, and schema-diff implementation. |
+| `src/nmdc_lakehouse_schema/schema/nmdc_schema_flattened.yaml` | Canonical generated product; regenerate it instead of editing by hand. |
+| `src/nmdc_lakehouse_schema/schema/nmdc_lakehouse_schema.yaml` | Remaining Person/PersonCollection template example; removal tracked in [#16](https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/16). |
+| `src/nmdc_lakehouse_schema/datamodel/` | Generated models for that template example, not the NMDC flat product. |
+| `src/docs/` | Authored documentation; edit these sources. |
+| `docs/`, `site/` | Ignored assembled Markdown and built HTML. |
+| `tests/` | Projection/artifact regression tests and remaining template fixtures. |
+| `project/`, `examples/output/` | Ignored output from template-generation/example recipes. |
 
 ## Credits
 
