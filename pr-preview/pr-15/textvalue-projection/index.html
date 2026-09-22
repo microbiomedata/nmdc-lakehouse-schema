@@ -553,6 +553,10 @@ optional in a table combining a class hierarchy. A TextValue inside another
 inlined object retains the enclosing path prefix: <code>detail.label.has_raw_value</code>
 becomes <code>detail_label</code>. The rule also applies inside child-table records and at
 the existing second expansion level.</p>
+<p>At both expansion levels, generated columns include the embedded class and its
+descendants, matching runtime dispatch on the embedded object's <code>type</code>. Columns
+contributed only by a subtype are optional and identify that subtype in their
+descriptions. Base-class column definitions take precedence.</p>
 <h2 id="repeated-values">Repeated values</h2>
 <p>A multivalued TextValue slot keeps its existing child table named
 <code>&lt;collection&gt;_&lt;slot&gt;</code>. Each occurrence produces one row with <code>parent_id</code> and a
