@@ -129,8 +129,12 @@ lint:
 
 # Generate md documentation for the schema and add artifacts
 [group('model development')]
-gen-doc: _copy-docs _gen-yaml && _add-artifacts
+gen-doc: _clean-schema-docs _copy-docs _gen-yaml && _add-artifacts
   uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{doc_schema_path}}
+
+# Remove pages for schema elements that no longer exist before rebuilding.
+_clean-schema-docs:
+  uv run python -c "from pathlib import Path; import shutil; p = Path('{{docdir}}'); shutil.rmtree(p) if p.exists() else None"
 
 # Assemble the docs build dir from authored sources in src/docs
 _copy-docs:
