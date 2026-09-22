@@ -73,10 +73,11 @@ descendants, matching runtime dispatch on the embedded object's `type`. Columns
 contributed only by a subtype are optional and identify that subtype in their
 descriptions. Base-class column definitions take precedence.
 
-Schema 11.23.0 has 101 single-valued and 41 multivalued TextValue paths across
-its collection classes and their subclasses. All 142 now belong to their parent
-classes. Removing the 41 TextValue-only tables leaves 58 table classes: 19 primary
-tables and 39 side tables for other relationships and embedded records.
+Schemas 11.23.0 and 11.24.0 have 101 single-valued and 41 multivalued TextValue paths
+across their collection classes and subclasses. All 142 belong to their parent
+classes. Removing the 41 TextValue-only tables leaves 58 table classes with source
+11.23.0. Source 11.24.0 adds a data-generation credit-association table, bringing
+the product to 59 classes: 19 primary and 40 non-TextValue side tables.
 
 ## Multiplicity, nulls, and empty values
 

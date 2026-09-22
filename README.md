@@ -42,6 +42,7 @@ just install
 just generate-flat-schema
 just check-flat-schema
 just test
+just test-dist
 just gen-doc
 uv run mkdocs build
 ```
@@ -50,6 +51,11 @@ A merge to `main` rebuilds and deploys documentation from the checked-in schema.
 It does not regenerate that canonical artifact or publish a new Python package.
 Run `just --list` to see available recipes and `just --dry-run gen-doc` to inspect
 resolved documentation commands.
+
+The source input is pinned to tagged `nmdc-schema` release **11.24.0**. With
+projection **1.2.0**, the current target is `11.24.0+flat.1.2.0` and has 59 table
+classes. See the [upgrade guidance](src/docs/schema-workflow.md#adopting-source-release-11240)
+for renamed fields, release verification, and production preflight requirements.
 
 ## Repository structure
 

@@ -58,3 +58,7 @@ jobs:
 
       - name: Run test suite
         run: just test
+
+      - name: Verify packaged schema
+        if: matrix.python-version == '3.13'
+        run: just test-dist

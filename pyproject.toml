@@ -37,7 +37,7 @@ dev = [
     # Used by scripts/ (flattened-schema generation + flatten preview). Pinned: the shipped
     # nmdc_schema_flattened.yaml is a function of this exact source version, and consumers
     # (nmdc-lakehouse) must flatten with the same one — bump both repos together.
-    "nmdc-schema==11.23.0",
+    "nmdc-schema==11.24.0",
     "pymongo>=4.9",
 ]
 
