@@ -34,8 +34,17 @@ classes:
       type:
   Inner:
     attributes:
+      type:
       label:
         range: TextValue
+  SpecialInner:
+    is_a: Inner
+    attributes:
+      extra_text:
+        range: TextValue
+        required: true
+      extra_scalar:
+        required: true
   Detail:
     attributes:
       type:
@@ -46,6 +55,14 @@ classes:
         description: A useful label.
       inner:
         range: Inner
+  SpecialDetail:
+    is_a: Detail
+    attributes:
+      extra_text:
+        range: TextValue
+        required: true
+      extra_scalar:
+        required: true
   Record:
     attributes:
       id:
@@ -137,6 +154,51 @@ def test_primary_and_child_rows_match_schema_and_keep_record_types(sv):
     assert rows[0][1].keys() <= child_schema.attributes.keys()
     assert child_schema.attributes["label"].range == "string"
     assert "type" in child_schema.attributes
+
+
+@pytest.mark.parametrize("detail_class", ["Detail", "SpecialDetail"])
+@pytest.mark.parametrize("inner_class", ["Inner", "SpecialInner"])
+@pytest.mark.parametrize("placement", ["primary", "child"])
+def test_embedded_subtype_columns_match_runtime_at_both_levels(
+    sv, detail_class, inner_class, placement
+):
+    detail = {
+        "type": f"test:{detail_class}",
+        "label": {"has_raw_value": "detail"},
+        "inner": {"type": f"test:{inner_class}", "label": {"has_raw_value": "inner"}},
+    }
+    expected = {"label": "detail", "inner_label": "inner"}
+    for obj, class_name, prefix in (
+        (detail, detail_class, ""),
+        (detail["inner"], inner_class, "inner_"),
+    ):
+        if class_name.startswith("Special"):
+            obj.update(extra_text={"has_raw_value": "projected"}, extra_scalar="scalar")
+            expected.update(
+                {f"{prefix}extra_text": "projected", f"{prefix}extra_scalar": "scalar"}
+            )
+    if placement == "primary":
+        row = flatten_record({"detail": detail}, sv, "Record")
+        flat = flatten_class_def(sv, "Record")
+        prefix = "detail_"
+        expected = {f"{prefix}{key}": value for key, value in expected.items()}
+    else:
+        record = {"id": "synthetic:1", "children": [detail]}
+        [(table, row)] = side_table_rows(record, sv, "Record", "record_set")
+        flat = dict(side_table_class_defs(sv, "Record", "record_set"))[table]
+        prefix = ""
+        expected.update(parent_id="synthetic:1", type=f"test:{detail_class}")
+
+    assert row == expected
+    assert row.keys() <= flat.attributes.keys()
+    for level, subclass in (("", "SpecialDetail"), ("inner_", "SpecialInner")):
+        for name in ("extra_text", "extra_scalar"):
+            attribute = flat.attributes[f"{prefix}{level}{name}"]
+            assert attribute.range == "string"
+            assert attribute.required is False
+            assert subclass in attribute.description
+    # Shared columns keep their base definitions when subclasses inherit them.
+    assert "Polymorphic" not in flat.attributes[f"{prefix}label"].description
 
 
 def test_repeated_textvalues_keep_every_occurrence_and_null_row(sv):
@@ -243,14 +305,27 @@ def test_unsafe_projection_fails_without_disclosing_values(sv, value, placement)
     assert "sensitive" not in str(error.value)
 
 
-def test_nested_multivalued_textvalues_are_not_silently_dropped(sv):
+@pytest.mark.parametrize(
+    ("class_name", "slot_name"),
+    [
+        ("Detail", "label"),
+        ("Inner", "label"),
+        ("SpecialDetail", "extra_text"),
+        ("SpecialInner", "extra_text"),
+    ],
+)
+def test_nested_multivalued_textvalues_are_not_silently_dropped(
+    sv, class_name, slot_name
+):
     # This shape is absent from nmdc-schema 11.23.0 and needs a separate mapping.
-    sv.schema.classes["Detail"].attributes["label"].multivalued = True
+    sv.schema.classes[class_name].attributes[slot_name].multivalued = True
     sv.set_modified()
     with pytest.raises(ValueError, match="child-table mapping"):
         flatten_class_def(sv, "Record")
+    value = {"type": f"test:{class_name}", slot_name: [{"has_raw_value": "one"}]}
+    detail = {"inner": value} if class_name.endswith("Inner") else value
     with pytest.raises(ValueError, match="child-table mapping"):
-        flatten_record({"detail": {"label": [{"has_raw_value": "one"}]}}, sv, "Record")
+        flatten_record({"detail": detail}, sv, "Record")
 
 
 def test_all_pinned_nmdc_textvalue_paths_have_string_columns_and_keep_primary_types():

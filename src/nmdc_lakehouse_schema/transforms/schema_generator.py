@@ -448,9 +448,12 @@ def _flatten_slot(
 
     # Single-valued inlined class → expand one level (and one more for
     # nested controlled terms), producing <parent>_<inner> slots.
-    for inner_slot in schema_view.class_induced_slots(range_class.name):
+    for inner_slot, inner_subclass in _polymorphic_slots(schema_view, range_class.name):
         if inner_slot.name == "type":
             continue
+        inner_notes = list(notes)
+        if inner_subclass:
+            inner_notes.append(DISPATCH_NOTE.format(subclass=inner_subclass))
         if inner_slot.range == "TextValue":
             if inner_slot.multivalued:
                 raise ValueError(
@@ -461,7 +464,7 @@ def _flatten_slot(
                 name=f"{slot.name}_{inner_slot.name}",
                 source_path=f"{slot.name}.{inner_slot.name}",
             )
-            _attach_notes(new_slot, notes)
+            _attach_notes(new_slot, inner_notes)
             yield new_slot
             continue
         inner_range = _range_class(inner_slot, schema_view)
@@ -481,14 +484,19 @@ def _flatten_slot(
                 required=False,
             )
             _carry_identifier(new_slot, inner_slot, nested=True)
-            _attach_notes(new_slot, notes)
+            _attach_notes(new_slot, inner_notes)
             yield new_slot
             continue
         # One more level of nesting (term → id/name)
         if not inner_slot.multivalued:
-            for deepest in schema_view.class_induced_slots(inner_range.name):
+            for deepest, deep_subclass in _polymorphic_slots(
+                schema_view, inner_range.name
+            ):
                 if deepest.name == "type":
                     continue
+                deep_notes = list(inner_notes)
+                if deep_subclass:
+                    deep_notes.append(DISPATCH_NOTE.format(subclass=deep_subclass))
                 if deepest.range == "TextValue":
                     if deepest.multivalued:
                         raise ValueError(
@@ -499,7 +507,7 @@ def _flatten_slot(
                         name=f"{slot.name}_{inner_slot.name}_{deepest.name}",
                         source_path=f"{slot.name}.{inner_slot.name}.{deepest.name}",
                     )
-                    _attach_notes(new_slot, notes)
+                    _attach_notes(new_slot, deep_notes)
                     yield new_slot
                     continue
                 if _range_class(deepest, schema_view) is not None:
@@ -521,8 +529,24 @@ def _flatten_slot(
                     required=False,
                 )
                 _carry_identifier(new_slot, deepest, nested=True)
-                _attach_notes(new_slot, notes)
+                _attach_notes(new_slot, deep_notes)
                 yield new_slot
+
+
+def _polymorphic_slots(
+    schema_view: SchemaView, class_name: str
+) -> Iterable[tuple[SlotDefinition, str | None]]:
+    """Visit the declared class before descendants, matching runtime dispatch.
+
+    The caller emits optional nested columns; ``flatten_class_def`` keeps the
+    first definition of each output column so base definitions take precedence.
+    Visit inherited slots too: a subtype may specialize an embedded range.
+    """
+    for slot in schema_view.class_induced_slots(class_name):
+        yield slot, None
+    for descendant in _proper_descendants(schema_view, class_name):
+        for slot in schema_view.class_induced_slots(descendant):
+            yield slot, descendant
 
 
 def _text_value_slot(

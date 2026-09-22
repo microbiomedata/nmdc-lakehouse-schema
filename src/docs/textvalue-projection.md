@@ -31,6 +31,11 @@ inlined object retains the enclosing path prefix: `detail.label.has_raw_value`
 becomes `detail_label`. The rule also applies inside child-table records and at
 the existing second expansion level.
 
+At both expansion levels, generated columns include the embedded class and its
+descendants, matching runtime dispatch on the embedded object's `type`. Columns
+contributed only by a subtype are optional and identify that subtype in their
+descriptions. Base-class column definitions take precedence.
+
 ## Repeated values
 
 A multivalued TextValue slot keeps its existing child table named
