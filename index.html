@@ -357,6 +357,87 @@
   
   
     <li class="md-nav__item">
+      <a href="transformation-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformation support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schema-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="about/" class="md-nav__link">
         
   
@@ -417,11 +498,23 @@
 
 
 <h1 id="nmdc-lakehouse-schema">nmdc-lakehouse-schema</h1>
-<p>This is the project description.</p>
+<p>The NMDC flat-schema product defines how nested source records become lakehouse
+tables. This package contains the schema generator, runtime flattener,
+schema comparison tools, and the canonical generated LinkML target schema.</p>
+<p>Projection <code>1.2.0</code> puts TextValue strings directly on their containing records.
+For example, <code>BiosampleFlat.host_diet</code> is a multivalued string slot; there is no
+<code>BiosampleSetHostDiet</code> class or separate TextValue table. With source schema
+11.23.0, the product has 58 table classes.</p>
 <ul>
-<li>Auto-generated <a href="elements/">schema documentation</a></li>
+<li><a href="elements/">Generated schema reference</a></li>
 <li><a href="textvalue-projection/">TextValue projection and migration</a></li>
+<li><a href="transformation-support/">Supported transformations, helper tables, and known data-loss boundaries</a></li>
+<li><a href="schema-workflow/">Schema ownership, versions, Just recipes, and documentation deployment</a></li>
+<li><a href="data-audit/">Production TextValue and record-type audit</a></li>
 </ul>
+<p>The source model is maintained in <code>nmdc-schema</code>. The <code>nmdc-lakehouse</code> application
+consumes the projection to write and validate data; adopting a new package and
+migrating existing data are separate from publishing this documentation.</p>
 
 
 

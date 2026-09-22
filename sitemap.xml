@@ -9,7 +9,19 @@
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/data-audit/</loc>
+         <lastmod>2026-09-22</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/schema-workflow/</loc>
+         <lastmod>2026-09-22</lastmod>
+    </url>
+    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/textvalue-projection/</loc>
+         <lastmod>2026-09-22</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/transformation-support/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>

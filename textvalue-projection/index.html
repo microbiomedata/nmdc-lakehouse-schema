@@ -14,7 +14,7 @@
         <link rel="prev" href="../elements/">
       
       
-        <link rel="next" href="../about/">
+        <link rel="next" href="../transformation-support/">
       
       
         
@@ -440,6 +440,87 @@
   
   
     <li class="md-nav__item">
+      <a href="../transformation-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformation support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../about/" class="md-nav__link">
         
   
@@ -552,13 +633,21 @@
 
 
 <h1 id="textvalue-projection">TextValue projection</h1>
-<p>Projection version <code>1.2.0</code> maps every slot whose declared range is exactly
+<p>Projection version <code>1.2.0</code> maps slots whose declared range is exactly
 <code>TextValue</code> to a string slot on its containing record. Single-valued source slots
 become scalar strings; multivalued source slots become string arrays. TextValue
 slots never create a separate class or child table.</p>
+<p>This rule applies at paths the flattener visits. It does not overcome unsupported
+enclosing structures or general depth limits; the
+<a href="../transformation-support/">transformation support guide</a> documents those limits
+and a known child-schema/runtime depth mismatch.</p>
 <p>The source schema identifies these slots. Other classes that contain
 <code>has_raw_value</code>, including QuantityValue, TimestampValue, PersonValue, and
 ControlledIdentifiedTermValue, keep their existing projection rules.</p>
+<p>For repository ownership, the two YAML files, version numbering, and build/deploy
+commands, see the <a href="../schema-workflow/">workflow guide</a>. The dated
+<a href="../data-audit/">audit report</a> records the MongoDB evidence and polymorphic
+collection inventory.</p>
 <h2 id="parent-columns">Parent columns</h2>
 <p>This synthetic input:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">synthetic:sample</span>
@@ -584,7 +673,14 @@ ControlledIdentifiedTermValue, keep their existing projection rules.</p>
 and <code>multivalued: false</code>, and <code>host_diet</code> with <code>range: string</code> and
 <code>multivalued: true</code>. The latter becomes a Parquet ARRAY of strings, following the
 existing rule for multivalued scalar slots. There is no <code>biosample_set_host_diet</code>
-class, table, or emitted side-table row.</p>
+class, table, or emitted side-table row. The relevant generated schema structure is:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">classes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">BiosampleFlat</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">host_diet</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">        </span><span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <p>Columns keep the source slot's name, description, and applicable requiredness,
 plus an extraction note. A TextValue inside another inlined object retains the
 enclosing path prefix: <code>detail.label.has_raw_value</code> becomes <code>detail_label</code>.
@@ -742,7 +838,7 @@ so removed classes do not remain browsable after a local rebuild.</p>
       
       
         <a
-          href="../about/"
+          href="../transformation-support/"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -751,7 +847,7 @@ so removed classes do not remain browsable after a local rebuild.</p>
               <span class="md-footer__direction">
                 Next
               </span>
-              About
+              Transformation support
             </div>
           </div>
           <div class="md-footer__button md-icon">

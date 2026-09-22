@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://microbiomedata.github.io/nmdc-lakehouse-schema/about/">
       
       
-        <link rel="prev" href="../textvalue-projection/">
+        <link rel="prev" href="../data-audit/">
       
       
       
@@ -344,6 +344,87 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformation-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformation support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -417,7 +498,19 @@
 
 
 <h1 id="about-nmdc-lakehouse-schema">About nmdc-lakehouse-schema</h1>
-<p>This is the project description.</p>
+<p>This repository owns the NMDC flattened-schema product: the LinkML generator,
+the runtime flattener that produces the declared rows, a schema-diff tool, and
+the generated target-schema artifact. The source model is maintained in
+<a href="https://github.com/microbiomedata/nmdc-schema">nmdc-schema</a>, and data loading and
+publication are handled by
+<a href="https://github.com/microbiomedata/nmdc-lakehouse">nmdc-lakehouse</a>.</p>
+<p>See the <a href="../schema-workflow/">workflow guide</a> for repository responsibilities,
+generator history, remaining template cleanup, version numbering, and the
+current package-adoption boundary. The
+<a href="../textvalue-projection/">TextValue contract</a> describes scalar and repeated string
+columns, retained record types, validation, and migration.
+The <a href="../transformation-support/">transformation support guide</a> records which
+shapes become columns or helper tables and where populated content can be lost.</p>
 
 
 
@@ -454,7 +547,7 @@
     >
       
         <a
-          href="../textvalue-projection/"
+          href="../data-audit/"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -466,7 +559,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              TextValue projection
+              Data audit
             </div>
           </div>
         </a>
