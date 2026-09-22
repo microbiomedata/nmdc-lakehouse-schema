@@ -7,10 +7,15 @@
 # ============== Flattened-schema generation ==============
 
 # Generate the flattened LinkML schema (one class per nmdc-schema Database slot).
-# Output: ./local/nmdc_schema_flattened.yaml
+# Output: src/nmdc_lakehouse_schema/schema/nmdc_schema_flattened.yaml
 [group('model development')]
-generate-flat-schema:
-    @uv run python scripts/generate_flattened_schema.py
+generate-flat-schema *ARGS:
+    @uv run python scripts/generate_flattened_schema.py {{ARGS}}
+
+# Verify that the published schema and its digest match the pinned source and generator.
+[group('model development')]
+check-flat-schema:
+    @uv run python scripts/generate_flattened_schema.py --check
 
 # Preview the flattener's output against one record from a local MongoDB.
 # Usage: just flatten-preview biosample_set Biosample

@@ -52,7 +52,9 @@ DEFAULT_FLATTENED_SCHEMA_ID = "https://w3id.org/nmdc/nmdc-schema-flattened"
 # nmdc-lakehouse#333. The per-table producer identity ("which loader wrote this table") was
 # deliberately removed: it is ETL/deployment provenance that belongs with the data (Parquet footer
 # + snapshot manifest), not in a structural schema (microbiomedata/nmdc-lakehouse#336).
-SCHEMA_GENERATOR_ID = "nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema"
+SCHEMA_GENERATOR_ID = (
+    "nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema"
+)
 
 # The projection's own version, bumped when THIS code changes what it emits, never when
 # nmdc-schema changes. Until 2026-08-25 the flat schema declared the upstream version instead, so
@@ -60,7 +62,7 @@ SCHEMA_GENERATOR_ID = "nmdc_lakehouse_schema.transforms.schema_generator.flatten
 # b4e0f7a8). A consumer holding two of those tables could not tell them apart, which is the
 # question a consumer asks first. Raise the minor part when a shape changes, the patch part when
 # only descriptions or annotations move.
-FLATTENER_VERSION = "1.0.2"
+FLATTENER_VERSION = "1.1.0"
 
 # Filled in after rendering, because a document cannot contain its own digest. The generator
 # renders with this placeholder in place, hashes that exact text, then substitutes. Verifying
@@ -79,6 +81,8 @@ def flatten_class_def(
     Walks the same decision tree as ``flatten_record``:
 
     - scalar → flat slot with same range
+    - TextValue → string column named for the source slot; repeated TextValues
+      produce one string per child-table row
     - multivalued scalar → flat slot with same range, multivalued=True (Parquet ARRAY)
     - class range, not inlined → flat string slot (single) or multivalued string (ARRAY of IDs)
     - single-valued inlined class → one flat slot per subclass scalar slot,
@@ -105,7 +109,11 @@ def flatten_class_def(
     target_name = target_name or f"{root_class}Flat"
     cls = ClassDefinition(name=target_name)
     source_class = schema_view.get_class(root_class)
-    source_description = f"{source_class.description} " if source_class and source_class.description else ""
+    source_description = (
+        f"{source_class.description} "
+        if source_class and source_class.description
+        else ""
+    )
     # Do not name a producing loader in the description: which loader wrote a table is per-write
     # ETL provenance (Parquet footer / snapshot manifest), not a structural fact of the schema.
     cls.description = source_description + (
@@ -118,14 +126,19 @@ def flatten_class_def(
 
     # Base class slots — faithful to induced_slots(root_class)
     for slot in schema_view.class_induced_slots(root_class):
-        for flat in _flatten_slot(slot, schema_view, expand_embedded_refs=expand_embedded_refs):
+        for flat in _flatten_slot(
+            slot, schema_view, expand_embedded_refs=expand_embedded_refs
+        ):
             attrs.setdefault(flat.name, flat)
 
     # Union in slots from concrete subclasses (polymorphic dispatch)
     for descendant in _proper_descendants(schema_view, root_class):
         for slot in schema_view.class_induced_slots(descendant):
             for flat in _flatten_slot(
-                slot, schema_view, dispatch_subclass=descendant, expand_embedded_refs=expand_embedded_refs
+                slot,
+                schema_view,
+                dispatch_subclass=descendant,
+                expand_embedded_refs=expand_embedded_refs,
             ):
                 # Keep the first-seen slot (base class takes precedence); add
                 # a dispatch annotation if only a subclass contributed it.
@@ -179,14 +192,25 @@ def flatten_database_schema(
             "for every schema-specified collection. Generated; do not edit by hand."
         ),
         annotations={
-            "source_schema_id": Annotation(tag="source_schema_id", value=source_schema_id),
-            "source_schema_version": Annotation(tag="source_schema_version", value=source_schema_version),
-            "source_package_version": Annotation(
-                tag="source_package_version", value=source_package_version or source_schema_version
+            "source_schema_id": Annotation(
+                tag="source_schema_id", value=source_schema_id
             ),
-            "schema_generator": Annotation(tag="schema_generator", value=SCHEMA_GENERATOR_ID),
-            "flattener_version": Annotation(tag="flattener_version", value=FLATTENER_VERSION),
-            "flat_schema_sha256": Annotation(tag="flat_schema_sha256", value=UNRESOLVED_CONTENT_SHA256),
+            "source_schema_version": Annotation(
+                tag="source_schema_version", value=source_schema_version
+            ),
+            "source_package_version": Annotation(
+                tag="source_package_version",
+                value=source_package_version or source_schema_version,
+            ),
+            "schema_generator": Annotation(
+                tag="schema_generator", value=SCHEMA_GENERATOR_ID
+            ),
+            "flattener_version": Annotation(
+                tag="flattener_version", value=FLATTENER_VERSION
+            ),
+            "flat_schema_sha256": Annotation(
+                tag="flat_schema_sha256", value=UNRESOLVED_CONTENT_SHA256
+            ),
         },
         prefixes=deepcopy(schema_view.schema.prefixes)
         or {
@@ -211,8 +235,12 @@ def flatten_database_schema(
         flat = flatten_class_def(schema_view, slot.range)
         _annotate_target_class(flat, table_name=slot.name, source_class=slot.range)
         _add_target_class(out, flat)
-        for table_name, side_class in side_table_class_defs(schema_view, slot.range, slot.name):
-            _annotate_target_class(side_class, table_name=table_name, source_class=slot.range)
+        for table_name, side_class in side_table_class_defs(
+            schema_view, slot.range, slot.name
+        ):
+            _annotate_target_class(
+                side_class, table_name=table_name, source_class=slot.range
+            )
             _add_target_class(out, side_class)
 
     return out
@@ -258,6 +286,8 @@ def side_table_class_defs(
       ``parent_id`` (string) and ``<slot_name>`` (string ID).
     - **inlined_class** multivalued: child-class flat schema (via
       :func:`flatten_class_def`) plus a ``parent_id`` slot.
+    - **TextValue** multivalued: ``parent_id`` and a string column named
+      after the slot, one raw value per occurrence.
 
     Scalar multivalued slots are ARRAY columns in the primary table and have no
     side table ClassDef.
@@ -288,13 +318,31 @@ def side_table_class_defs(
 
             range_class = _range_class(slot, schema_view)
 
-            if range_class is not None and _is_inlined(slot, schema_view):
+            if slot.range == "TextValue":
+                child_flat = ClassDefinition(
+                    name=table_name,
+                    description=(
+                        f"Raw strings from multivalued TextValue slot '{class_name}.{slot.name}'; "
+                        "one row per occurrence."
+                    ),
+                )
+                child_flat.attributes["parent_id"] = SlotDefinition(
+                    name="parent_id",
+                    range="string",
+                    description=f"Identifier of the parent '{root_class}' record.",
+                )
+                child_flat.attributes[slot.name] = _text_value_slot(slot)
+                result.append((table_name, child_flat))
+            elif range_class is not None and _is_inlined(slot, schema_view):
                 # Inlined multivalued → child side table.
                 # expand_embedded_refs=True so non-inlined class-range sub-slots
                 # (e.g. ControlledTermValue.term) are expanded to <sub>_<inner>
                 # columns, matching what _expand_inlined emits at runtime.
                 child_flat = flatten_class_def(
-                    schema_view, range_class.name, target_name=table_name, expand_embedded_refs=True
+                    schema_view,
+                    range_class.name,
+                    target_name=table_name,
+                    expand_embedded_refs=True,
                 )
                 child_flat.attributes["parent_id"] = SlotDefinition(
                     name="parent_id",
@@ -348,12 +396,24 @@ def _flatten_slot(
     if dispatch_subclass:
         notes.append(DISPATCH_NOTE.format(subclass=dispatch_subclass))
 
+    if slot.range == "TextValue":
+        if not slot.multivalued:
+            new_slot = _text_value_slot(
+                slot, required=bool(slot.required and not dispatch_subclass)
+            )
+            _carry_identifier(new_slot, slot)
+            _attach_notes(new_slot, notes)
+            yield new_slot
+        return
+
     # Class range, not inlined → reference (string scalar or ARRAY of ID strings).
     # Exception: single-valued slots with expand_embedded_refs=True fall through
     # to the inlined expansion below (data stores them as embedded dicts).
     if range_class is not None and not _is_inlined(slot, schema_view):
         if slot.multivalued or not expand_embedded_refs:
-            ref_desc = ((slot.description or "") + " " + REF_NOTE.format(range=slot.range)).strip()
+            ref_desc = (
+                (slot.description or "") + " " + REF_NOTE.format(range=slot.range)
+            ).strip()
             new_slot = SlotDefinition(
                 name=slot.name,
                 range="string",
@@ -388,15 +448,33 @@ def _flatten_slot(
 
     # Single-valued inlined class → expand one level (and one more for
     # nested controlled terms), producing <parent>_<inner> slots.
-    for inner_slot in schema_view.class_induced_slots(range_class.name):
+    for inner_slot, inner_subclass in _polymorphic_slots(schema_view, range_class.name):
         if inner_slot.name == "type":
+            continue
+        inner_notes = list(notes)
+        if inner_subclass:
+            inner_notes.append(DISPATCH_NOTE.format(subclass=inner_subclass))
+        if inner_slot.range == "TextValue":
+            if inner_slot.multivalued:
+                raise ValueError(
+                    "Nested multivalued TextValue slots require a child-table mapping."
+                )
+            new_slot = _text_value_slot(
+                inner_slot,
+                name=f"{slot.name}_{inner_slot.name}",
+                source_path=f"{slot.name}.{inner_slot.name}",
+            )
+            _attach_notes(new_slot, inner_notes)
+            yield new_slot
             continue
         inner_range = _range_class(inner_slot, schema_view)
         if inner_range is None:
             flat_name = f"{slot.name}_{inner_slot.name}"
             inner_description = inner_slot.description or ""
             nested_desc = (
-                inner_description + " " + NESTED_NOTE.format(parent=slot.name, inner=inner_slot.name)
+                inner_description
+                + " "
+                + NESTED_NOTE.format(parent=slot.name, inner=inner_slot.name)
             ).strip()
             new_slot = SlotDefinition(
                 name=flat_name,
@@ -406,13 +484,31 @@ def _flatten_slot(
                 required=False,
             )
             _carry_identifier(new_slot, inner_slot, nested=True)
-            _attach_notes(new_slot, notes)
+            _attach_notes(new_slot, inner_notes)
             yield new_slot
             continue
         # One more level of nesting (term → id/name)
         if not inner_slot.multivalued:
-            for deepest in schema_view.class_induced_slots(inner_range.name):
+            for deepest, deep_subclass in _polymorphic_slots(
+                schema_view, inner_range.name
+            ):
                 if deepest.name == "type":
+                    continue
+                deep_notes = list(inner_notes)
+                if deep_subclass:
+                    deep_notes.append(DISPATCH_NOTE.format(subclass=deep_subclass))
+                if deepest.range == "TextValue":
+                    if deepest.multivalued:
+                        raise ValueError(
+                            "Nested multivalued TextValue slots require a child-table mapping."
+                        )
+                    new_slot = _text_value_slot(
+                        deepest,
+                        name=f"{slot.name}_{inner_slot.name}_{deepest.name}",
+                        source_path=f"{slot.name}.{inner_slot.name}.{deepest.name}",
+                    )
+                    _attach_notes(new_slot, deep_notes)
+                    yield new_slot
                     continue
                 if _range_class(deepest, schema_view) is not None:
                     continue  # Three levels deep is out of scope
@@ -421,7 +517,9 @@ def _flatten_slot(
                 nested_desc = (
                     deep_description
                     + " "
-                    + NESTED_NOTE.format(parent=f"{slot.name}.{inner_slot.name}", inner=deepest.name)
+                    + NESTED_NOTE.format(
+                        parent=f"{slot.name}.{inner_slot.name}", inner=deepest.name
+                    )
                 ).strip()
                 new_slot = SlotDefinition(
                     name=flat_name,
@@ -431,8 +529,44 @@ def _flatten_slot(
                     required=False,
                 )
                 _carry_identifier(new_slot, deepest, nested=True)
-                _attach_notes(new_slot, notes)
+                _attach_notes(new_slot, deep_notes)
                 yield new_slot
+
+
+def _polymorphic_slots(
+    schema_view: SchemaView, class_name: str
+) -> Iterable[tuple[SlotDefinition, str | None]]:
+    """Visit the declared class before descendants, matching runtime dispatch.
+
+    The caller emits optional nested columns; ``flatten_class_def`` keeps the
+    first definition of each output column so base definitions take precedence.
+    Visit inherited slots too: a subtype may specialize an embedded range.
+    """
+    for slot in schema_view.class_induced_slots(class_name):
+        yield slot, None
+    for descendant in _proper_descendants(schema_view, class_name):
+        for slot in schema_view.class_induced_slots(descendant):
+            yield slot, descendant
+
+
+def _text_value_slot(
+    slot: SlotDefinition,
+    *,
+    name: str | None = None,
+    source_path: str | None = None,
+    required: bool = False,
+) -> SlotDefinition:
+    """Describe one extracted raw string, including in repeated-value rows."""
+    note = (
+        f"String projected from '{source_path or slot.name}.has_raw_value' (TextValue)."
+    )
+    return SlotDefinition(
+        name=name or slot.name,
+        range="string",
+        multivalued=False,
+        required=required,
+        description=f"{slot.description or ''} {note}".strip(),
+    )
 
 
 def _range_class(slot: SlotDefinition, schema_view: SchemaView):

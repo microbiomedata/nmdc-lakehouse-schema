@@ -123,15 +123,15 @@ def test_single_valued_scalar_wrapped_in_list(sv):
     assert out["tags"] == ["lonely"]
 
 
-def test_inlined_object_expanded_one_level(sv):
-    """Single-valued inlined object expands to <slot>_<subslot> columns."""
+def test_textvalue_projects_to_named_string(sv):
+    """TextValue wrappers become the source slot's string column."""
     out = flatten_record(
         {"id": "r1", "description": {"has_raw_value": "notes here"}},
         sv,
         "Record",
     )
-    assert out["description_has_raw_value"] == "notes here"
-    assert "description" not in out
+    assert out["description"] == "notes here"
+    assert "description_has_raw_value" not in out
 
 
 def test_inlined_object_type_not_expanded_for_primary_table(sv):
@@ -147,7 +147,13 @@ def test_inlined_object_type_not_expanded_for_primary_table(sv):
     that column.
     """
     out = flatten_record(
-        {"id": "r1", "env_broad_scale": {"type": "test:ChemicalAdministration", "has_raw_value": "x"}},
+        {
+            "id": "r1",
+            "env_broad_scale": {
+                "type": "test:ChemicalAdministration",
+                "has_raw_value": "x",
+            },
+        },
         sv,
         "Record",
     )
@@ -311,7 +317,9 @@ def test_polymorphic_dispatch_in_inlined_object(sv):
 
 def test_side_table_scalar_multivalued_no_rows(sv):
     """Scalar multivalued slots produce no side table rows (ARRAY in primary table)."""
-    rows = list(side_table_rows({"id": "r1", "tags": ["a", "b"]}, sv, "Record", "record_set"))
+    rows = list(
+        side_table_rows({"id": "r1", "tags": ["a", "b"]}, sv, "Record", "record_set")
+    )
     assert rows == []
 
 
@@ -326,8 +334,14 @@ def test_side_table_ref_class_multivalued(sv):
         )
     )
     assert rows == [
-        ("record_set_associated_studies", {"parent_id": "r1", "associated_studies": "nmdc:sty-11-a"}),
-        ("record_set_associated_studies", {"parent_id": "r1", "associated_studies": "nmdc:sty-11-b"}),
+        (
+            "record_set_associated_studies",
+            {"parent_id": "r1", "associated_studies": "nmdc:sty-11-a"},
+        ),
+        (
+            "record_set_associated_studies",
+            {"parent_id": "r1", "associated_studies": "nmdc:sty-11-b"},
+        ),
     ]
 
 
@@ -368,7 +382,10 @@ def test_side_table_inlined_class_multivalued_populates_type(sv):
             {
                 "id": "r1",
                 "chem_admin": [
-                    {"type": "test:ChemicalAdministration", "has_raw_value": "formaldehyde"},
+                    {
+                        "type": "test:ChemicalAdministration",
+                        "has_raw_value": "formaldehyde",
+                    },
                 ],
             },
             sv,
@@ -400,7 +417,9 @@ def test_side_table_empty_list_skipped(sv):
 
 def test_side_table_scalar_integer_no_rows(sv):
     """Scalar integer multivalued slots produce no side table rows (ARRAY in primary table)."""
-    rows = list(side_table_rows({"id": "r1", "scores": [1, 2, 3]}, sv, "Record", "record_set"))
+    rows = list(
+        side_table_rows({"id": "r1", "scores": [1, 2, 3]}, sv, "Record", "record_set")
+    )
     assert rows == []
 
 

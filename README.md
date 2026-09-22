@@ -14,7 +14,14 @@ validation code that consumes it:
   is answerable.
 
 Downstream ETL (the [nmdc-lakehouse](https://github.com/microbiomedata/nmdc-lakehouse) repo)
-depends on this package rather than defining the engine itself.
+is migrating to this package in [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
+Until that change lands, its main branch still uses its local engine and saved schema.
+
+Projection version `1.1.0` extracts TextValue raw strings into columns named
+after their source slots and preserves repeated values in child tables.
+Collection record types remain available for polymorphic dispatch. See the
+[TextValue projection contract](src/docs/textvalue-projection.md) for examples,
+validation behavior, and migration from earlier artifacts.
 
 ## Documentation Website
 
