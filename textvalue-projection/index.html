@@ -382,10 +382,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#repeated-values" class="md-nav__link">
+  <a href="#parent-columns" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repeated values
+        Parent columns
       
     </span>
   </a>
@@ -393,10 +393,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nulls-extra-fields-and-types" class="md-nav__link">
+  <a href="#multiplicity-nulls-and-empty-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Nulls, extra fields, and types
+        Multiplicity, nulls, and empty values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-fields-and-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extra fields and types
       
     </span>
   </a>
@@ -476,10 +487,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#repeated-values" class="md-nav__link">
+  <a href="#parent-columns" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repeated values
+        Parent columns
       
     </span>
   </a>
@@ -487,10 +498,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nulls-extra-fields-and-types" class="md-nav__link">
+  <a href="#multiplicity-nulls-and-empty-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Nulls, extra fields, and types
+        Multiplicity, nulls, and empty values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-fields-and-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extra fields and types
       
     </span>
   </a>
@@ -530,56 +552,66 @@
 
 
 <h1 id="textvalue-projection">TextValue projection</h1>
-<p>Projection version <code>1.1.0</code> maps a slot whose declared range is exactly
-<code>TextValue</code> to its <code>has_raw_value</code> string. It uses the source schema to identify
-these slots. Other classes that contain <code>has_raw_value</code>, including
-QuantityValue, TimestampValue, PersonValue, and ControlledIdentifiedTermValue,
-keep their existing projection rules.</p>
-<p>For a single-valued slot, the column keeps the slot's name. This synthetic input:</p>
+<p>Projection version <code>1.2.0</code> maps every slot whose declared range is exactly
+<code>TextValue</code> to a string slot on its containing record. Single-valued source slots
+become scalar strings; multivalued source slots become string arrays. TextValue
+slots never create a separate class or child table.</p>
+<p>The source schema identifies these slots. Other classes that contain
+<code>has_raw_value</code>, including QuantityValue, TimestampValue, PersonValue, and
+ControlledIdentifiedTermValue, keep their existing projection rules.</p>
+<h2 id="parent-columns">Parent columns</h2>
+<p>This synthetic input:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">synthetic:sample</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:Biosample</span>
 <span class="nt">geo_loc_name</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:TextValue</span>
 <span class="w">  </span><span class="nt">has_raw_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example location</span>
+<span class="nt">host_diet</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:TextValue</span>
+<span class="w">    </span><span class="nt">has_raw_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">herbivore</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:TextValue</span>
+<span class="w">    </span><span class="nt">has_raw_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-fiber</span>
 </code></pre></div>
-<p>produces these flat values:</p>
+<p>produces one row in <code>biosample_set</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">synthetic:sample</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:Biosample</span>
 <span class="nt">geo_loc_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example location</span>
+<span class="nt">host_diet</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">herbivore</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-fiber</span>
 </code></pre></div>
-<p>The generated column has range <code>string</code>, the source slot's description, an
-extraction note, and applicable requiredness. Subclass-only columns remain
-optional in a table combining a class hierarchy. A TextValue inside another
-inlined object retains the enclosing path prefix: <code>detail.label.has_raw_value</code>
-becomes <code>detail_label</code>. The rule also applies inside child-table records and at
-the existing second expansion level.</p>
+<p>The generated <code>BiosampleFlat</code> class declares <code>geo_loc_name</code> with <code>range: string</code>
+and <code>multivalued: false</code>, and <code>host_diet</code> with <code>range: string</code> and
+<code>multivalued: true</code>. The latter becomes a Parquet ARRAY of strings, following the
+existing rule for multivalued scalar slots. There is no <code>biosample_set_host_diet</code>
+class, table, or emitted side-table row.</p>
+<p>Columns keep the source slot's name, description, and applicable requiredness,
+plus an extraction note. A TextValue inside another inlined object retains the
+enclosing path prefix: <code>detail.label.has_raw_value</code> becomes <code>detail_label</code>.
+The same rule applies to repeated TextValues at both supported expansion levels
+and to TextValues inside non-TextValue child-table records.</p>
 <p>At both expansion levels, generated columns include the embedded class and its
 descendants, matching runtime dispatch on the embedded object's <code>type</code>. Columns
 contributed only by a subtype are optional and identify that subtype in their
 descriptions. Base-class column definitions take precedence.</p>
-<h2 id="repeated-values">Repeated values</h2>
-<p>A multivalued TextValue slot keeps its existing child table named
-<code>&lt;collection&gt;_&lt;slot&gt;</code>. Each occurrence produces one row with <code>parent_id</code> and a
-string column named after the slot. For example, two <code>host_diet</code> TextValues
-produce two rows in <code>biosample_set_host_diet</code>, with columns <code>parent_id</code> and
-<code>host_diet</code>. Duplicates remain separate rows. Values are never joined with a
-delimiter or reduced to the first item. Row order is not a relational contract.</p>
-<p>An absent, null, or empty-list multivalued slot produces no rows. A TextValue
-occurrence with a missing/null raw value produces a row with its parent ID and
-a null value column, preserving occurrence count. A single object supplied to
-a multivalued slot is treated as one occurrence, consistent with the existing
-flattener.</p>
 <p>Schema 11.23.0 has 101 single-valued and 41 multivalued TextValue paths across
-its collection classes and their subclasses. None are nested multivalued
-TextValue slots. Such a nested repeated slot requires a separate child-table
-mapping: both schema generation and row projection reject that unsupported
-shape instead of silently dropping its values.</p>
-<h2 id="nulls-extra-fields-and-types">Nulls, extra fields, and types</h2>
-<p>For single-valued TextValues, absent objects and missing/null <code>has_raw_value</code>
-fields omit the output key; schema-directed writers represent it as null.
-Empty strings, whitespace, Unicode, delimiters, and newlines are preserved
+its collection classes and their subclasses. All 142 now belong to their parent
+classes. Removing the 41 TextValue-only tables leaves 58 table classes: 19 primary
+tables and 39 side tables for other relationships and embedded records.</p>
+<h2 id="multiplicity-nulls-and-empty-values">Multiplicity, nulls, and empty values</h2>
+<p>Repeated values preserve their order and every occurrence, including duplicates.
+Values are never joined with a delimiter or reduced to the first item. A single
+object supplied to a multivalued slot becomes a one-element array, consistent
+with the existing scalar flattener.</p>
+<p>An absent or null TextValue slot omits the output key; schema-directed writers
+represent it as null. An empty multivalued list remains <code>[]</code>. A missing/null raw
+value in a repeated occurrence becomes a null array element, preserving its
+position and the occurrence count. A missing/null raw value in a single-valued
+TextValue omits the output key.</p>
+<p>Empty strings, whitespace, Unicode, delimiters, and newlines are preserved
 exactly. A populated raw value must already be a string; the flattener does
 not stringify numbers, lists, objects, or malformed scalar TextValues.</p>
+<h2 id="extra-fields-and-types">Extra fields and types</h2>
 <p>The wrapper may omit <code>type</code> or contain a null/empty type, <code>TextValue</code>,
 <code>nmdc:TextValue</code>, or <code>https://w3id.org/nmdc/TextValue</code>. These discriminators
 identify the wrapper whose raw string is extracted, so they are omitted from
@@ -596,52 +628,65 @@ The existing omission of types for single-valued embedded objects is unchanged.
 Generated columns preserve the type value without marking it as the generated
 class's LinkML type designator.</p>
 <h2 id="migrating-consumers">Migrating consumers</h2>
-<p>The generated artifact version changes from <code>11.23.0+flat.1.0.2</code> to
-<code>11.23.0+flat.1.1.0</code>. This is a change to column names and shape:</p>
+<p>The generated artifact version changes from <code>11.23.0+flat.1.1.0</code> to
+<code>11.23.0+flat.1.2.0</code>. Version 1.1.0 extracted raw strings but retained repeated
+TextValues in child tables. Version 1.2.0 moves those values into parent columns
+and removes the corresponding child-table classes and runtime rows.</p>
 <table>
 <thead>
 <tr>
-<th>Location</th>
-<th>Earlier columns</th>
-<th>New columns</th>
+<th>Source slot</th>
+<th>Projection 1.0.2</th>
+<th>Projection 1.1.0</th>
+<th>Projection 1.2.0</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Single TextValue slot <code>s</code></td>
-<td><code>s_has_raw_value</code>, <code>s_language</code></td>
-<td><code>s</code></td>
+<td>Single TextValue <code>s</code></td>
+<td>Parent <code>s_has_raw_value</code>, <code>s_language</code></td>
+<td>Parent string <code>s</code></td>
+<td>Parent string <code>s</code></td>
 </tr>
 <tr>
-<td>Repeated TextValue child table</td>
-<td><code>parent_id</code>, <code>has_raw_value</code>, <code>language</code>, <code>type</code></td>
-<td><code>parent_id</code>, <code>s</code></td>
+<td>Repeated TextValue <code>s</code></td>
+<td>Child <code>parent_id</code>, <code>has_raw_value</code>, <code>language</code>, <code>type</code></td>
+<td>Child <code>parent_id</code>, <code>s</code></td>
+<td>Parent string array <code>s</code>; no TextValue child table</td>
 </tr>
 <tr>
 <td>Nested single TextValue <code>p.s</code></td>
-<td><code>p_s_has_raw_value</code>, <code>p_s_language</code></td>
-<td><code>p_s</code></td>
+<td>Parent <code>p_s_has_raw_value</code>, <code>p_s_language</code></td>
+<td>Parent string <code>p_s</code></td>
+<td>Parent string <code>p_s</code></td>
 </tr>
 </tbody>
 </table>
-<p>Table names and parent relationships remain unchanged. Update queries and
-metadata references to the renamed columns. Existing snapshots retain their
-original schema versions; do not relabel them as the new projection.</p>
+<p>Update queries and metadata that refer to the removed child tables. Existing
+snapshots retain their original schema versions and table layouts; do not relabel
+them as the new projection. When creating a new snapshot, do not carry obsolete
+TextValue-only table files forward from an earlier snapshot.</p>
 <p>Adopt the generator, row flattener, and published schema from the same package
 release with the matching pinned <code>nmdc-schema</code> version. The current lakehouse
 main branch still has a legacy implementation; its migration to this package
 is tracked in <a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/340">PR #340</a>.
 Installing only a new artifact beside the legacy runtime would make the
-declared schema disagree with the rows it writes.</p>
-<p>Regenerate and verify the artifact in this repository:</p>
+declared schema disagree with the rows it writes. Compatibility with downstream
+catalogs that reject arrays is tracked separately in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/342">lakehouse #342</a>.</p>
+<p>Regenerate and verify the artifact and documentation in this repository:</p>
 <div class="highlight"><pre><span></span><code>just<span class="w"> </span>generate-flat-schema
 just<span class="w"> </span>check-flat-schema
 just<span class="w"> </span><span class="nb">test</span>
+just<span class="w"> </span>gen-doc
+uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build
 </code></pre></div>
 <p>The generator writes
 <code>src/nmdc_lakehouse_schema/schema/nmdc_schema_flattened.yaml</code> and calculates its
 content digest. Both the source distribution and wheel must ship those same
-bytes. The package release version is separate from the projection version.</p>
+bytes. The package release version is separate from the projection version.
+Documentation generation removes old generated element pages before rebuilding,
+so removed classes do not remain browsable after a local rebuild.</p>
 
 
 

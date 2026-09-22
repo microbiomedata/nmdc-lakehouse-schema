@@ -14,14 +14,14 @@ annotations:
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.1.0
+    value: 1.2.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: 54a1be1a3a3e112962694282dd9bb4cafe56a2f1c934b21fc8b13b0363231fe6
+    value: 431d51e17a816c1cfa07cc742570c5ad4ba96e7425eb798353802e584f16e8ab
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.23.0+flat.1.1.0
+version: 11.23.0+flat.1.2.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -6389,6 +6389,19 @@ slots:
     - BiosampleFlat
     range: AeroStrucEnum
     multivalued: false
+  biosampleFlat__agrochem_addition:
+    name: biosampleFlat__agrochem_addition
+    description: Addition of fertilizers, pesticides, etc. - amount and time of applications
+      String projected from 'agrochem_addition.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/agrochem_addition
+    alias: agrochem_addition
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__air_PM_concen:
     name: biosampleFlat__air_PM_concen
     description: Concentration of substances that remain suspended in the air, and
@@ -6465,6 +6478,22 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__air_temp_regm:
+    name: biosampleFlat__air_temp_regm
+    description: Information about treatment involving an exposure to varying temperatures;
+      should include the temperature, treatment regimen including how many times the
+      treatment was repeated, how long each treatment lasted, and the start and end
+      time of the entire treatment; can include different temperature regimens String
+      projected from 'air_temp_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/air_temp_regm
+    alias: air_temp_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__al_sat_has_maximum_numeric_value:
     name: biosampleFlat__al_sat_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -7168,6 +7197,22 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__antibiotic_regm:
+    name: biosampleFlat__antibiotic_regm
+    description: Information about treatment involving antibiotic administration;
+      should include the name of antibiotic, amount administered, treatment regimen
+      including how many times the treatment was repeated, how long each treatment
+      lasted, and the start and end time of the entire treatment; can include multiple
+      antibiotic regimens String projected from 'antibiotic_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/antibiotic_regm
+    alias: antibiotic_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__api_has_maximum_numeric_value:
     name: biosampleFlat__api_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -7287,6 +7332,19 @@ slots:
     - BiosampleFlat
     range: string
     required: true
+    multivalued: true
+  biosampleFlat__atmospheric_data:
+    name: biosampleFlat__atmospheric_data
+    description: Measurement of atmospheric data; can include multiple data String
+      projected from 'atmospheric_data.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/atmospheric_data
+    alias: atmospheric_data
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
     multivalued: true
   biosampleFlat__avg_dew_point_has_maximum_numeric_value:
     name: biosampleFlat__avg_dew_point_has_maximum_numeric_value
@@ -7895,6 +7953,20 @@ slots:
     - BiosampleFlat
     range: BiolStatEnum
     multivalued: false
+  biosampleFlat__biomass:
+    name: biosampleFlat__biomass
+    description: Amount of biomass; should include the name for the part of biomass
+      measured, e.g. Microbial, total. Can include multiple measurements String projected
+      from 'biomass.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/biomass
+    alias: biomass
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__biosample_categories:
     name: biosampleFlat__biosample_categories
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
@@ -8816,6 +8888,22 @@ slots:
     - BiosampleFlat
     range: MoldVisibilityEnum
     multivalued: false
+  biosampleFlat__chem_mutagen:
+    name: biosampleFlat__chem_mutagen
+    description: Treatment involving use of mutagens; should include the name of mutagen,
+      amount administered, treatment regimen including how many times the treatment
+      was repeated, how long each treatment lasted, and the start and end time of
+      the entire treatment; can include multiple mutagen regimens String projected
+      from 'chem_mutagen.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/chem_mutagen
+    alias: chem_mutagen
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__chem_oxygen_dem_has_maximum_numeric_value:
     name: biosampleFlat__chem_oxygen_dem_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -9033,6 +9121,21 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__climate_environment:
+    name: biosampleFlat__climate_environment
+    description: Treatment involving an exposure to a particular climate; treatment
+      regimen including how many times the treatment was repeated, how long each treatment
+      lasted, and the start and end time of the entire treatment; can include multiple
+      climates String projected from 'climate_environment.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/climate_environment
+    alias: climate_environment
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__collected_from:
     name: biosampleFlat__collected_from
     description: The Site from which a Biosample was collected Reference by identifier;
@@ -9469,6 +9572,19 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__diether_lipids:
+    name: biosampleFlat__diether_lipids
+    description: Concentration of diether lipids; can include multiple types of diether
+      lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/diether_lipids
+    alias: diether_lipids
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__diss_carb_dioxide_has_maximum_numeric_value:
     name: biosampleFlat__diss_carb_dioxide_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -10547,6 +10663,20 @@ slots:
     - BiosampleFlat
     range: external_identifier
     multivalued: true
+  biosampleFlat__emulsions:
+    name: biosampleFlat__emulsions
+    description: Amount or concentration of substances such as paints, adhesives,
+      mayonnaise, hair colorants, emulsified oils, etc.; can include multiple emulsion
+      types String projected from 'emulsions.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/emulsions
+    alias: emulsions
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__env_broad_scale_has_raw_value:
     name: biosampleFlat__env_broad_scale_has_raw_value
     description: The value that was specified for an annotation in raw form, i.e.
@@ -11309,6 +11439,22 @@ slots:
     - BiosampleFlat
     range: FaoClassEnum
     multivalued: false
+  biosampleFlat__fertilizer_regm:
+    name: biosampleFlat__fertilizer_regm
+    description: Information about treatment involving the use of fertilizers; should
+      include the name of fertilizer, amount administered, treatment regimen including
+      how many times the treatment was repeated, how long each treatment lasted, and
+      the start and end time of the entire treatment; can include multiple fertilizer
+      regimens String projected from 'fertilizer_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/fertilizer_regm
+    alias: fertilizer_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__field:
     name: biosampleFlat__field
     description: Name of the hydrocarbon field (e.g. Albacora) String projected from
@@ -11814,6 +11960,22 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__fungicide_regm:
+    name: biosampleFlat__fungicide_regm
+    description: Information about treatment involving use of fungicides; should include
+      the name of fungicide, amount administered, treatment regimen including how
+      many times the treatment was repeated, how long each treatment lasted, and the
+      start and end time of the entire treatment; can include multiple fungicide regimens
+      String projected from 'fungicide_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/fungicide_regm
+    alias: fungicide_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__furniture:
     name: biosampleFlat__furniture
     description: The types of furniture present in the sampled room
@@ -11825,6 +11987,35 @@ slots:
     - BiosampleFlat
     range: FurnitureEnum
     multivalued: false
+  biosampleFlat__gaseous_environment:
+    name: biosampleFlat__gaseous_environment
+    description: Use of conditions with differing gaseous environments; should include
+      the name of gaseous compound, amount administered, treatment duration, interval
+      and total experimental duration; can include multiple gaseous environment regimens
+      String projected from 'gaseous_environment.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/gaseous_environment
+    alias: gaseous_environment
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
+  biosampleFlat__gaseous_substances:
+    name: biosampleFlat__gaseous_substances
+    description: Amount or concentration of substances such as hydrogen sulfide, carbon
+      dioxide, methane, etc.; can include multiple substances String projected from
+      'gaseous_substances.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/gaseous_substances
+    alias: gaseous_substances
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__gender_restroom:
     name: biosampleFlat__gender_restroom
     description: The gender type of the restroom
@@ -11954,6 +12145,22 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__gravity:
+    name: biosampleFlat__gravity
+    description: Information about treatment involving use of gravity factor to study
+      various types of responses in presence, absence or modified levels of gravity;
+      treatment regimen including how many times the treatment was repeated, how long
+      each treatment lasted, and the start and end time of the entire treatment; can
+      include multiple treatments String projected from 'gravity.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/gravity
+    alias: gravity
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__growth_facil_has_raw_value:
     name: biosampleFlat__growth_facil_has_raw_value
     description: The value that was specified for an annotation in raw form, i.e.
@@ -12083,6 +12290,22 @@ slots:
     - BiosampleFlat
     range: GrowthHabitEnum
     multivalued: false
+  biosampleFlat__growth_hormone_regm:
+    name: biosampleFlat__growth_hormone_regm
+    description: Information about treatment involving use of growth hormones; should
+      include the name of growth hormone, amount administered, treatment regimen including
+      how many times the treatment was repeated, how long each treatment lasted, and
+      the start and end time of the entire treatment; can include multiple growth
+      hormone regimens String projected from 'growth_hormone_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/growth_hormone_regm
+    alias: growth_hormone_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__habitat:
     name: biosampleFlat__habitat
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
@@ -12293,6 +12516,19 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__heavy_metals:
+    name: biosampleFlat__heavy_metals
+    description: Heavy metals present in the sample and their concentrations. String
+      projected from 'heavy_metals.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/heavy_metals
+    alias: heavy_metals
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__heavy_metals_meth:
     name: biosampleFlat__heavy_metals_meth
     description: Reference or method used in determining heavy metals
@@ -12367,6 +12603,23 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__herbicide_regm:
+    name: biosampleFlat__herbicide_regm
+    description: Information about treatment involving use of herbicides; information
+      about treatment involving use of growth hormones; should include the name of
+      herbicide, amount administered, treatment regimen including how many times the
+      treatment was repeated, how long each treatment lasted, and the start and end
+      time of the entire treatment; can include multiple regimens String projected
+      from 'herbicide_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/herbicide_regm
+    alias: herbicide_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__horizon_meth:
     name: biosampleFlat__horizon_meth
     description: Reference or method used in determining the horizon
@@ -12779,6 +13032,20 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__host_diet:
+    name: biosampleFlat__host_diet
+    description: Type of diet depending on the host, for animals omnivore, herbivore
+      etc., for humans high-fat, meditteranean etc.; can include multiple diet types
+      String projected from 'host_diet.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/host_diet
+    alias: host_diet
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__host_disease_stat:
     name: biosampleFlat__host_disease_stat
     description: List of diseases with which the host has been diagnosed; can include
@@ -13592,6 +13859,23 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__humidity_regm:
+    name: biosampleFlat__humidity_regm
+    description: Information about treatment involving an exposure to varying degree
+      of humidity; information about treatment involving use of growth hormones; should
+      include amount of humidity administered, treatment regimen including how many
+      times the treatment was repeated, how long each treatment lasted, and the start
+      and end time of the entire treatment; can include multiple regimens String projected
+      from 'humidity_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/humidity_regm
+    alias: humidity_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__id:
     name: biosampleFlat__id
     description: An NMDC assigned unique identifier for a biosample submitted to NMDC.
@@ -13724,6 +14008,20 @@ slots:
     domain_of:
     - BiosampleFlat
     range: string
+    multivalued: true
+  biosampleFlat__inorg_particles:
+    name: biosampleFlat__inorg_particles
+    description: Concentration of particles such as sand, grit, metal particles, ceramics,
+      etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/inorg_particles
+    alias: inorg_particles
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
     multivalued: true
   biosampleFlat__insdc_biosample_identifiers:
     name: biosampleFlat__insdc_biosample_identifiers
@@ -14769,6 +15067,36 @@ slots:
     - BiosampleFlat
     range: string
     multivalued: false
+  biosampleFlat__mineral_nutr_regm:
+    name: biosampleFlat__mineral_nutr_regm
+    description: Information about treatment involving the use of mineral supplements;
+      should include the name of mineral nutrient, amount administered, treatment
+      regimen including how many times the treatment was repeated, how long each treatment
+      lasted, and the start and end time of the entire treatment; can include multiple
+      mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mineral_nutr_regm
+    alias: mineral_nutr_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
+  biosampleFlat__n_alkanes:
+    name: biosampleFlat__n_alkanes
+    description: Concentration of n-alkanes; can include multiple n-alkanes String
+      projected from 'n_alkanes.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/n_alkanes
+    alias: n_alkanes
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__name:
     name: biosampleFlat__name
     description: A local identifier or name for the material sample collected. We
@@ -15701,6 +16029,20 @@ slots:
     - BiosampleFlat
     range: string
     multivalued: false
+  biosampleFlat__org_particles:
+    name: biosampleFlat__org_particles
+    description: Concentration of particles such as faeces, hairs, food, vomit, paper
+      fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/org_particles
+    alias: org_particles
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__other_treatment:
     name: biosampleFlat__other_treatment
     description: Other treatments applied to your samples that are not applicable
@@ -15976,6 +16318,21 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__particle_class:
+    name: biosampleFlat__particle_class
+    description: Particles are classified, based on their size, into six general categories:clay,
+      silt, sand, gravel, cobbles, and boulders; should include amount of particle
+      preceded by the name of the particle type; can include multiple values String
+      projected from 'particle_class.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/particle_class
+    alias: particle_class
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__permeability:
     name: biosampleFlat__permeability
     description: 'Measure of the ability of a hydrocarbon resource to allow fluids
@@ -15990,6 +16347,38 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__perturbation:
+    name: biosampleFlat__perturbation
+    description: Type of perturbation, e.g. chemical administration, physical disturbance,
+      etc., coupled with perturbation regimen including how many times the perturbation
+      was repeated, how long each perturbation lasted, and the start and end time
+      of the entire perturbation period; can include multiple perturbation types String
+      projected from 'perturbation.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/perturbation
+    alias: perturbation
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
+  biosampleFlat__pesticide_regm:
+    name: biosampleFlat__pesticide_regm
+    description: Information about treatment involving use of insecticides; should
+      include the name of pesticide, amount administered, treatment regimen including
+      how many times the treatment was repeated, how long each treatment lasted, and
+      the start and end time of the entire treatment; can include multiple pesticide
+      regimens String projected from 'pesticide_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/pesticide_regm
+    alias: pesticide_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__petroleum_hydrocarb_has_maximum_numeric_value:
     name: biosampleFlat__petroleum_hydrocarb_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -16078,6 +16467,35 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__ph_regm:
+    name: biosampleFlat__ph_regm
+    description: Information about treatment involving exposure of plants to varying
+      levels of ph of the growth media, treatment regimen including how many times
+      the treatment was repeated, how long each treatment lasted, and the start and
+      end time of the entire treatment; can include multiple regimen String projected
+      from 'ph_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/ph_regm
+    alias: ph_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
+  biosampleFlat__phaeopigments:
+    name: biosampleFlat__phaeopigments
+    description: Concentration of phaeopigments; can include multiple phaeopigments
+      String projected from 'phaeopigments.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/phaeopigments
+    alias: phaeopigments
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__phosphate_has_maximum_numeric_value:
     name: biosampleFlat__phosphate_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -16141,6 +16559,19 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__phosplipid_fatt_acid:
+    name: biosampleFlat__phosplipid_fatt_acid
+    description: Concentration of phospholipid fatty acids; can include multiple values
+      String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/phosplipid_fatt_acid
+    alias: phosplipid_fatt_acid
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__photon_flux_has_maximum_numeric_value:
     name: biosampleFlat__photon_flux_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -16465,6 +16896,20 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__pollutants:
+    name: biosampleFlat__pollutants
+    description: Pollutant types and, amount or concentrations measured at the time
+      of sampling; can report multiple pollutants by entering numeric values preceded
+      by name of pollutant String projected from 'pollutants.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/pollutants
+    alias: pollutants
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__porosity:
     name: biosampleFlat__porosity
     description: Porosity of deposited sediment is volume of voids divided by the
@@ -16990,6 +17435,39 @@ slots:
     - BiosampleFlat
     range: QuadPosEnum
     multivalued: false
+  biosampleFlat__radiation_regm:
+    name: biosampleFlat__radiation_regm
+    description: Information about treatment involving exposure of plant or a plant
+      part to a particular radiation regimen; should include the radiation type, amount
+      or intensity administered, treatment regimen including how many times the treatment
+      was repeated, how long each treatment lasted, and the start and end time of
+      the entire treatment; can include multiple radiation regimens String projected
+      from 'radiation_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/radiation_regm
+    alias: radiation_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
+  biosampleFlat__rainfall_regm:
+    name: biosampleFlat__rainfall_regm
+    description: Information about treatment involving an exposure to a given amount
+      of rainfall, treatment regimen including how many times the treatment was repeated,
+      how long each treatment lasted, and the start and end time of the entire treatment;
+      can include multiple regimens String projected from 'rainfall_regm.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/rainfall_regm
+    alias: rainfall_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__reactor_type:
     name: biosampleFlat__reactor_type
     description: Anaerobic digesters can be designed and engineered to operate using
@@ -17822,6 +18300,23 @@ slots:
     - BiosampleFlat
     range: string
     multivalued: false
+  biosampleFlat__salt_regm:
+    name: biosampleFlat__salt_regm
+    description: Information about treatment involving use of salts as supplement
+      to liquid and soil growth media; should include the name of salt, amount administered,
+      treatment regimen including how many times the treatment was repeated, how long
+      each treatment lasted, and the start and end time of the entire treatment; can
+      include multiple salt regimens String projected from 'salt_regm.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/salt_regm
+    alias: salt_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__samp_capt_status:
     name: biosampleFlat__samp_capt_status
     description: Reason for the sample
@@ -18600,6 +19095,22 @@ slots:
     - BiosampleFlat
     range: SeasonEnum
     multivalued: false
+  biosampleFlat__season_environment:
+    name: biosampleFlat__season_environment
+    description: Treatment involving an exposure to a particular season (e.g. Winter,
+      summer, rabi, rainy etc.), treatment regimen including how many times the treatment
+      was repeated, how long each treatment lasted, and the start and end time of
+      the entire treatment String projected from 'season_environment.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/season_environment
+    alias: season_environment
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__season_precpt_has_maximum_numeric_value:
     name: biosampleFlat__season_precpt_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -19427,6 +19938,20 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__soluble_inorg_mat:
+    name: biosampleFlat__soluble_inorg_mat
+    description: Concentration of substances such as ammonia, road-salt, sea-salt,
+      cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
+      from 'soluble_inorg_mat.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/soluble_inorg_mat
+    alias: soluble_inorg_mat
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__soluble_iron_micromol:
     name: biosampleFlat__soluble_iron_micromol
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
@@ -19437,6 +19962,20 @@ slots:
     - BiosampleFlat
     range: string
     multivalued: false
+  biosampleFlat__soluble_org_mat:
+    name: biosampleFlat__soluble_org_mat
+    description: Concentration of substances such as urea, fruit sugars, soluble proteins,
+      drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/soluble_org_mat
+    alias: soluble_org_mat
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__soluble_react_phosp_has_maximum_numeric_value:
     name: biosampleFlat__soluble_react_phosp_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -19663,6 +20202,22 @@ slots:
     - BiosampleFlat
     range: SrLithologyEnum
     multivalued: false
+  biosampleFlat__standing_water_regm:
+    name: biosampleFlat__standing_water_regm
+    description: Treatment involving an exposure to standing water during a plant's
+      life span, types can be flood water or standing water, treatment regimen including
+      how many times the treatment was repeated, how long each treatment lasted, and
+      the start and end time of the entire treatment; can include multiple regimens
+      String projected from 'standing_water_regm.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/standing_water_regm
+    alias: standing_water_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__start_date_inc:
     name: biosampleFlat__start_date_inc
     description: Date the incubation was started. Only relevant for incubation samples.
@@ -20248,6 +20803,20 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__suspend_solids:
+    name: biosampleFlat__suspend_solids
+    description: Concentration of substances including a wide variety of material,
+      such as silt, decaying plant and animal matter; can include multiple substances
+      String projected from 'suspend_solids.has_raw_value' (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/suspend_solids
+    alias: suspend_solids
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__tan_has_maximum_numeric_value:
     name: biosampleFlat__tan_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -21811,6 +22380,21 @@ slots:
     range: string
     required: false
     multivalued: false
+  biosampleFlat__volatile_org_comp:
+    name: biosampleFlat__volatile_org_comp
+    description: Concentration of carbon-based chemicals that easily evaporate at
+      room temperature; can report multiple volatile organic compounds by entering
+      numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volatile_org_comp
+    alias: volatile_org_comp
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__wall_area_has_maximum_numeric_value:
     name: biosampleFlat__wall_area_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -22365,6 +22949,38 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
+  biosampleFlat__water_temp_regm:
+    name: biosampleFlat__water_temp_regm
+    description: Information about treatment involving an exposure to water with varying
+      degree of temperature, treatment regimen including how many times the treatment
+      was repeated, how long each treatment lasted, and the start and end time of
+      the entire treatment; can include multiple regimens String projected from 'water_temp_regm.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/water_temp_regm
+    alias: water_temp_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
+  biosampleFlat__watering_regm:
+    name: biosampleFlat__watering_regm
+    description: Information about treatment involving an exposure to watering frequencies,
+      treatment regimen including how many times the treatment was repeated, how long
+      each treatment lasted, and the start and end time of the entire treatment; can
+      include multiple regimens String projected from 'watering_regm.has_raw_value'
+      (TextValue).
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/watering_regm
+    alias: watering_regm
+    owner: BiosampleFlat
+    domain_of:
+    - BiosampleFlat
+    range: string
+    required: false
+    multivalued: true
   biosampleFlat__weekday:
     name: biosampleFlat__weekday
     description: The day of the week when sampling occurred
@@ -22720,81 +23336,6 @@ slots:
     range: UnitEnum
     required: false
     multivalued: false
-  biosampleSetAgrochemAddition__parent_id:
-    name: biosampleSetAgrochemAddition__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_agrochem_addition
-    domain_of:
-    - biosample_set_agrochem_addition
-    range: string
-  biosampleSetAgrochemAddition__agrochem_addition:
-    name: biosampleSetAgrochemAddition__agrochem_addition
-    description: Addition of fertilizers, pesticides, etc. - amount and time of applications
-      String projected from 'agrochem_addition.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/agrochem_addition
-    alias: agrochem_addition
-    owner: biosample_set_agrochem_addition
-    domain_of:
-    - biosample_set_agrochem_addition
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetAirTempRegm__parent_id:
-    name: biosampleSetAirTempRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_air_temp_regm
-    domain_of:
-    - biosample_set_air_temp_regm
-    range: string
-  biosampleSetAirTempRegm__air_temp_regm:
-    name: biosampleSetAirTempRegm__air_temp_regm
-    description: Information about treatment involving an exposure to varying temperatures;
-      should include the temperature, treatment regimen including how many times the
-      treatment was repeated, how long each treatment lasted, and the start and end
-      time of the entire treatment; can include different temperature regimens String
-      projected from 'air_temp_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/air_temp_regm
-    alias: air_temp_regm
-    owner: biosample_set_air_temp_regm
-    domain_of:
-    - biosample_set_air_temp_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetAntibioticRegm__parent_id:
-    name: biosampleSetAntibioticRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_antibiotic_regm
-    domain_of:
-    - biosample_set_antibiotic_regm
-    range: string
-  biosampleSetAntibioticRegm__antibiotic_regm:
-    name: biosampleSetAntibioticRegm__antibiotic_regm
-    description: Information about treatment involving antibiotic administration;
-      should include the name of antibiotic, amount administered, treatment regimen
-      including how many times the treatment was repeated, how long each treatment
-      lasted, and the start and end time of the entire treatment; can include multiple
-      antibiotic regimens String projected from 'antibiotic_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/antibiotic_regm
-    alias: antibiotic_regm
-    owner: biosample_set_antibiotic_regm
-    domain_of:
-    - biosample_set_antibiotic_regm
-    range: string
-    required: false
-    multivalued: false
   biosampleSetAssociatedStudies__parent_id:
     name: biosampleSetAssociatedStudies__parent_id
     description: Identifier of the parent 'Biosample' record.
@@ -22816,53 +23357,6 @@ slots:
     domain_of:
     - biosample_set_associated_studies
     range: string
-  biosampleSetAtmosphericData__parent_id:
-    name: biosampleSetAtmosphericData__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_atmospheric_data
-    domain_of:
-    - biosample_set_atmospheric_data
-    range: string
-  biosampleSetAtmosphericData__atmospheric_data:
-    name: biosampleSetAtmosphericData__atmospheric_data
-    description: Measurement of atmospheric data; can include multiple data String
-      projected from 'atmospheric_data.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/atmospheric_data
-    alias: atmospheric_data
-    owner: biosample_set_atmospheric_data
-    domain_of:
-    - biosample_set_atmospheric_data
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetBiomass__parent_id:
-    name: biosampleSetBiomass__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_biomass
-    domain_of:
-    - biosample_set_biomass
-    range: string
-  biosampleSetBiomass__biomass:
-    name: biosampleSetBiomass__biomass
-    description: Amount of biomass; should include the name for the part of biomass
-      measured, e.g. Microbial, total. Can include multiple measurements String projected
-      from 'biomass.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/biomass
-    alias: biomass
-    owner: biosample_set_biomass
-    domain_of:
-    - biosample_set_biomass
-    range: string
-    required: false
-    multivalued: false
   biosampleSetChemAdministration__has_raw_value:
     name: biosampleSetChemAdministration__has_raw_value
     description: The value that was specified for an annotation in raw form, i.e.
@@ -23002,409 +23496,6 @@ slots:
     domain_of:
     - biosample_set_chem_administration
     range: string
-  biosampleSetChemMutagen__parent_id:
-    name: biosampleSetChemMutagen__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_chem_mutagen
-    domain_of:
-    - biosample_set_chem_mutagen
-    range: string
-  biosampleSetChemMutagen__chem_mutagen:
-    name: biosampleSetChemMutagen__chem_mutagen
-    description: Treatment involving use of mutagens; should include the name of mutagen,
-      amount administered, treatment regimen including how many times the treatment
-      was repeated, how long each treatment lasted, and the start and end time of
-      the entire treatment; can include multiple mutagen regimens String projected
-      from 'chem_mutagen.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/chem_mutagen
-    alias: chem_mutagen
-    owner: biosample_set_chem_mutagen
-    domain_of:
-    - biosample_set_chem_mutagen
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetClimateEnvironment__parent_id:
-    name: biosampleSetClimateEnvironment__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_climate_environment
-    domain_of:
-    - biosample_set_climate_environment
-    range: string
-  biosampleSetClimateEnvironment__climate_environment:
-    name: biosampleSetClimateEnvironment__climate_environment
-    description: Treatment involving an exposure to a particular climate; treatment
-      regimen including how many times the treatment was repeated, how long each treatment
-      lasted, and the start and end time of the entire treatment; can include multiple
-      climates String projected from 'climate_environment.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/climate_environment
-    alias: climate_environment
-    owner: biosample_set_climate_environment
-    domain_of:
-    - biosample_set_climate_environment
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetDietherLipids__parent_id:
-    name: biosampleSetDietherLipids__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_diether_lipids
-    domain_of:
-    - biosample_set_diether_lipids
-    range: string
-  biosampleSetDietherLipids__diether_lipids:
-    name: biosampleSetDietherLipids__diether_lipids
-    description: Concentration of diether lipids; can include multiple types of diether
-      lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/diether_lipids
-    alias: diether_lipids
-    owner: biosample_set_diether_lipids
-    domain_of:
-    - biosample_set_diether_lipids
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetEmulsions__parent_id:
-    name: biosampleSetEmulsions__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_emulsions
-    domain_of:
-    - biosample_set_emulsions
-    range: string
-  biosampleSetEmulsions__emulsions:
-    name: biosampleSetEmulsions__emulsions
-    description: Amount or concentration of substances such as paints, adhesives,
-      mayonnaise, hair colorants, emulsified oils, etc.; can include multiple emulsion
-      types String projected from 'emulsions.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/emulsions
-    alias: emulsions
-    owner: biosample_set_emulsions
-    domain_of:
-    - biosample_set_emulsions
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetFertilizerRegm__parent_id:
-    name: biosampleSetFertilizerRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_fertilizer_regm
-    domain_of:
-    - biosample_set_fertilizer_regm
-    range: string
-  biosampleSetFertilizerRegm__fertilizer_regm:
-    name: biosampleSetFertilizerRegm__fertilizer_regm
-    description: Information about treatment involving the use of fertilizers; should
-      include the name of fertilizer, amount administered, treatment regimen including
-      how many times the treatment was repeated, how long each treatment lasted, and
-      the start and end time of the entire treatment; can include multiple fertilizer
-      regimens String projected from 'fertilizer_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/fertilizer_regm
-    alias: fertilizer_regm
-    owner: biosample_set_fertilizer_regm
-    domain_of:
-    - biosample_set_fertilizer_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetFungicideRegm__parent_id:
-    name: biosampleSetFungicideRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_fungicide_regm
-    domain_of:
-    - biosample_set_fungicide_regm
-    range: string
-  biosampleSetFungicideRegm__fungicide_regm:
-    name: biosampleSetFungicideRegm__fungicide_regm
-    description: Information about treatment involving use of fungicides; should include
-      the name of fungicide, amount administered, treatment regimen including how
-      many times the treatment was repeated, how long each treatment lasted, and the
-      start and end time of the entire treatment; can include multiple fungicide regimens
-      String projected from 'fungicide_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/fungicide_regm
-    alias: fungicide_regm
-    owner: biosample_set_fungicide_regm
-    domain_of:
-    - biosample_set_fungicide_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetGaseousEnvironment__parent_id:
-    name: biosampleSetGaseousEnvironment__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_gaseous_environment
-    domain_of:
-    - biosample_set_gaseous_environment
-    range: string
-  biosampleSetGaseousEnvironment__gaseous_environment:
-    name: biosampleSetGaseousEnvironment__gaseous_environment
-    description: Use of conditions with differing gaseous environments; should include
-      the name of gaseous compound, amount administered, treatment duration, interval
-      and total experimental duration; can include multiple gaseous environment regimens
-      String projected from 'gaseous_environment.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/gaseous_environment
-    alias: gaseous_environment
-    owner: biosample_set_gaseous_environment
-    domain_of:
-    - biosample_set_gaseous_environment
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetGaseousSubstances__parent_id:
-    name: biosampleSetGaseousSubstances__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_gaseous_substances
-    domain_of:
-    - biosample_set_gaseous_substances
-    range: string
-  biosampleSetGaseousSubstances__gaseous_substances:
-    name: biosampleSetGaseousSubstances__gaseous_substances
-    description: Amount or concentration of substances such as hydrogen sulfide, carbon
-      dioxide, methane, etc.; can include multiple substances String projected from
-      'gaseous_substances.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/gaseous_substances
-    alias: gaseous_substances
-    owner: biosample_set_gaseous_substances
-    domain_of:
-    - biosample_set_gaseous_substances
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetGravity__parent_id:
-    name: biosampleSetGravity__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_gravity
-    domain_of:
-    - biosample_set_gravity
-    range: string
-  biosampleSetGravity__gravity:
-    name: biosampleSetGravity__gravity
-    description: Information about treatment involving use of gravity factor to study
-      various types of responses in presence, absence or modified levels of gravity;
-      treatment regimen including how many times the treatment was repeated, how long
-      each treatment lasted, and the start and end time of the entire treatment; can
-      include multiple treatments String projected from 'gravity.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/gravity
-    alias: gravity
-    owner: biosample_set_gravity
-    domain_of:
-    - biosample_set_gravity
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetGrowthHormoneRegm__parent_id:
-    name: biosampleSetGrowthHormoneRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_growth_hormone_regm
-    domain_of:
-    - biosample_set_growth_hormone_regm
-    range: string
-  biosampleSetGrowthHormoneRegm__growth_hormone_regm:
-    name: biosampleSetGrowthHormoneRegm__growth_hormone_regm
-    description: Information about treatment involving use of growth hormones; should
-      include the name of growth hormone, amount administered, treatment regimen including
-      how many times the treatment was repeated, how long each treatment lasted, and
-      the start and end time of the entire treatment; can include multiple growth
-      hormone regimens String projected from 'growth_hormone_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/growth_hormone_regm
-    alias: growth_hormone_regm
-    owner: biosample_set_growth_hormone_regm
-    domain_of:
-    - biosample_set_growth_hormone_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetHeavyMetals__parent_id:
-    name: biosampleSetHeavyMetals__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_heavy_metals
-    domain_of:
-    - biosample_set_heavy_metals
-    range: string
-  biosampleSetHeavyMetals__heavy_metals:
-    name: biosampleSetHeavyMetals__heavy_metals
-    description: Heavy metals present in the sample and their concentrations. String
-      projected from 'heavy_metals.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/heavy_metals
-    alias: heavy_metals
-    owner: biosample_set_heavy_metals
-    domain_of:
-    - biosample_set_heavy_metals
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetHerbicideRegm__parent_id:
-    name: biosampleSetHerbicideRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_herbicide_regm
-    domain_of:
-    - biosample_set_herbicide_regm
-    range: string
-  biosampleSetHerbicideRegm__herbicide_regm:
-    name: biosampleSetHerbicideRegm__herbicide_regm
-    description: Information about treatment involving use of herbicides; information
-      about treatment involving use of growth hormones; should include the name of
-      herbicide, amount administered, treatment regimen including how many times the
-      treatment was repeated, how long each treatment lasted, and the start and end
-      time of the entire treatment; can include multiple regimens String projected
-      from 'herbicide_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/herbicide_regm
-    alias: herbicide_regm
-    owner: biosample_set_herbicide_regm
-    domain_of:
-    - biosample_set_herbicide_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetHostDiet__parent_id:
-    name: biosampleSetHostDiet__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_host_diet
-    domain_of:
-    - biosample_set_host_diet
-    range: string
-  biosampleSetHostDiet__host_diet:
-    name: biosampleSetHostDiet__host_diet
-    description: Type of diet depending on the host, for animals omnivore, herbivore
-      etc., for humans high-fat, meditteranean etc.; can include multiple diet types
-      String projected from 'host_diet.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/host_diet
-    alias: host_diet
-    owner: biosample_set_host_diet
-    domain_of:
-    - biosample_set_host_diet
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetHumidityRegm__parent_id:
-    name: biosampleSetHumidityRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_humidity_regm
-    domain_of:
-    - biosample_set_humidity_regm
-    range: string
-  biosampleSetHumidityRegm__humidity_regm:
-    name: biosampleSetHumidityRegm__humidity_regm
-    description: Information about treatment involving an exposure to varying degree
-      of humidity; information about treatment involving use of growth hormones; should
-      include amount of humidity administered, treatment regimen including how many
-      times the treatment was repeated, how long each treatment lasted, and the start
-      and end time of the entire treatment; can include multiple regimens String projected
-      from 'humidity_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/humidity_regm
-    alias: humidity_regm
-    owner: biosample_set_humidity_regm
-    domain_of:
-    - biosample_set_humidity_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetInorgParticles__parent_id:
-    name: biosampleSetInorgParticles__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_inorg_particles
-    domain_of:
-    - biosample_set_inorg_particles
-    range: string
-  biosampleSetInorgParticles__inorg_particles:
-    name: biosampleSetInorgParticles__inorg_particles
-    description: Concentration of particles such as sand, grit, metal particles, ceramics,
-      etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/inorg_particles
-    alias: inorg_particles
-    owner: biosample_set_inorg_particles
-    domain_of:
-    - biosample_set_inorg_particles
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetMineralNutrRegm__parent_id:
-    name: biosampleSetMineralNutrRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_mineral_nutr_regm
-    domain_of:
-    - biosample_set_mineral_nutr_regm
-    range: string
-  biosampleSetMineralNutrRegm__mineral_nutr_regm:
-    name: biosampleSetMineralNutrRegm__mineral_nutr_regm
-    description: Information about treatment involving the use of mineral supplements;
-      should include the name of mineral nutrient, amount administered, treatment
-      regimen including how many times the treatment was repeated, how long each treatment
-      lasted, and the start and end time of the entire treatment; can include multiple
-      mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mineral_nutr_regm
-    alias: mineral_nutr_regm
-    owner: biosample_set_mineral_nutr_regm
-    domain_of:
-    - biosample_set_mineral_nutr_regm
-    range: string
-    required: false
-    multivalued: false
   biosampleSetMiscParam__has_attribute_id:
     name: biosampleSetMiscParam__has_attribute_id
     description: CURIE or IRI for the property (MIxS slot, NMDC slot, ENVO/OBI term,
@@ -23555,53 +23646,6 @@ slots:
     domain_of:
     - biosample_set_misc_param
     range: string
-  biosampleSetNAlkanes__parent_id:
-    name: biosampleSetNAlkanes__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_n_alkanes
-    domain_of:
-    - biosample_set_n_alkanes
-    range: string
-  biosampleSetNAlkanes__n_alkanes:
-    name: biosampleSetNAlkanes__n_alkanes
-    description: Concentration of n-alkanes; can include multiple n-alkanes String
-      projected from 'n_alkanes.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/n_alkanes
-    alias: n_alkanes
-    owner: biosample_set_n_alkanes
-    domain_of:
-    - biosample_set_n_alkanes
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetOrgParticles__parent_id:
-    name: biosampleSetOrgParticles__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_org_particles
-    domain_of:
-    - biosample_set_org_particles
-    range: string
-  biosampleSetOrgParticles__org_particles:
-    name: biosampleSetOrgParticles__org_particles
-    description: Concentration of particles such as faeces, hairs, food, vomit, paper
-      fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/org_particles
-    alias: org_particles
-    owner: biosample_set_org_particles
-    domain_of:
-    - biosample_set_org_particles
-    range: string
-    required: false
-    multivalued: false
   biosampleSetOrganismCount__has_maximum_numeric_value:
     name: biosampleSetOrganismCount__has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -23683,460 +23727,6 @@ slots:
     domain_of:
     - biosample_set_organism_count
     range: string
-  biosampleSetParticleClass__parent_id:
-    name: biosampleSetParticleClass__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_particle_class
-    domain_of:
-    - biosample_set_particle_class
-    range: string
-  biosampleSetParticleClass__particle_class:
-    name: biosampleSetParticleClass__particle_class
-    description: Particles are classified, based on their size, into six general categories:clay,
-      silt, sand, gravel, cobbles, and boulders; should include amount of particle
-      preceded by the name of the particle type; can include multiple values String
-      projected from 'particle_class.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/particle_class
-    alias: particle_class
-    owner: biosample_set_particle_class
-    domain_of:
-    - biosample_set_particle_class
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetPerturbation__parent_id:
-    name: biosampleSetPerturbation__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_perturbation
-    domain_of:
-    - biosample_set_perturbation
-    range: string
-  biosampleSetPerturbation__perturbation:
-    name: biosampleSetPerturbation__perturbation
-    description: Type of perturbation, e.g. chemical administration, physical disturbance,
-      etc., coupled with perturbation regimen including how many times the perturbation
-      was repeated, how long each perturbation lasted, and the start and end time
-      of the entire perturbation period; can include multiple perturbation types String
-      projected from 'perturbation.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/perturbation
-    alias: perturbation
-    owner: biosample_set_perturbation
-    domain_of:
-    - biosample_set_perturbation
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetPesticideRegm__parent_id:
-    name: biosampleSetPesticideRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_pesticide_regm
-    domain_of:
-    - biosample_set_pesticide_regm
-    range: string
-  biosampleSetPesticideRegm__pesticide_regm:
-    name: biosampleSetPesticideRegm__pesticide_regm
-    description: Information about treatment involving use of insecticides; should
-      include the name of pesticide, amount administered, treatment regimen including
-      how many times the treatment was repeated, how long each treatment lasted, and
-      the start and end time of the entire treatment; can include multiple pesticide
-      regimens String projected from 'pesticide_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/pesticide_regm
-    alias: pesticide_regm
-    owner: biosample_set_pesticide_regm
-    domain_of:
-    - biosample_set_pesticide_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetPhRegm__parent_id:
-    name: biosampleSetPhRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_ph_regm
-    domain_of:
-    - biosample_set_ph_regm
-    range: string
-  biosampleSetPhRegm__ph_regm:
-    name: biosampleSetPhRegm__ph_regm
-    description: Information about treatment involving exposure of plants to varying
-      levels of ph of the growth media, treatment regimen including how many times
-      the treatment was repeated, how long each treatment lasted, and the start and
-      end time of the entire treatment; can include multiple regimen String projected
-      from 'ph_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/ph_regm
-    alias: ph_regm
-    owner: biosample_set_ph_regm
-    domain_of:
-    - biosample_set_ph_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetPhaeopigments__parent_id:
-    name: biosampleSetPhaeopigments__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_phaeopigments
-    domain_of:
-    - biosample_set_phaeopigments
-    range: string
-  biosampleSetPhaeopigments__phaeopigments:
-    name: biosampleSetPhaeopigments__phaeopigments
-    description: Concentration of phaeopigments; can include multiple phaeopigments
-      String projected from 'phaeopigments.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/phaeopigments
-    alias: phaeopigments
-    owner: biosample_set_phaeopigments
-    domain_of:
-    - biosample_set_phaeopigments
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetPhosplipidFattAcid__parent_id:
-    name: biosampleSetPhosplipidFattAcid__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_phosplipid_fatt_acid
-    domain_of:
-    - biosample_set_phosplipid_fatt_acid
-    range: string
-  biosampleSetPhosplipidFattAcid__phosplipid_fatt_acid:
-    name: biosampleSetPhosplipidFattAcid__phosplipid_fatt_acid
-    description: Concentration of phospholipid fatty acids; can include multiple values
-      String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/phosplipid_fatt_acid
-    alias: phosplipid_fatt_acid
-    owner: biosample_set_phosplipid_fatt_acid
-    domain_of:
-    - biosample_set_phosplipid_fatt_acid
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetPollutants__parent_id:
-    name: biosampleSetPollutants__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_pollutants
-    domain_of:
-    - biosample_set_pollutants
-    range: string
-  biosampleSetPollutants__pollutants:
-    name: biosampleSetPollutants__pollutants
-    description: Pollutant types and, amount or concentrations measured at the time
-      of sampling; can report multiple pollutants by entering numeric values preceded
-      by name of pollutant String projected from 'pollutants.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/pollutants
-    alias: pollutants
-    owner: biosample_set_pollutants
-    domain_of:
-    - biosample_set_pollutants
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetRadiationRegm__parent_id:
-    name: biosampleSetRadiationRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_radiation_regm
-    domain_of:
-    - biosample_set_radiation_regm
-    range: string
-  biosampleSetRadiationRegm__radiation_regm:
-    name: biosampleSetRadiationRegm__radiation_regm
-    description: Information about treatment involving exposure of plant or a plant
-      part to a particular radiation regimen; should include the radiation type, amount
-      or intensity administered, treatment regimen including how many times the treatment
-      was repeated, how long each treatment lasted, and the start and end time of
-      the entire treatment; can include multiple radiation regimens String projected
-      from 'radiation_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/radiation_regm
-    alias: radiation_regm
-    owner: biosample_set_radiation_regm
-    domain_of:
-    - biosample_set_radiation_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetRainfallRegm__parent_id:
-    name: biosampleSetRainfallRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_rainfall_regm
-    domain_of:
-    - biosample_set_rainfall_regm
-    range: string
-  biosampleSetRainfallRegm__rainfall_regm:
-    name: biosampleSetRainfallRegm__rainfall_regm
-    description: Information about treatment involving an exposure to a given amount
-      of rainfall, treatment regimen including how many times the treatment was repeated,
-      how long each treatment lasted, and the start and end time of the entire treatment;
-      can include multiple regimens String projected from 'rainfall_regm.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/rainfall_regm
-    alias: rainfall_regm
-    owner: biosample_set_rainfall_regm
-    domain_of:
-    - biosample_set_rainfall_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetSaltRegm__parent_id:
-    name: biosampleSetSaltRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_salt_regm
-    domain_of:
-    - biosample_set_salt_regm
-    range: string
-  biosampleSetSaltRegm__salt_regm:
-    name: biosampleSetSaltRegm__salt_regm
-    description: Information about treatment involving use of salts as supplement
-      to liquid and soil growth media; should include the name of salt, amount administered,
-      treatment regimen including how many times the treatment was repeated, how long
-      each treatment lasted, and the start and end time of the entire treatment; can
-      include multiple salt regimens String projected from 'salt_regm.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/salt_regm
-    alias: salt_regm
-    owner: biosample_set_salt_regm
-    domain_of:
-    - biosample_set_salt_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetSeasonEnvironment__parent_id:
-    name: biosampleSetSeasonEnvironment__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_season_environment
-    domain_of:
-    - biosample_set_season_environment
-    range: string
-  biosampleSetSeasonEnvironment__season_environment:
-    name: biosampleSetSeasonEnvironment__season_environment
-    description: Treatment involving an exposure to a particular season (e.g. Winter,
-      summer, rabi, rainy etc.), treatment regimen including how many times the treatment
-      was repeated, how long each treatment lasted, and the start and end time of
-      the entire treatment String projected from 'season_environment.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/season_environment
-    alias: season_environment
-    owner: biosample_set_season_environment
-    domain_of:
-    - biosample_set_season_environment
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetSolubleInorgMat__parent_id:
-    name: biosampleSetSolubleInorgMat__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_soluble_inorg_mat
-    domain_of:
-    - biosample_set_soluble_inorg_mat
-    range: string
-  biosampleSetSolubleInorgMat__soluble_inorg_mat:
-    name: biosampleSetSolubleInorgMat__soluble_inorg_mat
-    description: Concentration of substances such as ammonia, road-salt, sea-salt,
-      cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
-      from 'soluble_inorg_mat.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/soluble_inorg_mat
-    alias: soluble_inorg_mat
-    owner: biosample_set_soluble_inorg_mat
-    domain_of:
-    - biosample_set_soluble_inorg_mat
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetSolubleOrgMat__parent_id:
-    name: biosampleSetSolubleOrgMat__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_soluble_org_mat
-    domain_of:
-    - biosample_set_soluble_org_mat
-    range: string
-  biosampleSetSolubleOrgMat__soluble_org_mat:
-    name: biosampleSetSolubleOrgMat__soluble_org_mat
-    description: Concentration of substances such as urea, fruit sugars, soluble proteins,
-      drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/soluble_org_mat
-    alias: soluble_org_mat
-    owner: biosample_set_soluble_org_mat
-    domain_of:
-    - biosample_set_soluble_org_mat
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetStandingWaterRegm__parent_id:
-    name: biosampleSetStandingWaterRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_standing_water_regm
-    domain_of:
-    - biosample_set_standing_water_regm
-    range: string
-  biosampleSetStandingWaterRegm__standing_water_regm:
-    name: biosampleSetStandingWaterRegm__standing_water_regm
-    description: Treatment involving an exposure to standing water during a plant's
-      life span, types can be flood water or standing water, treatment regimen including
-      how many times the treatment was repeated, how long each treatment lasted, and
-      the start and end time of the entire treatment; can include multiple regimens
-      String projected from 'standing_water_regm.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/standing_water_regm
-    alias: standing_water_regm
-    owner: biosample_set_standing_water_regm
-    domain_of:
-    - biosample_set_standing_water_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetSuspendSolids__parent_id:
-    name: biosampleSetSuspendSolids__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_suspend_solids
-    domain_of:
-    - biosample_set_suspend_solids
-    range: string
-  biosampleSetSuspendSolids__suspend_solids:
-    name: biosampleSetSuspendSolids__suspend_solids
-    description: Concentration of substances including a wide variety of material,
-      such as silt, decaying plant and animal matter; can include multiple substances
-      String projected from 'suspend_solids.has_raw_value' (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/suspend_solids
-    alias: suspend_solids
-    owner: biosample_set_suspend_solids
-    domain_of:
-    - biosample_set_suspend_solids
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetVolatileOrgComp__parent_id:
-    name: biosampleSetVolatileOrgComp__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_volatile_org_comp
-    domain_of:
-    - biosample_set_volatile_org_comp
-    range: string
-  biosampleSetVolatileOrgComp__volatile_org_comp:
-    name: biosampleSetVolatileOrgComp__volatile_org_comp
-    description: Concentration of carbon-based chemicals that easily evaporate at
-      room temperature; can report multiple volatile organic compounds by entering
-      numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volatile_org_comp
-    alias: volatile_org_comp
-    owner: biosample_set_volatile_org_comp
-    domain_of:
-    - biosample_set_volatile_org_comp
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetWaterTempRegm__parent_id:
-    name: biosampleSetWaterTempRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_water_temp_regm
-    domain_of:
-    - biosample_set_water_temp_regm
-    range: string
-  biosampleSetWaterTempRegm__water_temp_regm:
-    name: biosampleSetWaterTempRegm__water_temp_regm
-    description: Information about treatment involving an exposure to water with varying
-      degree of temperature, treatment regimen including how many times the treatment
-      was repeated, how long each treatment lasted, and the start and end time of
-      the entire treatment; can include multiple regimens String projected from 'water_temp_regm.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/water_temp_regm
-    alias: water_temp_regm
-    owner: biosample_set_water_temp_regm
-    domain_of:
-    - biosample_set_water_temp_regm
-    range: string
-    required: false
-    multivalued: false
-  biosampleSetWateringRegm__parent_id:
-    name: biosampleSetWateringRegm__parent_id
-    description: Identifier of the parent 'Biosample' record.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
-    alias: parent_id
-    owner: biosample_set_watering_regm
-    domain_of:
-    - biosample_set_watering_regm
-    range: string
-  biosampleSetWateringRegm__watering_regm:
-    name: biosampleSetWateringRegm__watering_regm
-    description: Information about treatment involving an exposure to watering frequencies,
-      treatment regimen including how many times the treatment was repeated, how long
-      each treatment lasted, and the start and end time of the entire treatment; can
-      include multiple regimens String projected from 'watering_regm.has_raw_value'
-      (TextValue).
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/watering_regm
-    alias: watering_regm
-    owner: biosample_set_watering_regm
-    domain_of:
-    - biosample_set_watering_regm
-    range: string
-    required: false
-    multivalued: false
   calibrationInformationFlat__alternative_identifiers:
     name: calibrationInformationFlat__alternative_identifiers
     description: A list of alternative identifiers for the entity.
@@ -32189,12 +31779,14 @@ classes:
     - biosampleFlat__address
     - biosampleFlat__adj_room
     - biosampleFlat__aero_struc
+    - biosampleFlat__agrochem_addition
     - biosampleFlat__air_PM_concen
     - biosampleFlat__air_temp_has_maximum_numeric_value
     - biosampleFlat__air_temp_has_minimum_numeric_value
     - biosampleFlat__air_temp_has_numeric_value
     - biosampleFlat__air_temp_has_raw_value
     - biosampleFlat__air_temp_has_unit
+    - biosampleFlat__air_temp_regm
     - biosampleFlat__al_sat_has_maximum_numeric_value
     - biosampleFlat__al_sat_has_minimum_numeric_value
     - biosampleFlat__al_sat_has_numeric_value
@@ -32251,6 +31843,7 @@ classes:
     - biosampleFlat__annual_temp_has_numeric_value
     - biosampleFlat__annual_temp_has_raw_value
     - biosampleFlat__annual_temp_has_unit
+    - biosampleFlat__antibiotic_regm
     - biosampleFlat__api_has_maximum_numeric_value
     - biosampleFlat__api_has_minimum_numeric_value
     - biosampleFlat__api_has_numeric_value
@@ -32260,6 +31853,7 @@ classes:
     - biosampleFlat__aromatics_pc
     - biosampleFlat__asphaltenes_pc
     - biosampleFlat__associated_studies
+    - biosampleFlat__atmospheric_data
     - biosampleFlat__avg_dew_point_has_maximum_numeric_value
     - biosampleFlat__avg_dew_point_has_minimum_numeric_value
     - biosampleFlat__avg_dew_point_has_numeric_value
@@ -32308,6 +31902,7 @@ classes:
     - biosampleFlat__biocide
     - biosampleFlat__biocide_admin_method
     - biosampleFlat__biol_stat
+    - biosampleFlat__biomass
     - biosampleFlat__biosample_categories
     - biosampleFlat__biotic_regm
     - biosampleFlat__biotic_relationship
@@ -32382,6 +31977,7 @@ classes:
     - biosampleFlat__ceil_thermal_mass_has_unit
     - biosampleFlat__ceil_type
     - biosampleFlat__ceil_water_mold
+    - biosampleFlat__chem_mutagen
     - biosampleFlat__chem_oxygen_dem_has_maximum_numeric_value
     - biosampleFlat__chem_oxygen_dem_has_minimum_numeric_value
     - biosampleFlat__chem_oxygen_dem_has_numeric_value
@@ -32399,6 +31995,7 @@ classes:
     - biosampleFlat__chlorophyll_has_numeric_value
     - biosampleFlat__chlorophyll_has_raw_value
     - biosampleFlat__chlorophyll_has_unit
+    - biosampleFlat__climate_environment
     - biosampleFlat__collected_from
     - biosampleFlat__collection_date_has_raw_value
     - biosampleFlat__collection_date_inc
@@ -32434,6 +32031,7 @@ classes:
     - biosampleFlat__dew_point_has_numeric_value
     - biosampleFlat__dew_point_has_raw_value
     - biosampleFlat__dew_point_has_unit
+    - biosampleFlat__diether_lipids
     - biosampleFlat__diss_carb_dioxide_has_maximum_numeric_value
     - biosampleFlat__diss_carb_dioxide_has_minimum_numeric_value
     - biosampleFlat__diss_carb_dioxide_has_numeric_value
@@ -32521,6 +32119,7 @@ classes:
     - biosampleFlat__elevator
     - biosampleFlat__embargoed
     - biosampleFlat__emsl_biosample_identifiers
+    - biosampleFlat__emulsions
     - biosampleFlat__env_broad_scale_has_raw_value
     - biosampleFlat__env_broad_scale_term_alternative_identifiers
     - biosampleFlat__env_broad_scale_term_alternative_names
@@ -32580,6 +32179,7 @@ classes:
     - biosampleFlat__ext_window_orient
     - biosampleFlat__extreme_event
     - biosampleFlat__fao_class
+    - biosampleFlat__fertilizer_regm
     - biosampleFlat__field
     - biosampleFlat__filter_method
     - biosampleFlat__filter_type
@@ -32621,7 +32221,10 @@ classes:
     - biosampleFlat__freq_cook_has_numeric_value
     - biosampleFlat__freq_cook_has_raw_value
     - biosampleFlat__freq_cook_has_unit
+    - biosampleFlat__fungicide_regm
     - biosampleFlat__furniture
+    - biosampleFlat__gaseous_environment
+    - biosampleFlat__gaseous_substances
     - biosampleFlat__gender_restroom
     - biosampleFlat__genetic_mod
     - biosampleFlat__geo_loc_name
@@ -32632,6 +32235,7 @@ classes:
     - biosampleFlat__glucosidase_act_has_unit
     - biosampleFlat__gold_biosample_identifiers
     - biosampleFlat__gravidity
+    - biosampleFlat__gravity
     - biosampleFlat__growth_facil_has_raw_value
     - biosampleFlat__growth_facil_term_alternative_identifiers
     - biosampleFlat__growth_facil_term_alternative_names
@@ -32642,6 +32246,7 @@ classes:
     - biosampleFlat__growth_facil_term_is_root
     - biosampleFlat__growth_facil_term_name
     - biosampleFlat__growth_habit
+    - biosampleFlat__growth_hormone_regm
     - biosampleFlat__habitat
     - biosampleFlat__hall_count
     - biosampleFlat__handidness
@@ -32659,12 +32264,14 @@ classes:
     - biosampleFlat__heat_deliv_loc
     - biosampleFlat__heat_sys_deliv_meth
     - biosampleFlat__heat_system_id
+    - biosampleFlat__heavy_metals
     - biosampleFlat__heavy_metals_meth
     - biosampleFlat__height_carper_fiber_has_maximum_numeric_value
     - biosampleFlat__height_carper_fiber_has_minimum_numeric_value
     - biosampleFlat__height_carper_fiber_has_numeric_value
     - biosampleFlat__height_carper_fiber_has_raw_value
     - biosampleFlat__height_carper_fiber_has_unit
+    - biosampleFlat__herbicide_regm
     - biosampleFlat__horizon_meth
     - biosampleFlat__host_age_has_maximum_numeric_value
     - biosampleFlat__host_age_has_minimum_numeric_value
@@ -32697,6 +32304,7 @@ classes:
     - biosampleFlat__host_body_temp_has_unit
     - biosampleFlat__host_color
     - biosampleFlat__host_common_name
+    - biosampleFlat__host_diet
     - biosampleFlat__host_disease_stat
     - biosampleFlat__host_dry_mass_has_maximum_numeric_value
     - biosampleFlat__host_dry_mass_has_minimum_numeric_value
@@ -32761,6 +32369,7 @@ classes:
     - biosampleFlat__humidity_has_numeric_value
     - biosampleFlat__humidity_has_raw_value
     - biosampleFlat__humidity_has_unit
+    - biosampleFlat__humidity_regm
     - biosampleFlat__id
     - biosampleFlat__igsn_biosample_identifiers
     - biosampleFlat__img_identifiers
@@ -32772,6 +32381,7 @@ classes:
     - biosampleFlat__indust_eff_percent_has_raw_value
     - biosampleFlat__indust_eff_percent_has_unit
     - biosampleFlat__infiltrations
+    - biosampleFlat__inorg_particles
     - biosampleFlat__insdc_biosample_identifiers
     - biosampleFlat__inside_lux_has_maximum_numeric_value
     - biosampleFlat__inside_lux_has_minimum_numeric_value
@@ -32856,6 +32466,8 @@ classes:
     - biosampleFlat__microbial_biomass_has_raw_value
     - biosampleFlat__microbial_biomass_has_unit
     - biosampleFlat__microbial_biomass_n
+    - biosampleFlat__mineral_nutr_regm
+    - biosampleFlat__n_alkanes
     - biosampleFlat__name
     - biosampleFlat__ncbi_taxonomy_name
     - biosampleFlat__neon_biosample_identifiers
@@ -32930,6 +32542,7 @@ classes:
     - biosampleFlat__org_nitro_has_raw_value
     - biosampleFlat__org_nitro_has_unit
     - biosampleFlat__org_nitro_method
+    - biosampleFlat__org_particles
     - biosampleFlat__other_treatment
     - biosampleFlat__owc_tvdss_has_maximum_numeric_value
     - biosampleFlat__owc_tvdss_has_minimum_numeric_value
@@ -32952,7 +32565,10 @@ classes:
     - biosampleFlat__part_org_nitro_has_numeric_value
     - biosampleFlat__part_org_nitro_has_raw_value
     - biosampleFlat__part_org_nitro_has_unit
+    - biosampleFlat__particle_class
     - biosampleFlat__permeability
+    - biosampleFlat__perturbation
+    - biosampleFlat__pesticide_regm
     - biosampleFlat__petroleum_hydrocarb_has_maximum_numeric_value
     - biosampleFlat__petroleum_hydrocarb_has_minimum_numeric_value
     - biosampleFlat__petroleum_hydrocarb_has_numeric_value
@@ -32960,11 +32576,14 @@ classes:
     - biosampleFlat__petroleum_hydrocarb_has_unit
     - biosampleFlat__ph
     - biosampleFlat__ph_meth
+    - biosampleFlat__ph_regm
+    - biosampleFlat__phaeopigments
     - biosampleFlat__phosphate_has_maximum_numeric_value
     - biosampleFlat__phosphate_has_minimum_numeric_value
     - biosampleFlat__phosphate_has_numeric_value
     - biosampleFlat__phosphate_has_raw_value
     - biosampleFlat__phosphate_has_unit
+    - biosampleFlat__phosplipid_fatt_acid
     - biosampleFlat__photon_flux_has_maximum_numeric_value
     - biosampleFlat__photon_flux_has_minimum_numeric_value
     - biosampleFlat__photon_flux_has_numeric_value
@@ -32990,6 +32609,7 @@ classes:
     - biosampleFlat__plant_struc_term_is_obsolete
     - biosampleFlat__plant_struc_term_is_root
     - biosampleFlat__plant_struc_term_name
+    - biosampleFlat__pollutants
     - biosampleFlat__porosity
     - biosampleFlat__potassium_has_maximum_numeric_value
     - biosampleFlat__potassium_has_minimum_numeric_value
@@ -33032,6 +32652,8 @@ classes:
     - biosampleFlat__provenance_metadata_submission_portal_identifier
     - biosampleFlat__provenance_metadata_version
     - biosampleFlat__quad_pos
+    - biosampleFlat__radiation_regm
+    - biosampleFlat__rainfall_regm
     - biosampleFlat__reactor_type
     - biosampleFlat__redox_potential_has_maximum_numeric_value
     - biosampleFlat__redox_potential_has_minimum_numeric_value
@@ -33098,6 +32720,7 @@ classes:
     - biosampleFlat__salinity_has_raw_value
     - biosampleFlat__salinity_has_unit
     - biosampleFlat__salinity_meth
+    - biosampleFlat__salt_regm
     - biosampleFlat__samp_capt_status
     - biosampleFlat__samp_collec_device
     - biosampleFlat__samp_collec_method
@@ -33157,6 +32780,7 @@ classes:
     - biosampleFlat__sample_type
     - biosampleFlat__saturates_pc
     - biosampleFlat__season
+    - biosampleFlat__season_environment
     - biosampleFlat__season_precpt_has_maximum_numeric_value
     - biosampleFlat__season_precpt_has_minimum_numeric_value
     - biosampleFlat__season_precpt_has_numeric_value
@@ -33223,7 +32847,9 @@ classes:
     - biosampleFlat__solar_irradiance_has_numeric_value
     - biosampleFlat__solar_irradiance_has_raw_value
     - biosampleFlat__solar_irradiance_has_unit
+    - biosampleFlat__soluble_inorg_mat
     - biosampleFlat__soluble_iron_micromol
+    - biosampleFlat__soluble_org_mat
     - biosampleFlat__soluble_react_phosp_has_maximum_numeric_value
     - biosampleFlat__soluble_react_phosp_has_minimum_numeric_value
     - biosampleFlat__soluble_react_phosp_has_numeric_value
@@ -33242,6 +32868,7 @@ classes:
     - biosampleFlat__sr_geol_age
     - biosampleFlat__sr_kerog_type
     - biosampleFlat__sr_lithology
+    - biosampleFlat__standing_water_regm
     - biosampleFlat__start_date_inc
     - biosampleFlat__start_time_inc
     - biosampleFlat__store_cond
@@ -33289,6 +32916,7 @@ classes:
     - biosampleFlat__suspend_part_matter_has_numeric_value
     - biosampleFlat__suspend_part_matter_has_raw_value
     - biosampleFlat__suspend_part_matter_has_unit
+    - biosampleFlat__suspend_solids
     - biosampleFlat__tan_has_maximum_numeric_value
     - biosampleFlat__tan_has_minimum_numeric_value
     - biosampleFlat__tan_has_numeric_value
@@ -33414,6 +33042,7 @@ classes:
     - biosampleFlat__vfa_has_unit
     - biosampleFlat__vis_media
     - biosampleFlat__viscosity
+    - biosampleFlat__volatile_org_comp
     - biosampleFlat__wall_area_has_maximum_numeric_value
     - biosampleFlat__wall_area_has_minimum_numeric_value
     - biosampleFlat__wall_area_has_numeric_value
@@ -33459,6 +33088,8 @@ classes:
     - biosampleFlat__water_prod_rate_has_numeric_value
     - biosampleFlat__water_prod_rate_has_raw_value
     - biosampleFlat__water_prod_rate_has_unit
+    - biosampleFlat__water_temp_regm
+    - biosampleFlat__watering_regm
     - biosampleFlat__weekday
     - biosampleFlat__win
     - biosampleFlat__wind_direction
@@ -33558,6 +33189,13 @@ classes:
           together
         range: AeroStrucEnum
         multivalued: false
+      agrochem_addition:
+        name: agrochem_addition
+        description: Addition of fertilizers, pesticides, etc. - amount and time of
+          applications String projected from 'agrochem_addition.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       air_PM_concen:
         name: air_PM_concen
         description: Concentration of substances that remain suspended in the air,
@@ -33599,6 +33237,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      air_temp_regm:
+        name: air_temp_regm
+        description: Information about treatment involving an exposure to varying
+          temperatures; should include the temperature, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include different
+          temperature regimens String projected from 'air_temp_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       al_sat_has_maximum_numeric_value:
         name: al_sat_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -33966,6 +33615,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      antibiotic_regm:
+        name: antibiotic_regm
+        description: Information about treatment involving antibiotic administration;
+          should include the name of antibiotic, amount administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple antibiotic regimens String projected from 'antibiotic_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       api_has_maximum_numeric_value:
         name: api_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -34033,6 +33693,13 @@ classes:
           original range was class 'Study'.
         range: string
         required: true
+        multivalued: true
+      atmospheric_data:
+        name: atmospheric_data
+        description: Measurement of atmospheric data; can include multiple data String
+          projected from 'atmospheric_data.has_raw_value' (TextValue).
+        range: string
+        required: false
         multivalued: true
       avg_dew_point_has_maximum_numeric_value:
         name: avg_dew_point_has_maximum_numeric_value
@@ -34355,6 +34022,14 @@ classes:
         description: The level of genome modification
         range: BiolStatEnum
         multivalued: false
+      biomass:
+        name: biomass
+        description: Amount of biomass; should include the name for the part of biomass
+          measured, e.g. Microbial, total. Can include multiple measurements String
+          projected from 'biomass.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       biosample_categories:
         name: biosample_categories
         range: BiosampleCategoryEnum
@@ -34834,6 +34509,16 @@ classes:
         description: Signs of the presence of mold or mildew on the ceiling
         range: MoldVisibilityEnum
         multivalued: false
+      chem_mutagen:
+        name: chem_mutagen
+        description: Treatment involving use of mutagens; should include the name
+          of mutagen, amount administered, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple mutagen regimens
+          String projected from 'chem_mutagen.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       chem_oxygen_dem_has_maximum_numeric_value:
         name: chem_oxygen_dem_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -34949,6 +34634,16 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      climate_environment:
+        name: climate_environment
+        description: Treatment involving an exposure to a particular climate; treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple climates String projected from 'climate_environment.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       collected_from:
         name: collected_from
         description: The Site from which a Biosample was collected Reference by identifier;
@@ -35176,6 +34871,13 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      diether_lipids:
+        name: diether_lipids
+        description: Concentration of diether lipids; can include multiple types of
+          diether lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       diss_carb_dioxide_has_maximum_numeric_value:
         name: diss_carb_dioxide_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -35735,6 +35437,14 @@ classes:
           planned EMSL NEXUS database.
         range: external_identifier
         multivalued: true
+      emulsions:
+        name: emulsions
+        description: Amount or concentration of substances such as paints, adhesives,
+          mayonnaise, hair colorants, emulsified oils, etc.; can include multiple
+          emulsion types String projected from 'emulsions.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       env_broad_scale_has_raw_value:
         name: env_broad_scale_has_raw_value
         description: The value that was specified for an annotation in raw form, i.e.
@@ -36151,6 +35861,17 @@ classes:
           available soil classifications can be found at https://www.isric.org/explore/world-soil-distribution
         range: FaoClassEnum
         multivalued: false
+      fertilizer_regm:
+        name: fertilizer_regm
+        description: Information about treatment involving the use of fertilizers;
+          should include the name of fertilizer, amount administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple fertilizer regimens String projected from 'fertilizer_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       field:
         name: field
         description: Name of the hydrocarbon field (e.g. Albacora) String projected
@@ -36413,11 +36134,39 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      fungicide_regm:
+        name: fungicide_regm
+        description: Information about treatment involving use of fungicides; should
+          include the name of fungicide, amount administered, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include multiple
+          fungicide regimens String projected from 'fungicide_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       furniture:
         name: furniture
         description: The types of furniture present in the sampled room
         range: FurnitureEnum
         multivalued: false
+      gaseous_environment:
+        name: gaseous_environment
+        description: Use of conditions with differing gaseous environments; should
+          include the name of gaseous compound, amount administered, treatment duration,
+          interval and total experimental duration; can include multiple gaseous environment
+          regimens String projected from 'gaseous_environment.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      gaseous_substances:
+        name: gaseous_substances
+        description: Amount or concentration of substances such as hydrogen sulfide,
+          carbon dioxide, methane, etc.; can include multiple substances String projected
+          from 'gaseous_substances.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       gender_restroom:
         name: gender_restroom
         description: The gender type of the restroom
@@ -36488,6 +36237,17 @@ classes:
         range: string
         required: false
         multivalued: false
+      gravity:
+        name: gravity
+        description: Information about treatment involving use of gravity factor to
+          study various types of responses in presence, absence or modified levels
+          of gravity; treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple treatments String projected from
+          'gravity.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       growth_facil_has_raw_value:
         name: growth_facil_has_raw_value
         description: The value that was specified for an annotation in raw form, i.e.
@@ -36559,6 +36319,17 @@ classes:
         description: Characteristic shape, appearance or growth form of a plant species
         range: GrowthHabitEnum
         multivalued: false
+      growth_hormone_regm:
+        name: growth_hormone_regm
+        description: Information about treatment involving use of growth hormones;
+          should include the name of growth hormone, amount administered, treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple growth hormone regimens String projected from 'growth_hormone_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       habitat:
         name: habitat
         range: string
@@ -36668,6 +36439,13 @@ classes:
         range: string
         required: false
         multivalued: false
+      heavy_metals:
+        name: heavy_metals
+        description: Heavy metals present in the sample and their concentrations.
+          String projected from 'heavy_metals.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       heavy_metals_meth:
         name: heavy_metals_meth
         description: Reference or method used in determining heavy metals
@@ -36706,6 +36484,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      herbicide_regm:
+        name: herbicide_regm
+        description: Information about treatment involving use of herbicides; information
+          about treatment involving use of growth hormones; should include the name
+          of herbicide, amount administered, treatment regimen including how many
+          times the treatment was repeated, how long each treatment lasted, and the
+          start and end time of the entire treatment; can include multiple regimens
+          String projected from 'herbicide_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       horizon_meth:
         name: horizon_meth
         description: Reference or method used in determining the horizon
@@ -36930,6 +36719,14 @@ classes:
         range: string
         required: false
         multivalued: false
+      host_diet:
+        name: host_diet
+        description: Type of diet depending on the host, for animals omnivore, herbivore
+          etc., for humans high-fat, meditteranean etc.; can include multiple diet
+          types String projected from 'host_diet.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       host_disease_stat:
         name: host_disease_stat
         description: List of diseases with which the host has been diagnosed; can
@@ -37363,6 +37160,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      humidity_regm:
+        name: humidity_regm
+        description: Information about treatment involving an exposure to varying
+          degree of humidity; information about treatment involving use of growth
+          hormones; should include amount of humidity administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple regimens String projected from 'humidity_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       id:
         name: id
         description: An NMDC assigned unique identifier for a biosample submitted
@@ -37430,6 +37238,14 @@ classes:
         name: infiltrations
         description: The amount of time it takes to complete each infiltration activity
         range: string
+        multivalued: true
+      inorg_particles:
+        name: inorg_particles
+        description: Concentration of particles such as sand, grit, metal particles,
+          ceramics, etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
         multivalued: true
       insdc_biosample_identifiers:
         name: insdc_biosample_identifiers
@@ -37972,6 +37788,24 @@ classes:
           microorganisms smaller than 5-10 micrometer.
         range: string
         multivalued: false
+      mineral_nutr_regm:
+        name: mineral_nutr_regm
+        description: Information about treatment involving the use of mineral supplements;
+          should include the name of mineral nutrient, amount administered, treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      n_alkanes:
+        name: n_alkanes
+        description: Concentration of n-alkanes; can include multiple n-alkanes String
+          projected from 'n_alkanes.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       name:
         name: name
         description: A local identifier or name for the material sample collected.
@@ -38461,6 +38295,14 @@ classes:
         description: Method used for obtaining organic nitrogen
         range: string
         multivalued: false
+      org_particles:
+        name: org_particles
+        description: Concentration of particles such as faeces, hairs, food, vomit,
+          paper fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       other_treatment:
         name: other_treatment
         description: Other treatments applied to your samples that are not applicable
@@ -38604,6 +38446,15 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      particle_class:
+        name: particle_class
+        description: Particles are classified, based on their size, into six general
+          categories:clay, silt, sand, gravel, cobbles, and boulders; should include
+          amount of particle preceded by the name of the particle type; can include
+          multiple values String projected from 'particle_class.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       permeability:
         name: permeability
         description: 'Measure of the ability of a hydrocarbon resource to allow fluids
@@ -38612,6 +38463,28 @@ classes:
         range: string
         required: false
         multivalued: false
+      perturbation:
+        name: perturbation
+        description: Type of perturbation, e.g. chemical administration, physical
+          disturbance, etc., coupled with perturbation regimen including how many
+          times the perturbation was repeated, how long each perturbation lasted,
+          and the start and end time of the entire perturbation period; can include
+          multiple perturbation types String projected from 'perturbation.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      pesticide_regm:
+        name: pesticide_regm
+        description: Information about treatment involving use of insecticides; should
+          include the name of pesticide, amount administered, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include multiple
+          pesticide regimens String projected from 'pesticide_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       petroleum_hydrocarb_has_maximum_numeric_value:
         name: petroleum_hydrocarb_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -38658,6 +38531,23 @@ classes:
         range: string
         required: false
         multivalued: false
+      ph_regm:
+        name: ph_regm
+        description: Information about treatment involving exposure of plants to varying
+          levels of ph of the growth media, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple regimen String
+          projected from 'ph_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      phaeopigments:
+        name: phaeopigments
+        description: Concentration of phaeopigments; can include multiple phaeopigments
+          String projected from 'phaeopigments.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       phosphate_has_maximum_numeric_value:
         name: phosphate_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -38691,6 +38581,13 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      phosplipid_fatt_acid:
+        name: phosplipid_fatt_acid
+        description: Concentration of phospholipid fatty acids; can include multiple
+          values String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       photon_flux_has_maximum_numeric_value:
         name: photon_flux_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -38869,6 +38766,15 @@ classes:
         range: string
         required: false
         multivalued: false
+      pollutants:
+        name: pollutants
+        description: Pollutant types and, amount or concentrations measured at the
+          time of sampling; can report multiple pollutants by entering numeric values
+          preceded by name of pollutant String projected from 'pollutants.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       porosity:
         name: porosity
         description: Porosity of deposited sediment is volume of voids divided by
@@ -39144,6 +39050,27 @@ classes:
         description: The quadrant position of the sampling room within the building
         range: QuadPosEnum
         multivalued: false
+      radiation_regm:
+        name: radiation_regm
+        description: Information about treatment involving exposure of plant or a
+          plant part to a particular radiation regimen; should include the radiation
+          type, amount or intensity administered, treatment regimen including how
+          many times the treatment was repeated, how long each treatment lasted, and
+          the start and end time of the entire treatment; can include multiple radiation
+          regimens String projected from 'radiation_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      rainfall_regm:
+        name: rainfall_regm
+        description: Information about treatment involving an exposure to a given
+          amount of rainfall, treatment regimen including how many times the treatment
+          was repeated, how long each treatment lasted, and the start and end time
+          of the entire treatment; can include multiple regimens String projected
+          from 'rainfall_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       reactor_type:
         name: reactor_type
         description: Anaerobic digesters can be designed and engineered to operate
@@ -39585,6 +39512,17 @@ classes:
         description: Reference or method used in determining salinity.
         range: string
         multivalued: false
+      salt_regm:
+        name: salt_regm
+        description: Information about treatment involving use of salts as supplement
+          to liquid and soil growth media; should include the name of salt, amount
+          administered, treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple salt regimens String projected
+          from 'salt_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       samp_capt_status:
         name: samp_capt_status
         description: Reason for the sample
@@ -40014,6 +39952,16 @@ classes:
           terms listed under season (http://purl.obolibrary.org/obo/NCIT_C94729)
         range: SeasonEnum
         multivalued: false
+      season_environment:
+        name: season_environment
+        description: Treatment involving an exposure to a particular season (e.g.
+          Winter, summer, rabi, rainy etc.), treatment regimen including how many
+          times the treatment was repeated, how long each treatment lasted, and the
+          start and end time of the entire treatment String projected from 'season_environment.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       season_precpt_has_maximum_numeric_value:
         name: season_precpt_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -40447,10 +40395,26 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      soluble_inorg_mat:
+        name: soluble_inorg_mat
+        description: Concentration of substances such as ammonia, road-salt, sea-salt,
+          cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
+          from 'soluble_inorg_mat.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       soluble_iron_micromol:
         name: soluble_iron_micromol
         range: string
         multivalued: false
+      soluble_org_mat:
+        name: soluble_org_mat
+        description: Concentration of substances such as urea, fruit sugars, soluble
+          proteins, drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       soluble_react_phosp_has_maximum_numeric_value:
         name: soluble_react_phosp_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -40569,6 +40533,17 @@ classes:
           If "other" is specified, please propose entry in "additional info" field
         range: SrLithologyEnum
         multivalued: false
+      standing_water_regm:
+        name: standing_water_regm
+        description: Treatment involving an exposure to standing water during a plant's
+          life span, types can be flood water or standing water, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple regimens String projected from 'standing_water_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       start_date_inc:
         name: start_date_inc
         description: Date the incubation was started. Only relevant for incubation
@@ -40874,6 +40849,14 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      suspend_solids:
+        name: suspend_solids
+        description: Concentration of substances including a wide variety of material,
+          such as silt, decaying plant and animal matter; can include multiple substances
+          String projected from 'suspend_solids.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       tan_has_maximum_numeric_value:
         name: tan_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -41687,6 +41670,15 @@ classes:
         range: string
         required: false
         multivalued: false
+      volatile_org_comp:
+        name: volatile_org_comp
+        description: Concentration of carbon-based chemicals that easily evaporate
+          at room temperature; can report multiple volatile organic compounds by entering
+          numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       wall_area_has_maximum_numeric_value:
         name: wall_area_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -41972,6 +41964,26 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      water_temp_regm:
+        name: water_temp_regm
+        description: Information about treatment involving an exposure to water with
+          varying degree of temperature, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple regimens String
+          projected from 'water_temp_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      watering_regm:
+        name: watering_regm
+        description: Information about treatment involving an exposure to watering
+          frequencies, treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple regimens String projected from
+          'watering_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       weekday:
         name: weekday
         description: The day of the week when sampling occurred
@@ -42155,101 +42167,6 @@ classes:
         required: false
         multivalued: false
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleFlat
-  biosample_set_agrochem_addition:
-    name: biosample_set_agrochem_addition
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAgrochemAddition
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_agrochem_addition
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.agrochem_addition';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetAgrochemAddition__parent_id
-    - biosampleSetAgrochemAddition__agrochem_addition
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      agrochem_addition:
-        name: agrochem_addition
-        description: Addition of fertilizers, pesticides, etc. - amount and time of
-          applications String projected from 'agrochem_addition.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAgrochemAddition
-  biosample_set_air_temp_regm:
-    name: biosample_set_air_temp_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAirTempRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_air_temp_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.air_temp_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetAirTempRegm__parent_id
-    - biosampleSetAirTempRegm__air_temp_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      air_temp_regm:
-        name: air_temp_regm
-        description: Information about treatment involving an exposure to varying
-          temperatures; should include the temperature, treatment regimen including
-          how many times the treatment was repeated, how long each treatment lasted,
-          and the start and end time of the entire treatment; can include different
-          temperature regimens String projected from 'air_temp_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAirTempRegm
-  biosample_set_antibiotic_regm:
-    name: biosample_set_antibiotic_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAntibioticRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_antibiotic_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.antibiotic_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetAntibioticRegm__parent_id
-    - biosampleSetAntibioticRegm__antibiotic_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      antibiotic_regm:
-        name: antibiotic_regm
-        description: Information about treatment involving antibiotic administration;
-          should include the name of antibiotic, amount administered, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple antibiotic regimens String projected from 'antibiotic_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAntibioticRegm
   biosample_set_associated_studies:
     name: biosample_set_associated_studies
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAssociatedStudies
@@ -42277,65 +42194,6 @@ classes:
           original range was class 'Study'.
         range: string
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAssociatedStudies
-  biosample_set_atmospheric_data:
-    name: biosample_set_atmospheric_data
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAtmosphericData
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_atmospheric_data
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.atmospheric_data';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetAtmosphericData__parent_id
-    - biosampleSetAtmosphericData__atmospheric_data
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      atmospheric_data:
-        name: atmospheric_data
-        description: Measurement of atmospheric data; can include multiple data String
-          projected from 'atmospheric_data.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetAtmosphericData
-  biosample_set_biomass:
-    name: biosample_set_biomass
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetBiomass
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_biomass
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.biomass';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetBiomass__parent_id
-    - biosampleSetBiomass__biomass
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      biomass:
-        name: biomass
-        description: Amount of biomass; should include the name for the part of biomass
-          measured, e.g. Microbial, total. Can include multiple measurements String
-          projected from 'biomass.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetBiomass
   biosample_set_chem_administration:
     name: biosample_set_chem_administration
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetChemAdministration
@@ -42440,510 +42298,6 @@ classes:
         description: Identifier of the parent 'Biosample' record.
         range: string
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetChemAdministration
-  biosample_set_chem_mutagen:
-    name: biosample_set_chem_mutagen
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetChemMutagen
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_chem_mutagen
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.chem_mutagen';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetChemMutagen__parent_id
-    - biosampleSetChemMutagen__chem_mutagen
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      chem_mutagen:
-        name: chem_mutagen
-        description: Treatment involving use of mutagens; should include the name
-          of mutagen, amount administered, treatment regimen including how many times
-          the treatment was repeated, how long each treatment lasted, and the start
-          and end time of the entire treatment; can include multiple mutagen regimens
-          String projected from 'chem_mutagen.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetChemMutagen
-  biosample_set_climate_environment:
-    name: biosample_set_climate_environment
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetClimateEnvironment
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_climate_environment
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.climate_environment';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetClimateEnvironment__parent_id
-    - biosampleSetClimateEnvironment__climate_environment
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      climate_environment:
-        name: climate_environment
-        description: Treatment involving an exposure to a particular climate; treatment
-          regimen including how many times the treatment was repeated, how long each
-          treatment lasted, and the start and end time of the entire treatment; can
-          include multiple climates String projected from 'climate_environment.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetClimateEnvironment
-  biosample_set_diether_lipids:
-    name: biosample_set_diether_lipids
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetDietherLipids
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_diether_lipids
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.diether_lipids';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetDietherLipids__parent_id
-    - biosampleSetDietherLipids__diether_lipids
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      diether_lipids:
-        name: diether_lipids
-        description: Concentration of diether lipids; can include multiple types of
-          diether lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetDietherLipids
-  biosample_set_emulsions:
-    name: biosample_set_emulsions
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetEmulsions
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_emulsions
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.emulsions';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetEmulsions__parent_id
-    - biosampleSetEmulsions__emulsions
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      emulsions:
-        name: emulsions
-        description: Amount or concentration of substances such as paints, adhesives,
-          mayonnaise, hair colorants, emulsified oils, etc.; can include multiple
-          emulsion types String projected from 'emulsions.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetEmulsions
-  biosample_set_fertilizer_regm:
-    name: biosample_set_fertilizer_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetFertilizerRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_fertilizer_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.fertilizer_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetFertilizerRegm__parent_id
-    - biosampleSetFertilizerRegm__fertilizer_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      fertilizer_regm:
-        name: fertilizer_regm
-        description: Information about treatment involving the use of fertilizers;
-          should include the name of fertilizer, amount administered, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple fertilizer regimens String projected from 'fertilizer_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetFertilizerRegm
-  biosample_set_fungicide_regm:
-    name: biosample_set_fungicide_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetFungicideRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_fungicide_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.fungicide_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetFungicideRegm__parent_id
-    - biosampleSetFungicideRegm__fungicide_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      fungicide_regm:
-        name: fungicide_regm
-        description: Information about treatment involving use of fungicides; should
-          include the name of fungicide, amount administered, treatment regimen including
-          how many times the treatment was repeated, how long each treatment lasted,
-          and the start and end time of the entire treatment; can include multiple
-          fungicide regimens String projected from 'fungicide_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetFungicideRegm
-  biosample_set_gaseous_environment:
-    name: biosample_set_gaseous_environment
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGaseousEnvironment
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_gaseous_environment
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.gaseous_environment';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetGaseousEnvironment__parent_id
-    - biosampleSetGaseousEnvironment__gaseous_environment
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      gaseous_environment:
-        name: gaseous_environment
-        description: Use of conditions with differing gaseous environments; should
-          include the name of gaseous compound, amount administered, treatment duration,
-          interval and total experimental duration; can include multiple gaseous environment
-          regimens String projected from 'gaseous_environment.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGaseousEnvironment
-  biosample_set_gaseous_substances:
-    name: biosample_set_gaseous_substances
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGaseousSubstances
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_gaseous_substances
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.gaseous_substances';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetGaseousSubstances__parent_id
-    - biosampleSetGaseousSubstances__gaseous_substances
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      gaseous_substances:
-        name: gaseous_substances
-        description: Amount or concentration of substances such as hydrogen sulfide,
-          carbon dioxide, methane, etc.; can include multiple substances String projected
-          from 'gaseous_substances.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGaseousSubstances
-  biosample_set_gravity:
-    name: biosample_set_gravity
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGravity
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_gravity
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.gravity';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetGravity__parent_id
-    - biosampleSetGravity__gravity
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      gravity:
-        name: gravity
-        description: Information about treatment involving use of gravity factor to
-          study various types of responses in presence, absence or modified levels
-          of gravity; treatment regimen including how many times the treatment was
-          repeated, how long each treatment lasted, and the start and end time of
-          the entire treatment; can include multiple treatments String projected from
-          'gravity.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGravity
-  biosample_set_growth_hormone_regm:
-    name: biosample_set_growth_hormone_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGrowthHormoneRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_growth_hormone_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.growth_hormone_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetGrowthHormoneRegm__parent_id
-    - biosampleSetGrowthHormoneRegm__growth_hormone_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      growth_hormone_regm:
-        name: growth_hormone_regm
-        description: Information about treatment involving use of growth hormones;
-          should include the name of growth hormone, amount administered, treatment
-          regimen including how many times the treatment was repeated, how long each
-          treatment lasted, and the start and end time of the entire treatment; can
-          include multiple growth hormone regimens String projected from 'growth_hormone_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetGrowthHormoneRegm
-  biosample_set_heavy_metals:
-    name: biosample_set_heavy_metals
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHeavyMetals
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_heavy_metals
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.heavy_metals';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetHeavyMetals__parent_id
-    - biosampleSetHeavyMetals__heavy_metals
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      heavy_metals:
-        name: heavy_metals
-        description: Heavy metals present in the sample and their concentrations.
-          String projected from 'heavy_metals.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHeavyMetals
-  biosample_set_herbicide_regm:
-    name: biosample_set_herbicide_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHerbicideRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_herbicide_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.herbicide_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetHerbicideRegm__parent_id
-    - biosampleSetHerbicideRegm__herbicide_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      herbicide_regm:
-        name: herbicide_regm
-        description: Information about treatment involving use of herbicides; information
-          about treatment involving use of growth hormones; should include the name
-          of herbicide, amount administered, treatment regimen including how many
-          times the treatment was repeated, how long each treatment lasted, and the
-          start and end time of the entire treatment; can include multiple regimens
-          String projected from 'herbicide_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHerbicideRegm
-  biosample_set_host_diet:
-    name: biosample_set_host_diet
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHostDiet
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_host_diet
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.host_diet';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetHostDiet__parent_id
-    - biosampleSetHostDiet__host_diet
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      host_diet:
-        name: host_diet
-        description: Type of diet depending on the host, for animals omnivore, herbivore
-          etc., for humans high-fat, meditteranean etc.; can include multiple diet
-          types String projected from 'host_diet.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHostDiet
-  biosample_set_humidity_regm:
-    name: biosample_set_humidity_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHumidityRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_humidity_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.humidity_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetHumidityRegm__parent_id
-    - biosampleSetHumidityRegm__humidity_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      humidity_regm:
-        name: humidity_regm
-        description: Information about treatment involving an exposure to varying
-          degree of humidity; information about treatment involving use of growth
-          hormones; should include amount of humidity administered, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple regimens String projected from 'humidity_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetHumidityRegm
-  biosample_set_inorg_particles:
-    name: biosample_set_inorg_particles
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetInorgParticles
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_inorg_particles
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.inorg_particles';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetInorgParticles__parent_id
-    - biosampleSetInorgParticles__inorg_particles
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      inorg_particles:
-        name: inorg_particles
-        description: Concentration of particles such as sand, grit, metal particles,
-          ceramics, etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetInorgParticles
-  biosample_set_mineral_nutr_regm:
-    name: biosample_set_mineral_nutr_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetMineralNutrRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_mineral_nutr_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.mineral_nutr_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetMineralNutrRegm__parent_id
-    - biosampleSetMineralNutrRegm__mineral_nutr_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      mineral_nutr_regm:
-        name: mineral_nutr_regm
-        description: Information about treatment involving the use of mineral supplements;
-          should include the name of mineral nutrient, amount administered, treatment
-          regimen including how many times the treatment was repeated, how long each
-          treatment lasted, and the start and end time of the entire treatment; can
-          include multiple mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetMineralNutrRegm
   biosample_set_misc_param:
     name: biosample_set_misc_param
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetMiscParam
@@ -43048,65 +42402,6 @@ classes:
         description: Identifier of the parent 'Biosample' record.
         range: string
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetMiscParam
-  biosample_set_n_alkanes:
-    name: biosample_set_n_alkanes
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetNAlkanes
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_n_alkanes
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.n_alkanes';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetNAlkanes__parent_id
-    - biosampleSetNAlkanes__n_alkanes
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      n_alkanes:
-        name: n_alkanes
-        description: Concentration of n-alkanes; can include multiple n-alkanes String
-          projected from 'n_alkanes.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetNAlkanes
-  biosample_set_org_particles:
-    name: biosample_set_org_particles
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetOrgParticles
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_org_particles
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.org_particles';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetOrgParticles__parent_id
-    - biosampleSetOrgParticles__org_particles
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      org_particles:
-        name: org_particles
-        description: Concentration of particles such as faeces, hairs, food, vomit,
-          paper fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetOrgParticles
   biosample_set_organism_count:
     name: biosample_set_organism_count
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetOrganismCount
@@ -43170,572 +42465,6 @@ classes:
         description: Identifier of the parent 'Biosample' record.
         range: string
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetOrganismCount
-  biosample_set_particle_class:
-    name: biosample_set_particle_class
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetParticleClass
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_particle_class
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.particle_class';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetParticleClass__parent_id
-    - biosampleSetParticleClass__particle_class
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      particle_class:
-        name: particle_class
-        description: Particles are classified, based on their size, into six general
-          categories:clay, silt, sand, gravel, cobbles, and boulders; should include
-          amount of particle preceded by the name of the particle type; can include
-          multiple values String projected from 'particle_class.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetParticleClass
-  biosample_set_perturbation:
-    name: biosample_set_perturbation
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPerturbation
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_perturbation
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.perturbation';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetPerturbation__parent_id
-    - biosampleSetPerturbation__perturbation
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      perturbation:
-        name: perturbation
-        description: Type of perturbation, e.g. chemical administration, physical
-          disturbance, etc., coupled with perturbation regimen including how many
-          times the perturbation was repeated, how long each perturbation lasted,
-          and the start and end time of the entire perturbation period; can include
-          multiple perturbation types String projected from 'perturbation.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPerturbation
-  biosample_set_pesticide_regm:
-    name: biosample_set_pesticide_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPesticideRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_pesticide_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.pesticide_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetPesticideRegm__parent_id
-    - biosampleSetPesticideRegm__pesticide_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      pesticide_regm:
-        name: pesticide_regm
-        description: Information about treatment involving use of insecticides; should
-          include the name of pesticide, amount administered, treatment regimen including
-          how many times the treatment was repeated, how long each treatment lasted,
-          and the start and end time of the entire treatment; can include multiple
-          pesticide regimens String projected from 'pesticide_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPesticideRegm
-  biosample_set_ph_regm:
-    name: biosample_set_ph_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPhRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_ph_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.ph_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetPhRegm__parent_id
-    - biosampleSetPhRegm__ph_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      ph_regm:
-        name: ph_regm
-        description: Information about treatment involving exposure of plants to varying
-          levels of ph of the growth media, treatment regimen including how many times
-          the treatment was repeated, how long each treatment lasted, and the start
-          and end time of the entire treatment; can include multiple regimen String
-          projected from 'ph_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPhRegm
-  biosample_set_phaeopigments:
-    name: biosample_set_phaeopigments
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPhaeopigments
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_phaeopigments
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.phaeopigments';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetPhaeopigments__parent_id
-    - biosampleSetPhaeopigments__phaeopigments
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      phaeopigments:
-        name: phaeopigments
-        description: Concentration of phaeopigments; can include multiple phaeopigments
-          String projected from 'phaeopigments.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPhaeopigments
-  biosample_set_phosplipid_fatt_acid:
-    name: biosample_set_phosplipid_fatt_acid
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPhosplipidFattAcid
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_phosplipid_fatt_acid
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.phosplipid_fatt_acid';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetPhosplipidFattAcid__parent_id
-    - biosampleSetPhosplipidFattAcid__phosplipid_fatt_acid
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      phosplipid_fatt_acid:
-        name: phosplipid_fatt_acid
-        description: Concentration of phospholipid fatty acids; can include multiple
-          values String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPhosplipidFattAcid
-  biosample_set_pollutants:
-    name: biosample_set_pollutants
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPollutants
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_pollutants
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.pollutants';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetPollutants__parent_id
-    - biosampleSetPollutants__pollutants
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      pollutants:
-        name: pollutants
-        description: Pollutant types and, amount or concentrations measured at the
-          time of sampling; can report multiple pollutants by entering numeric values
-          preceded by name of pollutant String projected from 'pollutants.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetPollutants
-  biosample_set_radiation_regm:
-    name: biosample_set_radiation_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetRadiationRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_radiation_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.radiation_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetRadiationRegm__parent_id
-    - biosampleSetRadiationRegm__radiation_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      radiation_regm:
-        name: radiation_regm
-        description: Information about treatment involving exposure of plant or a
-          plant part to a particular radiation regimen; should include the radiation
-          type, amount or intensity administered, treatment regimen including how
-          many times the treatment was repeated, how long each treatment lasted, and
-          the start and end time of the entire treatment; can include multiple radiation
-          regimens String projected from 'radiation_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetRadiationRegm
-  biosample_set_rainfall_regm:
-    name: biosample_set_rainfall_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetRainfallRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_rainfall_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.rainfall_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetRainfallRegm__parent_id
-    - biosampleSetRainfallRegm__rainfall_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      rainfall_regm:
-        name: rainfall_regm
-        description: Information about treatment involving an exposure to a given
-          amount of rainfall, treatment regimen including how many times the treatment
-          was repeated, how long each treatment lasted, and the start and end time
-          of the entire treatment; can include multiple regimens String projected
-          from 'rainfall_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetRainfallRegm
-  biosample_set_salt_regm:
-    name: biosample_set_salt_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSaltRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_salt_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.salt_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetSaltRegm__parent_id
-    - biosampleSetSaltRegm__salt_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      salt_regm:
-        name: salt_regm
-        description: Information about treatment involving use of salts as supplement
-          to liquid and soil growth media; should include the name of salt, amount
-          administered, treatment regimen including how many times the treatment was
-          repeated, how long each treatment lasted, and the start and end time of
-          the entire treatment; can include multiple salt regimens String projected
-          from 'salt_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSaltRegm
-  biosample_set_season_environment:
-    name: biosample_set_season_environment
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSeasonEnvironment
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_season_environment
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.season_environment';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetSeasonEnvironment__parent_id
-    - biosampleSetSeasonEnvironment__season_environment
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      season_environment:
-        name: season_environment
-        description: Treatment involving an exposure to a particular season (e.g.
-          Winter, summer, rabi, rainy etc.), treatment regimen including how many
-          times the treatment was repeated, how long each treatment lasted, and the
-          start and end time of the entire treatment String projected from 'season_environment.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSeasonEnvironment
-  biosample_set_soluble_inorg_mat:
-    name: biosample_set_soluble_inorg_mat
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSolubleInorgMat
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_soluble_inorg_mat
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.soluble_inorg_mat';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetSolubleInorgMat__parent_id
-    - biosampleSetSolubleInorgMat__soluble_inorg_mat
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      soluble_inorg_mat:
-        name: soluble_inorg_mat
-        description: Concentration of substances such as ammonia, road-salt, sea-salt,
-          cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
-          from 'soluble_inorg_mat.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSolubleInorgMat
-  biosample_set_soluble_org_mat:
-    name: biosample_set_soluble_org_mat
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSolubleOrgMat
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_soluble_org_mat
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.soluble_org_mat';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetSolubleOrgMat__parent_id
-    - biosampleSetSolubleOrgMat__soluble_org_mat
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      soluble_org_mat:
-        name: soluble_org_mat
-        description: Concentration of substances such as urea, fruit sugars, soluble
-          proteins, drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSolubleOrgMat
-  biosample_set_standing_water_regm:
-    name: biosample_set_standing_water_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetStandingWaterRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_standing_water_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.standing_water_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetStandingWaterRegm__parent_id
-    - biosampleSetStandingWaterRegm__standing_water_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      standing_water_regm:
-        name: standing_water_regm
-        description: Treatment involving an exposure to standing water during a plant's
-          life span, types can be flood water or standing water, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple regimens String projected from 'standing_water_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetStandingWaterRegm
-  biosample_set_suspend_solids:
-    name: biosample_set_suspend_solids
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSuspendSolids
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_suspend_solids
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.suspend_solids';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetSuspendSolids__parent_id
-    - biosampleSetSuspendSolids__suspend_solids
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      suspend_solids:
-        name: suspend_solids
-        description: Concentration of substances including a wide variety of material,
-          such as silt, decaying plant and animal matter; can include multiple substances
-          String projected from 'suspend_solids.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetSuspendSolids
-  biosample_set_volatile_org_comp:
-    name: biosample_set_volatile_org_comp
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetVolatileOrgComp
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_volatile_org_comp
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.volatile_org_comp';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetVolatileOrgComp__parent_id
-    - biosampleSetVolatileOrgComp__volatile_org_comp
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      volatile_org_comp:
-        name: volatile_org_comp
-        description: Concentration of carbon-based chemicals that easily evaporate
-          at room temperature; can report multiple volatile organic compounds by entering
-          numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetVolatileOrgComp
-  biosample_set_water_temp_regm:
-    name: biosample_set_water_temp_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetWaterTempRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_water_temp_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.water_temp_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetWaterTempRegm__parent_id
-    - biosampleSetWaterTempRegm__water_temp_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      water_temp_regm:
-        name: water_temp_regm
-        description: Information about treatment involving an exposure to water with
-          varying degree of temperature, treatment regimen including how many times
-          the treatment was repeated, how long each treatment lasted, and the start
-          and end time of the entire treatment; can include multiple regimens String
-          projected from 'water_temp_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetWaterTempRegm
-  biosample_set_watering_regm:
-    name: biosample_set_watering_regm
-    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetWateringRegm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_watering_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.watering_regm';
-      one row per occurrence.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slots:
-    - biosampleSetWateringRegm__parent_id
-    - biosampleSetWateringRegm__watering_regm
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      watering_regm:
-        name: watering_regm
-        description: Information about treatment involving an exposure to watering
-          frequencies, treatment regimen including how many times the treatment was
-          repeated, how long each treatment lasted, and the start and end time of
-          the entire treatment; can include multiple regimens String projected from
-          'watering_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/BiosampleSetWateringRegm
   CalibrationInformationFlat:
     name: CalibrationInformationFlat
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/CalibrationInformationFlat
@@ -49462,7 +48191,7 @@ classes:
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/WorkflowExecutionSetWasInformedBy
 metamodel_version: 1.11.0
 source_file: nmdc_schema_flattened.yaml
-source_file_date: '2026-09-22T14:13:36'
-source_file_size: 835893
-generation_date: '2026-09-22T14:13:47'
+source_file_date: '2026-09-22T15:05:12'
+source_file_size: 814999
+generation_date: '2026-09-22T15:05:21'
 

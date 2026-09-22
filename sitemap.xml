@@ -45,27 +45,7 @@
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetAgrochemAddition/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetAirTempRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetAntibioticRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetAssociatedStudies/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetAtmosphericData/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetBiomass/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
@@ -73,155 +53,11 @@
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetChemMutagen/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetClimateEnvironment/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetDietherLipids/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetEmulsions/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetFertilizerRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetFungicideRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetGaseousEnvironment/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetGaseousSubstances/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetGravity/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetGrowthHormoneRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetHeavyMetals/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetHerbicideRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetHostDiet/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetHumidityRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetInorgParticles/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetMineralNutrRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetMiscParam/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetNAlkanes/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetOrgParticles/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetOrganismCount/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetParticleClass/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetPerturbation/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetPesticideRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetPhRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetPhaeopigments/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetPhosplipidFattAcid/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetPollutants/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetRadiationRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetRainfallRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetSaltRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetSeasonEnvironment/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetSolubleInorgMat/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetSolubleOrgMat/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetStandingWaterRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetSuspendSolids/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetVolatileOrgComp/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetWaterTempRegm/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/BiosampleSetWateringRegm/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
