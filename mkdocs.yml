@@ -63,6 +63,9 @@ nav:
   - Home: index.md
   - Schema: elements/index.md
   - TextValue projection: textvalue-projection.md
+  - Transformation support: transformation-support.md
+  - Schema workflow: schema-workflow.md
+  - Data audit: data-audit.md
   - About: about.md
 
 exclude_docs: |
