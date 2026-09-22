@@ -14,14 +14,14 @@ annotations:
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.1.0
+    value: 1.2.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: '54a1be1a3a3e112962694282dd9bb4cafe56a2f1c934b21fc8b13b0363231fe6'
+    value: '431d51e17a816c1cfa07cc742570c5ad4ba96e7425eb798353802e584f16e8ab'
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.23.0+flat.1.1.0
+version: 11.23.0+flat.1.2.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -6170,6 +6170,13 @@ classes:
           together
         range: AeroStrucEnum
         multivalued: false
+      agrochem_addition:
+        name: agrochem_addition
+        description: Addition of fertilizers, pesticides, etc. - amount and time of
+          applications String projected from 'agrochem_addition.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       air_PM_concen:
         name: air_PM_concen
         description: Concentration of substances that remain suspended in the air,
@@ -6211,6 +6218,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      air_temp_regm:
+        name: air_temp_regm
+        description: Information about treatment involving an exposure to varying
+          temperatures; should include the temperature, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include different
+          temperature regimens String projected from 'air_temp_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       al_sat_has_maximum_numeric_value:
         name: al_sat_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -6578,6 +6596,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      antibiotic_regm:
+        name: antibiotic_regm
+        description: Information about treatment involving antibiotic administration;
+          should include the name of antibiotic, amount administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple antibiotic regimens String projected from 'antibiotic_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       api_has_maximum_numeric_value:
         name: api_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -6645,6 +6674,13 @@ classes:
           original range was class 'Study'.
         range: string
         required: true
+        multivalued: true
+      atmospheric_data:
+        name: atmospheric_data
+        description: Measurement of atmospheric data; can include multiple data String
+          projected from 'atmospheric_data.has_raw_value' (TextValue).
+        range: string
+        required: false
         multivalued: true
       avg_dew_point_has_maximum_numeric_value:
         name: avg_dew_point_has_maximum_numeric_value
@@ -6967,6 +7003,14 @@ classes:
         description: The level of genome modification
         range: BiolStatEnum
         multivalued: false
+      biomass:
+        name: biomass
+        description: Amount of biomass; should include the name for the part of biomass
+          measured, e.g. Microbial, total. Can include multiple measurements String
+          projected from 'biomass.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       biosample_categories:
         name: biosample_categories
         range: BiosampleCategoryEnum
@@ -7446,6 +7490,16 @@ classes:
         description: Signs of the presence of mold or mildew on the ceiling
         range: MoldVisibilityEnum
         multivalued: false
+      chem_mutagen:
+        name: chem_mutagen
+        description: Treatment involving use of mutagens; should include the name
+          of mutagen, amount administered, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple mutagen regimens
+          String projected from 'chem_mutagen.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       chem_oxygen_dem_has_maximum_numeric_value:
         name: chem_oxygen_dem_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -7561,6 +7615,16 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      climate_environment:
+        name: climate_environment
+        description: Treatment involving an exposure to a particular climate; treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple climates String projected from 'climate_environment.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       collected_from:
         name: collected_from
         description: The Site from which a Biosample was collected Reference by identifier;
@@ -7788,6 +7852,13 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      diether_lipids:
+        name: diether_lipids
+        description: Concentration of diether lipids; can include multiple types of
+          diether lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       diss_carb_dioxide_has_maximum_numeric_value:
         name: diss_carb_dioxide_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -8347,6 +8418,14 @@ classes:
           planned EMSL NEXUS database.
         range: external_identifier
         multivalued: true
+      emulsions:
+        name: emulsions
+        description: Amount or concentration of substances such as paints, adhesives,
+          mayonnaise, hair colorants, emulsified oils, etc.; can include multiple
+          emulsion types String projected from 'emulsions.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       env_broad_scale_has_raw_value:
         name: env_broad_scale_has_raw_value
         description: The value that was specified for an annotation in raw form, i.e.
@@ -8763,6 +8842,17 @@ classes:
           available soil classifications can be found at https://www.isric.org/explore/world-soil-distribution
         range: FaoClassEnum
         multivalued: false
+      fertilizer_regm:
+        name: fertilizer_regm
+        description: Information about treatment involving the use of fertilizers;
+          should include the name of fertilizer, amount administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple fertilizer regimens String projected from 'fertilizer_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       field:
         name: field
         description: Name of the hydrocarbon field (e.g. Albacora) String projected
@@ -9025,11 +9115,39 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      fungicide_regm:
+        name: fungicide_regm
+        description: Information about treatment involving use of fungicides; should
+          include the name of fungicide, amount administered, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include multiple
+          fungicide regimens String projected from 'fungicide_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       furniture:
         name: furniture
         description: The types of furniture present in the sampled room
         range: FurnitureEnum
         multivalued: false
+      gaseous_environment:
+        name: gaseous_environment
+        description: Use of conditions with differing gaseous environments; should
+          include the name of gaseous compound, amount administered, treatment duration,
+          interval and total experimental duration; can include multiple gaseous environment
+          regimens String projected from 'gaseous_environment.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      gaseous_substances:
+        name: gaseous_substances
+        description: Amount or concentration of substances such as hydrogen sulfide,
+          carbon dioxide, methane, etc.; can include multiple substances String projected
+          from 'gaseous_substances.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       gender_restroom:
         name: gender_restroom
         description: The gender type of the restroom
@@ -9100,6 +9218,17 @@ classes:
         range: string
         required: false
         multivalued: false
+      gravity:
+        name: gravity
+        description: Information about treatment involving use of gravity factor to
+          study various types of responses in presence, absence or modified levels
+          of gravity; treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple treatments String projected from
+          'gravity.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       growth_facil_has_raw_value:
         name: growth_facil_has_raw_value
         description: The value that was specified for an annotation in raw form, i.e.
@@ -9171,6 +9300,17 @@ classes:
         description: Characteristic shape, appearance or growth form of a plant species
         range: GrowthHabitEnum
         multivalued: false
+      growth_hormone_regm:
+        name: growth_hormone_regm
+        description: Information about treatment involving use of growth hormones;
+          should include the name of growth hormone, amount administered, treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple growth hormone regimens String projected from 'growth_hormone_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       habitat:
         name: habitat
         range: string
@@ -9280,6 +9420,13 @@ classes:
         range: string
         required: false
         multivalued: false
+      heavy_metals:
+        name: heavy_metals
+        description: Heavy metals present in the sample and their concentrations.
+          String projected from 'heavy_metals.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       heavy_metals_meth:
         name: heavy_metals_meth
         description: Reference or method used in determining heavy metals
@@ -9318,6 +9465,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      herbicide_regm:
+        name: herbicide_regm
+        description: Information about treatment involving use of herbicides; information
+          about treatment involving use of growth hormones; should include the name
+          of herbicide, amount administered, treatment regimen including how many
+          times the treatment was repeated, how long each treatment lasted, and the
+          start and end time of the entire treatment; can include multiple regimens
+          String projected from 'herbicide_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       horizon_meth:
         name: horizon_meth
         description: Reference or method used in determining the horizon
@@ -9542,6 +9700,14 @@ classes:
         range: string
         required: false
         multivalued: false
+      host_diet:
+        name: host_diet
+        description: Type of diet depending on the host, for animals omnivore, herbivore
+          etc., for humans high-fat, meditteranean etc.; can include multiple diet
+          types String projected from 'host_diet.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       host_disease_stat:
         name: host_disease_stat
         description: List of diseases with which the host has been diagnosed; can
@@ -9975,6 +10141,17 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      humidity_regm:
+        name: humidity_regm
+        description: Information about treatment involving an exposure to varying
+          degree of humidity; information about treatment involving use of growth
+          hormones; should include amount of humidity administered, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple regimens String projected from 'humidity_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       id:
         name: id
         description: An NMDC assigned unique identifier for a biosample submitted
@@ -10042,6 +10219,14 @@ classes:
         name: infiltrations
         description: The amount of time it takes to complete each infiltration activity
         range: string
+        multivalued: true
+      inorg_particles:
+        name: inorg_particles
+        description: Concentration of particles such as sand, grit, metal particles,
+          ceramics, etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
         multivalued: true
       insdc_biosample_identifiers:
         name: insdc_biosample_identifiers
@@ -10584,6 +10769,24 @@ classes:
           microorganisms smaller than 5-10 micrometer.
         range: string
         multivalued: false
+      mineral_nutr_regm:
+        name: mineral_nutr_regm
+        description: Information about treatment involving the use of mineral supplements;
+          should include the name of mineral nutrient, amount administered, treatment
+          regimen including how many times the treatment was repeated, how long each
+          treatment lasted, and the start and end time of the entire treatment; can
+          include multiple mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      n_alkanes:
+        name: n_alkanes
+        description: Concentration of n-alkanes; can include multiple n-alkanes String
+          projected from 'n_alkanes.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       name:
         name: name
         description: A local identifier or name for the material sample collected.
@@ -11073,6 +11276,14 @@ classes:
         description: Method used for obtaining organic nitrogen
         range: string
         multivalued: false
+      org_particles:
+        name: org_particles
+        description: Concentration of particles such as faeces, hairs, food, vomit,
+          paper fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       other_treatment:
         name: other_treatment
         description: Other treatments applied to your samples that are not applicable
@@ -11216,6 +11427,15 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      particle_class:
+        name: particle_class
+        description: Particles are classified, based on their size, into six general
+          categories:clay, silt, sand, gravel, cobbles, and boulders; should include
+          amount of particle preceded by the name of the particle type; can include
+          multiple values String projected from 'particle_class.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       permeability:
         name: permeability
         description: 'Measure of the ability of a hydrocarbon resource to allow fluids
@@ -11224,6 +11444,28 @@ classes:
         range: string
         required: false
         multivalued: false
+      perturbation:
+        name: perturbation
+        description: Type of perturbation, e.g. chemical administration, physical
+          disturbance, etc., coupled with perturbation regimen including how many
+          times the perturbation was repeated, how long each perturbation lasted,
+          and the start and end time of the entire perturbation period; can include
+          multiple perturbation types String projected from 'perturbation.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      pesticide_regm:
+        name: pesticide_regm
+        description: Information about treatment involving use of insecticides; should
+          include the name of pesticide, amount administered, treatment regimen including
+          how many times the treatment was repeated, how long each treatment lasted,
+          and the start and end time of the entire treatment; can include multiple
+          pesticide regimens String projected from 'pesticide_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       petroleum_hydrocarb_has_maximum_numeric_value:
         name: petroleum_hydrocarb_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -11270,6 +11512,23 @@ classes:
         range: string
         required: false
         multivalued: false
+      ph_regm:
+        name: ph_regm
+        description: Information about treatment involving exposure of plants to varying
+          levels of ph of the growth media, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple regimen String
+          projected from 'ph_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      phaeopigments:
+        name: phaeopigments
+        description: Concentration of phaeopigments; can include multiple phaeopigments
+          String projected from 'phaeopigments.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       phosphate_has_maximum_numeric_value:
         name: phosphate_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -11303,6 +11562,13 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      phosplipid_fatt_acid:
+        name: phosplipid_fatt_acid
+        description: Concentration of phospholipid fatty acids; can include multiple
+          values String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       photon_flux_has_maximum_numeric_value:
         name: photon_flux_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -11481,6 +11747,15 @@ classes:
         range: string
         required: false
         multivalued: false
+      pollutants:
+        name: pollutants
+        description: Pollutant types and, amount or concentrations measured at the
+          time of sampling; can report multiple pollutants by entering numeric values
+          preceded by name of pollutant String projected from 'pollutants.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       porosity:
         name: porosity
         description: Porosity of deposited sediment is volume of voids divided by
@@ -11756,6 +12031,27 @@ classes:
         description: The quadrant position of the sampling room within the building
         range: QuadPosEnum
         multivalued: false
+      radiation_regm:
+        name: radiation_regm
+        description: Information about treatment involving exposure of plant or a
+          plant part to a particular radiation regimen; should include the radiation
+          type, amount or intensity administered, treatment regimen including how
+          many times the treatment was repeated, how long each treatment lasted, and
+          the start and end time of the entire treatment; can include multiple radiation
+          regimens String projected from 'radiation_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      rainfall_regm:
+        name: rainfall_regm
+        description: Information about treatment involving an exposure to a given
+          amount of rainfall, treatment regimen including how many times the treatment
+          was repeated, how long each treatment lasted, and the start and end time
+          of the entire treatment; can include multiple regimens String projected
+          from 'rainfall_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       reactor_type:
         name: reactor_type
         description: Anaerobic digesters can be designed and engineered to operate
@@ -12197,6 +12493,17 @@ classes:
         description: Reference or method used in determining salinity.
         range: string
         multivalued: false
+      salt_regm:
+        name: salt_regm
+        description: Information about treatment involving use of salts as supplement
+          to liquid and soil growth media; should include the name of salt, amount
+          administered, treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple salt regimens String projected
+          from 'salt_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       samp_capt_status:
         name: samp_capt_status
         description: Reason for the sample
@@ -12626,6 +12933,16 @@ classes:
           terms listed under season (http://purl.obolibrary.org/obo/NCIT_C94729)
         range: SeasonEnum
         multivalued: false
+      season_environment:
+        name: season_environment
+        description: Treatment involving an exposure to a particular season (e.g.
+          Winter, summer, rabi, rainy etc.), treatment regimen including how many
+          times the treatment was repeated, how long each treatment lasted, and the
+          start and end time of the entire treatment String projected from 'season_environment.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       season_precpt_has_maximum_numeric_value:
         name: season_precpt_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -13059,10 +13376,26 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      soluble_inorg_mat:
+        name: soluble_inorg_mat
+        description: Concentration of substances such as ammonia, road-salt, sea-salt,
+          cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
+          from 'soluble_inorg_mat.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       soluble_iron_micromol:
         name: soluble_iron_micromol
         range: string
         multivalued: false
+      soluble_org_mat:
+        name: soluble_org_mat
+        description: Concentration of substances such as urea, fruit sugars, soluble
+          proteins, drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       soluble_react_phosp_has_maximum_numeric_value:
         name: soluble_react_phosp_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -13181,6 +13514,17 @@ classes:
           If "other" is specified, please propose entry in "additional info" field
         range: SrLithologyEnum
         multivalued: false
+      standing_water_regm:
+        name: standing_water_regm
+        description: Treatment involving an exposure to standing water during a plant's
+          life span, types can be flood water or standing water, treatment regimen
+          including how many times the treatment was repeated, how long each treatment
+          lasted, and the start and end time of the entire treatment; can include
+          multiple regimens String projected from 'standing_water_regm.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       start_date_inc:
         name: start_date_inc
         description: Date the incubation was started. Only relevant for incubation
@@ -13486,6 +13830,14 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      suspend_solids:
+        name: suspend_solids
+        description: Concentration of substances including a wide variety of material,
+          such as silt, decaying plant and animal matter; can include multiple substances
+          String projected from 'suspend_solids.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       tan_has_maximum_numeric_value:
         name: tan_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -14299,6 +14651,15 @@ classes:
         range: string
         required: false
         multivalued: false
+      volatile_org_comp:
+        name: volatile_org_comp
+        description: Concentration of carbon-based chemicals that easily evaporate
+          at room temperature; can report multiple volatile organic compounds by entering
+          numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
+          (TextValue).
+        range: string
+        required: false
+        multivalued: true
       wall_area_has_maximum_numeric_value:
         name: wall_area_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -14584,6 +14945,26 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      water_temp_regm:
+        name: water_temp_regm
+        description: Information about treatment involving an exposure to water with
+          varying degree of temperature, treatment regimen including how many times
+          the treatment was repeated, how long each treatment lasted, and the start
+          and end time of the entire treatment; can include multiple regimens String
+          projected from 'water_temp_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
+      watering_regm:
+        name: watering_regm
+        description: Information about treatment involving an exposure to watering
+          frequencies, treatment regimen including how many times the treatment was
+          repeated, how long each treatment lasted, and the start and end time of
+          the entire treatment; can include multiple regimens String projected from
+          'watering_regm.has_raw_value' (TextValue).
+        range: string
+        required: false
+        multivalued: true
       weekday:
         name: weekday
         description: The day of the week when sampling occurred
@@ -14766,83 +15147,6 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
-  biosample_set_agrochem_addition:
-    name: biosample_set_agrochem_addition
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_agrochem_addition
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.agrochem_addition';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      agrochem_addition:
-        name: agrochem_addition
-        description: Addition of fertilizers, pesticides, etc. - amount and time of
-          applications String projected from 'agrochem_addition.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_air_temp_regm:
-    name: biosample_set_air_temp_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_air_temp_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.air_temp_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      air_temp_regm:
-        name: air_temp_regm
-        description: Information about treatment involving an exposure to varying
-          temperatures; should include the temperature, treatment regimen including
-          how many times the treatment was repeated, how long each treatment lasted,
-          and the start and end time of the entire treatment; can include different
-          temperature regimens String projected from 'air_temp_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_antibiotic_regm:
-    name: biosample_set_antibiotic_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_antibiotic_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.antibiotic_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      antibiotic_regm:
-        name: antibiotic_regm
-        description: Information about treatment involving antibiotic administration;
-          should include the name of antibiotic, amount administered, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple antibiotic regimens String projected from 'antibiotic_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
   biosample_set_associated_studies:
     name: biosample_set_associated_studies
     annotations:
@@ -14864,53 +15168,6 @@ classes:
         description: The study associated with a resource. Reference by identifier;
           original range was class 'Study'.
         range: string
-  biosample_set_atmospheric_data:
-    name: biosample_set_atmospheric_data
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_atmospheric_data
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.atmospheric_data';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      atmospheric_data:
-        name: atmospheric_data
-        description: Measurement of atmospheric data; can include multiple data String
-          projected from 'atmospheric_data.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_biomass:
-    name: biosample_set_biomass
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_biomass
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.biomass';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      biomass:
-        name: biomass
-        description: Amount of biomass; should include the name for the part of biomass
-          measured, e.g. Microbial, total. Can include multiple measurements String
-          projected from 'biomass.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
   biosample_set_chem_administration:
     name: biosample_set_chem_administration
     annotations:
@@ -15000,414 +15257,6 @@ classes:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
-  biosample_set_chem_mutagen:
-    name: biosample_set_chem_mutagen
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_chem_mutagen
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.chem_mutagen';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      chem_mutagen:
-        name: chem_mutagen
-        description: Treatment involving use of mutagens; should include the name
-          of mutagen, amount administered, treatment regimen including how many times
-          the treatment was repeated, how long each treatment lasted, and the start
-          and end time of the entire treatment; can include multiple mutagen regimens
-          String projected from 'chem_mutagen.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_climate_environment:
-    name: biosample_set_climate_environment
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_climate_environment
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.climate_environment';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      climate_environment:
-        name: climate_environment
-        description: Treatment involving an exposure to a particular climate; treatment
-          regimen including how many times the treatment was repeated, how long each
-          treatment lasted, and the start and end time of the entire treatment; can
-          include multiple climates String projected from 'climate_environment.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_diether_lipids:
-    name: biosample_set_diether_lipids
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_diether_lipids
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.diether_lipids';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      diether_lipids:
-        name: diether_lipids
-        description: Concentration of diether lipids; can include multiple types of
-          diether lipids String projected from 'diether_lipids.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_emulsions:
-    name: biosample_set_emulsions
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_emulsions
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.emulsions';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      emulsions:
-        name: emulsions
-        description: Amount or concentration of substances such as paints, adhesives,
-          mayonnaise, hair colorants, emulsified oils, etc.; can include multiple
-          emulsion types String projected from 'emulsions.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_fertilizer_regm:
-    name: biosample_set_fertilizer_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_fertilizer_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.fertilizer_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      fertilizer_regm:
-        name: fertilizer_regm
-        description: Information about treatment involving the use of fertilizers;
-          should include the name of fertilizer, amount administered, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple fertilizer regimens String projected from 'fertilizer_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_fungicide_regm:
-    name: biosample_set_fungicide_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_fungicide_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.fungicide_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      fungicide_regm:
-        name: fungicide_regm
-        description: Information about treatment involving use of fungicides; should
-          include the name of fungicide, amount administered, treatment regimen including
-          how many times the treatment was repeated, how long each treatment lasted,
-          and the start and end time of the entire treatment; can include multiple
-          fungicide regimens String projected from 'fungicide_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_gaseous_environment:
-    name: biosample_set_gaseous_environment
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_gaseous_environment
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.gaseous_environment';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      gaseous_environment:
-        name: gaseous_environment
-        description: Use of conditions with differing gaseous environments; should
-          include the name of gaseous compound, amount administered, treatment duration,
-          interval and total experimental duration; can include multiple gaseous environment
-          regimens String projected from 'gaseous_environment.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_gaseous_substances:
-    name: biosample_set_gaseous_substances
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_gaseous_substances
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.gaseous_substances';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      gaseous_substances:
-        name: gaseous_substances
-        description: Amount or concentration of substances such as hydrogen sulfide,
-          carbon dioxide, methane, etc.; can include multiple substances String projected
-          from 'gaseous_substances.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_gravity:
-    name: biosample_set_gravity
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_gravity
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.gravity';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      gravity:
-        name: gravity
-        description: Information about treatment involving use of gravity factor to
-          study various types of responses in presence, absence or modified levels
-          of gravity; treatment regimen including how many times the treatment was
-          repeated, how long each treatment lasted, and the start and end time of
-          the entire treatment; can include multiple treatments String projected from
-          'gravity.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_growth_hormone_regm:
-    name: biosample_set_growth_hormone_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_growth_hormone_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.growth_hormone_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      growth_hormone_regm:
-        name: growth_hormone_regm
-        description: Information about treatment involving use of growth hormones;
-          should include the name of growth hormone, amount administered, treatment
-          regimen including how many times the treatment was repeated, how long each
-          treatment lasted, and the start and end time of the entire treatment; can
-          include multiple growth hormone regimens String projected from 'growth_hormone_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_heavy_metals:
-    name: biosample_set_heavy_metals
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_heavy_metals
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.heavy_metals';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      heavy_metals:
-        name: heavy_metals
-        description: Heavy metals present in the sample and their concentrations.
-          String projected from 'heavy_metals.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_herbicide_regm:
-    name: biosample_set_herbicide_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_herbicide_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.herbicide_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      herbicide_regm:
-        name: herbicide_regm
-        description: Information about treatment involving use of herbicides; information
-          about treatment involving use of growth hormones; should include the name
-          of herbicide, amount administered, treatment regimen including how many
-          times the treatment was repeated, how long each treatment lasted, and the
-          start and end time of the entire treatment; can include multiple regimens
-          String projected from 'herbicide_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_host_diet:
-    name: biosample_set_host_diet
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_host_diet
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.host_diet';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      host_diet:
-        name: host_diet
-        description: Type of diet depending on the host, for animals omnivore, herbivore
-          etc., for humans high-fat, meditteranean etc.; can include multiple diet
-          types String projected from 'host_diet.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_humidity_regm:
-    name: biosample_set_humidity_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_humidity_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.humidity_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      humidity_regm:
-        name: humidity_regm
-        description: Information about treatment involving an exposure to varying
-          degree of humidity; information about treatment involving use of growth
-          hormones; should include amount of humidity administered, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple regimens String projected from 'humidity_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_inorg_particles:
-    name: biosample_set_inorg_particles
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_inorg_particles
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.inorg_particles';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      inorg_particles:
-        name: inorg_particles
-        description: Concentration of particles such as sand, grit, metal particles,
-          ceramics, etc.; can include multiple particles String projected from 'inorg_particles.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_mineral_nutr_regm:
-    name: biosample_set_mineral_nutr_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_mineral_nutr_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.mineral_nutr_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      mineral_nutr_regm:
-        name: mineral_nutr_regm
-        description: Information about treatment involving the use of mineral supplements;
-          should include the name of mineral nutrient, amount administered, treatment
-          regimen including how many times the treatment was repeated, how long each
-          treatment lasted, and the start and end time of the entire treatment; can
-          include multiple mineral nutrient regimens String projected from 'mineral_nutr_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
   biosample_set_misc_param:
     name: biosample_set_misc_param
     annotations:
@@ -15495,53 +15344,6 @@ classes:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
-  biosample_set_n_alkanes:
-    name: biosample_set_n_alkanes
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_n_alkanes
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.n_alkanes';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      n_alkanes:
-        name: n_alkanes
-        description: Concentration of n-alkanes; can include multiple n-alkanes String
-          projected from 'n_alkanes.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_org_particles:
-    name: biosample_set_org_particles
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_org_particles
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.org_particles';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      org_particles:
-        name: org_particles
-        description: Concentration of particles such as faeces, hairs, food, vomit,
-          paper fibers, plant material, humus, etc String projected from 'org_particles.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
   biosample_set_organism_count:
     name: biosample_set_organism_count
     annotations:
@@ -15594,464 +15396,6 @@ classes:
         name: parent_id
         description: Identifier of the parent 'Biosample' record.
         range: string
-  biosample_set_particle_class:
-    name: biosample_set_particle_class
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_particle_class
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.particle_class';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      particle_class:
-        name: particle_class
-        description: Particles are classified, based on their size, into six general
-          categories:clay, silt, sand, gravel, cobbles, and boulders; should include
-          amount of particle preceded by the name of the particle type; can include
-          multiple values String projected from 'particle_class.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_perturbation:
-    name: biosample_set_perturbation
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_perturbation
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.perturbation';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      perturbation:
-        name: perturbation
-        description: Type of perturbation, e.g. chemical administration, physical
-          disturbance, etc., coupled with perturbation regimen including how many
-          times the perturbation was repeated, how long each perturbation lasted,
-          and the start and end time of the entire perturbation period; can include
-          multiple perturbation types String projected from 'perturbation.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_pesticide_regm:
-    name: biosample_set_pesticide_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_pesticide_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.pesticide_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      pesticide_regm:
-        name: pesticide_regm
-        description: Information about treatment involving use of insecticides; should
-          include the name of pesticide, amount administered, treatment regimen including
-          how many times the treatment was repeated, how long each treatment lasted,
-          and the start and end time of the entire treatment; can include multiple
-          pesticide regimens String projected from 'pesticide_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_ph_regm:
-    name: biosample_set_ph_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_ph_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.ph_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      ph_regm:
-        name: ph_regm
-        description: Information about treatment involving exposure of plants to varying
-          levels of ph of the growth media, treatment regimen including how many times
-          the treatment was repeated, how long each treatment lasted, and the start
-          and end time of the entire treatment; can include multiple regimen String
-          projected from 'ph_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_phaeopigments:
-    name: biosample_set_phaeopigments
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_phaeopigments
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.phaeopigments';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      phaeopigments:
-        name: phaeopigments
-        description: Concentration of phaeopigments; can include multiple phaeopigments
-          String projected from 'phaeopigments.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_phosplipid_fatt_acid:
-    name: biosample_set_phosplipid_fatt_acid
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_phosplipid_fatt_acid
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.phosplipid_fatt_acid';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      phosplipid_fatt_acid:
-        name: phosplipid_fatt_acid
-        description: Concentration of phospholipid fatty acids; can include multiple
-          values String projected from 'phosplipid_fatt_acid.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_pollutants:
-    name: biosample_set_pollutants
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_pollutants
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.pollutants';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      pollutants:
-        name: pollutants
-        description: Pollutant types and, amount or concentrations measured at the
-          time of sampling; can report multiple pollutants by entering numeric values
-          preceded by name of pollutant String projected from 'pollutants.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_radiation_regm:
-    name: biosample_set_radiation_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_radiation_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.radiation_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      radiation_regm:
-        name: radiation_regm
-        description: Information about treatment involving exposure of plant or a
-          plant part to a particular radiation regimen; should include the radiation
-          type, amount or intensity administered, treatment regimen including how
-          many times the treatment was repeated, how long each treatment lasted, and
-          the start and end time of the entire treatment; can include multiple radiation
-          regimens String projected from 'radiation_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_rainfall_regm:
-    name: biosample_set_rainfall_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_rainfall_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.rainfall_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      rainfall_regm:
-        name: rainfall_regm
-        description: Information about treatment involving an exposure to a given
-          amount of rainfall, treatment regimen including how many times the treatment
-          was repeated, how long each treatment lasted, and the start and end time
-          of the entire treatment; can include multiple regimens String projected
-          from 'rainfall_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_salt_regm:
-    name: biosample_set_salt_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_salt_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.salt_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      salt_regm:
-        name: salt_regm
-        description: Information about treatment involving use of salts as supplement
-          to liquid and soil growth media; should include the name of salt, amount
-          administered, treatment regimen including how many times the treatment was
-          repeated, how long each treatment lasted, and the start and end time of
-          the entire treatment; can include multiple salt regimens String projected
-          from 'salt_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_season_environment:
-    name: biosample_set_season_environment
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_season_environment
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.season_environment';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      season_environment:
-        name: season_environment
-        description: Treatment involving an exposure to a particular season (e.g.
-          Winter, summer, rabi, rainy etc.), treatment regimen including how many
-          times the treatment was repeated, how long each treatment lasted, and the
-          start and end time of the entire treatment String projected from 'season_environment.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_soluble_inorg_mat:
-    name: biosample_set_soluble_inorg_mat
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_soluble_inorg_mat
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.soluble_inorg_mat';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      soluble_inorg_mat:
-        name: soluble_inorg_mat
-        description: Concentration of substances such as ammonia, road-salt, sea-salt,
-          cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc String projected
-          from 'soluble_inorg_mat.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_soluble_org_mat:
-    name: biosample_set_soluble_org_mat
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_soluble_org_mat
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.soluble_org_mat';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      soluble_org_mat:
-        name: soluble_org_mat
-        description: Concentration of substances such as urea, fruit sugars, soluble
-          proteins, drugs, pharmaceuticals, etc String projected from 'soluble_org_mat.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_standing_water_regm:
-    name: biosample_set_standing_water_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_standing_water_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.standing_water_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      standing_water_regm:
-        name: standing_water_regm
-        description: Treatment involving an exposure to standing water during a plant's
-          life span, types can be flood water or standing water, treatment regimen
-          including how many times the treatment was repeated, how long each treatment
-          lasted, and the start and end time of the entire treatment; can include
-          multiple regimens String projected from 'standing_water_regm.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_suspend_solids:
-    name: biosample_set_suspend_solids
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_suspend_solids
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.suspend_solids';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      suspend_solids:
-        name: suspend_solids
-        description: Concentration of substances including a wide variety of material,
-          such as silt, decaying plant and animal matter; can include multiple substances
-          String projected from 'suspend_solids.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_volatile_org_comp:
-    name: biosample_set_volatile_org_comp
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_volatile_org_comp
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.volatile_org_comp';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      volatile_org_comp:
-        name: volatile_org_comp
-        description: Concentration of carbon-based chemicals that easily evaporate
-          at room temperature; can report multiple volatile organic compounds by entering
-          numeric values preceded by name of compound String projected from 'volatile_org_comp.has_raw_value'
-          (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_water_temp_regm:
-    name: biosample_set_water_temp_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_water_temp_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.water_temp_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      water_temp_regm:
-        name: water_temp_regm
-        description: Information about treatment involving an exposure to water with
-          varying degree of temperature, treatment regimen including how many times
-          the treatment was repeated, how long each treatment lasted, and the start
-          and end time of the entire treatment; can include multiple regimens String
-          projected from 'water_temp_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
-  biosample_set_watering_regm:
-    name: biosample_set_watering_regm
-    annotations:
-      table_name:
-        tag: table_name
-        value: biosample_set_watering_regm
-      source_class:
-        tag: source_class
-        value: Biosample
-    description: Raw strings from multivalued TextValue slot 'Biosample.watering_regm';
-      one row per occurrence.
-    attributes:
-      parent_id:
-        name: parent_id
-        description: Identifier of the parent 'Biosample' record.
-        range: string
-      watering_regm:
-        name: watering_regm
-        description: Information about treatment involving an exposure to watering
-          frequencies, treatment regimen including how many times the treatment was
-          repeated, how long each treatment lasted, and the start and end time of
-          the entire treatment; can include multiple regimens String projected from
-          'watering_regm.has_raw_value' (TextValue).
-        range: string
-        required: false
-        multivalued: false
   CalibrationInformationFlat:
     name: CalibrationInformationFlat
     annotations:

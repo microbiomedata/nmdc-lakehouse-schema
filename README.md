@@ -17,8 +17,9 @@ Downstream ETL (the [nmdc-lakehouse](https://github.com/microbiomedata/nmdc-lake
 is migrating to this package in [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
 Until that change lands, its main branch still uses its local engine and saved schema.
 
-Projection version `1.1.0` extracts TextValue raw strings into columns named
-after their source slots and preserves repeated values in child tables.
+Projection version `1.2.0` extracts TextValue raw strings into columns on the
+containing record. Single values become strings and repeated values become
+string arrays; TextValue-only child tables are removed.
 Collection record types remain available for polymorphic dispatch. See the
 [TextValue projection contract](src/docs/textvalue-projection.md) for examples,
 validation behavior, and migration from earlier artifacts.

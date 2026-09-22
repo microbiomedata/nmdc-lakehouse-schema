@@ -201,24 +201,23 @@ def test_embedded_subtype_columns_match_runtime_at_both_levels(
     assert "Polymorphic" not in flat.attributes[f"{prefix}label"].description
 
 
-def test_repeated_textvalues_keep_every_occurrence_and_null_row(sv):
+def test_repeated_textvalues_are_parent_strings_without_a_child_table(sv):
     values = [
         {"has_raw_value": v, "type": "nmdc:TextValue"} for v in ("one", "one", "", None)
     ]
     record = {"id": "synthetic:1", "type": "test:Record", "texts": values}
-    assert "texts" not in flatten_record(record, sv, "Record")
-    rows = list(side_table_rows(record, sv, "Record", "record_set"))
-    assert rows == [
-        ("record_set_texts", {"parent_id": "synthetic:1", "texts": "one"}),
-        ("record_set_texts", {"parent_id": "synthetic:1", "texts": "one"}),
-        ("record_set_texts", {"parent_id": "synthetic:1", "texts": ""}),
-        ("record_set_texts", {"parent_id": "synthetic:1"}),
-    ]
-    child = dict(side_table_class_defs(sv, "Record", "record_set"))["record_set_texts"]
-    assert set(child.attributes) == {"parent_id", "texts"}
-    assert child.attributes["texts"].range == "string"
-    assert child.attributes["texts"].multivalued is False
-    assert "texts.has_raw_value" in child.attributes["texts"].description
+    assert flatten_record(record, sv, "Record") == {
+        "id": "synthetic:1",
+        "type": "test:Record",
+        "texts": ["one", "one", "", None],
+    }
+    assert list(side_table_rows(record, sv, "Record", "record_set")) == []
+    flat = flatten_database_schema(sv)
+    assert "record_set_texts" not in flat.classes
+    attribute = flat.classes["RecordFlat"].attributes["texts"]
+    assert attribute.range == "string"
+    assert attribute.multivalued is True
+    assert "texts.has_raw_value" in attribute.description
 
 
 @pytest.mark.parametrize("value", [None, {}, {"has_raw_value": None}])
@@ -242,6 +241,8 @@ def test_empty_string_and_unpopulated_extra_fields_are_allowed(sv):
 
 @pytest.mark.parametrize("value", [[], None])
 def test_empty_multivalued_slot_emits_no_rows(sv, value):
+    expected = {"texts": []} if value == [] else {}
+    assert flatten_record({"texts": value}, sv, "Record") == expected
     assert (
         list(
             side_table_rows(
@@ -252,16 +253,13 @@ def test_empty_multivalued_slot_emits_no_rows(sv, value):
     )
 
 
-def test_single_object_in_multivalued_slot_is_one_string_row(sv):
-    rows = list(
-        side_table_rows(
-            {"id": "synthetic:1", "texts": {"has_raw_value": "one"}},
-            sv,
-            "Record",
-            "record_set",
-        )
-    )
-    assert rows == [("record_set_texts", {"parent_id": "synthetic:1", "texts": "one"})]
+def test_single_object_in_multivalued_slot_is_one_parent_array_element(sv):
+    record = {"id": "synthetic:1", "texts": {"has_raw_value": "one"}}
+    assert flatten_record(record, sv, "Record") == {
+        "id": "synthetic:1",
+        "texts": ["one"],
+    }
+    assert list(side_table_rows(record, sv, "Record", "record_set")) == []
 
 
 @pytest.mark.parametrize(
@@ -298,7 +296,7 @@ def test_unsafe_projection_fails_without_disclosing_values(sv, value, placement)
     else:
         record["children"] = [{"label": value}]
     with pytest.raises(ValueError, match="TextValue") as error:
-        if placement in ("repeated", "child"):
+        if placement == "child":
             list(side_table_rows(record, sv, "Record", "record_set"))
         else:
             flatten_record(record, sv, "Record")
@@ -314,18 +312,31 @@ def test_unsafe_projection_fails_without_disclosing_values(sv, value, placement)
         ("SpecialInner", "extra_text"),
     ],
 )
-def test_nested_multivalued_textvalues_are_not_silently_dropped(
-    sv, class_name, slot_name
+@pytest.mark.parametrize("placement", ["primary", "child"])
+def test_nested_multivalued_textvalues_are_columns_on_the_containing_record(
+    sv, class_name, slot_name, placement
 ):
-    # This shape is absent from nmdc-schema 11.23.0 and needs a separate mapping.
     sv.schema.classes[class_name].attributes[slot_name].multivalued = True
     sv.set_modified()
-    with pytest.raises(ValueError, match="child-table mapping"):
-        flatten_class_def(sv, "Record")
-    value = {"type": f"test:{class_name}", slot_name: [{"has_raw_value": "one"}]}
+    expected = ["one", "one", "", None]
+    value = {
+        "type": f"test:{class_name}",
+        slot_name: [{"has_raw_value": text} for text in expected],
+    }
     detail = {"inner": value} if class_name.endswith("Inner") else value
-    with pytest.raises(ValueError, match="child-table mapping"):
-        flatten_record({"detail": detail}, sv, "Record")
+    column = f"inner_{slot_name}" if class_name.endswith("Inner") else slot_name
+    if placement == "primary":
+        row = flatten_record({"detail": detail}, sv, "Record")
+        flat = flatten_class_def(sv, "Record")
+        column = f"detail_{column}"
+    else:
+        record = {"id": "synthetic:1", "children": [detail]}
+        [(table, row)] = side_table_rows(record, sv, "Record", "record_set")
+        flat = dict(side_table_class_defs(sv, "Record", "record_set"))[table]
+    assert row[column] == expected
+    assert row.keys() <= flat.attributes.keys()
+    assert flat.attributes[column].range == "string"
+    assert flat.attributes[column].multivalued is True
 
 
 def test_all_pinned_nmdc_textvalue_paths_have_string_columns_and_keep_primary_types():
@@ -351,14 +362,15 @@ def test_all_pinned_nmdc_textvalue_paths_have_string_columns_and_keep_primary_ty
                 continue
             if slot.multivalued:
                 repeated += 1
-                child = flat.classes[f"{collection.name}_{slot.name}"]
-                assert set(child.attributes) == {"parent_id", slot.name}
-                attribute = child.attributes[slot.name]
             else:
                 single += 1
-                attribute = primary.attributes[slot.name]
-                assert f"{slot.name}_has_raw_value" not in primary.attributes
-                assert f"{slot.name}_language" not in primary.attributes
+            assert f"{collection.name}_{slot.name}" not in flat.classes
+            attribute = primary.attributes[slot.name]
+            assert f"{slot.name}_has_raw_value" not in primary.attributes
+            assert f"{slot.name}_language" not in primary.attributes
             assert attribute.range == "string"
-            assert attribute.multivalued is False
+            assert attribute.multivalued == bool(slot.multivalued)
     assert (single, repeated) == (101, 41)
+    assert len(flat.classes) == 58
+    assert "biosample_set_host_diet" not in flat.classes
+    assert flat.classes["BiosampleFlat"].attributes["host_diet"].multivalued is True

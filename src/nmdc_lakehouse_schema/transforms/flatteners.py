@@ -15,8 +15,8 @@ def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> di
 
     - scalar slot, not multivalued: pass the value through unchanged
     - scalar slot, multivalued: emit a native Python list
-    - TextValue: extract has_raw_value as a string; repeated values go to
-      child side tables with one string per occurrence
+    - TextValue: extract has_raw_value into the containing row as a string,
+      or a list of strings when the source slot is multivalued
     - class range, not inlined (reference by ID): treat the value(s) as
       scalar identifiers — pass through or emit as list
     - class range, inlined, not multivalued: expand the nested object's
@@ -56,10 +56,9 @@ def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> di
             continue
 
         if slot.range == "TextValue":
-            if not slot.multivalued:
-                text = _text_value(value)
-                if text is not None:
-                    out[slot.name] = text
+            text = _project_text_value(value, multivalued=bool(slot.multivalued))
+            if text is not None:
+                out[slot.name] = text
             continue
 
         range_class = _range_class(slot, schema_view)
@@ -91,6 +90,16 @@ def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> di
                 out[f"{slot.name}_{sub_key}"] = sub_value
 
     return out
+
+
+def _project_text_value(
+    value: Any, *, multivalued: bool
+) -> str | list[str | None] | None:
+    """Extract a string column while preserving the source slot's cardinality."""
+    if multivalued:
+        values = value if isinstance(value, list) else [value]
+        return [_text_value(item) for item in values]
+    return _text_value(value)
 
 
 def _text_value(value: Any) -> str | None:
@@ -220,11 +229,9 @@ def _expand_inlined(
         if sub_value is None:
             continue
         if sub_slot.range == "TextValue":
-            if sub_slot.multivalued:
-                raise ValueError(
-                    "Nested multivalued TextValue slots require a child-table mapping."
-                )
-            text = _text_value(sub_value)
+            text = _project_text_value(
+                sub_value, multivalued=bool(sub_slot.multivalued)
+            )
             if text is not None:
                 out[sub_slot.name] = text
             continue
@@ -246,11 +253,9 @@ def _expand_inlined(
                 if inner_value is None:
                     continue
                 if inner_slot.range == "TextValue":
-                    if inner_slot.multivalued:
-                        raise ValueError(
-                            "Nested multivalued TextValue slots require a child-table mapping."
-                        )
-                    text = _text_value(inner_value)
+                    text = _project_text_value(
+                        inner_value, multivalued=bool(inner_slot.multivalued)
+                    )
                     if text is not None:
                         out[f"{sub_slot.name}_{inner_slot.name}"] = text
                     continue
@@ -277,11 +282,9 @@ def side_table_rows(
       ``(parent_id, <slot_name>)`` junction row per referenced ID.
     - **inlined_class multivalued** — one flattened child-object row per element,
       with ``parent_id`` prepended.
-    - **TextValue multivalued** — one ``(parent_id, <slot_name>)`` row per
-      occurrence, extracting only the raw string from each TextValue.
 
-    Scalar multivalued slots are stored as native Parquet ARRAY columns in the
-    primary table and do NOT produce side table rows.
+    Scalar and TextValue multivalued slots are stored as native Parquet ARRAY
+    columns in the containing table and do NOT produce side table rows.
 
     ``table_name`` is ``{collection}_{slot_name}`` in all cases.
 
@@ -305,7 +308,7 @@ def side_table_rows(
         return
 
     for slot in schema_view.class_induced_slots(effective_class):
-        if not slot.multivalued:
+        if not slot.multivalued or slot.range == "TextValue":
             continue
         if slot.name not in record:
             continue
@@ -320,14 +323,7 @@ def side_table_rows(
         table_name = f"{collection}_{slot.name}"
         range_class = _range_class(slot, schema_view)
 
-        if slot.range == "TextValue":
-            for child in value:
-                text = _text_value(child)
-                row = {"parent_id": parent_id}
-                if text is not None:
-                    row[slot.name] = text
-                yield table_name, row
-        elif range_class is not None and _is_inlined(slot, schema_view):
+        if range_class is not None and _is_inlined(slot, schema_view):
             # Inlined multivalued → child side table
             for child in value:
                 if not isinstance(child, dict):
