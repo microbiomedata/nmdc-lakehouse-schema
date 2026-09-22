@@ -5,10 +5,10 @@ annotations:
     value: https://w3id.org/nmdc/nmdc
   source_schema_version:
     tag: source_schema_version
-    value: 11.23.0
+    value: 11.24.0
   source_package_version:
     tag: source_package_version
-    value: 11.23.0
+    value: 11.24.0
   schema_generator:
     tag: schema_generator
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
@@ -17,11 +17,11 @@ annotations:
     value: 1.2.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: 431d51e17a816c1cfa07cc742570c5ad4ba96e7425eb798353802e584f16e8ab
+    value: 12cdc1e511bf7a6579e178a57fa78dfa4688d54254e8b0b2b6429a1974141bcc
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.23.0+flat.1.2.0
+version: 11.24.0+flat.1.2.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -128,9 +128,6 @@ prefixes:
   OMIT:
     prefix_prefix: OMIT
     prefix_reference: http://purl.obolibrary.org/obo/OMIT_
-  ORCID:
-    prefix_prefix: ORCID
-    prefix_reference: https://orcid.org/
   PANTHER.FAMILY:
     prefix_prefix: PANTHER.FAMILY
     prefix_reference: 'https://bioregistry.io/panther.family:'
@@ -200,6 +197,9 @@ prefixes:
   dcterms:
     prefix_prefix: dcterms
     prefix_reference: http://purl.org/dc/terms/
+  dcm:
+    prefix_prefix: dcm
+    prefix_reference: https://kbase.github.io/credit_engine/
   doi:
     prefix_prefix: doi
     prefix_reference: 'https://bioregistry.io/doi:'
@@ -275,6 +275,9 @@ prefixes:
   nmdc:
     prefix_prefix: nmdc
     prefix_reference: https://w3id.org/nmdc/
+  orcid:
+    prefix_prefix: orcid
+    prefix_reference: https://orcid.org/
   owl:
     prefix_prefix: owl
     prefix_reference: http://www.w3.org/2002/07/owl#
@@ -889,8 +892,8 @@ enums:
       samples.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     contributors:
-    - ORCID:0009-0001-1555-1601
-    - ORCID:0000-0002-8683-0050
+    - orcid:0009-0001-1555-1601
+    - orcid:0000-0002-8683-0050
     permissible_values:
       v-bottom_conical_tube:
         text: v-bottom_conical_tube
@@ -902,8 +905,8 @@ enums:
     description: The tool/substance used to separate or filter a solution or mixture.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     contributors:
-    - ORCID:0009-0001-1555-1601
-    - ORCID:0000-0002-8683-0050
+    - orcid:0009-0001-1555-1601
+    - orcid:0000-0002-8683-0050
     permissible_values:
       ptfe_96_well_filter_plate:
         text: ptfe_96_well_filter_plate
@@ -915,8 +918,8 @@ enums:
     description: The type of stationary phase used in a chromatography process.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     contributors:
-    - ORCID:0009-0001-1555-1601
-    - ORCID:0000-0002-4504-1039
+    - orcid:0009-0001-1555-1601
+    - orcid:0000-0002-4504-1039
     permissible_values:
       BEH-HILIC:
         text: BEH-HILIC
@@ -2016,20 +2019,21 @@ enums:
         text: biogeochemistry
         description: Completeness badge. Awarded when the Biosample populates at least
           badge_minimum_slots of the biogeochemistry subset.
+        see_also:
+        - https://microbiomedata.github.io/nmdc-schema/Biogeochemistry/
       host_information:
         text: host_information
         description: Completeness badge. Awarded when the Biosample populates at least
           badge_minimum_slots of the host_information subset.
+        see_also:
+        - https://microbiomedata.github.io/nmdc-schema/HostInformation/
       expert_curation:
         text: expert_curation
         description: Provenance badge. Awarded when the Biosample's ProvenanceMetadata.source_system_of_record
           identifies the NMDC submission portal, rather than an ETL process over an
-          external database. Not a completeness measure, so it has no badge subset
-          and no badge_minimum_slots.
-        comments:
-        - source_system_of_record is not yet backpopulated for existing biosamples,
-          so this badge cannot be awarded on historical records until that backfill
-          happens.
+          external database.
+        see_also:
+        - https://microbiomedata.github.io/nmdc-schema/source_system_of_record/
   LibraryStrategyEnum:
     name: LibraryStrategyEnum
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/LibraryStrategyEnum
@@ -3068,53 +3072,85 @@ enums:
     comments:
     - CreditEnums come from https://casrai.org/credit/
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    see_also:
+    - https://kbase.github.io/credit_engine/ContributorRole/
     permissible_values:
       Conceptualization:
         text: Conceptualization
         description: Conceptualization
+        exact_mappings:
+        - dcm:conceptualization
       Data curation:
         text: Data curation
         description: Data curation
+        exact_mappings:
+        - dcm:data_curation
       Formal Analysis:
         text: Formal Analysis
         description: Formal Analysis
+        exact_mappings:
+        - dcm:formal_analysis
       Funding acquisition:
         text: Funding acquisition
         description: Funding acquisition
+        exact_mappings:
+        - dcm:funding_acquisition
       Investigation:
         text: Investigation
         description: Investigation
+        exact_mappings:
+        - dcm:investigation
       Methodology:
         text: Methodology
         description: Methodology
+        exact_mappings:
+        - dcm:methodology
       Project administration:
         text: Project administration
         description: Project administration
+        exact_mappings:
+        - dcm:project_administration
       Resources:
         text: Resources
         description: Resources
+        exact_mappings:
+        - dcm:resources
       Software:
         text: Software
         description: Software
+        exact_mappings:
+        - dcm:software
       Supervision:
         text: Supervision
         description: Supervision
+        exact_mappings:
+        - dcm:supervision
       Validation:
         text: Validation
         description: Validation
+        exact_mappings:
+        - dcm:validation
       Visualization:
         text: Visualization
         description: Visualization
+        exact_mappings:
+        - dcm:visualization
       Writing original draft:
         text: Writing original draft
-        description: "Writing \u2013 original draft"
+        description: Writing original draft
+        exact_mappings:
+        - dcm:writing_original_draft
       Writing review and editing:
         text: Writing review and editing
-        description: "Writing \u2013 review & editing"
+        description: Writing review & editing
+        exact_mappings:
+        - dcm:writing_review_editing
       Principal Investigator:
         text: Principal Investigator
         description: principal investigator role
         meaning: OBI:0000103
+        related_mappings:
+        - dcm:project_leader
       Submitter:
         text: Submitter
         description: the person(s) who enter study and biosample metadata into the
@@ -9160,18 +9196,6 @@ slots:
     - BiosampleFlat
     range: string
     required: false
-    multivalued: false
-  biosampleFlat__collection_date_inc:
-    name: biosampleFlat__collection_date_inc
-    description: Date the incubation was harvested/collected/ended. Only relevant
-      for incubation samples.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/collection_date_inc
-    alias: collection_date_inc
-    owner: BiosampleFlat
-    domain_of:
-    - BiosampleFlat
-    range: string
     multivalued: false
   biosampleFlat__collection_time:
     name: biosampleFlat__collection_time
@@ -18217,7 +18241,7 @@ slots:
   biosampleFlat__salinity_category:
     name: biosampleFlat__salinity_category
     description: 'Categorical description of the sample''s salinity. Examples: halophile,
-      halotolerant, hypersaline, huryhaline'
+      halotolerant, hypersaline, euryhaline'
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/salinity_category
     alias: salinity_category
@@ -24816,84 +24840,6 @@ slots:
     range: string
     required: false
     multivalued: false
-  dataGenerationFlat__principal_investigator_email:
-    name: dataGenerationFlat__principal_investigator_email
-    description: An email address for an entity such as a person. This should be the
-      primary email address used. Flattened from nested slot 'principal_investigator.email'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_email
-    alias: principal_investigator_email
-    owner: DataGenerationFlat
-    domain_of:
-    - DataGenerationFlat
-    range: string
-    required: false
-    multivalued: false
-  dataGenerationFlat__principal_investigator_has_raw_value:
-    name: dataGenerationFlat__principal_investigator_has_raw_value
-    description: The full name of the Investigator in format FIRST LAST. Flattened
-      from nested slot 'principal_investigator.has_raw_value'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_has_raw_value
-    alias: principal_investigator_has_raw_value
-    owner: DataGenerationFlat
-    domain_of:
-    - DataGenerationFlat
-    range: string
-    required: false
-    multivalued: false
-  dataGenerationFlat__principal_investigator_name:
-    name: dataGenerationFlat__principal_investigator_name
-    description: The full name of the Investigator. It should follow the format FIRST
-      [MIDDLE NAME| MIDDLE INITIAL] LAST, where MIDDLE NAME| MIDDLE INITIAL is optional.
-      Flattened from nested slot 'principal_investigator.name'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_name
-    alias: principal_investigator_name
-    owner: DataGenerationFlat
-    domain_of:
-    - DataGenerationFlat
-    range: string
-    required: false
-    multivalued: false
-  dataGenerationFlat__principal_investigator_orcid:
-    name: dataGenerationFlat__principal_investigator_orcid
-    description: The ORCID of a person. Flattened from nested slot 'principal_investigator.orcid'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_orcid
-    alias: principal_investigator_orcid
-    owner: DataGenerationFlat
-    domain_of:
-    - DataGenerationFlat
-    range: string
-    required: false
-    multivalued: false
-  dataGenerationFlat__principal_investigator_profile_image_url:
-    name: dataGenerationFlat__principal_investigator_profile_image_url
-    description: A url that points to an image of a person. Flattened from nested
-      slot 'principal_investigator.profile_image_url'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_profile_image_url
-    alias: principal_investigator_profile_image_url
-    owner: DataGenerationFlat
-    domain_of:
-    - DataGenerationFlat
-    range: string
-    required: false
-    multivalued: false
-  dataGenerationFlat__principal_investigator_websites:
-    name: dataGenerationFlat__principal_investigator_websites
-    description: A list of websites that are associated with the entity. Flattened
-      from nested slot 'principal_investigator.websites'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_websites
-    alias: principal_investigator_websites
-    owner: DataGenerationFlat
-    domain_of:
-    - DataGenerationFlat
-    range: string
-    required: false
-    multivalued: true
   dataGenerationFlat__processing_institution:
     name: dataGenerationFlat__processing_institution
     description: The organization that processed the sample.
@@ -25115,6 +25061,118 @@ slots:
     owner: data_generation_set_associated_studies
     domain_of:
     - data_generation_set_associated_studies
+    range: string
+  dataGenerationSetHasCreditAssociations__applied_roles:
+    name: dataGenerationSetHasCreditAssociations__applied_roles
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applied_roles
+    alias: applied_roles
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: CreditEnum
+    required: true
+    multivalued: true
+  dataGenerationSetHasCreditAssociations__applies_to_agent_email:
+    name: dataGenerationSetHasCreditAssociations__applies_to_agent_email
+    description: An email address for an entity such as a person. This should be the
+      primary email address used. Flattened from nested slot 'applies_to_agent.email'..
+      Polymorphic subclass-specific slot (from 'Person').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_email
+    alias: applies_to_agent_email
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: string
+    required: false
+    multivalued: false
+  dataGenerationSetHasCreditAssociations__applies_to_agent_name:
+    name: dataGenerationSetHasCreditAssociations__applies_to_agent_name
+    description: A human readable label for an entity Flattened from nested slot 'applies_to_agent.name'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_name
+    alias: applies_to_agent_name
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: string
+    required: false
+    multivalued: false
+  dataGenerationSetHasCreditAssociations__applies_to_agent_orcid:
+    name: dataGenerationSetHasCreditAssociations__applies_to_agent_orcid
+    description: The ORCID of a person. Flattened from nested slot 'applies_to_agent.orcid'..
+      Polymorphic subclass-specific slot (from 'Person').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_orcid
+    alias: applies_to_agent_orcid
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: string
+    required: false
+    multivalued: false
+  dataGenerationSetHasCreditAssociations__applies_to_agent_profile_image_url:
+    name: dataGenerationSetHasCreditAssociations__applies_to_agent_profile_image_url
+    description: A url that points to an image of this person or organization. Flattened
+      from nested slot 'applies_to_agent.profile_image_url'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_profile_image_url
+    alias: applies_to_agent_profile_image_url
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: string
+    required: false
+    multivalued: false
+  dataGenerationSetHasCreditAssociations__applies_to_agent_ror:
+    name: dataGenerationSetHasCreditAssociations__applies_to_agent_ror
+    description: The Research Organization Registry identifier of an organization.
+      Flattened from nested slot 'applies_to_agent.ror'.. Polymorphic subclass-specific
+      slot (from 'Organization').
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_ror
+    alias: applies_to_agent_ror
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: string
+    required: false
+    multivalued: false
+  dataGenerationSetHasCreditAssociations__applies_to_agent_websites:
+    name: dataGenerationSetHasCreditAssociations__applies_to_agent_websites
+    description: A list of websites that are associated with the entity. Flattened
+      from nested slot 'applies_to_agent.websites'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_websites
+    alias: applies_to_agent_websites
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: string
+    required: false
+    multivalued: true
+  dataGenerationSetHasCreditAssociations__type:
+    name: dataGenerationSetHasCreditAssociations__type
+    description: the class_uri of the class that has been instantiated
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/type
+    alias: type
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
+    range: uriorcurie
+    required: true
+    multivalued: false
+  dataGenerationSetHasCreditAssociations__parent_id:
+    name: dataGenerationSetHasCreditAssociations__parent_id
+    description: Identifier of the parent 'DataGeneration' record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
+    alias: parent_id
+    owner: data_generation_set_has_credit_associations
+    domain_of:
+    - data_generation_set_has_credit_associations
     range: string
   dataGenerationSetHasFailureCategorization__qc_failure_what:
     name: dataGenerationSetHasFailureCategorization__qc_failure_what
@@ -29653,84 +29711,6 @@ slots:
     - StudyFlat
     range: string
     multivalued: true
-  studyFlat__principal_investigator_email:
-    name: studyFlat__principal_investigator_email
-    description: An email address for an entity such as a person. This should be the
-      primary email address used. Flattened from nested slot 'principal_investigator.email'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_email
-    alias: principal_investigator_email
-    owner: StudyFlat
-    domain_of:
-    - StudyFlat
-    range: string
-    required: false
-    multivalued: false
-  studyFlat__principal_investigator_has_raw_value:
-    name: studyFlat__principal_investigator_has_raw_value
-    description: The full name of the Investigator in format FIRST LAST. Flattened
-      from nested slot 'principal_investigator.has_raw_value'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_has_raw_value
-    alias: principal_investigator_has_raw_value
-    owner: StudyFlat
-    domain_of:
-    - StudyFlat
-    range: string
-    required: false
-    multivalued: false
-  studyFlat__principal_investigator_name:
-    name: studyFlat__principal_investigator_name
-    description: The full name of the Investigator. It should follow the format FIRST
-      [MIDDLE NAME| MIDDLE INITIAL] LAST, where MIDDLE NAME| MIDDLE INITIAL is optional.
-      Flattened from nested slot 'principal_investigator.name'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_name
-    alias: principal_investigator_name
-    owner: StudyFlat
-    domain_of:
-    - StudyFlat
-    range: string
-    required: false
-    multivalued: false
-  studyFlat__principal_investigator_orcid:
-    name: studyFlat__principal_investigator_orcid
-    description: The ORCID of a person. Flattened from nested slot 'principal_investigator.orcid'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_orcid
-    alias: principal_investigator_orcid
-    owner: StudyFlat
-    domain_of:
-    - StudyFlat
-    range: string
-    required: false
-    multivalued: false
-  studyFlat__principal_investigator_profile_image_url:
-    name: studyFlat__principal_investigator_profile_image_url
-    description: A url that points to an image of a person. Flattened from nested
-      slot 'principal_investigator.profile_image_url'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_profile_image_url
-    alias: principal_investigator_profile_image_url
-    owner: StudyFlat
-    domain_of:
-    - StudyFlat
-    range: string
-    required: false
-    multivalued: false
-  studyFlat__principal_investigator_websites:
-    name: studyFlat__principal_investigator_websites
-    description: A list of websites that are associated with the entity. Flattened
-      from nested slot 'principal_investigator.websites'.
-    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/principal_investigator_websites
-    alias: principal_investigator_websites
-    owner: StudyFlat
-    domain_of:
-    - StudyFlat
-    range: string
-    required: false
-    multivalued: true
   studyFlat__provenance_metadata_add_date:
     name: studyFlat__provenance_metadata_add_date
     description: The date and time at which a record was added to the NMDC database.
@@ -29950,78 +29930,79 @@ slots:
     range: CreditEnum
     required: true
     multivalued: true
-  studySetHasCreditAssociations__applies_to_person_email:
-    name: studySetHasCreditAssociations__applies_to_person_email
+  studySetHasCreditAssociations__applies_to_agent_email:
+    name: studySetHasCreditAssociations__applies_to_agent_email
     description: An email address for an entity such as a person. This should be the
-      primary email address used. Flattened from nested slot 'applies_to_person.email'.
+      primary email address used. Flattened from nested slot 'applies_to_agent.email'..
+      Polymorphic subclass-specific slot (from 'Person').
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_person_email
-    alias: applies_to_person_email
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_email
+    alias: applies_to_agent_email
     owner: study_set_has_credit_associations
     domain_of:
     - study_set_has_credit_associations
     range: string
     required: false
     multivalued: false
-  studySetHasCreditAssociations__applies_to_person_has_raw_value:
-    name: studySetHasCreditAssociations__applies_to_person_has_raw_value
-    description: The full name of the Investigator in format FIRST LAST. Flattened
-      from nested slot 'applies_to_person.has_raw_value'.
+  studySetHasCreditAssociations__applies_to_agent_name:
+    name: studySetHasCreditAssociations__applies_to_agent_name
+    description: A human readable label for an entity Flattened from nested slot 'applies_to_agent.name'.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_person_has_raw_value
-    alias: applies_to_person_has_raw_value
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_name
+    alias: applies_to_agent_name
     owner: study_set_has_credit_associations
     domain_of:
     - study_set_has_credit_associations
     range: string
     required: false
     multivalued: false
-  studySetHasCreditAssociations__applies_to_person_name:
-    name: studySetHasCreditAssociations__applies_to_person_name
-    description: The full name of the Investigator. It should follow the format FIRST
-      [MIDDLE NAME| MIDDLE INITIAL] LAST, where MIDDLE NAME| MIDDLE INITIAL is optional.
-      Flattened from nested slot 'applies_to_person.name'.
+  studySetHasCreditAssociations__applies_to_agent_orcid:
+    name: studySetHasCreditAssociations__applies_to_agent_orcid
+    description: The ORCID of a person. Flattened from nested slot 'applies_to_agent.orcid'..
+      Polymorphic subclass-specific slot (from 'Person').
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_person_name
-    alias: applies_to_person_name
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_orcid
+    alias: applies_to_agent_orcid
     owner: study_set_has_credit_associations
     domain_of:
     - study_set_has_credit_associations
     range: string
     required: false
     multivalued: false
-  studySetHasCreditAssociations__applies_to_person_orcid:
-    name: studySetHasCreditAssociations__applies_to_person_orcid
-    description: The ORCID of a person. Flattened from nested slot 'applies_to_person.orcid'.
+  studySetHasCreditAssociations__applies_to_agent_profile_image_url:
+    name: studySetHasCreditAssociations__applies_to_agent_profile_image_url
+    description: A url that points to an image of this person or organization. Flattened
+      from nested slot 'applies_to_agent.profile_image_url'.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_person_orcid
-    alias: applies_to_person_orcid
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_profile_image_url
+    alias: applies_to_agent_profile_image_url
     owner: study_set_has_credit_associations
     domain_of:
     - study_set_has_credit_associations
     range: string
     required: false
     multivalued: false
-  studySetHasCreditAssociations__applies_to_person_profile_image_url:
-    name: studySetHasCreditAssociations__applies_to_person_profile_image_url
-    description: A url that points to an image of a person. Flattened from nested
-      slot 'applies_to_person.profile_image_url'.
+  studySetHasCreditAssociations__applies_to_agent_ror:
+    name: studySetHasCreditAssociations__applies_to_agent_ror
+    description: The Research Organization Registry identifier of an organization.
+      Flattened from nested slot 'applies_to_agent.ror'.. Polymorphic subclass-specific
+      slot (from 'Organization').
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_person_profile_image_url
-    alias: applies_to_person_profile_image_url
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_ror
+    alias: applies_to_agent_ror
     owner: study_set_has_credit_associations
     domain_of:
     - study_set_has_credit_associations
     range: string
     required: false
     multivalued: false
-  studySetHasCreditAssociations__applies_to_person_websites:
-    name: studySetHasCreditAssociations__applies_to_person_websites
+  studySetHasCreditAssociations__applies_to_agent_websites:
+    name: studySetHasCreditAssociations__applies_to_agent_websites
     description: A list of websites that are associated with the entity. Flattened
-      from nested slot 'applies_to_person.websites'.
+      from nested slot 'applies_to_agent.websites'.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
-    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_person_websites
-    alias: applies_to_person_websites
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/applies_to_agent_websites
+    alias: applies_to_agent_websites
     owner: study_set_has_credit_associations
     domain_of:
     - study_set_has_credit_associations
@@ -31998,7 +31979,6 @@ classes:
     - biosampleFlat__climate_environment
     - biosampleFlat__collected_from
     - biosampleFlat__collection_date_has_raw_value
-    - biosampleFlat__collection_date_inc
     - biosampleFlat__collection_time
     - biosampleFlat__collection_time_inc
     - biosampleFlat__community
@@ -34656,12 +34636,6 @@ classes:
           a string. E.g. "2 cm" or "2-4 cm" Flattened from nested slot 'collection_date.has_raw_value'.
         range: string
         required: false
-        multivalued: false
-      collection_date_inc:
-        name: collection_date_inc
-        description: Date the incubation was harvested/collected/ended. Only relevant
-          for incubation samples.
-        range: string
         multivalued: false
       collection_time:
         name: collection_time
@@ -39471,7 +39445,7 @@ classes:
       salinity_category:
         name: salinity_category
         description: 'Categorical description of the sample''s salinity. Examples:
-          halophile, halotolerant, hypersaline, huryhaline'
+          halophile, halotolerant, hypersaline, euryhaline'
         range: string
         multivalued: false
       salinity_has_maximum_numeric_value:
@@ -43124,12 +43098,6 @@ classes:
     - dataGenerationFlat__instrument_used
     - dataGenerationFlat__name
     - dataGenerationFlat__ncbi_project_name
-    - dataGenerationFlat__principal_investigator_email
-    - dataGenerationFlat__principal_investigator_has_raw_value
-    - dataGenerationFlat__principal_investigator_name
-    - dataGenerationFlat__principal_investigator_orcid
-    - dataGenerationFlat__principal_investigator_profile_image_url
-    - dataGenerationFlat__principal_investigator_websites
     - dataGenerationFlat__processing_institution
     - dataGenerationFlat__protocol_link_analysis_type
     - dataGenerationFlat__protocol_link_description
@@ -43276,48 +43244,6 @@ classes:
         range: string
         required: false
         multivalued: false
-      principal_investigator_email:
-        name: principal_investigator_email
-        description: An email address for an entity such as a person. This should
-          be the primary email address used. Flattened from nested slot 'principal_investigator.email'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_has_raw_value:
-        name: principal_investigator_has_raw_value
-        description: The full name of the Investigator in format FIRST LAST. Flattened
-          from nested slot 'principal_investigator.has_raw_value'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_name:
-        name: principal_investigator_name
-        description: The full name of the Investigator. It should follow the format
-          FIRST [MIDDLE NAME| MIDDLE INITIAL] LAST, where MIDDLE NAME| MIDDLE INITIAL
-          is optional. Flattened from nested slot 'principal_investigator.name'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_orcid:
-        name: principal_investigator_orcid
-        description: The ORCID of a person. Flattened from nested slot 'principal_investigator.orcid'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_profile_image_url:
-        name: principal_investigator_profile_image_url
-        description: A url that points to an image of a person. Flattened from nested
-          slot 'principal_investigator.profile_image_url'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_websites:
-        name: principal_investigator_websites
-        description: A list of websites that are associated with the entity. Flattened
-          from nested slot 'principal_investigator.websites'.
-        range: string
-        required: false
-        multivalued: true
       processing_institution:
         name: processing_institution
         description: The organization that processed the sample.
@@ -43452,6 +43378,93 @@ classes:
           original range was class 'Study'.
         range: string
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/DataGenerationSetAssociatedStudies
+  data_generation_set_has_credit_associations:
+    name: data_generation_set_has_credit_associations
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/DataGenerationSetHasCreditAssociations
+    annotations:
+      table_name:
+        tag: table_name
+        value: data_generation_set_has_credit_associations
+      source_class:
+        tag: source_class
+        value: DataGeneration
+    description: This class supports binding an agent (a Person or an Organization)
+      to a study or a data generation record with a CRediT Contributor Role. Flattened
+      tabular form of 'CreditAssociation'. Attributes are the union of base-class
+      slots and slots from concrete subclasses of 'CreditAssociation' that may appear
+      via the 'type' field.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slots:
+    - dataGenerationSetHasCreditAssociations__applied_roles
+    - dataGenerationSetHasCreditAssociations__applies_to_agent_email
+    - dataGenerationSetHasCreditAssociations__applies_to_agent_name
+    - dataGenerationSetHasCreditAssociations__applies_to_agent_orcid
+    - dataGenerationSetHasCreditAssociations__applies_to_agent_profile_image_url
+    - dataGenerationSetHasCreditAssociations__applies_to_agent_ror
+    - dataGenerationSetHasCreditAssociations__applies_to_agent_websites
+    - dataGenerationSetHasCreditAssociations__type
+    - dataGenerationSetHasCreditAssociations__parent_id
+    attributes:
+      applied_roles:
+        name: applied_roles
+        range: CreditEnum
+        required: true
+        multivalued: true
+      applies_to_agent_email:
+        name: applies_to_agent_email
+        description: An email address for an entity such as a person. This should
+          be the primary email address used. Flattened from nested slot 'applies_to_agent.email'..
+          Polymorphic subclass-specific slot (from 'Person').
+        range: string
+        required: false
+        multivalued: false
+      applies_to_agent_name:
+        name: applies_to_agent_name
+        description: A human readable label for an entity Flattened from nested slot
+          'applies_to_agent.name'.
+        range: string
+        required: false
+        multivalued: false
+      applies_to_agent_orcid:
+        name: applies_to_agent_orcid
+        description: The ORCID of a person. Flattened from nested slot 'applies_to_agent.orcid'..
+          Polymorphic subclass-specific slot (from 'Person').
+        range: string
+        required: false
+        multivalued: false
+      applies_to_agent_profile_image_url:
+        name: applies_to_agent_profile_image_url
+        description: A url that points to an image of this person or organization.
+          Flattened from nested slot 'applies_to_agent.profile_image_url'.
+        range: string
+        required: false
+        multivalued: false
+      applies_to_agent_ror:
+        name: applies_to_agent_ror
+        description: The Research Organization Registry identifier of an organization.
+          Flattened from nested slot 'applies_to_agent.ror'.. Polymorphic subclass-specific
+          slot (from 'Organization').
+        range: string
+        required: false
+        multivalued: false
+      applies_to_agent_websites:
+        name: applies_to_agent_websites
+        description: A list of websites that are associated with the entity. Flattened
+          from nested slot 'applies_to_agent.websites'.
+        range: string
+        required: false
+        multivalued: true
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'DataGeneration' record.
+        range: string
+    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/DataGenerationSetHasCreditAssociations
   data_generation_set_has_failure_categorization:
     name: data_generation_set_has_failure_categorization
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/DataGenerationSetHasFailureCategorization
@@ -46576,12 +46589,6 @@ classes:
     - studyFlat__notes
     - studyFlat__objective
     - studyFlat__part_of
-    - studyFlat__principal_investigator_email
-    - studyFlat__principal_investigator_has_raw_value
-    - studyFlat__principal_investigator_name
-    - studyFlat__principal_investigator_orcid
-    - studyFlat__principal_investigator_profile_image_url
-    - studyFlat__principal_investigator_websites
     - studyFlat__provenance_metadata_add_date
     - studyFlat__provenance_metadata_git_url
     - studyFlat__provenance_metadata_mod_date
@@ -46735,48 +46742,6 @@ classes:
           consortium. Reference by identifier; original range was class 'Study'.
         range: string
         multivalued: true
-      principal_investigator_email:
-        name: principal_investigator_email
-        description: An email address for an entity such as a person. This should
-          be the primary email address used. Flattened from nested slot 'principal_investigator.email'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_has_raw_value:
-        name: principal_investigator_has_raw_value
-        description: The full name of the Investigator in format FIRST LAST. Flattened
-          from nested slot 'principal_investigator.has_raw_value'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_name:
-        name: principal_investigator_name
-        description: The full name of the Investigator. It should follow the format
-          FIRST [MIDDLE NAME| MIDDLE INITIAL] LAST, where MIDDLE NAME| MIDDLE INITIAL
-          is optional. Flattened from nested slot 'principal_investigator.name'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_orcid:
-        name: principal_investigator_orcid
-        description: The ORCID of a person. Flattened from nested slot 'principal_investigator.orcid'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_profile_image_url:
-        name: principal_investigator_profile_image_url
-        description: A url that points to an image of a person. Flattened from nested
-          slot 'principal_investigator.profile_image_url'.
-        range: string
-        required: false
-        multivalued: false
-      principal_investigator_websites:
-        name: principal_investigator_websites
-        description: A list of websites that are associated with the entity. Flattened
-          from nested slot 'principal_investigator.websites'.
-        range: string
-        required: false
-        multivalued: true
       provenance_metadata_add_date:
         name: provenance_metadata_add_date
         description: The date and time at which a record was added to the NMDC database.
@@ -46919,22 +46884,20 @@ classes:
       source_class:
         tag: source_class
         value: Study
-    description: This class supports binding associated researchers to studies. There
-      will be at least a slot for a CRediT Contributor Role and for a person value.
-      Specifically see the associated researchers tab on the NMDC_SampleMetadata-V4_CommentsForUpdates
-      at https://docs.google.com/spreadsheets/d/1INlBo5eoqn2efn4H2P2i8rwRBtnbDVTqXrochJEAPko/edit#gid=0
-      Flattened tabular form of 'CreditAssociation'. Attributes are the union of base-class
+    description: This class supports binding an agent (a Person or an Organization)
+      to a study or a data generation record with a CRediT Contributor Role. Flattened
+      tabular form of 'CreditAssociation'. Attributes are the union of base-class
       slots and slots from concrete subclasses of 'CreditAssociation' that may appear
       via the 'type' field.
     from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
     slots:
     - studySetHasCreditAssociations__applied_roles
-    - studySetHasCreditAssociations__applies_to_person_email
-    - studySetHasCreditAssociations__applies_to_person_has_raw_value
-    - studySetHasCreditAssociations__applies_to_person_name
-    - studySetHasCreditAssociations__applies_to_person_orcid
-    - studySetHasCreditAssociations__applies_to_person_profile_image_url
-    - studySetHasCreditAssociations__applies_to_person_websites
+    - studySetHasCreditAssociations__applies_to_agent_email
+    - studySetHasCreditAssociations__applies_to_agent_name
+    - studySetHasCreditAssociations__applies_to_agent_orcid
+    - studySetHasCreditAssociations__applies_to_agent_profile_image_url
+    - studySetHasCreditAssociations__applies_to_agent_ror
+    - studySetHasCreditAssociations__applies_to_agent_websites
     - studySetHasCreditAssociations__type
     - studySetHasCreditAssociations__parent_id
     attributes:
@@ -46943,45 +46906,47 @@ classes:
         range: CreditEnum
         required: true
         multivalued: true
-      applies_to_person_email:
-        name: applies_to_person_email
+      applies_to_agent_email:
+        name: applies_to_agent_email
         description: An email address for an entity such as a person. This should
-          be the primary email address used. Flattened from nested slot 'applies_to_person.email'.
+          be the primary email address used. Flattened from nested slot 'applies_to_agent.email'..
+          Polymorphic subclass-specific slot (from 'Person').
         range: string
         required: false
         multivalued: false
-      applies_to_person_has_raw_value:
-        name: applies_to_person_has_raw_value
-        description: The full name of the Investigator in format FIRST LAST. Flattened
-          from nested slot 'applies_to_person.has_raw_value'.
+      applies_to_agent_name:
+        name: applies_to_agent_name
+        description: A human readable label for an entity Flattened from nested slot
+          'applies_to_agent.name'.
         range: string
         required: false
         multivalued: false
-      applies_to_person_name:
-        name: applies_to_person_name
-        description: The full name of the Investigator. It should follow the format
-          FIRST [MIDDLE NAME| MIDDLE INITIAL] LAST, where MIDDLE NAME| MIDDLE INITIAL
-          is optional. Flattened from nested slot 'applies_to_person.name'.
+      applies_to_agent_orcid:
+        name: applies_to_agent_orcid
+        description: The ORCID of a person. Flattened from nested slot 'applies_to_agent.orcid'..
+          Polymorphic subclass-specific slot (from 'Person').
         range: string
         required: false
         multivalued: false
-      applies_to_person_orcid:
-        name: applies_to_person_orcid
-        description: The ORCID of a person. Flattened from nested slot 'applies_to_person.orcid'.
+      applies_to_agent_profile_image_url:
+        name: applies_to_agent_profile_image_url
+        description: A url that points to an image of this person or organization.
+          Flattened from nested slot 'applies_to_agent.profile_image_url'.
         range: string
         required: false
         multivalued: false
-      applies_to_person_profile_image_url:
-        name: applies_to_person_profile_image_url
-        description: A url that points to an image of a person. Flattened from nested
-          slot 'applies_to_person.profile_image_url'.
+      applies_to_agent_ror:
+        name: applies_to_agent_ror
+        description: The Research Organization Registry identifier of an organization.
+          Flattened from nested slot 'applies_to_agent.ror'.. Polymorphic subclass-specific
+          slot (from 'Organization').
         range: string
         required: false
         multivalued: false
-      applies_to_person_websites:
-        name: applies_to_person_websites
+      applies_to_agent_websites:
+        name: applies_to_agent_websites
         description: A list of websites that are associated with the entity. Flattened
-          from nested slot 'applies_to_person.websites'.
+          from nested slot 'applies_to_agent.websites'.
         range: string
         required: false
         multivalued: true
@@ -48191,7 +48156,7 @@ classes:
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/WorkflowExecutionSetWasInformedBy
 metamodel_version: 1.11.0
 source_file: nmdc_schema_flattened.yaml
-source_file_date: '2026-09-22T16:04:13'
-source_file_size: 814999
-generation_date: '2026-09-22T16:04:23'
+source_file_date: '2026-09-22T17:01:28'
+source_file_size: 814685
+generation_date: '2026-09-22T17:01:40'
 

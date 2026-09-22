@@ -531,23 +531,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -608,8 +591,13 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="../DataGenerationSetHasCreditAssociations/">DataGenerationSetHasCreditAssociations</a></td>
+<td>This class supports binding an agent (a Person or an Organization) to a study...</td>
+<td>no</td>
+</tr>
+<tr>
 <td><a href="../StudySetHasCreditAssociations/">StudySetHasCreditAssociations</a></td>
-<td>This class supports binding associated researchers to studies</td>
+<td>This class supports binding an agent (a Person or an Organization) to a study...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -626,11 +614,11 @@
 <tbody>
 <tr>
 <td>Range</td>
-<td><a href="../CreditEnum/">CreditEnum</a></td>
+<td><a href="../String/">String</a></td>
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../StudySetHasCreditAssociations/">StudySetHasCreditAssociations</a></td>
+<td><a href="../DataGenerationSetHasCreditAssociations/">DataGenerationSetHasCreditAssociations</a>, <a href="../StudySetHasCreditAssociations/">StudySetHasCreditAssociations</a></td>
 </tr>
 </tbody>
 </table>
@@ -644,38 +632,12 @@
 </thead>
 <tbody>
 <tr>
-<td>Required</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Multivalued</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>### Slot Characteristics</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Owner</td>
-<td><a href="../StudySetHasCreditAssociations/">StudySetHasCreditAssociations</a></td>
-</tr>
-</tbody>
-</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: <a href="https://w3id.org/nmdc/nmdc-schema-flattened">https://w3id.org/nmdc/nmdc-schema-flattened</a></li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -698,14 +660,10 @@
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">applied_roles</span>
-<span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
-<span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">study_set_has_credit_associations</span>
 <span class="nt">domain_of</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_generation_set_has_credit_associations</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">study_set_has_credit_associations</span>
-<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CreditEnum</span>
-<span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 </code></pre></div>
 </details>
 </div>

@@ -205,6 +205,10 @@
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/DataGenerationSetHasCreditAssociations/</loc>
+         <lastmod>2026-09-22</lastmod>
+    </url>
+    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/DataGenerationSetHasFailureCategorization/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
@@ -1289,27 +1293,27 @@
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_person_email/</loc>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_agent_email/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_person_has_raw_value/</loc>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_agent_name/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_person_name/</loc>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_agent_orcid/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_person_orcid/</loc>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_agent_profile_image_url/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_person_profile_image_url/</loc>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_agent_ror/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_person_websites/</loc>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/applies_to_agent_websites/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
@@ -1966,10 +1970,6 @@
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/collection_date_has_raw_value/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/collection_date_inc/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
@@ -5294,30 +5294,6 @@
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/primary_treatment/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/principal_investigator_email/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/principal_investigator_has_raw_value/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/principal_investigator_name/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/principal_investigator_orcid/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/principal_investigator_profile_image_url/</loc>
-         <lastmod>2026-09-22</lastmod>
-    </url>
-    <url>
-         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/principal_investigator_websites/</loc>
          <lastmod>2026-09-22</lastmod>
     </url>
     <url>
