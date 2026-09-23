@@ -225,3 +225,49 @@ def test_changed_nested_schema_shape_is_rejected_by_generator_and_runtime(overri
                 "root_set",
             )
         )
+
+
+@pytest.mark.parametrize("has_identifier", [False, True])
+def test_unset_inlining_uses_the_range_identifier_default(
+    source, monkeypatch, has_identifier
+):
+    original_slot = source.induced_slot
+    original_identifier = source.get_identifier_slot
+
+    def induced(name, class_name=None, **kwargs):
+        slot = original_slot(name, class_name, **kwargs)
+        if name == "substances_used" and class_name == "MobilePhaseSegment":
+            slot = deepcopy(slot)
+            slot.inlined = None
+        return slot
+
+    def identifier(class_name, **kwargs):
+        if class_name == "PortionOfSubstance" and has_identifier:
+            return SlotDefinition(name="id", identifier=True)
+        return original_identifier(class_name, **kwargs)
+
+    monkeypatch.setattr(source, "induced_slot", induced)
+    monkeypatch.setattr(source, "get_identifier_slot", identifier)
+    record = {
+        "id": "example:configuration",
+        "type": "nmdc:ChromatographyConfiguration",
+        "ordered_mobile_phases": [{"substances_used": [{"known_as": "water"}]}],
+    }
+    if has_identifier:
+        with pytest.raises(
+            ValueError, match="Unsupported mobile-phase substances schema shape"
+        ):
+            side_table_class_defs(source, "Configuration", "configuration_set")
+        with pytest.raises(
+            ValueError, match="Unsupported mobile-phase substances schema shape"
+        ):
+            list(side_table_rows(record, source, "Configuration", "configuration_set"))
+    else:
+        definitions = dict(
+            side_table_class_defs(source, "Configuration", "configuration_set")
+        )
+        table, row = list(
+            side_table_rows(record, source, "Configuration", "configuration_set")
+        )[-1]
+        assert row["known_as"] == "water"
+        assert set(row) <= set(definitions[table].attributes)
