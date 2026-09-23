@@ -856,7 +856,7 @@ just<span class="w"> </span>test-dist
 just<span class="w"> </span>gen-doc
 uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build
 </code></pre></div>
-<p>These commands were exercised for projection 1.2.0 on 2026-09-22. With unchanged
+<p>These commands were exercised for projection 1.3.0 on 2026-09-23. With unchanged
 inputs, schema generation reproduces the checked-in bytes. <code>just check-flat-schema</code>
 checks both reproducibility and the artifact's digest. <code>just test</code> also includes
 those guards, runtime/generator tests, and the remaining template example tests.
@@ -1008,10 +1008,13 @@ repository/package artifact for byte-level digest checks. The website's
 <code>schema/</code> download is a LinkML-expanded rendering produced by <code>gen-yaml</code>, so it
 is not the same byte stream even though it carries the source annotations.</p>
 <h2 id="adopting-source-release-11240">Adopting source release 11.24.0</h2>
-<p>The source upgrade retains projection rules 1.2.0 and changes the artifact identity
-to <code>11.24.0+flat.1.2.0</code>. Relative to the 11.23.0 artifact it:</p>
+<p>The source upgrade initially shipped in package 0.4.0 as
+<code>11.24.0+flat.1.2.0</code> (59 tables). That is the superseded artifact baseline;
+the canonical artifact here is <code>11.24.0+flat.1.3.0</code> (61 tables), which adds the
+two nested substance helpers. Independently of that projection update, moving
+the source from 11.23.0 to 11.24.0:</p>
 <ul>
-<li>adds <code>data_generation_set_has_credit_associations</code> (58 to 59 table classes);</li>
+<li>adds <code>data_generation_set_has_credit_associations</code> (60 to 61 tables under projection 1.3.0);</li>
 <li>replaces <code>applies_to_person_*</code> with <code>applies_to_agent_*</code> on study credit rows,
   including Person email/ORCID and Organization ROR columns;</li>
 <li>removes <code>principal_investigator_*</code> from Study and DataGeneration; and</li>
