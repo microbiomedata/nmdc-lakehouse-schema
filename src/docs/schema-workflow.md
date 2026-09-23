@@ -3,7 +3,7 @@
 This repository owns the NMDC flat-schema generator, the runtime flattener,
 and the checked-in schema describing their output. The source model comes from
 the separate `nmdc-schema` package. The current input is tagged release
-**v11.24.0**, with projection **1.2.0**. Upgrades select the latest tagged source
+**v11.24.0**, with projection **1.3.0**. Upgrades select the latest tagged source
 release deliberately and pin it; ordinary regeneration never follows upstream
 main or selects a newer release automatically.
 
@@ -21,15 +21,13 @@ that does not make it the owner of the generator implementation. The checked-in
 artifact provides the complete, versioned target schema for documentation and
 consumers such as target validation.
 
-As of 2026-09-22, lakehouse main still uses its local generator/flattener and
-`src/nmdc_lakehouse/schemas/nmdc_metadata.yaml`.
+As of 2026-09-22, lakehouse main consumes package 0.4.0 with projection 1.2.0.
 [Lakehouse PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340)
-is the pending migration to importing this package's engine and loading
-`schema/nmdc_schema_flattened.yaml` from its installed resources.
-[PR #346](https://github.com/microbiomedata/nmdc-lakehouse/pull/346) deprecates the
-legacy generation command while leaving it functional. A necessary change to
-the active legacy projection still needs its local version bumped and artifact
-regenerated until that migration lands.
+merged the migration to this package's engine and installed
+`schema/nmdc_schema_flattened.yaml`. It removed local generation;
+[PR #346](https://github.com/microbiomedata/nmdc-lakehouse/pull/346) was closed as
+superseded. Projection 1.3.0 needs a new coordinated package release and consumer
+update; see [mobile-phase substances](mobile-phase-substances.md).
 
 Publishing these docs does not publish a Python package, update the lakehouse's
 pinned dependency, rewrite MongoDB, or migrate existing snapshots. Adoption of
@@ -43,7 +41,7 @@ Both files are currently under `src/nmdc_lakehouse_schema/schema/`:
 
 | File | Role |
 | --- | --- |
-| `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.24.0 with projection 1.2.0 has 59 table classes: 19 primary and 40 non-TextValue side tables. Includes version, source provenance, and a content digest. |
+| `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.24.0 with projection 1.3.0 has 61 table classes: 19 primary and 42 non-TextValue side tables. Includes version, source provenance, and a content digest. |
 | `nmdc_lakehouse_schema.yaml` | Leftover LinkML project-template example with `NamedThing`, `Person`, `PersonCollection`, and `PersonStatus`. It is not the NMDC source model or an input to the flat-schema generator. |
 
 `scripts/generate_flattened_schema.py` reads the installed
@@ -170,14 +168,14 @@ There are three separate identities:
 | Identity | Source | Example |
 | --- | --- | --- |
 | Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.24.0` |
-| Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.2.0` |
+| Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.3.0` |
 | Python package version | Git-derived build metadata via `uv-dynamic-versioning` in `pyproject.toml` | A release tag or development version |
 
 `flat_schema_version()` combines the first two:
 
 ```text
 <source schema version>+flat.<FLATTENER_VERSION>
-11.24.0+flat.1.2.0
+11.24.0+flat.1.3.0
 ```
 
 Just and the generator do not increment the projection version automatically.
@@ -193,6 +191,7 @@ version update changes the first component; it does not by itself require changi
 | `1.0.2` | Baseline before the TextValue changes. |
 | `1.1.0` | [PR #15](https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/15) extracted raw strings, but still kept repeated TextValues in child tables. |
 | `1.2.0` | [PR #18](https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/18) corrected that representation: parent string-array columns replace all 41 TextValue-only child tables. |
+| `1.3.0` | [Mobile-phase substances](mobile-phase-substances.md) adds two nested helpers and explicit phase/substance occurrence positions. |
 
 The earlier child-table implementation did not satisfy the intended parent-column
 projection. The [TextValue contract](textvalue-projection.md) describes the final

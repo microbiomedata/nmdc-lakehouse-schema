@@ -7,6 +7,8 @@ from typing import Any, Iterable, Iterator
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import ClassDefinition, SlotDefinition
 
+from nmdc_lakehouse_schema.transforms.mobile_phases import substance_range
+
 
 def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> dict:
     """Flatten a single nested record into a flat dict.
@@ -286,7 +288,11 @@ def side_table_rows(
     Scalar and TextValue multivalued slots are stored as native Parquet ARRAY
     columns in the containing table and do NOT produce side table rows.
 
-    ``table_name`` is ``{collection}_{slot_name}`` in all cases.
+    ``table_name`` is ``{collection}_{slot_name}``, except the explicitly
+    supported mobile-phase substances helper, which adds ``_substances_used``.
+    Mobile phases carry a zero-based ``mobile_phase_index``; their substances
+    carry that index and a zero-based ``substance_index``. Together with the
+    root ``parent_id``, these identify occurrences without collapsing duplicates.
 
     Args:
         record: A dict representation of a ``root_class`` instance.
@@ -325,14 +331,44 @@ def side_table_rows(
 
         if range_class is not None and _is_inlined(slot, schema_view):
             # Inlined multivalued → child side table
-            for child in value:
+            nested_range = substance_range(schema_view, slot)
+            for child_index, child in enumerate(value):
                 if not isinstance(child, dict):
+                    if nested_range is not None:
+                        raise TypeError(
+                            "Mobile-phase projection requires object list elements."
+                        )
                     continue
                 row = _expand_inlined(
                     child, range_class, schema_view, include_type=True
                 )
                 row["parent_id"] = parent_id
+                if nested_range is not None:
+                    row["mobile_phase_index"] = child_index
                 yield table_name, row
+                if nested_range is not None:
+                    nested = child.get("substances_used")
+                    if nested is None:
+                        continue
+                    if not isinstance(nested, list):
+                        nested = [nested]
+                    for substance_index, substance in enumerate(nested):
+                        if not isinstance(substance, dict):
+                            raise TypeError(
+                                "Substance projection requires object list elements."
+                            )
+                        nested_row = _expand_inlined(
+                            substance,
+                            schema_view.get_class(nested_range),
+                            schema_view,
+                            include_type=True,
+                        )
+                        nested_row.update(
+                            parent_id=parent_id,
+                            mobile_phase_index=child_index,
+                            substance_index=substance_index,
+                        )
+                        yield f"{table_name}_substances_used", nested_row
         elif range_class is not None:
             # Ref-class multivalued → junction table (ARRAY also in primary)
             for v in value:

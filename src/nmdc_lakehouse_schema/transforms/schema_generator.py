@@ -26,6 +26,8 @@ from linkml_runtime.linkml_model import (
     SlotDefinition,
 )
 
+from nmdc_lakehouse_schema.transforms.mobile_phases import substance_range
+
 
 def _is_inlined(slot: SlotDefinition, schema_view: SchemaView) -> bool:
     """Apply LinkML's identifier-based default for class-range slot inlining.
@@ -62,7 +64,7 @@ SCHEMA_GENERATOR_ID = (
 # b4e0f7a8). A consumer holding two of those tables could not tell them apart, which is the
 # question a consumer asks first. Raise the minor part when a shape changes, the patch part when
 # only descriptions or annotations move.
-FLATTENER_VERSION = "1.2.0"
+FLATTENER_VERSION = "1.3.0"
 
 # Filled in after rendering, because a document cannot contain its own digest. The generator
 # renders with this placeholder in place, hashes that exact text, then substitutes. Verifying
@@ -332,6 +334,26 @@ def side_table_class_defs(
                     range="string",
                     description=f"Identifier of the parent '{root_class}' record.",
                 )
+                nested_range = substance_range(schema_view, slot)
+                if nested_range is not None:
+                    _add_occurrence_index(child_flat, "mobile_phase_index")
+                    nested_name = f"{table_name}_substances_used"
+                    nested_flat = flatten_class_def(
+                        schema_view,
+                        nested_range,
+                        target_name=nested_name,
+                        expand_embedded_refs=True,
+                    )
+                    nested_flat.attributes["parent_id"] = deepcopy(
+                        child_flat.attributes["parent_id"]
+                    )
+                    _add_occurrence_index(nested_flat, "mobile_phase_index")
+                    _add_occurrence_index(nested_flat, "substance_index")
+                    nested_flat.description += (
+                        " Join to its mobile phase using parent_id and mobile_phase_index; "
+                        "substance_index preserves the source list order and duplicates."
+                    )
+                    result.append((nested_name, nested_flat))
                 result.append((table_name, child_flat))
             elif range_class is not None:
                 # Ref-class multivalued → junction table (ARRAY also in primary)
@@ -357,6 +379,23 @@ def side_table_class_defs(
 
     result.sort(key=lambda x: x[0])
     return result
+
+
+def _add_occurrence_index(cls: ClassDefinition, name: str) -> None:
+    """Add an explicit list position without overwriting a source field."""
+    if name in cls.attributes:
+        raise ValueError("Mobile-phase occurrence index conflicts with a source field.")
+    cls.attributes[name] = SlotDefinition(
+        name=name,
+        range="integer",
+        required=True,
+        minimum_value=0,
+        description=(
+            "Zero-based source list position of this mobile phase within its root record."
+            if name == "mobile_phase_index"
+            else "Zero-based source list position of this substance within its mobile phase."
+        ),
+    )
 
 
 def _flatten_slot(

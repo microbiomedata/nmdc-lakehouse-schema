@@ -53,7 +53,7 @@ Run `just --list` to see available recipes and `just --dry-run gen-doc` to inspe
 resolved documentation commands.
 
 The source input is pinned to tagged `nmdc-schema` release **11.24.0**. With
-projection **1.2.0**, the current target is `11.24.0+flat.1.2.0` and has 59 table
+projection **1.3.0**, the current target is `11.24.0+flat.1.3.0` and has 61 table
 classes. See the [upgrade guidance](src/docs/schema-workflow.md#adopting-source-release-11240)
 for renamed fields, release verification, and production preflight requirements.
 
