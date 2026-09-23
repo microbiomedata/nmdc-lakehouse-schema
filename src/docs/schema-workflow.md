@@ -7,6 +7,10 @@ the separate `nmdc-schema` package. The current input is tagged release
 release deliberately and pin it; ordinary regeneration never follows upstream
 main or selects a newer release automatically.
 
+A separately packaged 11.23.0 compatibility artifact supports production before
+its migration. See [choosing a source release](source-versions.md) for the exact
+artifact paths, generation commands, and source/target pairing rules.
+
 ## Which repository generates what?
 
 | Component | Responsibility |
@@ -46,7 +50,7 @@ Both files are currently under `src/nmdc_lakehouse_schema/schema/`:
 
 `scripts/generate_flattened_schema.py` reads the installed
 `nmdc_schema/nmdc_materialized_patterns.yaml` and writes the canonical product.
-The development dependency pins `nmdc-schema==11.24.0` in `pyproject.toml` and
+The default `source-latest` dependency group pins `nmdc-schema==11.24.0` in `pyproject.toml` and
 `uv.lock`; regeneration does not select the newest upstream schema automatically.
 
 The template's removal is tracked in
@@ -103,7 +107,7 @@ The template Python generator can rewrite its generated timestamp; review that
 separately from intended changes.
 
 `just test-dist` builds a wheel and source archive in a temporary directory and
-checks that each contains exactly the verified canonical schema bytes. The same
+checks regeneration and exact packaged bytes for both supported source artifacts. The same
 check gates package publication, before the archives are uploaded to PyPI.
 
 Edit authored documentation under `src/docs/`. Commit source/generator changes,

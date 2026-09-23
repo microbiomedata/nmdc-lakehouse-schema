@@ -123,7 +123,7 @@ deploy: site
 test: _test-schema _test-python _test-examples
 
 # Build distributions and verify their canonical schema bytes.
-test-dist:
+test-dist: check-flat-schemas
   #!/usr/bin/env bash
   set -euo pipefail
   scratch="$(mktemp -d)"
