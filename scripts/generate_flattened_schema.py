@@ -19,7 +19,7 @@ import hashlib
 import os
 import re
 import tempfile
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from importlib.util import find_spec
 from pathlib import Path
 
@@ -182,6 +182,8 @@ def main(argv: list[str] | None = None) -> None:
             schema_view = SchemaView(str(args.output))
             print(f"Wrote {args.output}")
             print(f"  classes: {len(schema_view.all_classes())}")
+    except PackageNotFoundError:
+        parser.error("The nmdc-schema package is not installed; select a supported source dependency group.")
     except SchemaArtifactError as error:
         parser.error(str(error))
 

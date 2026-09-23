@@ -9,6 +9,7 @@ these fail — which is the signal to run `just generate-flat-schema`.
 from __future__ import annotations
 
 import importlib.util
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 
 import pytest
@@ -78,3 +79,19 @@ def test_stale_compatibility_artifact_names_the_compatibility_recipe(tmp_path, m
     message = capsys.readouterr().err
     assert "just generate-compat-schema" in message
     assert "just generate-flat-schema" not in message
+
+
+@pytest.mark.parametrize("args", [[], ["--compatibility"]])
+def test_missing_source_distribution_is_a_clean_cli_error(monkeypatch, capsys, args):
+    generator = _load_generator_script()
+
+    def missing(_package):
+        raise PackageNotFoundError("nmdc-schema")
+
+    monkeypatch.setattr(generator, "version", missing)
+    with pytest.raises(SystemExit) as error:
+        generator.main(args)
+    assert error.value.code == 2
+    message = capsys.readouterr().err
+    assert "nmdc-schema package is not installed" in message
+    assert "Traceback" not in message
