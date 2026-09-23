@@ -14,7 +14,7 @@
         <link rel="prev" href="../textvalue-projection/">
       
       
-        <link rel="next" href="../schema-workflow/">
+        <link rel="next" href="../mobile-phase-substances/">
       
       
         
@@ -506,6 +506,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../mobile-phase-substances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile-phase substances
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../schema-workflow/" class="md-nav__link">
         
   
@@ -715,9 +742,10 @@
 normalizer, and it has no automatic JSON fallback for shapes it cannot flatten.
 Some unsupported populated paths are silently omitted. The TextValue validation
 rules are stricter than the general flattener's behavior.</p>
-<p>This describes schema-repository projection <strong>1.2.0</strong>, source schema <strong>11.23.0</strong>,
-and the lakehouse Parquet writer inspected on 2026-09-22. The lakehouse's adoption
-of this projection is still pending; see the <a href="../schema-workflow/">workflow guide</a>.
+<p>This describes schema-repository projection <strong>1.3.0</strong>, source schema <strong>11.24.0</strong>,
+and the lakehouse Parquet writer inspected on 2026-09-22. Lakehouse main consumes
+projection 1.2.0; the nested mobile-phase change needs a new package release and
+consumer update. See the <a href="../schema-workflow/">workflow guide</a>.
 These findings combine code inspection, synthetic runtime/schema comparisons,
 and an inventory of the pinned source schema. They are not a production-data
 coverage audit.</p>
@@ -774,6 +802,11 @@ contains exactly one scalar, as in a strictly normalized relational design.</p>
 <td>Yes</td>
 </tr>
 <tr>
+<td><code>ordered_mobile_phases[*].substances_used[*]</code></td>
+<td>A phase helper and a substance helper with compound occurrence keys and explicit list positions.</td>
+<td>Yes; this exact nested shape has a dedicated transformation</td>
+</tr>
+<tr>
 <td>Inheritance and class-based polymorphism</td>
 <td>Induced inherited slots plus optional columns for subclass fields; runtime selects a known class using <code>type</code>.</td>
 <td>Follows the slot rules above</td>
@@ -806,70 +839,53 @@ primary array already carries the identifiers. For repeated TextValues or
 primitive values, an array is sufficient and no helper is generated.</p>
 <p>Important limits of the current child-table representation:</p>
 <ul>
-<li>Helpers are discovered only among collection-root slots, including inherited
-  and subclass slots. The generator and runtime do not recursively create
-  grandchild helpers.</li>
+<li>General helper discovery covers collection-root slots, including inherited
+  and subclass slots. The explicit mobile-phase substance transformation adds
+  one nested helper level; other paths do not receive recursive helpers.</li>
 <li>Emission requires a truthy root field named <code>id</code>; an alternative LinkML
   identifier name is not substituted automatically.</li>
-<li>Rows carry the root <code>parent_id</code>. The flattener does not synthesize a child
-  occurrence identifier or list-position column. File row order is not an
-  explicit ordering contract for SQL queries.</li>
-<li>Missing, null, and empty child lists all yield no child rows. Non-object
-  elements in an embedded child list are skipped. This is not a lossless
-  round-trip representation of all input distinctions.</li>
+<li>Rows carry the root <code>parent_id</code>. Mobile phases and their substances also have
+  explicit occurrence positions. Other helpers have no synthesized occurrence
+  key or position; their file row order is not an ordering contract for SQL.</li>
+<li>Missing, null, and empty child lists all yield no child rows. Mobile-phase and
+  substance helpers reject non-object elements; other embedded helpers skip
+  them. This is not a lossless round-trip representation of all input distinctions.</li>
 </ul>
 <p>There is no fundamental relational limit preventing nested repeated wrappers
 from being normalized. Supporting them would require recursive child tables,
 keys identifying each intermediate occurrence, and explicit positions where
-order matters. Those transformations are not currently implemented.</p>
+order matters. The bounded mobile-phase implementation supplies these keys;
+general recursive normalization is not implemented.</p>
 <h2 id="unsupported-shapes-and-known-mismatches">Unsupported shapes and known mismatches</h2>
 <h3 id="repeated-classes-inside-embedded-objects">Repeated classes inside embedded objects</h3>
-<p>An embedded object's repeated <strong>non-TextValue class</strong> member is skipped. It does
+<p>Except for mobile-phase substances, an embedded object's repeated
+<strong>non-TextValue class</strong> member is skipped. It does
 not matter whether the containing object came from a single-valued root slot or
 is already a child-table row. No grandchild table or JSON column captures it.
 Repeated references nested there are also not reliably retained: child-schema
 generation can declare an identifier array that runtime expansion never fills.</p>
-<p>This is already a shape allowed by source schema 11.23.0:</p>
-<div class="highlight"><pre><span></span><code>configuration_set
-  ChromatographyConfiguration
-    ordered_mobile_phases[*]       MobilePhaseSegment -&gt; child table
-      substances_used[*]           PortionOfSubstance -&gt; omitted
-
-material_processing_set
-  ChromatographicSeparationProcess
-    ordered_mobile_phases[*]       MobilePhaseSegment -&gt; child table
-      substances_used[*]           PortionOfSubstance -&gt; omitted
+<p>Projection 1.3.0 adds an explicit exception for this shape, allowed by both
+source 11.23.0 and 11.24.0:</p>
+<div class="highlight"><pre><span></span><code>configuration_set or material_processing_set
+  ordered_mobile_phases[*]      -&gt; phase helper, with mobile_phase_index
+    substances_used[*]          -&gt; substance helper, with both list positions
 </code></pre></div>
-<p>For example, this minimal synthetic projection input:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example:configuration</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:ChromatographyConfiguration</span>
-<span class="nt">ordered_mobile_phases</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:MobilePhaseSegment</span>
-<span class="w">    </span><span class="nt">duration</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">has_numeric_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
-<span class="w">      </span><span class="nt">has_unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">min</span>
-<span class="w">    </span><span class="nt">substances_used</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:PortionOfSubstance</span>
-<span class="w">        </span><span class="nt">known_as</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">water</span>
-</code></pre></div>
-<p>produces this child row in <code>configuration_set_ordered_mobile_phases</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">parent_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example:configuration</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nmdc:MobilePhaseSegment</span>
-<span class="nt">duration_has_numeric_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.0</span>
-<span class="nt">duration_has_unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">min</span>
-</code></pre></div>
-<p><code>substances_used</code> is absent from both the generated helper schema and runtime
-row. There is no <code>configuration_set_ordered_mobile_phases_substances_used</code>
-helper. This synthetic example tests projection behavior; it is not a complete
-source-schema validation fixture or a production record.</p>
+<p>The new <code>&lt;collection&gt;_ordered_mobile_phases_substances_used</code> helpers retain
+substance fields and QuantityValue members. The join key to a phase is
+<code>(parent_id, mobile_phase_index)</code>; <code>substance_index</code> retains order and duplicates
+within that phase. See the <a href="../mobile-phase-substances/">complete contract and migration
+instructions</a>. Projection 1.2.0 omitted these objects;
+that historical behavior is no longer the contract for this particular path.</p>
 <p>The source-shape inspection also found <code>organism_set.classified_as[*].relations[*]</code>
-and deeper <code>term.relations[*]</code> paths in controlled-term wrappers. Twenty distinct
-collection-relative paths reached a repeated-class/depth boundary in this
-inspection: the two mobile-phase paths, <code>classified_as.relations</code>, and 17
+and deeper <code>term.relations[*]</code> paths in controlled-term wrappers. The earlier 11.23.0 inventory found twenty distinct
+collection-relative paths at a repeated-class/depth boundary: the two mobile-phase paths, <code>classified_as.relations</code>, and 17
 controlled-term relation paths. This is a bounded structural inventory, not a
 claim that all possible unsupported representations have been enumerated.
-Whether these paths contain production data still needs a separate audit; the
-earlier TextValue/type audit did not inspect them.</p>
+A subsequent read-only audit found populated mobile-phase substance lists in
+7 configuration and 3,237 processing records, motivating this dedicated
+transformation. That audit found no populated values at the other inspected
+paths; it was a bounded live read, not a snapshot or proof about future data.
+See <a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/21">issue #21</a>.</p>
 <h3 id="depth-limits-and-schemaruntime-disagreement">Depth limits and schema/runtime disagreement</h3>
 <p>For primary rows, generic expansion supports a scalar leaf after at most two
 single-object edges:</p>
@@ -910,7 +926,7 @@ TextValue under that skipped <code>leaf</code> object.</p>
 <p>Silent-loss detection and dispatch checks are tracked in
 <a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/129">lakehouse #129</a>.
 The earlier <a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/62">#62</a> is
-closed, but the repeated-class limitation is reproducible in projection 1.2.0.
+closed, but repeated-class limitations remain outside the mobile-phase exception.
 Its historical statement that only scalar recursive shapes were known must not
 be used as evidence that today's pinned schema has no such class-valued paths.</p>
 <h2 id="can-embedded-json-nevertheless-appear-in-a-table">Can embedded JSON nevertheless appear in a table?</h2>
@@ -992,7 +1008,7 @@ and the lakehouse
       
       
         <a
-          href="../schema-workflow/"
+          href="../mobile-phase-substances/"
           class="md-footer__link md-footer__link--next"
           rel="next"
         >
@@ -1001,7 +1017,7 @@ and the lakehouse
               <span class="md-footer__direction">
                 Next
               </span>
-              Schema workflow
+              Mobile-phase substances
             </div>
           </div>
           <div class="md-footer__button md-icon">

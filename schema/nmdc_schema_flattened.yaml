@@ -14,14 +14,14 @@ annotations:
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.2.0
+    value: 1.3.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: 12cdc1e511bf7a6579e178a57fa78dfa4688d54254e8b0b2b6429a1974141bcc
+    value: 13fcb0f3625020c76021030a9175beaa48ae7f697dc858234366cd196e6aea7f
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.24.0+flat.1.2.0
+version: 11.24.0+flat.1.3.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -24597,6 +24597,341 @@ slots:
     domain_of:
     - configuration_set_ordered_mobile_phases
     range: string
+  configurationSetOrderedMobilePhases__mobile_phase_index:
+    name: configurationSetOrderedMobilePhases__mobile_phase_index
+    description: Zero-based source list position of this mobile phase within its root
+      record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mobile_phase_index
+    alias: mobile_phase_index
+    owner: configuration_set_ordered_mobile_phases
+    domain_of:
+    - configuration_set_ordered_mobile_phases
+    range: integer
+    required: true
+    minimum_value: 0
+  configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_maximum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'final_concentration.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_maximum_numeric_value
+    alias: final_concentration_has_maximum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_minimum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'final_concentration.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_minimum_numeric_value
+    alias: final_concentration_has_minimum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'final_concentration.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_numeric_value
+    alias: final_concentration_has_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_raw_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'final_concentration.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_raw_value
+    alias: final_concentration_has_raw_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_unit:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_unit
+    description: The unit of the quantity Flattened from nested slot 'final_concentration.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_unit
+    alias: final_concentration_has_unit
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__known_as:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__known_as
+    description: The substance from which a portion was taken.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/known_as
+    alias: known_as
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: ChemicalEntityEnum
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_maximum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'mass.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_maximum_numeric_value
+    alias: mass_has_maximum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_minimum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'mass.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_minimum_numeric_value
+    alias: mass_has_minimum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'mass.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_numeric_value
+    alias: mass_has_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_raw_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'mass.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_raw_value
+    alias: mass_has_raw_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_unit:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_unit
+    description: The unit of the quantity Flattened from nested slot 'mass.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_unit
+    alias: mass_has_unit
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_maximum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'source_concentration.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_maximum_numeric_value
+    alias: source_concentration_has_maximum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_minimum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'source_concentration.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_minimum_numeric_value
+    alias: source_concentration_has_minimum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'source_concentration.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_numeric_value
+    alias: source_concentration_has_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_raw_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'source_concentration.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_raw_value
+    alias: source_concentration_has_raw_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_unit:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_unit
+    description: The unit of the quantity Flattened from nested slot 'source_concentration.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_unit
+    alias: source_concentration_has_unit
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__substance_role:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__substance_role
+    description: The role of a substance in a process
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/substance_role
+    alias: substance_role
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: SubstanceRoleEnum
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__type:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__type
+    description: the class_uri of the class that has been instantiated
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/type
+    alias: type
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: uriorcurie
+    required: true
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_maximum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'volume.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_maximum_numeric_value
+    alias: volume_has_maximum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_minimum_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'volume.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_minimum_numeric_value
+    alias: volume_has_minimum_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_numeric_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'volume.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_numeric_value
+    alias: volume_has_numeric_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_raw_value:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'volume.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_raw_value
+    alias: volume_has_raw_value
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_unit:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_unit
+    description: The unit of the quantity Flattened from nested slot 'volume.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_unit
+    alias: volume_has_unit
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  configurationSetOrderedMobilePhasesSubstancesUsed__parent_id:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__parent_id
+    description: Identifier of the parent 'Configuration' record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
+    alias: parent_id
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: string
+  configurationSetOrderedMobilePhasesSubstancesUsed__mobile_phase_index:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__mobile_phase_index
+    description: Zero-based source list position of this mobile phase within its root
+      record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mobile_phase_index
+    alias: mobile_phase_index
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: integer
+    required: true
+    minimum_value: 0
+  configurationSetOrderedMobilePhasesSubstancesUsed__substance_index:
+    name: configurationSetOrderedMobilePhasesSubstancesUsed__substance_index
+    description: Zero-based source list position of this substance within its mobile
+      phase.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/substance_index
+    alias: substance_index
+    owner: configuration_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - configuration_set_ordered_mobile_phases_substances_used
+    range: integer
+    required: true
+    minimum_value: 0
   dataGenerationFlat__alternative_identifiers:
     name: dataGenerationFlat__alternative_identifiers
     description: A list of alternative identifiers for the entity.
@@ -27647,6 +27982,341 @@ slots:
     domain_of:
     - material_processing_set_ordered_mobile_phases
     range: string
+  materialProcessingSetOrderedMobilePhases__mobile_phase_index:
+    name: materialProcessingSetOrderedMobilePhases__mobile_phase_index
+    description: Zero-based source list position of this mobile phase within its root
+      record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mobile_phase_index
+    alias: mobile_phase_index
+    owner: material_processing_set_ordered_mobile_phases
+    domain_of:
+    - material_processing_set_ordered_mobile_phases
+    range: integer
+    required: true
+    minimum_value: 0
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_maximum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'final_concentration.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_maximum_numeric_value
+    alias: final_concentration_has_maximum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_minimum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'final_concentration.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_minimum_numeric_value
+    alias: final_concentration_has_minimum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'final_concentration.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_numeric_value
+    alias: final_concentration_has_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_raw_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'final_concentration.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_raw_value
+    alias: final_concentration_has_raw_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_unit:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_unit
+    description: The unit of the quantity Flattened from nested slot 'final_concentration.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/final_concentration_has_unit
+    alias: final_concentration_has_unit
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__known_as:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__known_as
+    description: The substance from which a portion was taken.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/known_as
+    alias: known_as
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: ChemicalEntityEnum
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_maximum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'mass.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_maximum_numeric_value
+    alias: mass_has_maximum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_minimum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'mass.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_minimum_numeric_value
+    alias: mass_has_minimum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'mass.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_numeric_value
+    alias: mass_has_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_raw_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'mass.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_raw_value
+    alias: mass_has_raw_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_unit:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_unit
+    description: The unit of the quantity Flattened from nested slot 'mass.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mass_has_unit
+    alias: mass_has_unit
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_maximum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'source_concentration.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_maximum_numeric_value
+    alias: source_concentration_has_maximum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_minimum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'source_concentration.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_minimum_numeric_value
+    alias: source_concentration_has_minimum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'source_concentration.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_numeric_value
+    alias: source_concentration_has_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_raw_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'source_concentration.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_raw_value
+    alias: source_concentration_has_raw_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_unit:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_unit
+    description: The unit of the quantity Flattened from nested slot 'source_concentration.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/source_concentration_has_unit
+    alias: source_concentration_has_unit
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__substance_role:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__substance_role
+    description: The role of a substance in a process
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/substance_role
+    alias: substance_role
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: SubstanceRoleEnum
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__type:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__type
+    description: the class_uri of the class that has been instantiated
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/type
+    alias: type
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: uriorcurie
+    required: true
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_maximum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_maximum_numeric_value
+    description: The maximum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'volume.has_maximum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_maximum_numeric_value
+    alias: volume_has_maximum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_minimum_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_minimum_numeric_value
+    description: The minimum value part, expressed as number, of the quantity value
+      when the value covers a range. Flattened from nested slot 'volume.has_minimum_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_minimum_numeric_value
+    alias: volume_has_minimum_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_numeric_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_numeric_value
+    description: The number part of the quantity Flattened from nested slot 'volume.has_numeric_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_numeric_value
+    alias: volume_has_numeric_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: decimal
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_raw_value:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_raw_value
+    description: Unnormalized atomic string representation, should in syntax {number}
+      {unit} Flattened from nested slot 'volume.has_raw_value'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_raw_value
+    alias: volume_has_raw_value
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: string
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_unit:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_unit
+    description: The unit of the quantity Flattened from nested slot 'volume.has_unit'.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/volume_has_unit
+    alias: volume_has_unit
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: UnitEnum
+    required: false
+    multivalued: false
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__parent_id:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__parent_id
+    description: Identifier of the parent 'MaterialProcessing' record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/parent_id
+    alias: parent_id
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: string
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__mobile_phase_index:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__mobile_phase_index
+    description: Zero-based source list position of this mobile phase within its root
+      record.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/mobile_phase_index
+    alias: mobile_phase_index
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: integer
+    required: true
+    minimum_value: 0
+  materialProcessingSetOrderedMobilePhasesSubstancesUsed__substance_index:
+    name: materialProcessingSetOrderedMobilePhasesSubstancesUsed__substance_index
+    description: Zero-based source list position of this substance within its mobile
+      phase.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slot_uri: https://w3id.org/nmdc/nmdc-schema-flattened/substance_index
+    alias: substance_index
+    owner: material_processing_set_ordered_mobile_phases_substances_used
+    domain_of:
+    - material_processing_set_ordered_mobile_phases_substances_used
+    range: integer
+    required: true
+    minimum_value: 0
   materialProcessingSetSubstancesUsed__final_concentration_has_maximum_numeric_value:
     name: materialProcessingSetSubstancesUsed__final_concentration_has_maximum_numeric_value
     description: The maximum value part, expressed as number, of the quantity value
@@ -42985,6 +43655,7 @@ classes:
     - configurationSetOrderedMobilePhases__volume_has_raw_value
     - configurationSetOrderedMobilePhases__volume_has_unit
     - configurationSetOrderedMobilePhases__parent_id
+    - configurationSetOrderedMobilePhases__mobile_phase_index
     attributes:
       duration_has_maximum_numeric_value:
         name: duration_has_maximum_numeric_value
@@ -43062,7 +43733,226 @@ classes:
         name: parent_id
         description: Identifier of the parent 'Configuration' record.
         range: string
+      mobile_phase_index:
+        name: mobile_phase_index
+        description: Zero-based source list position of this mobile phase within its
+          root record.
+        range: integer
+        required: true
+        minimum_value: 0
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/ConfigurationSetOrderedMobilePhases
+  configuration_set_ordered_mobile_phases_substances_used:
+    name: configuration_set_ordered_mobile_phases_substances_used
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/ConfigurationSetOrderedMobilePhasesSubstancesUsed
+    annotations:
+      table_name:
+        tag: table_name
+        value: configuration_set_ordered_mobile_phases_substances_used
+      source_class:
+        tag: source_class
+        value: Configuration
+    description: A portion of any matter of defined composition that has discrete
+      existence, whose origin may be biological, mineral or chemical. Flattened tabular
+      form of 'PortionOfSubstance'. Attributes are the union of base-class slots and
+      slots from concrete subclasses of 'PortionOfSubstance' that may appear via the
+      'type' field. Join to its mobile phase using parent_id and mobile_phase_index;
+      substance_index preserves the source list order and duplicates.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slots:
+    - configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_maximum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_minimum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_raw_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_unit
+    - configurationSetOrderedMobilePhasesSubstancesUsed__known_as
+    - configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_maximum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_minimum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_raw_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__mass_has_unit
+    - configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_maximum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_minimum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_raw_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_unit
+    - configurationSetOrderedMobilePhasesSubstancesUsed__substance_role
+    - configurationSetOrderedMobilePhasesSubstancesUsed__type
+    - configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_maximum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_minimum_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_numeric_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_raw_value
+    - configurationSetOrderedMobilePhasesSubstancesUsed__volume_has_unit
+    - configurationSetOrderedMobilePhasesSubstancesUsed__parent_id
+    - configurationSetOrderedMobilePhasesSubstancesUsed__mobile_phase_index
+    - configurationSetOrderedMobilePhasesSubstancesUsed__substance_index
+    attributes:
+      final_concentration_has_maximum_numeric_value:
+        name: final_concentration_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'final_concentration.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      final_concentration_has_minimum_numeric_value:
+        name: final_concentration_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'final_concentration.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      final_concentration_has_numeric_value:
+        name: final_concentration_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'final_concentration.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      final_concentration_has_raw_value:
+        name: final_concentration_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'final_concentration.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      final_concentration_has_unit:
+        name: final_concentration_has_unit
+        description: The unit of the quantity Flattened from nested slot 'final_concentration.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      known_as:
+        name: known_as
+        description: The substance from which a portion was taken.
+        range: ChemicalEntityEnum
+        multivalued: false
+      mass_has_maximum_numeric_value:
+        name: mass_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'mass.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      mass_has_minimum_numeric_value:
+        name: mass_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'mass.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      mass_has_numeric_value:
+        name: mass_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'mass.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      mass_has_raw_value:
+        name: mass_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'mass.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      mass_has_unit:
+        name: mass_has_unit
+        description: The unit of the quantity Flattened from nested slot 'mass.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      source_concentration_has_maximum_numeric_value:
+        name: source_concentration_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'source_concentration.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      source_concentration_has_minimum_numeric_value:
+        name: source_concentration_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'source_concentration.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      source_concentration_has_numeric_value:
+        name: source_concentration_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'source_concentration.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      source_concentration_has_raw_value:
+        name: source_concentration_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'source_concentration.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      source_concentration_has_unit:
+        name: source_concentration_has_unit
+        description: The unit of the quantity Flattened from nested slot 'source_concentration.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      substance_role:
+        name: substance_role
+        description: The role of a substance in a process
+        range: SubstanceRoleEnum
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      volume_has_maximum_numeric_value:
+        name: volume_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'volume.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      volume_has_minimum_numeric_value:
+        name: volume_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'volume.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      volume_has_numeric_value:
+        name: volume_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'volume.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      volume_has_raw_value:
+        name: volume_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'volume.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      volume_has_unit:
+        name: volume_has_unit
+        description: The unit of the quantity Flattened from nested slot 'volume.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'Configuration' record.
+        range: string
+      mobile_phase_index:
+        name: mobile_phase_index
+        description: Zero-based source list position of this mobile phase within its
+          root record.
+        range: integer
+        required: true
+        minimum_value: 0
+      substance_index:
+        name: substance_index
+        description: Zero-based source list position of this substance within its
+          mobile phase.
+        range: integer
+        required: true
+        minimum_value: 0
+    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/ConfigurationSetOrderedMobilePhasesSubstancesUsed
   DataGenerationFlat:
     name: DataGenerationFlat
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/DataGenerationFlat
@@ -45212,6 +46102,7 @@ classes:
     - materialProcessingSetOrderedMobilePhases__volume_has_raw_value
     - materialProcessingSetOrderedMobilePhases__volume_has_unit
     - materialProcessingSetOrderedMobilePhases__parent_id
+    - materialProcessingSetOrderedMobilePhases__mobile_phase_index
     attributes:
       duration_has_maximum_numeric_value:
         name: duration_has_maximum_numeric_value
@@ -45289,7 +46180,226 @@ classes:
         name: parent_id
         description: Identifier of the parent 'MaterialProcessing' record.
         range: string
+      mobile_phase_index:
+        name: mobile_phase_index
+        description: Zero-based source list position of this mobile phase within its
+          root record.
+        range: integer
+        required: true
+        minimum_value: 0
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/MaterialProcessingSetOrderedMobilePhases
+  material_processing_set_ordered_mobile_phases_substances_used:
+    name: material_processing_set_ordered_mobile_phases_substances_used
+    definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/MaterialProcessingSetOrderedMobilePhasesSubstancesUsed
+    annotations:
+      table_name:
+        tag: table_name
+        value: material_processing_set_ordered_mobile_phases_substances_used
+      source_class:
+        tag: source_class
+        value: MaterialProcessing
+    description: A portion of any matter of defined composition that has discrete
+      existence, whose origin may be biological, mineral or chemical. Flattened tabular
+      form of 'PortionOfSubstance'. Attributes are the union of base-class slots and
+      slots from concrete subclasses of 'PortionOfSubstance' that may appear via the
+      'type' field. Join to its mobile phase using parent_id and mobile_phase_index;
+      substance_index preserves the source list order and duplicates.
+    from_schema: https://w3id.org/nmdc/nmdc-schema-flattened
+    slots:
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_maximum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_minimum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_raw_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__final_concentration_has_unit
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__known_as
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_maximum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_minimum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_raw_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__mass_has_unit
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_maximum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_minimum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_raw_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__source_concentration_has_unit
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__substance_role
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__type
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_maximum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_minimum_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_numeric_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_raw_value
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__volume_has_unit
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__parent_id
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__mobile_phase_index
+    - materialProcessingSetOrderedMobilePhasesSubstancesUsed__substance_index
+    attributes:
+      final_concentration_has_maximum_numeric_value:
+        name: final_concentration_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'final_concentration.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      final_concentration_has_minimum_numeric_value:
+        name: final_concentration_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'final_concentration.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      final_concentration_has_numeric_value:
+        name: final_concentration_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'final_concentration.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      final_concentration_has_raw_value:
+        name: final_concentration_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'final_concentration.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      final_concentration_has_unit:
+        name: final_concentration_has_unit
+        description: The unit of the quantity Flattened from nested slot 'final_concentration.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      known_as:
+        name: known_as
+        description: The substance from which a portion was taken.
+        range: ChemicalEntityEnum
+        multivalued: false
+      mass_has_maximum_numeric_value:
+        name: mass_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'mass.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      mass_has_minimum_numeric_value:
+        name: mass_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'mass.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      mass_has_numeric_value:
+        name: mass_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'mass.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      mass_has_raw_value:
+        name: mass_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'mass.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      mass_has_unit:
+        name: mass_has_unit
+        description: The unit of the quantity Flattened from nested slot 'mass.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      source_concentration_has_maximum_numeric_value:
+        name: source_concentration_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'source_concentration.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      source_concentration_has_minimum_numeric_value:
+        name: source_concentration_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'source_concentration.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      source_concentration_has_numeric_value:
+        name: source_concentration_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'source_concentration.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      source_concentration_has_raw_value:
+        name: source_concentration_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'source_concentration.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      source_concentration_has_unit:
+        name: source_concentration_has_unit
+        description: The unit of the quantity Flattened from nested slot 'source_concentration.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      substance_role:
+        name: substance_role
+        description: The role of a substance in a process
+        range: SubstanceRoleEnum
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      volume_has_maximum_numeric_value:
+        name: volume_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'volume.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      volume_has_minimum_numeric_value:
+        name: volume_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'volume.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      volume_has_numeric_value:
+        name: volume_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'volume.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      volume_has_raw_value:
+        name: volume_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'volume.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      volume_has_unit:
+        name: volume_has_unit
+        description: The unit of the quantity Flattened from nested slot 'volume.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'MaterialProcessing' record.
+        range: string
+      mobile_phase_index:
+        name: mobile_phase_index
+        description: Zero-based source list position of this mobile phase within its
+          root record.
+        range: integer
+        required: true
+        minimum_value: 0
+      substance_index:
+        name: substance_index
+        description: Zero-based source list position of this substance within its
+          mobile phase.
+        range: integer
+        required: true
+        minimum_value: 0
+    class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/MaterialProcessingSetOrderedMobilePhasesSubstancesUsed
   material_processing_set_substances_used:
     name: material_processing_set_substances_used
     definition_uri: https://w3id.org/nmdc/nmdc-schema-flattened/MaterialProcessingSetSubstancesUsed
@@ -48156,7 +49266,7 @@ classes:
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/WorkflowExecutionSetWasInformedBy
 metamodel_version: 1.11.0
 source_file: nmdc_schema_flattened.yaml
-source_file_date: '2026-09-22T17:01:28'
-source_file_size: 814685
-generation_date: '2026-09-22T17:01:40'
+source_file_date: '2026-09-23T16:18:36'
+source_file_size: 831643
+generation_date: '2026-09-23T16:18:44'
 

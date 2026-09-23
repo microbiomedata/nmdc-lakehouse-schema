@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://microbiomedata.github.io/nmdc-lakehouse-schema/schema-workflow/">
       
       
-        <link rel="prev" href="../transformation-support/">
+        <link rel="prev" href="../mobile-phase-substances/">
       
       
         <link rel="next" href="../data-audit/">
@@ -357,6 +357,33 @@
     
   
     Transformation support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mobile-phase-substances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile-phase substances
   
 
     
@@ -724,7 +751,7 @@
 <p>This repository owns the NMDC flat-schema generator, the runtime flattener,
 and the checked-in schema describing their output. The source model comes from
 the separate <code>nmdc-schema</code> package. The current input is tagged release
-<strong>v11.24.0</strong>, with projection <strong>1.2.0</strong>. Upgrades select the latest tagged source
+<strong>v11.24.0</strong>, with projection <strong>1.3.0</strong>. Upgrades select the latest tagged source
 release deliberately and pin it; ordinary regeneration never follows upstream
 main or selects a newer release automatically.</p>
 <h2 id="which-repository-generates-what">Which repository generates what?</h2>
@@ -755,15 +782,13 @@ can still call generator functions to construct table definitions at runtime;
 that does not make it the owner of the generator implementation. The checked-in
 artifact provides the complete, versioned target schema for documentation and
 consumers such as target validation.</p>
-<p>As of 2026-09-22, lakehouse main still uses its local generator/flattener and
-<code>src/nmdc_lakehouse/schemas/nmdc_metadata.yaml</code>.
+<p>As of 2026-09-22, lakehouse main consumes package 0.4.0 with projection 1.2.0.
 <a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/340">Lakehouse PR #340</a>
-is the pending migration to importing this package's engine and loading
-<code>schema/nmdc_schema_flattened.yaml</code> from its installed resources.
-<a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/346">PR #346</a> deprecates the
-legacy generation command while leaving it functional. A necessary change to
-the active legacy projection still needs its local version bumped and artifact
-regenerated until that migration lands.</p>
+merged the migration to this package's engine and installed
+<code>schema/nmdc_schema_flattened.yaml</code>. It removed local generation;
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/346">PR #346</a> was closed as
+superseded. Projection 1.3.0 needs a new coordinated package release and consumer
+update; see <a href="../mobile-phase-substances/">mobile-phase substances</a>.</p>
 <p>Publishing these docs does not publish a Python package, update the lakehouse's
 pinned dependency, rewrite MongoDB, or migrate existing snapshots. Adoption of
 the parent-column TextValue projection is tracked in
@@ -781,7 +806,7 @@ Consumers need matching runtime, target artifact, and source-schema versions.</p
 <tbody>
 <tr>
 <td><code>nmdc_schema_flattened.yaml</code></td>
-<td>The canonical generated NMDC product. Source 11.24.0 with projection 1.2.0 has 59 table classes: 19 primary and 40 non-TextValue side tables. Includes version, source provenance, and a content digest.</td>
+<td>The canonical generated NMDC product. Source 11.24.0 with projection 1.3.0 has 61 table classes: 19 primary and 42 non-TextValue side tables. Includes version, source provenance, and a content digest.</td>
 </tr>
 <tr>
 <td><code>nmdc_lakehouse_schema.yaml</code></td>
@@ -831,7 +856,7 @@ just<span class="w"> </span>test-dist
 just<span class="w"> </span>gen-doc
 uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build
 </code></pre></div>
-<p>These commands were exercised for projection 1.2.0 on 2026-09-22. With unchanged
+<p>These commands were exercised for projection 1.3.0 on 2026-09-23. With unchanged
 inputs, schema generation reproduces the checked-in bytes. <code>just check-flat-schema</code>
 checks both reproducibility and the artifact's digest. <code>just test</code> also includes
 those guards, runtime/generator tests, and the remaining template example tests.
@@ -927,7 +952,7 @@ without executing them; <code>just --list</code> lists the public recipes.</p>
 <tr>
 <td>Projection version</td>
 <td>Manually maintained <code>FLATTENER_VERSION</code> in <code>transforms/schema_generator.py</code></td>
-<td><code>1.2.0</code></td>
+<td><code>1.3.0</code></td>
 </tr>
 <tr>
 <td>Python package version</td>
@@ -938,7 +963,7 @@ without executing them; <code>just --list</code> lists the public recipes.</p>
 </table>
 <p><code>flat_schema_version()</code> combines the first two:</p>
 <div class="highlight"><pre><span></span><code>&lt;source schema version&gt;+flat.&lt;FLATTENER_VERSION&gt;
-11.24.0+flat.1.2.0
+11.24.0+flat.1.3.0
 </code></pre></div>
 <p>Just and the generator do not increment the projection version automatically.
 The convention recorded beside the constant is to increment the minor component
@@ -967,6 +992,10 @@ version update changes the first component; it does not by itself require changi
 <td><code>1.2.0</code></td>
 <td><a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/18">PR #18</a> corrected that representation: parent string-array columns replace all 41 TextValue-only child tables.</td>
 </tr>
+<tr>
+<td><code>1.3.0</code></td>
+<td><a href="../mobile-phase-substances/">Mobile-phase substances</a> adds two nested helpers and explicit phase/substance occurrence positions.</td>
+</tr>
 </tbody>
 </table>
 <p>The earlier child-table implementation did not satisfy the intended parent-column
@@ -979,10 +1008,13 @@ repository/package artifact for byte-level digest checks. The website's
 <code>schema/</code> download is a LinkML-expanded rendering produced by <code>gen-yaml</code>, so it
 is not the same byte stream even though it carries the source annotations.</p>
 <h2 id="adopting-source-release-11240">Adopting source release 11.24.0</h2>
-<p>The source upgrade retains projection rules 1.2.0 and changes the artifact identity
-to <code>11.24.0+flat.1.2.0</code>. Relative to the 11.23.0 artifact it:</p>
+<p>The source upgrade initially shipped in package 0.4.0 as
+<code>11.24.0+flat.1.2.0</code> (59 tables). That is the superseded artifact baseline;
+the canonical artifact here is <code>11.24.0+flat.1.3.0</code> (61 tables), which adds the
+two nested substance helpers. Independently of that projection update, moving
+the source from 11.23.0 to 11.24.0:</p>
 <ul>
-<li>adds <code>data_generation_set_has_credit_associations</code> (58 to 59 table classes);</li>
+<li>adds <code>data_generation_set_has_credit_associations</code> (60 to 61 tables under projection 1.3.0);</li>
 <li>replaces <code>applies_to_person_*</code> with <code>applies_to_agent_*</code> on study credit rows,
   including Person email/ORCID and Organization ROR columns;</li>
 <li>removes <code>principal_investigator_*</code> from Study and DataGeneration; and</li>
@@ -1091,7 +1123,7 @@ legacy lakehouse copy; do not assume the two generators still match.</p>
     >
       
         <a
-          href="../transformation-support/"
+          href="../mobile-phase-substances/"
           class="md-footer__link md-footer__link--prev"
           rel="prev"
         >
@@ -1103,7 +1135,7 @@ legacy lakehouse copy; do not assume the two generators still match.</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Transformation support
+              Mobile-phase substances
             </div>
           </div>
         </a>
