@@ -64,3 +64,17 @@ def test_compatibility_cannot_overwrite_canonical_artifact(monkeypatch, capsys):
         generator.main(["--compatibility", str(generator.CANONICAL_OUTPUT)])
     assert error.value.code == 2
     assert "cannot overwrite the canonical artifact" in capsys.readouterr().err
+
+
+def test_stale_compatibility_artifact_names_the_compatibility_recipe(tmp_path, monkeypatch, capsys):
+    generator = _load_generator_script()
+    monkeypatch.setattr(generator, "version", lambda _package: "11.23.0")
+    monkeypatch.setattr(generator, "render_installed_schema", lambda: "regenerated artifact")
+    output = tmp_path / "stale.yaml"
+    output.write_text("older artifact")
+    with pytest.raises(SystemExit) as error:
+        generator.main(["--compatibility", "--check", str(output)])
+    assert error.value.code == 2
+    message = capsys.readouterr().err
+    assert "just generate-compat-schema" in message
+    assert "just generate-flat-schema" not in message

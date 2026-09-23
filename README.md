@@ -18,7 +18,8 @@ adopted this package in merged [PR #340](https://github.com/microbiomedata/nmdc-
 Lakehouse main uses package 0.4.0/projection 1.2.0; the 1.3.0 changes here need a
 new package release and consumer update.
 
-Since projection version `1.2.0`, TextValue raw strings become columns on the
+Projection version `1.3.0` retains the TextValue behavior introduced in `1.2.0`:
+raw strings become columns on the
 containing record. Single values become strings and repeated values become
 string arrays; TextValue-only child tables are removed.
 Collection record types remain available for polymorphic dispatch. See the

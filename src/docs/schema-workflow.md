@@ -41,11 +41,12 @@ Consumers need matching runtime, target artifact, and source-schema versions.
 
 ## The two YAML files
 
-Both files are currently under `src/nmdc_lakehouse_schema/schema/`:
+These files are under `src/nmdc_lakehouse_schema/schema/`:
 
 | File | Role |
 | --- | --- |
 | `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.24.0 with projection 1.3.0 has 61 table classes: 19 primary and 42 non-TextValue side tables. Includes version, source provenance, and a content digest. |
+| `compat/11.23.0/nmdc_schema_flattened.yaml` | Matching production compatibility artifact: source 11.23.0, projection 1.3.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records. |
 | `nmdc_lakehouse_schema.yaml` | Leftover LinkML project-template example with `NamedThing`, `Person`, `PersonCollection`, and `PersonStatus`. It is not the NMDC source model or an input to the flat-schema generator. |
 
 `scripts/generate_flattened_schema.py` reads the installed

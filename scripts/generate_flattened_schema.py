@@ -112,14 +112,14 @@ def render_installed_schema() -> str:
     return resolve_content_digest(yaml_dumper.dumps(flat_schema))
 
 
-def check_schema_artifact(path: Path, expected: str) -> None:
+def check_schema_artifact(path: Path, expected: str, *, recipe: str = "just generate-flat-schema") -> None:
     """Fail when a canonical artifact is missing or differs from generation."""
     try:
         observed = path.read_text(encoding="utf-8")
     except OSError as error:
         raise SchemaArtifactError(f"Cannot read generated schema artifact: {path}") from error
     if observed != expected:
-        raise SchemaArtifactError(f"Generated schema artifact is stale: {path}. Run `just generate-flat-schema`.")
+        raise SchemaArtifactError(f"Generated schema artifact is stale: {path}. Run `{recipe}`.")
 
 
 def write_schema_artifact(path: Path, rendered: str) -> None:
@@ -172,7 +172,8 @@ def main(argv: list[str] | None = None) -> None:
             raise SchemaArtifactError("Compatibility generation cannot overwrite the canonical artifact.")
         rendered = render_installed_schema()
         if args.check:
-            check_schema_artifact(args.output, rendered)
+            recipe = "just generate-compat-schema" if args.compatibility else "just generate-flat-schema"
+            check_schema_artifact(args.output, rendered, recipe=recipe)
             verify_content_digest(args.output.read_text(encoding="utf-8"))
             print(f"Generated schema artifact is current: {args.output}")
             print(f"  version: {SchemaView(str(args.output)).schema.version}")
