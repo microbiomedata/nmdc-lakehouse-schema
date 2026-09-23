@@ -85,8 +85,8 @@ def test_release_shape_removes_retired_fields_and_adds_data_generation_credits(
     source_and_target,
 ):
     _, target = source_and_target
-    assert target.version == "11.24.0+flat.1.2.0"
-    assert len(target.classes) == 59
+    assert target.version == "11.24.0+flat.1.3.0"
+    assert len(target.classes) == 61
     assert "data_generation_set_has_credit_associations" in target.classes
     assert "collection_date_inc" not in target.classes["BiosampleFlat"].attributes
     for name in ("StudyFlat", "DataGenerationFlat"):

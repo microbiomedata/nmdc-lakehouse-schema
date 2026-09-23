@@ -14,10 +14,11 @@ validation code that consumes it:
   is answerable.
 
 Downstream ETL (the [nmdc-lakehouse](https://github.com/microbiomedata/nmdc-lakehouse) repo)
-is migrating to this package in [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
-Until that change lands, its main branch still uses its local engine and saved schema.
+adopted this package in merged [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
+Lakehouse main uses package 0.4.0/projection 1.2.0; the 1.3.0 changes here need a
+new package release and consumer update.
 
-Projection version `1.2.0` extracts TextValue raw strings into columns on the
+Since projection version `1.2.0`, TextValue raw strings become columns on the
 containing record. Single values become strings and repeated values become
 string arrays; TextValue-only child tables are removed.
 Collection record types remain available for polymorphic dispatch. See the
@@ -53,7 +54,7 @@ Run `just --list` to see available recipes and `just --dry-run gen-doc` to inspe
 resolved documentation commands.
 
 The source input is pinned to tagged `nmdc-schema` release **11.24.0**. With
-projection **1.2.0**, the current target is `11.24.0+flat.1.2.0` and has 59 table
+projection **1.3.0**, the current target is `11.24.0+flat.1.3.0` and has 61 table
 classes. See the [upgrade guidance](src/docs/schema-workflow.md#adopting-source-release-11240)
 for renamed fields, release verification, and production preflight requirements.
 

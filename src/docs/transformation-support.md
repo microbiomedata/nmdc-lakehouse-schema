@@ -5,9 +5,10 @@ normalizer, and it has no automatic JSON fallback for shapes it cannot flatten.
 Some unsupported populated paths are silently omitted. The TextValue validation
 rules are stricter than the general flattener's behavior.
 
-This describes schema-repository projection **1.2.0**, source schema **11.23.0**,
-and the lakehouse Parquet writer inspected on 2026-09-22. The lakehouse's adoption
-of this projection is still pending; see the [workflow guide](schema-workflow.md).
+This describes schema-repository projection **1.3.0**, source schema **11.24.0**,
+and the lakehouse Parquet writer inspected on 2026-09-22. Lakehouse main consumes
+projection 1.2.0; the nested mobile-phase change needs a new package release and
+consumer update. See the [workflow guide](schema-workflow.md).
 These findings combine code inspection, synthetic runtime/schema comparisons,
 and an inventory of the pinned source schema. They are not a production-data
 coverage audit.
@@ -27,6 +28,7 @@ contains exactly one scalar, as in a strictly normalized relational design.
 | Single embedded wrapper with scalar, enum, or TextValue members | Prefixed columns such as `depth_has_numeric_value`, `depth_has_unit`, or `detail_label`. Repeated scalar/TextValue members remain arrays. | No |
 | Single embedded wrapper containing a second single embedded object | Another prefix level, such as `env_broad_scale_term_id` and `env_broad_scale_term_name`. | No, within the depth limit |
 | Repeated embedded non-TextValue objects, directly on the collection record | One child row per object, with `parent_id` and the child's supported flattened fields. | Yes |
+| `ordered_mobile_phases[*].substances_used[*]` | A phase helper and a substance helper with compound occurrence keys and explicit list positions. | Yes; this exact nested shape has a dedicated transformation |
 | Inheritance and class-based polymorphism | Induced inherited slots plus optional columns for subclass fields; runtime selects a known class using `type`. | Follows the slot rules above |
 
 The only wrapper-specific scalar extraction is for a slot whose range is exactly
@@ -61,84 +63,61 @@ primitive values, an array is sufficient and no helper is generated.
 
 Important limits of the current child-table representation:
 
-- Helpers are discovered only among collection-root slots, including inherited
-  and subclass slots. The generator and runtime do not recursively create
-  grandchild helpers.
+- General helper discovery covers collection-root slots, including inherited
+  and subclass slots. The explicit mobile-phase substance transformation adds
+  one nested helper level; other paths do not receive recursive helpers.
 - Emission requires a truthy root field named `id`; an alternative LinkML
   identifier name is not substituted automatically.
-- Rows carry the root `parent_id`. The flattener does not synthesize a child
-  occurrence identifier or list-position column. File row order is not an
-  explicit ordering contract for SQL queries.
-- Missing, null, and empty child lists all yield no child rows. Non-object
-  elements in an embedded child list are skipped. This is not a lossless
-  round-trip representation of all input distinctions.
+- Rows carry the root `parent_id`. Mobile phases and their substances also have
+  explicit occurrence positions. Other helpers have no synthesized occurrence
+  key or position; their file row order is not an ordering contract for SQL.
+- Missing, null, and empty child lists all yield no child rows. Mobile-phase and
+  substance helpers reject non-object elements; other embedded helpers skip
+  them. This is not a lossless round-trip representation of all input distinctions.
 
 There is no fundamental relational limit preventing nested repeated wrappers
 from being normalized. Supporting them would require recursive child tables,
 keys identifying each intermediate occurrence, and explicit positions where
-order matters. Those transformations are not currently implemented.
+order matters. The bounded mobile-phase implementation supplies these keys;
+general recursive normalization is not implemented.
 
 ## Unsupported shapes and known mismatches
 
 ### Repeated classes inside embedded objects
 
-An embedded object's repeated **non-TextValue class** member is skipped. It does
+Except for mobile-phase substances, an embedded object's repeated
+**non-TextValue class** member is skipped. It does
 not matter whether the containing object came from a single-valued root slot or
 is already a child-table row. No grandchild table or JSON column captures it.
 Repeated references nested there are also not reliably retained: child-schema
 generation can declare an identifier array that runtime expansion never fills.
 
-This is already a shape allowed by source schema 11.23.0:
+Projection 1.3.0 adds an explicit exception for this shape, allowed by both
+source 11.23.0 and 11.24.0:
 
 ```text
-configuration_set
-  ChromatographyConfiguration
-    ordered_mobile_phases[*]       MobilePhaseSegment -> child table
-      substances_used[*]           PortionOfSubstance -> omitted
-
-material_processing_set
-  ChromatographicSeparationProcess
-    ordered_mobile_phases[*]       MobilePhaseSegment -> child table
-      substances_used[*]           PortionOfSubstance -> omitted
+configuration_set or material_processing_set
+  ordered_mobile_phases[*]      -> phase helper, with mobile_phase_index
+    substances_used[*]          -> substance helper, with both list positions
 ```
 
-For example, this minimal synthetic projection input:
-
-```yaml
-id: example:configuration
-type: nmdc:ChromatographyConfiguration
-ordered_mobile_phases:
-  - type: nmdc:MobilePhaseSegment
-    duration:
-      has_numeric_value: 5.0
-      has_unit: min
-    substances_used:
-      - type: nmdc:PortionOfSubstance
-        known_as: water
-```
-
-produces this child row in `configuration_set_ordered_mobile_phases`:
-
-```yaml
-parent_id: example:configuration
-type: nmdc:MobilePhaseSegment
-duration_has_numeric_value: 5.0
-duration_has_unit: min
-```
-
-`substances_used` is absent from both the generated helper schema and runtime
-row. There is no `configuration_set_ordered_mobile_phases_substances_used`
-helper. This synthetic example tests projection behavior; it is not a complete
-source-schema validation fixture or a production record.
+The new `<collection>_ordered_mobile_phases_substances_used` helpers retain
+substance fields and QuantityValue members. The join key to a phase is
+`(parent_id, mobile_phase_index)`; `substance_index` retains order and duplicates
+within that phase. See the [complete contract and migration
+instructions](mobile-phase-substances.md). Projection 1.2.0 omitted these objects;
+that historical behavior is no longer the contract for this particular path.
 
 The source-shape inspection also found `organism_set.classified_as[*].relations[*]`
-and deeper `term.relations[*]` paths in controlled-term wrappers. Twenty distinct
-collection-relative paths reached a repeated-class/depth boundary in this
-inspection: the two mobile-phase paths, `classified_as.relations`, and 17
+and deeper `term.relations[*]` paths in controlled-term wrappers. The earlier 11.23.0 inventory found twenty distinct
+collection-relative paths at a repeated-class/depth boundary: the two mobile-phase paths, `classified_as.relations`, and 17
 controlled-term relation paths. This is a bounded structural inventory, not a
 claim that all possible unsupported representations have been enumerated.
-Whether these paths contain production data still needs a separate audit; the
-earlier TextValue/type audit did not inspect them.
+A subsequent read-only audit found populated mobile-phase substance lists in
+7 configuration and 3,237 processing records, motivating this dedicated
+transformation. That audit found no populated values at the other inspected
+paths; it was a bounded live read, not a snapshot or proof about future data.
+See [issue #21](https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/21).
 
 ### Depth limits and schema/runtime disagreement
 
@@ -186,7 +165,7 @@ TextValue under that skipped `leaf` object.
 Silent-loss detection and dispatch checks are tracked in
 [lakehouse #129](https://github.com/microbiomedata/nmdc-lakehouse/issues/129).
 The earlier [#62](https://github.com/microbiomedata/nmdc-lakehouse/issues/62) is
-closed, but the repeated-class limitation is reproducible in projection 1.2.0.
+closed, but repeated-class limitations remain outside the mobile-phase exception.
 Its historical statement that only scalar recursive shapes were known must not
 be used as evidence that today's pinned schema has no such class-valued paths.
 
