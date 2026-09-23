@@ -19,13 +19,14 @@ import hashlib
 import os
 import re
 import tempfile
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from importlib.util import find_spec
 from pathlib import Path
 
 from linkml_runtime import SchemaView
 from linkml_runtime.dumpers import yaml_dumper
 
+from nmdc_lakehouse_schema.artifacts import LATEST_SOURCE_VERSION, SUPPORTED_SOURCE_VERSIONS
 from nmdc_lakehouse_schema.transforms.schema_generator import (
     UNRESOLVED_CONTENT_SHA256,
     flatten_database_schema,
@@ -111,14 +112,14 @@ def render_installed_schema() -> str:
     return resolve_content_digest(yaml_dumper.dumps(flat_schema))
 
 
-def check_schema_artifact(path: Path, expected: str) -> None:
+def check_schema_artifact(path: Path, expected: str, *, recipe: str = "just generate-flat-schema") -> None:
     """Fail when a canonical artifact is missing or differs from generation."""
     try:
         observed = path.read_text(encoding="utf-8")
     except OSError as error:
         raise SchemaArtifactError(f"Cannot read generated schema artifact: {path}") from error
     if observed != expected:
-        raise SchemaArtifactError(f"Generated schema artifact is stale: {path}. Run `just generate-flat-schema`.")
+        raise SchemaArtifactError(f"Generated schema artifact is stale: {path}. Run `{recipe}`.")
 
 
 def write_schema_artifact(path: Path, rendered: str) -> None:
@@ -146,13 +147,33 @@ def write_schema_artifact(path: Path, rendered: str) -> None:
 def main(argv: list[str] | None = None) -> None:
     """Generate the canonical schema or check it for drift."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("output", nargs="?", type=Path, default=CANONICAL_OUTPUT)
+    parser.add_argument("output", nargs="?", type=Path)
+    parser.add_argument(
+        "--compatibility", action="store_true",
+        help="Use the versioned output path for an explicitly supported older source package.",
+    )
     parser.add_argument("--check", action="store_true", help="Fail when OUTPUT differs from current generation.")
     args = parser.parse_args(argv)
     try:
+        installed = version("nmdc-schema")
+        if args.compatibility:
+            if installed not in SUPPORTED_SOURCE_VERSIONS or installed == LATEST_SOURCE_VERSION:
+                raise SchemaArtifactError("Compatibility generation requires a supported older source package.")
+            default_output = CANONICAL_OUTPUT.parent / "compat" / installed / CANONICAL_OUTPUT.name
+        else:
+            if installed != LATEST_SOURCE_VERSION:
+                raise SchemaArtifactError(
+                    "Canonical generation requires the latest pinned source package; "
+                    "use --compatibility for a supported older release."
+                )
+            default_output = CANONICAL_OUTPUT
+        args.output = args.output or default_output
+        if args.compatibility and args.output.resolve() == CANONICAL_OUTPUT.resolve():
+            raise SchemaArtifactError("Compatibility generation cannot overwrite the canonical artifact.")
         rendered = render_installed_schema()
         if args.check:
-            check_schema_artifact(args.output, rendered)
+            recipe = "just generate-compat-schema" if args.compatibility else "just generate-flat-schema"
+            check_schema_artifact(args.output, rendered, recipe=recipe)
             verify_content_digest(args.output.read_text(encoding="utf-8"))
             print(f"Generated schema artifact is current: {args.output}")
             print(f"  version: {SchemaView(str(args.output)).schema.version}")
@@ -161,6 +182,8 @@ def main(argv: list[str] | None = None) -> None:
             schema_view = SchemaView(str(args.output))
             print(f"Wrote {args.output}")
             print(f"  classes: {len(schema_view.all_classes())}")
+    except PackageNotFoundError:
+        parser.error("The nmdc-schema package is not installed; select a supported source dependency group.")
     except SchemaArtifactError as error:
         parser.error(str(error))
 

@@ -59,6 +59,11 @@ jobs:
       - name: Run test suite
         run: just test
 
+      - name: Check production source compatibility
+        run: |
+          just generate-compat-schema --check
+          uv run --no-group source-latest --group source-11-23 pytest tests/test_source_pairs.py tests/test_mobile_phase_projection.py
+
       - name: Verify packaged schema
         if: matrix.python-version == '3.13'
         run: just test-dist

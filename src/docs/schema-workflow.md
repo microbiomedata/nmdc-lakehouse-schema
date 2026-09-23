@@ -7,6 +7,10 @@ the separate `nmdc-schema` package. The current input is tagged release
 release deliberately and pin it; ordinary regeneration never follows upstream
 main or selects a newer release automatically.
 
+A separately packaged 11.23.0 compatibility artifact supports production before
+its migration. See [choosing a source release](source-versions.md) for the exact
+artifact paths, generation commands, and source/target pairing rules.
+
 ## Which repository generates what?
 
 | Component | Responsibility |
@@ -37,16 +41,17 @@ Consumers need matching runtime, target artifact, and source-schema versions.
 
 ## The two YAML files
 
-Both files are currently under `src/nmdc_lakehouse_schema/schema/`:
+These files are under `src/nmdc_lakehouse_schema/schema/`:
 
 | File | Role |
 | --- | --- |
 | `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.24.0 with projection 1.3.0 has 61 table classes: 19 primary and 42 non-TextValue side tables. Includes version, source provenance, and a content digest. |
+| `compat/11.23.0/nmdc_schema_flattened.yaml` | Matching production compatibility artifact: source 11.23.0, projection 1.3.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records. |
 | `nmdc_lakehouse_schema.yaml` | Leftover LinkML project-template example with `NamedThing`, `Person`, `PersonCollection`, and `PersonStatus`. It is not the NMDC source model or an input to the flat-schema generator. |
 
 `scripts/generate_flattened_schema.py` reads the installed
 `nmdc_schema/nmdc_materialized_patterns.yaml` and writes the canonical product.
-The development dependency pins `nmdc-schema==11.24.0` in `pyproject.toml` and
+The default `source-latest` dependency group pins `nmdc-schema==11.24.0` in `pyproject.toml` and
 `uv.lock`; regeneration does not select the newest upstream schema automatically.
 
 The template's removal is tracked in
@@ -103,7 +108,7 @@ The template Python generator can rewrite its generated timestamp; review that
 separately from intended changes.
 
 `just test-dist` builds a wheel and source archive in a temporary directory and
-checks that each contains exactly the verified canonical schema bytes. The same
+checks regeneration and exact packaged bytes for both supported source artifacts. The same
 check gates package publication, before the archives are uploaded to PyPI.
 
 Edit authored documentation under `src/docs/`. Commit source/generator changes,

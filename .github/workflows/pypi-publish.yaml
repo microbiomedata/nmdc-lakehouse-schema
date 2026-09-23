@@ -63,6 +63,7 @@ jobs:
 
       - name: Build and verify source and wheel archives
         run: |
+          just check-flat-schemas
           uv build
           uv run python scripts/check_distribution_schema.py dist/*.whl dist/*.tar.gz
 

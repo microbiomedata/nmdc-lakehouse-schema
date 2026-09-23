@@ -23,25 +23,27 @@ def checker(monkeypatch):
 
 
 @pytest.mark.parametrize("kind", ["wheel", "sdist"])
+@pytest.mark.parametrize("relative", ["nmdc_schema_flattened.yaml", "compat/11.23.0/nmdc_schema_flattened.yaml"])
 @pytest.mark.parametrize(
     "contents",
     [[], [b"old schema"], [b"current schema"], [b"current schema", b"current schema"]],
 )
-def test_archive_requires_one_exact_schema(tmp_path, checker, kind, contents):
+def test_archive_requires_one_exact_schema(tmp_path, checker, kind, relative, contents):
+    resource = f"nmdc_lakehouse_schema/schema/{relative}"
     if kind == "wheel":
         archive = tmp_path / "example.whl"
         with zipfile.ZipFile(archive, "w") as stream:
             for content in contents:
-                stream.writestr(checker.RESOURCE, content)
+                stream.writestr(resource, content)
     else:
         archive = tmp_path / "example.tar.gz"
         with tarfile.open(archive, "w:gz") as stream:
             for i, content in enumerate(contents):
-                member = tarfile.TarInfo(f"example-{i}/src/{checker.RESOURCE}")
+                member = tarfile.TarInfo(f"example-{i}/src/{resource}")
                 member.size = len(content)
                 stream.addfile(member, io.BytesIO(content))
     if contents == [b"current schema"]:
-        checker.check_archive(archive, b"current schema")
+        checker.check_archive(archive, b"current schema", resource)
     else:
         with pytest.raises(ValueError):
-            checker.check_archive(archive, b"current schema")
+            checker.check_archive(archive, b"current schema", resource)

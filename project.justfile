@@ -17,6 +17,16 @@ generate-flat-schema *ARGS:
 check-flat-schema:
     @uv run python scripts/generate_flattened_schema.py --check
 
+# Build the explicitly supported production source pair without changing the latest default.
+[group('model development')]
+generate-compat-schema *ARGS:
+    @uv run --no-group source-latest --group source-11-23 python scripts/generate_flattened_schema.py --compatibility {{ARGS}}
+
+# Check every supported artifact using its exact locked source dependency.
+[group('model development')]
+check-flat-schemas: check-flat-schema
+    @just generate-compat-schema --check
+
 # Preview the flattener's output against one record from a local MongoDB.
 # Usage: just flatten-preview biosample_set Biosample
 [group('model development')]
