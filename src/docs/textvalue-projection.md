@@ -75,9 +75,10 @@ descriptions. Base-class column definitions take precedence.
 
 Schemas 11.23.0 and 11.24.0 have 101 single-valued and 41 multivalued TextValue paths
 across their collection classes and subclasses. All 142 belong to their parent
-classes. Removing the 41 TextValue-only tables leaves 58 table classes with source
-11.23.0. Source 11.24.0 adds a data-generation credit-association table, bringing
-the product to 59 classes: 19 primary and 40 non-TextValue side tables.
+classes. Under projection 1.2.0, removing the 41 TextValue-only tables left 58 table
+classes with source 11.23.0 and 59 with source 11.24.0. Projection 1.3.0 retains
+this TextValue contract and adds two nested substance helpers: the canonical
+11.24.0 product now has 61 classes (19 primary and 42 non-TextValue helpers).
 
 ## Multiplicity, nulls, and empty values
 
@@ -135,11 +136,11 @@ them as the new projection. When creating a new snapshot, do not carry obsolete
 TextValue-only table files forward from an earlier snapshot.
 
 Adopt the generator, row flattener, and published schema from the same package
-release with the matching pinned `nmdc-schema` version. The current lakehouse
-main branch still has a legacy implementation; its migration to this package
-is tracked in [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
-Installing only a new artifact beside the legacy runtime would make the
-declared schema disagree with the rows it writes. Compatibility with downstream
+release with the matching pinned `nmdc-schema` version. Lakehouse main adopted
+package 0.4.0/projection 1.2.0 in merged
+[PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340); projection 1.3.0
+requires a new package release and consumer update. Runtime and artifact must
+remain from the same package. Compatibility with downstream
 catalogs that reject arrays is tracked separately in
 [lakehouse #342](https://github.com/microbiomedata/nmdc-lakehouse/issues/342).
 

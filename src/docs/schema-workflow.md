@@ -99,7 +99,7 @@ just gen-doc
 uv run mkdocs build
 ```
 
-These commands were exercised for projection 1.2.0 on 2026-09-22. With unchanged
+These commands were exercised for projection 1.3.0 on 2026-09-23. With unchanged
 inputs, schema generation reproduces the checked-in bytes. `just check-flat-schema`
 checks both reproducibility and the artifact's digest. `just test` also includes
 those guards, runtime/generator tests, and the remaining template example tests.
@@ -210,10 +210,13 @@ is not the same byte stream even though it carries the source annotations.
 
 ## Adopting source release 11.24.0
 
-The source upgrade retains projection rules 1.2.0 and changes the artifact identity
-to `11.24.0+flat.1.2.0`. Relative to the 11.23.0 artifact it:
+The source upgrade initially shipped in package 0.4.0 as
+`11.24.0+flat.1.2.0` (59 tables). That is the superseded artifact baseline;
+the canonical artifact here is `11.24.0+flat.1.3.0` (61 tables), which adds the
+two nested substance helpers. Independently of that projection update, moving
+the source from 11.23.0 to 11.24.0:
 
-- adds `data_generation_set_has_credit_associations` (58 to 59 table classes);
+- adds `data_generation_set_has_credit_associations` (60 to 61 tables under projection 1.3.0);
 - replaces `applies_to_person_*` with `applies_to_agent_*` on study credit rows,
   including Person email/ORCID and Organization ROR columns;
 - removes `principal_investigator_*` from Study and DataGeneration; and
