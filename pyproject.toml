@@ -23,6 +23,13 @@ dependencies = [
   "linkml-runtime >=1.9.4",
 ]
 
+[project.urls]
+Homepage = "https://microbiomedata.github.io/nmdc-lakehouse-schema/"
+Documentation = "https://microbiomedata.github.io/nmdc-lakehouse-schema/"
+Repository = "https://github.com/microbiomedata/nmdc-lakehouse-schema"
+Issues = "https://github.com/microbiomedata/nmdc-lakehouse-schema/issues"
+Changelog = "https://github.com/microbiomedata/nmdc-lakehouse-schema/releases"
+
 [dependency-groups]
 dev = [
     "linkml>=1.9.3",
