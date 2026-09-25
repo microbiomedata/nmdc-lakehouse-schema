@@ -1,0 +1,1316 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://microbiomedata.github.io/nmdc-lakehouse-schema/schema-workflow/">
+      
+      
+        <link rel="prev" href="../mobile-phase-substances/">
+      
+      
+        <link rel="next" href="../source-versions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Schema workflow - nmdc-lakehouse-schema</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+      <link rel="stylesheet" href="../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#schema-ownership-versions-and-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://microbiomedata.github.io/nmdc-lakehouse-schema/"
+      title="nmdc-lakehouse-schema"
+      class="md-header__button md-logo"
+      aria-label="nmdc-lakehouse-schema"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            nmdc-lakehouse-schema
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Schema workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/microbiomedata/nmdc-lakehouse-schema" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="nmdc-lakehouse-schema" class="md-nav__button md-logo" aria-label="nmdc-lakehouse-schema" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
+
+    </a>
+    nmdc-lakehouse-schema
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/microbiomedata/nmdc-lakehouse-schema" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../textvalue-projection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TextValue projection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformation-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformation support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mobile-phase-substances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile-phase substances
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema workflow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#which-repository-generates-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which repository generates what?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-yaml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two YAML files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regenerate-the-checked-in-schema-and-local-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regenerate the checked-in schema and local documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-just-recipe-if-you-know-make" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the Just recipe if you know Make
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-the-version-numbers-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the version numbers come from
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopting-source-release-11240" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adopting source release 11.24.0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-and-consumer-adoption-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release and consumer adoption checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-merge-publishes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a merge publishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generator-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generator history
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../source-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Source versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#which-repository-generates-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which repository generates what?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-yaml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two YAML files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regenerate-the-checked-in-schema-and-local-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regenerate the checked-in schema and local documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-just-recipe-if-you-know-make" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the Just recipe if you know Make
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-the-version-numbers-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the version numbers come from
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopting-source-release-11240" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adopting source release 11.24.0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-and-consumer-adoption-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release and consumer adoption checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-merge-publishes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a merge publishes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generator-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generator history
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="schema-ownership-versions-and-documentation">Schema ownership, versions, and documentation</h1>
+<p>This repository owns the NMDC flat-schema generator, the runtime flattener,
+and the checked-in schema describing their output. The source model comes from
+the separate <code>nmdc-schema</code> package. The current input is tagged release
+<strong>v11.24.0</strong>, with projection <strong>1.3.0</strong>. Upgrades select the latest tagged source
+release deliberately and pin it; ordinary regeneration never follows upstream
+main or selects a newer release automatically.</p>
+<p>A separately packaged 11.23.0 compatibility artifact supports production before
+its migration. See <a href="../source-versions/">choosing a source release</a> for the exact
+artifact paths, generation commands, and source/target pairing rules.</p>
+<h2 id="which-repository-generates-what">Which repository generates what?</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nmdc-schema</code></td>
+<td>Defines the source classes, slot ranges, inheritance, and cardinalities.</td>
+</tr>
+<tr>
+<td><code>nmdc-lakehouse-schema</code></td>
+<td>Owns <code>transforms.schema_generator</code>, <code>transforms.flatteners</code>, <code>transforms.schema_diff</code>, and the published flat-schema artifact. Develop new projection rules here.</td>
+</tr>
+<tr>
+<td><code>nmdc-lakehouse</code></td>
+<td>Reads data, calls the projection engine, writes Parquet, and validates/publishes lakehouse output.</td>
+</tr>
+</tbody>
+</table>
+<p>The intended dependency goes from the lakehouse to this package. The lakehouse
+can still call generator functions to construct table definitions at runtime;
+that does not make it the owner of the generator implementation. The checked-in
+artifact provides the complete, versioned target schema for documentation and
+consumers such as target validation.</p>
+<p>Lakehouse main consumes published <strong>0.5.0</strong>, adopted in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/348">PR #348</a>.
+It supplies projection <strong>1.3.0</strong> and exact artifacts for source 11.23.0 and
+11.24.0. <a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/340">PR #340</a>
+removed the consumer's local generator implementation. The consumer selects the
+artifact from the installed package; it does not copy or vendor this YAML.
+The 11.23.0 pair produced the fully validated September snapshot that passed
+BERDL staging. See the consumer's
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/blob/main/docs/runs/2026-09-23-production-staging.md">run record</a>.</p>
+<p>Publishing these docs does not publish a Python package, update the lakehouse's
+pinned dependency, rewrite MongoDB, or migrate existing snapshots. Adoption of
+the parent-column TextValue projection is tracked in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/345">lakehouse #345</a>.
+Consumers need matching runtime, target artifact, and source-schema versions.</p>
+<h2 id="the-two-yaml-files">The two YAML files</h2>
+<p>These files are under <code>src/nmdc_lakehouse_schema/schema/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nmdc_schema_flattened.yaml</code></td>
+<td>The canonical generated NMDC product. Source 11.24.0 with projection 1.3.0 has 61 table classes: 19 primary and 42 non-TextValue side tables. Includes version, source provenance, and a content digest.</td>
+</tr>
+<tr>
+<td><code>compat/11.23.0/nmdc_schema_flattened.yaml</code></td>
+<td>Matching production compatibility artifact: source 11.23.0, projection 1.3.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records.</td>
+</tr>
+<tr>
+<td><code>nmdc_lakehouse_schema.yaml</code></td>
+<td>Leftover LinkML project-template example with <code>NamedThing</code>, <code>Person</code>, <code>PersonCollection</code>, and <code>PersonStatus</code>. It is not the NMDC source model or an input to the flat-schema generator.</td>
+</tr>
+</tbody>
+</table>
+<p><code>scripts/generate_flattened_schema.py</code> reads the installed
+<code>nmdc_schema/nmdc_materialized_patterns.yaml</code> and writes the canonical product.
+The default <code>source-latest</code> dependency group pins <code>nmdc-schema==11.24.0</code> in <code>pyproject.toml</code> and
+<code>uv.lock</code>; regeneration does not select the newest upstream schema automatically.</p>
+<p>The template's removal is tracked in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/16">issue #16</a>.
+Deleting only that YAML would leave these dependencies broken or misleading:</p>
+<ul>
+<li><code>gen-project</code>, <code>gen-python</code>, <code>_test-schema</code>, and <code>_test-examples</code> still select
+  it through <code>LINKML_SCHEMA_NAME</code> and <code>source_schema_path</code>. <code>just test</code>, <code>site</code>,
+  and the existing <code>deploy</code> recipe depend on those recipes; CI runs <code>just test</code>.</li>
+<li>Generated modules in <code>src/nmdc_lakehouse_schema/datamodel/</code> implement the
+  Person example. Their initializer re-exports those classes and exposes
+  <code>MAIN_SCHEMA_PATH</code> pointing to the example YAML.</li>
+<li><code>tests/test_data.py</code>, Person fixtures, and example documentation exercise
+  that template model. Retire or replace them alongside the model.</li>
+<li>Package resources/imports may have external consumers. Remove or deprecate
+  them deliberately, and inspect the wheel and source distribution.</li>
+<li>Generator configuration, generated-file lint exclusions, README instructions,
+  and Copier's <code>add_example: true</code> setting need coordinated cleanup.</li>
+</ul>
+<p>Do not simply rename <code>LINKML_SCHEMA_NAME</code>: it also determines the Python
+package/datamodel output directory. The flat-product generator and <code>just gen-doc</code>
+already have independent inputs and do not need the Person schema. The inspected
+lakehouse package-adoption code uses <code>transforms.*</code> and the flat product's
+resource path, not the example datamodel.</p>
+<h2 id="regenerate-the-checked-in-schema-and-local-documentation">Regenerate the checked-in schema and local documentation</h2>
+<p>From a checkout containing the current main branch, with Git, uv, and Just
+installed, create a feature branch for changes:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>--ff-only
+git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>update-flat-schema-docs
+just<span class="w"> </span>install
+</code></pre></div>
+<p>Then run:</p>
+<div class="highlight"><pre><span></span><code>just<span class="w"> </span>generate-flat-schema
+just<span class="w"> </span>generate-compat-schema
+just<span class="w"> </span>check-flat-schemas
+just<span class="w"> </span><span class="nb">test</span>
+just<span class="w"> </span>test-dist
+just<span class="w"> </span>gen-doc
+uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build
+</code></pre></div>
+<p>These commands were exercised for projection 1.3.0 on 2026-09-23. With unchanged
+inputs, schema generation reproduces the checked-in bytes. <code>just check-flat-schema</code>
+checks both reproducibility and the artifact's digest. <code>just test</code> also includes
+those guards, runtime/generator tests, and the remaining template example tests.
+The template Python generator can rewrite its generated timestamp; review that
+separately from intended changes.</p>
+<p><code>just test-dist</code> builds a wheel and source archive in a temporary directory and
+checks regeneration and exact packaged bytes for both supported source artifacts. The same
+check gates package publication, before the archives are uploaded to PyPI.</p>
+<p>Edit authored documentation under <code>src/docs/</code>. Commit source/generator changes,
+the regenerated canonical YAML when it changes, and authored docs through a PR.
+<code>docs/</code> is the assembled, ignored Markdown directory; <code>site/</code> is the ignored HTML
+build. Do not hand-edit generated element pages or the canonical flat YAML.
+Use <code>uv run mkdocs serve</code> to preview the assembled docs, or <code>just testdoc</code> to
+regenerate them and start the server.</p>
+<p><code>just gen-project</code> and <code>just site</code> still generate the template products described
+above. For the NMDC product, use the explicit sequence shown here.</p>
+<p>A source-schema upgrade requires changing the pin/lockfile deliberately,
+regenerating, and reviewing the resulting shape and compatibility. It is more
+than refreshing documentation. Candidate-source checks and automated update PRs
+are tracked in <a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/12">#12</a>
+and <a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/13">#13</a>.</p>
+<h2 id="read-the-just-recipe-if-you-know-make">Read the Just recipe if you know Make</h2>
+<div class="highlight"><pre><span></span><code>gen-doc: _clean-schema-docs _copy-docs _gen-yaml &amp;&amp; _add-artifacts
+  uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{doc_schema_path}}
+</code></pre></div>
+<p>Running <code>just gen-doc</code> performs these steps in order:</p>
+<ol>
+<li><code>_clean-schema-docs</code> removes the old generated <code>docs/elements/</code> directory.</li>
+<li><code>_copy-docs</code> copies authored files from <code>src/docs/</code> into <code>docs/</code>.</li>
+<li><code>_gen-yaml</code> uses LinkML <code>gen-yaml</code> to produce the documentation download under
+   <code>docs/schema/</code> from the checked-in product schema.</li>
+<li>The indented command runs LinkML's <code>gen-doc</code> executable through uv and writes
+   the element pages into <code>docs/elements/</code>.</li>
+<li><code>_add-artifacts</code> runs afterward; it is currently an empty extension point.</li>
+</ol>
+<p>The header's <code>&amp;&amp;</code> introduces <strong>subsequent dependencies</strong>, which execute after
+the recipe body. Dependencies before it execute first. It is Just syntax in
+that position, not shell syntax. See the
+<a href="https://github.com/casey/just#dependencies">Just dependency documentation</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Make concept</th>
+<th>Just equivalent here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.PHONY</code> target</td>
+<td>A recipe: commands run without file timestamp comparisons.</td>
+</tr>
+<tr>
+<td>Prerequisites after <code>:</code></td>
+<td>Prior recipe dependencies, run before the body.</td>
+</tr>
+<tr>
+<td><code>$(variable)</code></td>
+<td><code>{{variable}}</code> expression interpolation.</td>
+</tr>
+<tr>
+<td>Tab-indented commands</td>
+<td>Indented recipe body; spaces are allowed.</td>
+</tr>
+<tr>
+<td>Helper target naming convention</td>
+<td>Leading <code>_</code> hides a recipe from normal listings; it is still callable.</td>
+</tr>
+</tbody>
+</table>
+<p><code>gen_doc_args</code> supplies optional generator flags, <code>docdir</code> is <code>docs/elements</code>, and
+<code>doc_schema_path</code> is the checked-in flat schema path. <code>config.public.mk</code> is loaded
+as dotenv-style configuration; it is not included as a Makefile.
+<code>LINKML_DOC_SCHEMA_NAME=nmdc_schema_flattened</code> selects the documented product.</p>
+<p>The executable named <code>gen-doc</code> inside <code>uv run</code> is a LinkML tool, not a recursive
+call to the Just recipe. <code>just --dry-run gen-doc</code> displays the resolved commands
+without executing them; <code>just --list</code> lists the public recipes.</p>
+<h2 id="where-the-version-numbers-come-from">Where the version numbers come from</h2>
+<p>There are three separate identities:</p>
+<table>
+<thead>
+<tr>
+<th>Identity</th>
+<th>Source</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upstream schema version</td>
+<td>The loaded <code>nmdc-schema</code> schema's <code>version</code></td>
+<td><code>11.24.0</code></td>
+</tr>
+<tr>
+<td>Projection version</td>
+<td>Manually maintained <code>FLATTENER_VERSION</code> in <code>transforms/schema_generator.py</code></td>
+<td><code>1.3.0</code></td>
+</tr>
+<tr>
+<td>Python package version</td>
+<td>Git-derived build metadata via <code>uv-dynamic-versioning</code> in <code>pyproject.toml</code></td>
+<td>A release tag or development version</td>
+</tr>
+</tbody>
+</table>
+<p><code>flat_schema_version()</code> combines the first two:</p>
+<div class="highlight"><pre><span></span><code>&lt;source schema version&gt;+flat.&lt;FLATTENER_VERSION&gt;
+11.24.0+flat.1.3.0
+</code></pre></div>
+<p>Just and the generator do not increment the projection version automatically.
+The convention recorded beside the constant is to increment the minor component
+when tables, attributes, or ranges change, and the patch component when only
+descriptions or annotations change. This is the project's projection-identity
+convention, not a promise that every minor update is backward compatible. A source
+version update changes the first component; it does not by itself require changing
+<code>FLATTENER_VERSION</code> when the projection rules are unchanged.</p>
+<table>
+<thead>
+<tr>
+<th>Projection</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1.0.2</code></td>
+<td>Baseline before the TextValue changes.</td>
+</tr>
+<tr>
+<td><code>1.1.0</code></td>
+<td><a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/15">PR #15</a> extracted raw strings, but still kept repeated TextValues in child tables.</td>
+</tr>
+<tr>
+<td><code>1.2.0</code></td>
+<td><a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/18">PR #18</a> corrected that representation: parent string-array columns replace all 41 TextValue-only child tables.</td>
+</tr>
+<tr>
+<td><code>1.3.0</code></td>
+<td><a href="../mobile-phase-substances/">Mobile-phase substances</a> adds two nested helpers and explicit phase/substance occurrence positions.</td>
+</tr>
+</tbody>
+</table>
+<p>The earlier child-table implementation did not satisfy the intended parent-column
+projection. The <a href="../textvalue-projection/">TextValue contract</a> describes the final
+shape and migration requirements.</p>
+<p>The canonical artifact also has <code>flat_schema_sha256</code>, calculated over its rendered
+text with the digest replaced by the generator's 64-zero placeholder. Regeneration
+updates it; it is not another manually assigned version. Use the canonical
+repository/package artifact for byte-level digest checks. The website's
+<code>schema/</code> download is a LinkML-expanded rendering produced by <code>gen-yaml</code>, so it
+is not the same byte stream even though it carries the source annotations.</p>
+<h2 id="adopting-source-release-11240">Adopting source release 11.24.0</h2>
+<p>The source upgrade initially shipped in package 0.4.0 as
+<code>11.24.0+flat.1.2.0</code> (59 tables). That is the superseded artifact baseline;
+the canonical artifact here is <code>11.24.0+flat.1.3.0</code> (61 tables), which adds the
+two nested substance helpers. Independently of that projection update, moving
+the source from 11.23.0 to 11.24.0:</p>
+<ul>
+<li>adds <code>data_generation_set_has_credit_associations</code> (60 to 61 tables under projection 1.3.0);</li>
+<li>replaces <code>applies_to_person_*</code> with <code>applies_to_agent_*</code> on study credit rows,
+  including Person email/ORCID and Organization ROR columns;</li>
+<li>removes <code>principal_investigator_*</code> from Study and DataGeneration; and</li>
+<li>removes <code>collection_date_inc</code> from Biosample.</li>
+</ul>
+<p>The installed release package supplies the input YAML. The corresponding Git tag's
+checked-in materialized file contains a placeholder <code>0.0.0</code> version, so downloading
+that file alone is not equivalent to using the release wheel.</p>
+<p>Regression tests exercise Person and Organization credits under Study and both
+DataGeneration subtypes, verify row-key coverage, and preserve collection and
+credit-association types. Consumer-side tests must also verify Parquet round trips
+and target validation. The <a href="../data-audit/">earlier production audit</a> used 11.23.0;
+it does not establish that production has adopted the renamed 11.24.0 fields.</p>
+<p>Before the first 11.24.0 export, audit populated removed/renamed source paths and
+the <a href="../transformation-support/">unsupported nested paths</a>. Resolve populated
+incompatibilities before treating the output as complete; changing the schema pin
+does not migrate MongoDB. The coordinated rollout is tracked in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/11">schema #11</a> and
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/345">lakehouse #345</a>.</p>
+<p>This source/projection pair is already published in 0.5.0 and adopted by the
+lakehouse. Production's source version remains a separate choice: installing
+11.24.0 does not migrate the database, and the retained September candidate uses
+11.23.0. A future upgrade follows the release sequence below.</p>
+<h2 id="release-and-consumer-adoption-checklist">Release and consumer adoption checklist</h2>
+<ol>
+<li>In a schema-repository branch, pin the intended tagged <code>nmdc-schema</code> release
+   in the source dependency group and update <code>uv.lock</code>. Ordinary regeneration
+   continues to use that pin. Update the supported-source selector/tests when
+   adding or retiring a source pair. Keep a still-needed production pair.</li>
+<li>Develop projection changes in this package. Change <code>FLATTENER_VERSION</code> when
+   the projection contract changes, then regenerate both supported artifacts.
+   Run <code>just check-flat-schemas</code>, <code>just test</code>, <code>just test-dist</code>, <code>just gen-doc</code>
+   and <code>uv run mkdocs build</code>. Review the checked-in YAML and authored docs in
+   the PR; generated site output is not an input to the package.</li>
+<li>Merge through human review. Main deploys documentation, but does not publish
+   a package. For documentation-only changes with unchanged artifacts/engine,
+   no new package is needed for an already-supported consumer.</li>
+<li>A release maintainer selects an unused package version and publishes a
+   matching <code>vX.Y.Z</code> Git tag and GitHub Release from the reviewed merged commit.
+   The published-release event explicitly triggers <code>pypi-publish.yaml</code>; relying
+   only on a tag requires that it match the workflow's tag filters. Git-derived
+   build metadata supplies the package version; do not hand-edit <code>_version.py</code>.</li>
+<li>Require the build/distribution checks and PyPI publication to succeed. They
+   verify both source artifacts against their locked inputs and check exact
+   wheel/source-archive contents. The <code>pypi-release</code> GitHub environment and PyPI
+   trusted publisher must be configured; follow any environment approval rules.
+   The operator needs repository release permission, not a PyPI token in a
+   local <code>.env</code>. Public package installation itself needs no release credential.</li>
+<li>Verify the published release's version and artifacts. In a separate
+   <code>nmdc-lakehouse</code> PR, pin that exact package version and regenerate its lockfile.
+   For a new source release, update its source extras/selector and tests too.
+   Require source/target alignment, synthetic Parquet round trips and target
+   validation for every supported pair, plus full checks and distribution tests.</li>
+<li>After consumer merge, install the matching source pair on the client and pod.
+   Use the production preflight before a new export. No consumer-side schema
+   generation, YAML copy, package vendoring or MongoDB migration is implied.</li>
+</ol>
+<p>For a maintainer who has chosen the version and exact reviewed commit, the
+release operation can use the GitHub CLI. Set these variables explicitly and
+review the release notes first; this is a publication step, not a local build:</p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCHEMA_TAG</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--repo<span class="w"> </span>microbiomedata/nmdc-lakehouse-schema<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$REVIEWED_COMMIT</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCHEMA_TAG</span><span class="s2">&quot;</span><span class="w"> </span>--notes-file<span class="w"> </span>local/release-notes.md
+gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>microbiomedata/nmdc-lakehouse-schema<span class="w"> </span>--workflow<span class="w"> </span>pypi-publish.yaml
+</code></pre></div>
+<p><code>SCHEMA_TAG</code> is the new <code>vX.Y.Z</code> package tag and <code>REVIEWED_COMMIT</code> is the full
+merged Git commit. Do not reuse or move an existing release tag to publish
+changed bytes. The consumer has its own package version and release policy;
+using its reviewed checkout does not require an exporter PyPI release.</p>
+<p>The two calculated provenance tables are a different contract. Their authored
+LinkML YAML is <code>src/nmdc_lakehouse/schemas/provenance.yaml</code> in the <strong>consumer</strong>,
+not this generated collection schema. That consumer schema drives their Arrow
+columns and target validation. See
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/blob/main/docs/local-provenance.md">local provenance</a>
+for generation and parent-snapshot binding.</p>
+<h2 id="what-a-merge-publishes">What a merge publishes</h2>
+<p>A push to <code>main</code>, including a merged PR, triggers
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/blob/main/.github/workflows/deploy-docs.yaml">Deploy docs</a>.
+It installs dependencies, runs <code>just gen-doc</code>, and runs
+<code>uv run mkdocs gh-deploy --force</code> to commit the site to <code>gh-pages</code>. GitHub Pages
+then performs its separate <strong>pages build and deployment</strong> step. Both stages must
+finish before the live site reflects the merge.</p>
+<p>The workflow reads the <strong>checked-in</strong> flat YAML. It does not run
+<code>just generate-flat-schema</code>, commit a new schema, or repair a stale artifact.
+The Build and test workflow checks schema reproducibility. A schema change must
+therefore include its regenerated artifact in the PR before merging.</p>
+<p>Same-repository PRs get documentation previews from
+<code>test_pages_build.yaml</code>. The main site is published from <code>gh-pages</code>, not directly
+from <code>src/docs/</code>. Package publication is a separate workflow triggered by a
+matching version-tag push or a published GitHub Release; merging to main alone
+does not publish a package.</p>
+<p>To deliberately rebuild the main site without a new commit, use GitHub Actions'
+<strong>Run workflow</strong> button for Deploy docs, or this equivalent manual command:</p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>deploy-docs.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--repo<span class="w"> </span>microbiomedata/nmdc-lakehouse-schema<span class="w"> </span>--ref<span class="w"> </span>main
+</code></pre></div>
+<p>To inspect deployment progress:</p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>microbiomedata/nmdc-lakehouse-schema<span class="w"> </span>--limit<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+<p>If the site appears stale, compare its content with the merged schema, check both
+deployment stages, and then refresh the browser. A rendered name is not evidence
+of an old build: LinkML documentation can display snake_case class keys in
+CamelCase. In projection 1.1.0, <code>BiosampleSetHostDiet</code> represented the YAML class
+<code>biosample_set_host_diet</code>; in 1.2.0, neither class/page should exist. Find
+<code>host_diet</code> in <code>BiosampleFlat</code> instead. Clearing generated element pages before
+regeneration prevents deleted classes from lingering after local rebuilds.</p>
+<h2 id="generator-history">Generator history</h2>
+<p>The original lakehouse generator history includes Mark Andrew Miller's initial
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/commit/f98a4fd">implementation</a>
+and subsequent schema/type/version changes. Sierra Taylor Moxon introduced and
+updated the schema-repository copy in commits
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/commit/35da2bb">35da2bb</a>,
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/commit/7667a14">7667a14</a>,
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/commit/f877d85">f877d85</a>, and
+<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/commit/4fd595a">4fd595a</a>.</p>
+<p>A comparison before the TextValue work used lakehouse <code>8911299</code> and schema
+repository <code>e117d62</code>, both against source schema 11.23.0. Both generated 99 classes
+and 2,258 attributes with identical class names and attribute definitions. They
+were not byte-identical: projection versions, generator identity, and producer
+mapping metadata differed. The schema repository keeps schema structure separate
+from per-write ETL producer identity. The TextValue and embedded-polymorphism
+changes subsequently made here intentionally change the engine relative to the
+legacy lakehouse copy; do not assume the two generators still match.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../mobile-phase-substances/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Mobile-phase substances
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../source-versions/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Source versions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.expand", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>
