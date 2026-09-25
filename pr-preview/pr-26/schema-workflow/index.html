@@ -840,8 +840,11 @@ It supplies projection <strong>1.3.0</strong> and exact artifacts for source 11.
 11.24.0. <a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/340">PR #340</a>
 removed the consumer's local generator implementation. The consumer selects the
 artifact from the installed package; it does not copy or vendor this YAML.
-The 11.23.0 pair produced the fully validated September snapshot that passed
-BERDL staging. See the consumer's
+The 11.23.0 pair produced the September snapshot that passed integrity checks,
+full target-row validation and BERDL staging. The focused source-to-output
+preservation audit remains open in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/347">lakehouse #347</a>.
+See the consumer's
 <a href="https://github.com/microbiomedata/nmdc-lakehouse/blob/main/docs/runs/2026-09-23-production-staging.md">run record</a>.</p>
 <p>Publishing these docs does not publish a Python package, update the lakehouse's
 pinned dependency, rewrite MongoDB, or migrate existing snapshots. Adoption of

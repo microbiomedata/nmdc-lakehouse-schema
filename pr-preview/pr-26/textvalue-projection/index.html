@@ -828,7 +828,8 @@ catalogs that reject arrays is tracked separately in
 <a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/342">lakehouse #342</a>.</p>
 <p>Regenerate and verify the artifact and documentation in this repository:</p>
 <div class="highlight"><pre><span></span><code>just<span class="w"> </span>generate-flat-schema
-just<span class="w"> </span>check-flat-schema
+just<span class="w"> </span>generate-compat-schema
+just<span class="w"> </span>check-flat-schemas
 just<span class="w"> </span><span class="nb">test</span>
 just<span class="w"> </span>gen-doc
 uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build
