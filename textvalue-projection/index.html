@@ -819,16 +819,17 @@ snapshots retain their original schema versions and table layouts; do not relabe
 them as the new projection. When creating a new snapshot, do not carry obsolete
 TextValue-only table files forward from an earlier snapshot.</p>
 <p>Adopt the generator, row flattener, and published schema from the same package
-release with the matching pinned <code>nmdc-schema</code> version. Lakehouse main adopted
-package 0.4.0/projection 1.2.0 in merged
-<a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/340">PR #340</a>; projection 1.3.0
-requires a new package release and consumer update. Runtime and artifact must
+release with the matching pinned <code>nmdc-schema</code> version. Lakehouse main now uses
+package 0.5.0/projection 1.3.0, adopted in
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/348">PR #348</a>. Both supported
+source versions retain this TextValue projection. Runtime and artifact must
 remain from the same package. Compatibility with downstream
 catalogs that reject arrays is tracked separately in
 <a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/342">lakehouse #342</a>.</p>
 <p>Regenerate and verify the artifact and documentation in this repository:</p>
 <div class="highlight"><pre><span></span><code>just<span class="w"> </span>generate-flat-schema
-just<span class="w"> </span>check-flat-schema
+just<span class="w"> </span>generate-compat-schema
+just<span class="w"> </span>check-flat-schemas
 just<span class="w"> </span><span class="nb">test</span>
 just<span class="w"> </span>gen-doc
 uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </span>build

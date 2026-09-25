@@ -712,8 +712,12 @@ before export. An API's installed package version alone does not establish
 that its MongoDB data has been migrated.</p>
 <p>Lakehouse selection and that read-only preflight are tracked in
 <a href="https://github.com/microbiomedata/nmdc-lakehouse/issues/347">lakehouse #347</a>.
-The new artifacts must be published and adopted there before this becomes a
-production procedure. Once production is migrated, select the matching newer
+Package 0.5.0 published both artifacts, and
+<a href="https://github.com/microbiomedata/nmdc-lakehouse/pull/348">lakehouse PR #348</a>
+adopted that exact release. The 11.23.0 compatibility pair has already produced
+an export that passed integrity checks, full target-row validation and staging
+checks. The source-to-output preservation audit in lakehouse #347 remains open.
+Once production is migrated, select the matching newer
 pair and create a fresh snapshot. Existing Parquet files keep their original
 source and projection versions.</p>
 
