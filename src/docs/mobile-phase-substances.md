@@ -63,10 +63,11 @@ required. Keep old snapshots' original identities and use a fresh output root.
 
 Publish the regenerated artifact and matching runtime together, then update the
 lakehouse's package pin and run its Parquet integration and target-validation
-checks. The lakehouse already consumes package 0.4.0/projection 1.2.0 after
-[PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340); it must adopt
-the next package release to use this change. Its target-version guard prevents
-validating 1.2.0 data as 1.3.0 data.
+checks. This sequence is complete for package 0.5.0/projection 1.3.0, adopted
+by the lakehouse in [PR #348](https://github.com/microbiomedata/nmdc-lakehouse/pull/348).
+The September 23 source-11.23.0 export includes both substance helpers and passed
+full target validation and subsequent staging. Its target-version guard prevents
+validating old 1.2.0 data as 1.3.0 data; old snapshots still require a new export.
 
 Source-version compatibility is independent: production was last verified on
 2026-09-22 as Runtime 2.21.0/schema 11.23.0. The

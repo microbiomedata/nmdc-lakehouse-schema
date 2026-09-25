@@ -25,13 +25,18 @@ that does not make it the owner of the generator implementation. The checked-in
 artifact provides the complete, versioned target schema for documentation and
 consumers such as target validation.
 
-As of 2026-09-22, lakehouse main consumes package 0.4.0 with projection 1.2.0.
-[Lakehouse PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340)
-merged the migration to this package's engine and installed
-`schema/nmdc_schema_flattened.yaml`. It removed local generation;
-[PR #346](https://github.com/microbiomedata/nmdc-lakehouse/pull/346) was closed as
-superseded. Projection 1.3.0 needs a new coordinated package release and consumer
-update; see [mobile-phase substances](mobile-phase-substances.md).
+Lakehouse main consumes published **0.5.0**, adopted in
+[PR #348](https://github.com/microbiomedata/nmdc-lakehouse/pull/348).
+It supplies projection **1.3.0** and exact artifacts for source 11.23.0 and
+11.24.0. [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340)
+removed the consumer's local generator implementation. The consumer selects the
+artifact from the installed package; it does not copy or vendor this YAML.
+The 11.23.0 pair produced the September snapshot that passed integrity checks,
+full target-row validation and BERDL staging. The focused source-to-output
+preservation audit remains open in
+[lakehouse #347](https://github.com/microbiomedata/nmdc-lakehouse/issues/347).
+See the consumer's
+[run record](https://github.com/microbiomedata/nmdc-lakehouse/blob/main/docs/runs/2026-09-23-production-staging.md).
 
 Publishing these docs does not publish a Python package, update the lakehouse's
 pinned dependency, rewrite MongoDB, or migrate existing snapshots. Adoption of
@@ -93,7 +98,8 @@ Then run:
 
 ```sh
 just generate-flat-schema
-just check-flat-schema
+just generate-compat-schema
+just check-flat-schemas
 just test
 just test-dist
 just gen-doc
@@ -240,11 +246,68 @@ does not migrate MongoDB. The coordinated rollout is tracked in
 [schema #11](https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/11) and
 [lakehouse #345](https://github.com/microbiomedata/nmdc-lakehouse/issues/345).
 
-After this upgrade merges, publish a new schema-package release from merged main
-using the existing tag/release workflow. Verify the published distribution, then
-pin that exact release together with `nmdc-schema==11.24.0` in the lakehouse
-adoption PR. A temporary commit-pinned candidate can support pre-release testing;
-the production dependency must move to the published release before rollout.
+This source/projection pair is already published in 0.5.0 and adopted by the
+lakehouse. Production's source version remains a separate choice: installing
+11.24.0 does not migrate the database, and the retained September candidate uses
+11.23.0. A future upgrade follows the release sequence below.
+
+## Release and consumer adoption checklist
+
+1. In a schema-repository branch, pin the intended tagged `nmdc-schema` release
+   in the source dependency group and update `uv.lock`. Ordinary regeneration
+   continues to use that pin. Update the supported-source selector/tests when
+   adding or retiring a source pair. Keep a still-needed production pair.
+2. Develop projection changes in this package. Change `FLATTENER_VERSION` when
+   the projection contract changes, then regenerate both supported artifacts.
+   Run `just check-flat-schemas`, `just test`, `just test-dist`, `just gen-doc`
+   and `uv run mkdocs build`. Review the checked-in YAML and authored docs in
+   the PR; generated site output is not an input to the package.
+3. Merge through human review. Main deploys documentation, but does not publish
+   a package. For documentation-only changes with unchanged artifacts/engine,
+   no new package is needed for an already-supported consumer.
+4. A release maintainer selects an unused package version and publishes a
+   matching `vX.Y.Z` Git tag and GitHub Release from the reviewed merged commit.
+   The published-release event explicitly triggers `pypi-publish.yaml`; relying
+   only on a tag requires that it match the workflow's tag filters. Git-derived
+   build metadata supplies the package version; do not hand-edit `_version.py`.
+5. Require the build/distribution checks and PyPI publication to succeed. They
+   verify both source artifacts against their locked inputs and check exact
+   wheel/source-archive contents. The `pypi-release` GitHub environment and PyPI
+   trusted publisher must be configured; follow any environment approval rules.
+   The operator needs repository release permission, not a PyPI token in a
+   local `.env`. Public package installation itself needs no release credential.
+6. Verify the published release's version and artifacts. In a separate
+   `nmdc-lakehouse` PR, pin that exact package version and regenerate its lockfile.
+   For a new source release, update its source extras/selector and tests too.
+   Require source/target alignment, synthetic Parquet round trips and target
+   validation for every supported pair, plus full checks and distribution tests.
+7. After consumer merge, install the matching source pair on the client and pod.
+   Use the production preflight before a new export. No consumer-side schema
+   generation, YAML copy, package vendoring or MongoDB migration is implied.
+
+For a maintainer who has chosen the version and exact reviewed commit, the
+release operation can use the GitHub CLI. Set these variables explicitly and
+review the release notes first; this is a publication step, not a local build:
+
+```bash
+gh release create "$SCHEMA_TAG" \
+  --repo microbiomedata/nmdc-lakehouse-schema \
+  --target "$REVIEWED_COMMIT" \
+  --title "$SCHEMA_TAG" --notes-file local/release-notes.md
+gh run list --repo microbiomedata/nmdc-lakehouse-schema --workflow pypi-publish.yaml
+```
+
+`SCHEMA_TAG` is the new `vX.Y.Z` package tag and `REVIEWED_COMMIT` is the full
+merged Git commit. Do not reuse or move an existing release tag to publish
+changed bytes. The consumer has its own package version and release policy;
+using its reviewed checkout does not require an exporter PyPI release.
+
+The two calculated provenance tables are a different contract. Their authored
+LinkML YAML is `src/nmdc_lakehouse/schemas/provenance.yaml` in the **consumer**,
+not this generated collection schema. That consumer schema drives their Arrow
+columns and target validation. See
+[local provenance](https://github.com/microbiomedata/nmdc-lakehouse/blob/main/docs/local-provenance.md)
+for generation and parent-snapshot binding.
 
 ## What a merge publishes
 

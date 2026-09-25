@@ -6,9 +6,9 @@ Some unsupported populated paths are silently omitted. The TextValue validation
 rules are stricter than the general flattener's behavior.
 
 This describes schema-repository projection **1.3.0**, source schema **11.24.0**,
-and the lakehouse Parquet writer inspected on 2026-09-22. Lakehouse main consumes
-projection 1.2.0; the nested mobile-phase change needs a new package release and
-consumer update. See the [workflow guide](schema-workflow.md).
+and the lakehouse Parquet writer inspected on 2026-09-22. Lakehouse main now
+consumes package 0.5.0/projection 1.3.0, including nested mobile-phase substances
+and the 11.23.0 compatibility artifact. See the [workflow guide](schema-workflow.md).
 These findings combine code inspection, synthetic runtime/schema comparisons,
 and an inventory of the pinned source schema. They are not a production-data
 coverage audit.
