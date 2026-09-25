@@ -148,7 +148,8 @@ Regenerate and verify the artifact and documentation in this repository:
 
 ```sh
 just generate-flat-schema
-just check-flat-schema
+just generate-compat-schema
+just check-flat-schemas
 just test
 just gen-doc
 uv run mkdocs build

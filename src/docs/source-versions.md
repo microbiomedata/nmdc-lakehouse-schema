@@ -66,6 +66,8 @@ Lakehouse selection and that read-only preflight are tracked in
 Package 0.5.0 published both artifacts, and
 [lakehouse PR #348](https://github.com/microbiomedata/nmdc-lakehouse/pull/348)
 adopted that exact release. The 11.23.0 compatibility pair has already produced
-a fully validated production export and verified staging output. Once production is migrated, select the matching newer
+an export that passed integrity checks, full target-row validation and staging
+checks. The source-to-output preservation audit in lakehouse #347 remains open.
+Once production is migrated, select the matching newer
 pair and create a fresh snapshot. Existing Parquet files keep their original
 source and projection versions.
