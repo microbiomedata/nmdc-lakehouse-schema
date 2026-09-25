@@ -63,7 +63,9 @@ that its MongoDB data has been migrated.
 
 Lakehouse selection and that read-only preflight are tracked in
 [lakehouse #347](https://github.com/microbiomedata/nmdc-lakehouse/issues/347).
-The new artifacts must be published and adopted there before this becomes a
-production procedure. Once production is migrated, select the matching newer
+Package 0.5.0 published both artifacts, and
+[lakehouse PR #348](https://github.com/microbiomedata/nmdc-lakehouse/pull/348)
+adopted that exact release. The 11.23.0 compatibility pair has already produced
+a fully validated production export and verified staging output. Once production is migrated, select the matching newer
 pair and create a fresh snapshot. Existing Parquet files keep their original
 source and projection versions.

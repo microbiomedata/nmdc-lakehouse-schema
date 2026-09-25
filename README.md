@@ -15,8 +15,11 @@ validation code that consumes it:
 
 Downstream ETL (the [nmdc-lakehouse](https://github.com/microbiomedata/nmdc-lakehouse) repo)
 adopted this package in merged [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
-Lakehouse main uses package 0.4.0/projection 1.2.0; the 1.3.0 changes here need a
-new package release and consumer update.
+Lakehouse main now uses published package 0.5.0/projection 1.3.0, adopted in
+[PR #348](https://github.com/microbiomedata/nmdc-lakehouse/pull/348), with exact
+11.23.0 and 11.24.0 source artifacts. See the
+[release and adoption checklist](src/docs/schema-workflow.md#release-and-consumer-adoption-checklist)
+for future changes.
 
 Projection version `1.3.0` retains the TextValue behavior introduced in `1.2.0`:
 raw strings become columns on the
