@@ -17,7 +17,7 @@ Downstream ETL (the [nmdc-lakehouse](https://github.com/microbiomedata/nmdc-lake
 adopted this package in merged [PR #340](https://github.com/microbiomedata/nmdc-lakehouse/pull/340).
 Lakehouse main now uses published package 0.5.0/projection 1.3.0, adopted in
 [PR #348](https://github.com/microbiomedata/nmdc-lakehouse/pull/348), with exact
-11.23.0 and 11.24.0 source artifacts. See the
+11.23.0 and 11.24.0 source artifacts. Package 0.6.0 adds 11.25. See the
 [release and adoption checklist](src/docs/schema-workflow.md#release-and-consumer-adoption-checklist)
 for future changes.
 
@@ -58,12 +58,13 @@ It does not regenerate that canonical artifact or publish a new Python package.
 Run `just --list` to see available recipes and `just --dry-run gen-doc` to inspect
 resolved documentation commands.
 
-The source input is pinned to tagged `nmdc-schema` release **11.24.0**. With
-projection **1.3.0**, the current target is `11.24.0+flat.1.3.0` and has 61 table
-classes. See the [upgrade guidance](src/docs/schema-workflow.md#adopting-source-release-11240)
-for renamed fields, release verification, and production preflight requirements.
-The package also ships a matching 11.23.0 compatibility artifact for production
-before migration; see [source version selection](src/docs/source-versions.md).
+The source input is pinned to tagged `nmdc-schema` release **11.25**, which PyPI
+publishes as `11.25` rather than `11.25.0`. With projection **1.3.0**, the current
+target is `11.25+flat.1.3.0` and has 62 table classes. See the
+[upgrade guidance](src/docs/schema-workflow.md#adopting-source-release-1125)
+for changed fields, release verification, and production preflight requirements.
+The package also ships matching 11.24.0 and 11.23.0 compatibility artifacts for
+production before migration; see [source version selection](src/docs/source-versions.md).
 
 ## Repository structure
 
