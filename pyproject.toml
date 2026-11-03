@@ -21,6 +21,8 @@ dynamic = ["version"]
 
 dependencies = [
   "linkml-runtime >=1.9.4",
+  # PEP 440 comparison of source versions: nmdc-schema 11.25 was published as "11.25".
+  "packaging >=24.0",
 ]
 
 [project.urls]

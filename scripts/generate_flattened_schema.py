@@ -26,7 +26,7 @@ from pathlib import Path
 from linkml_runtime import SchemaView
 from linkml_runtime.dumpers import yaml_dumper
 
-from nmdc_lakehouse_schema.artifacts import LATEST_SOURCE_VERSION, SUPPORTED_SOURCE_VERSIONS
+from nmdc_lakehouse_schema.artifacts import LATEST_SOURCE_VERSION, supported_source_version
 from nmdc_lakehouse_schema.transforms.schema_generator import (
     UNRESOLVED_CONTENT_SHA256,
     flatten_database_schema,
@@ -155,9 +155,9 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--check", action="store_true", help="Fail when OUTPUT differs from current generation.")
     args = parser.parse_args(argv)
     try:
-        installed = version("nmdc-schema")
+        installed = supported_source_version(version("nmdc-schema"))
         if args.compatibility:
-            if installed not in SUPPORTED_SOURCE_VERSIONS or installed == LATEST_SOURCE_VERSION:
+            if installed is None or installed == LATEST_SOURCE_VERSION:
                 raise SchemaArtifactError("Compatibility generation requires a supported older source package.")
             default_output = CANONICAL_OUTPUT.parent / "compat" / installed / CANONICAL_OUTPUT.name
         else:
