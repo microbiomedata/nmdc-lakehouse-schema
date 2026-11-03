@@ -357,10 +357,10 @@ def test_side_table_schema_covers_runtime_row_keys(sv):
 
 @pytest.mark.skipif(
     not _CANONICAL_SCHEMA.exists(),
-    reason="canonical nmdc_metadata.yaml is published by nmdc-lakehouse-schema#4; not generated yet",
+    reason="the published flat schema is missing from this checkout",
 )
 def test_class_descriptions_do_not_name_a_producing_loader() -> None:
-    """The producer is recorded once, in the mapping annotation, so prose cannot contradict it."""
+    """The flat schema records no producing loader, so class prose must not name one."""
     import yaml
 
     schema_path = _CANONICAL_SCHEMA

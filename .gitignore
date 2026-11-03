@@ -142,3 +142,6 @@ dmypy.json
 .idea
 # Local vscode editor config
 .vscode
+
+# Untracked notes and scratch output (release notes, previews)
+/local/
