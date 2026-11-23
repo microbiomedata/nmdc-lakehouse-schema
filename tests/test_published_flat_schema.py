@@ -79,7 +79,7 @@ def test_stale_compatibility_artifact_names_the_compatibility_recipe(tmp_path, m
         generator.main(["--compatibility", "--check", str(output)])
     assert error.value.code == 2
     message = capsys.readouterr().err
-    assert "just generate-compat-schema" in message
+    assert "just generate-compat-schema source-11-23" in message
     assert "just generate-flat-schema" not in message
 
 
