@@ -20,7 +20,13 @@ def test_resource_selects_exact_source_and_projection(source_version):
     target = SchemaView(str(flat_schema_resource(source_version)))
     assert target.schema.annotations["source_package_version"].value == source_version
     assert target.schema.version == f"{source_version}+flat.{FLATTENER_VERSION}"
-    assert_release_shape(target.all_classes())
+    # The helper table set can be checked only against the matching installed source.
+    source = None
+    if version("nmdc-schema") == source_version:
+        source = SchemaView(
+            str(files("nmdc_schema").joinpath("nmdc_materialized_patterns.yaml"))
+        )
+    assert_release_shape(target.all_classes(), source)
     # DataGeneration gained credit associations (and their helper) in 11.24.0.
     has_credits = "data_generation_set_has_credit_associations" in target.all_classes()
     assert has_credits == (source_version != "11.23.0")

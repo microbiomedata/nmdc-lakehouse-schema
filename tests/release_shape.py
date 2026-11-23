@@ -42,7 +42,7 @@ def assert_release_shape(classes, source=None):
         collections = {
             slot.name: slot.range
             for slot in source.class_induced_slots("Database")
-            if source.get_class(slot.range) is not None
+            if slot.multivalued and source.get_class(slot.range) is not None
         }
         assert primary == {rng: name for name, rng in collections.items()}
         helpers = {name for name in classes if not name.endswith("Flat")}
