@@ -553,6 +553,10 @@
          <lastmod>2026-11-23</lastmod>
     </url>
     <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/MaterialProcessingSetAddedIsotopologsIsotopeAtomFractions/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/MaterialProcessingSetHasFailureCategorization/</loc>
          <lastmod>2026-11-23</lastmod>
     </url>
@@ -4253,6 +4257,14 @@
          <lastmod>2026-11-23</lastmod>
     </url>
     <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotope/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotope_atom_fraction_index/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotope_exposure/</loc>
          <lastmod>2026-11-23</lastmod>
     </url>
@@ -4262,6 +4274,26 @@
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_approach/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_atom_frac_has_maximum_numeric_value/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_atom_frac_has_minimum_numeric_value/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_atom_frac_has_numeric_value/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_atom_frac_has_raw_value/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_atom_frac_has_unit/</loc>
          <lastmod>2026-11-23</lastmod>
     </url>
     <url>
@@ -4306,6 +4338,10 @@
     </url>
     <url>
          <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_incu_time_has_unit/</loc>
+         <lastmod>2026-11-23</lastmod>
+    </url>
+    <url>
+         <loc>https://microbiomedata.github.io/nmdc-lakehouse-schema/elements/isotopolog_index/</loc>
          <lastmod>2026-11-23</lastmod>
     </url>
     <url>

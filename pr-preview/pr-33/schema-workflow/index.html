@@ -844,7 +844,7 @@
 <p>This repository owns the NMDC flat-schema generator, the runtime flattener,
 and the checked-in schema describing their output. The source model comes from
 the separate <code>nmdc-schema</code> package. The current input is tagged release
-<strong>v11.26.0</strong>, with projection <strong>1.3.0</strong>. Upgrades select the latest tagged source
+<strong>v11.26.0</strong>, with projection <strong>1.4.0</strong>. Upgrades select the latest tagged source
 release deliberately and pin it; ordinary regeneration never follows upstream
 main or selects a newer release automatically.</p>
 <p>Separately packaged 11.25, 11.24.0 and 11.23.0 compatibility artifacts support
@@ -907,19 +907,19 @@ Consumers need matching runtime, target artifact, and source-schema versions.</p
 <tbody>
 <tr>
 <td><code>nmdc_schema_flattened.yaml</code></td>
-<td>The canonical generated NMDC product. Source 11.26.0 with projection 1.3.0 has 63 table classes: 19 primary and 44 non-TextValue side tables. Includes version, source provenance, and a content digest.</td>
+<td>The canonical generated NMDC product. Source 11.26.0 with projection 1.4.0 has 64 table classes: 19 primary and 45 non-TextValue side tables. Includes version, source provenance, and a content digest.</td>
 </tr>
 <tr>
 <td><code>compat/11.25/nmdc_schema_flattened.yaml</code></td>
-<td>Compatibility artifact: source 11.25, projection 1.3.0, 62 classes (19 primary and 43 helpers). Identical to the canonical artifact before 11.26.0 was adopted.</td>
+<td>Compatibility artifact: source 11.25, projection 1.4.0, 63 classes (19 primary and 44 helpers).</td>
 </tr>
 <tr>
 <td><code>compat/11.24.0/nmdc_schema_flattened.yaml</code></td>
-<td>Compatibility artifact: source 11.24.0, projection 1.3.0, 61 classes (19 primary and 42 helpers). Byte-identical to the canonical artifact released in 0.5.0.</td>
+<td>Compatibility artifact: source 11.24.0, projection 1.4.0, 61 classes (19 primary and 42 helpers). Same tables and columns as the canonical artifact released in 0.5.0. Only its version string and digest differ.</td>
 </tr>
 <tr>
 <td><code>compat/11.23.0/nmdc_schema_flattened.yaml</code></td>
-<td>Matching production compatibility artifact: source 11.23.0, projection 1.3.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records.</td>
+<td>Compatibility artifact: source 11.23.0, projection 1.4.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records.</td>
 </tr>
 <tr>
 <td><code>nmdc_lakehouse_schema.yaml</code></td>
@@ -1110,6 +1110,10 @@ version update changes the first component; it does not by itself require changi
 <td><code>1.3.0</code></td>
 <td><a href="../mobile-phase-substances/">Mobile-phase substances</a> adds two nested helpers and explicit phase/substance occurrence positions.</td>
 </tr>
+<tr>
+<td><code>1.4.0</code></td>
+<td>Adds a nested helper for <code>added_isotopologs[*].isotope_atom_fractions[*]</code> (sources 11.25 and later), with <code>isotopolog_index</code> and <code>isotope_atom_fraction_index</code> positions. Artifacts for sources without isotopolog additions change only in version and digest.</td>
+</tr>
 </tbody>
 </table>
 <p>The earlier child-table implementation did not satisfy the intended parent-column
@@ -1122,9 +1126,9 @@ repository/package artifact for byte-level digest checks. The website's
 <code>schema/</code> download is a LinkML-expanded rendering produced by <code>gen-yaml</code>, so it
 is not the same byte stream even though it carries the source annotations.</p>
 <h2 id="adopting-source-release-11260">Adopting source release 11.26.0</h2>
-<p>Under projection 1.3.0, moving the source from 11.25 to 11.26.0:</p>
+<p>Under projection 1.4.0, moving the source from 11.25 to 11.26.0:</p>
 <ul>
-<li>adds <code>biosample_set_adjacent_environment</code>, a ControlledTermValue helper table (62 to 63 tables);</li>
+<li>adds <code>biosample_set_adjacent_environment</code>, a ControlledTermValue helper table (63 to 64 tables);</li>
 <li>adds 31 Biosample columns, including wastewater fields such as <code>catchment_population</code>, <code>wastewater_system_type</code>, <code>fecal_contamination_*</code>, <code>instantaneous_flow_rate_*</code> and <code>total_daily_flow_rate_*</code>, plus <code>collected_by</code>, <code>samp_purpose</code>, <code>neg_cont_type</code> and <code>pos_cont_type</code>; and</li>
 <li>removes no tables or columns.</li>
 </ul>
@@ -1132,10 +1136,11 @@ is not the same byte stream even though it carries the source annotations.</p>
 <p>nmdc-schema 11.25 was published on PyPI as <code>11.25</code>, so the installed version,
 the <code>source_package_version</code> annotation and the flat version
 (<code>11.25+flat.1.3.0</code>) all use the two-part form. <code>flat_schema_resource</code> accepts
-<code>11.25</code> or <code>11.25.0</code>. Under projection 1.3.0, moving the source from 11.24.0 to
+<code>11.25</code> or <code>11.25.0</code>. Under projection 1.4.0, moving the source from 11.24.0 to
 11.25:</p>
 <ul>
-<li>adds <code>material_processing_set_added_isotopologs</code> (61 to 62 tables);</li>
+<li>adds <code>material_processing_set_added_isotopologs</code> and its nested helper
+  <code>material_processing_set_added_isotopologs_isotope_atom_fractions</code> (61 to 63 tables);</li>
 <li>adds <code>internal_standard_method_*</code> and <code>isotopolog_*</code> columns to MaterialProcessing
   and <code>gradient_pos_*</code>, <code>gradient_position</code> and <code>nucleobase_atom_frac</code> to
   ProcessedSample;</li>

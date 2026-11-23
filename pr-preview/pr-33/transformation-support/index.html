@@ -834,6 +834,11 @@ contains exactly one scalar, as in a strictly normalized relational design.</p>
 <td>Yes; this exact nested shape has a dedicated transformation</td>
 </tr>
 <tr>
+<td><code>added_isotopologs[*].isotope_atom_fractions[*]</code></td>
+<td>An isotopolog addition helper and an isotope atom fraction helper with compound occurrence keys and explicit list positions (projection 1.4.0, sources 11.25 and later).</td>
+<td>Yes; this exact nested shape has a dedicated transformation</td>
+</tr>
+<tr>
 <td>Inheritance and class-based polymorphism</td>
 <td>Induced inherited slots plus optional columns for subclass fields; runtime selects a known class using <code>type</code>.</td>
 <td>Follows the slot rules above</td>
@@ -903,6 +908,16 @@ substance fields and QuantityValue members. The join key to a phase is
 within that phase. See the <a href="../mobile-phase-substances/">complete contract and migration
 instructions</a>. Projection 1.2.0 omitted these objects;
 that historical behavior is no longer the contract for this particular path.</p>
+<p>Projection 1.4.0 adds the same treatment for isotope atom fractions, which
+sources 11.25 and later define:</p>
+<div class="highlight"><pre><span></span><code>material_processing_set
+  added_isotopologs[*]          -&gt; isotopolog addition helper, with isotopolog_index
+    isotope_atom_fractions[*]   -&gt; isotope atom fraction helper, with both list positions
+</code></pre></div>
+<p>The join key to an isotopolog addition is <code>(parent_id, isotopolog_index)</code>.
+<code>isotope_atom_fraction_index</code> retains order and duplicates within that addition.
+The supported nested paths are listed in
+<code>src/nmdc_lakehouse_schema/transforms/nested_helpers.py</code>.</p>
 <p>The source-shape inspection also found <code>organism_set.classified_as[*].relations[*]</code>
 and deeper <code>term.relations[*]</code> paths in controlled-term wrappers. The earlier 11.23.0 inventory found twenty distinct
 collection-relative paths at a repeated-class/depth boundary: the two mobile-phase paths, <code>classified_as.relations</code>, and 17
