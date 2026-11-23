@@ -14,14 +14,14 @@ annotations:
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.3.0
+    value: 1.4.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: '2524d8473d25bb58355ade2560cd5bb4bd7d1e950c5dd7320f6f60158ed4954b'
+    value: 'a1a9c6a0ae6471e7aa5b37505c214fa7ba48aaa1f98f7ea38b4b8a7328597080'
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.26.0+flat.1.3.0
+version: 11.26.0+flat.1.4.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -18898,6 +18898,92 @@ classes:
         name: parent_id
         description: Identifier of the parent 'MaterialProcessing' record.
         range: string
+      isotopolog_index:
+        name: isotopolog_index
+        description: Zero-based source list position of this isotopolog addition within
+          its root record.
+        range: integer
+        required: true
+        minimum_value: 0
+  material_processing_set_added_isotopologs_isotope_atom_fractions:
+    name: material_processing_set_added_isotopologs_isotope_atom_fractions
+    annotations:
+      table_name:
+        tag: table_name
+        value: material_processing_set_added_isotopologs_isotope_atom_fractions
+      source_class:
+        tag: source_class
+        value: MaterialProcessing
+    description: Contains the isotopes used and at what fraction. Flattened tabular
+      form of 'IsotopologComposition'. Attributes are the union of base-class slots
+      and slots from concrete subclasses of 'IsotopologComposition' that may appear
+      via the 'type' field. Join to its isotopolog addition using parent_id and isotopolog_index.
+      isotope_atom_fraction_index preserves the source list order and duplicates.
+    attributes:
+      isotope:
+        name: isotope
+        description: The element and mass number of the stable isotope used in isotopolog
+          labeling.
+        range: IsotopeEnum
+        required: true
+        multivalued: false
+      isotopolog_atom_frac_has_maximum_numeric_value:
+        name: isotopolog_atom_frac_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_atom_frac.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_minimum_numeric_value:
+        name: isotopolog_atom_frac_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_atom_frac.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_numeric_value:
+        name: isotopolog_atom_frac_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'isotopolog_atom_frac.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_raw_value:
+        name: isotopolog_atom_frac_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'isotopolog_atom_frac.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_unit:
+        name: isotopolog_atom_frac_has_unit
+        description: The unit of the quantity Flattened from nested slot 'isotopolog_atom_frac.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'MaterialProcessing' record.
+        range: string
+      isotopolog_index:
+        name: isotopolog_index
+        description: Zero-based source list position of this isotopolog addition within
+          its root record.
+        range: integer
+        required: true
+        minimum_value: 0
+      isotope_atom_fraction_index:
+        name: isotope_atom_fraction_index
+        description: Zero-based source list position of this isotope atom fraction
+          within its isotopolog addition.
+        range: integer
+        required: true
+        minimum_value: 0
   material_processing_set_has_failure_categorization:
     name: material_processing_set_has_failure_categorization
     annotations:

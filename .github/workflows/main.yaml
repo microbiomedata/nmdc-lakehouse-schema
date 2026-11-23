@@ -63,7 +63,7 @@ jobs:
         run: |
           for group in source-11-25 source-11-24 source-11-23; do
             just generate-compat-schema "$group" --check
-            uv run --no-group source-latest --group "$group" pytest tests/test_source_pairs.py tests/test_mobile_phase_projection.py
+            uv run --no-group source-latest --group "$group" pytest tests/test_source_pairs.py tests/test_mobile_phase_projection.py tests/test_isotopolog_projection.py
           done
 
       - name: Verify packaged schema

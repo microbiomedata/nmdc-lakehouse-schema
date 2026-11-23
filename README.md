@@ -21,7 +21,7 @@ Lakehouse main now uses published package 0.5.0/projection 1.3.0, adopted in
 [release and adoption checklist](src/docs/schema-workflow.md#release-and-consumer-adoption-checklist)
 for future changes.
 
-Projection version `1.3.0` retains the TextValue behavior introduced in `1.2.0`:
+Projection version `1.4.0` retains the TextValue behavior introduced in `1.2.0`:
 raw strings become columns on the
 containing record. Single values become strings and repeated values become
 string arrays; TextValue-only child tables are removed.
@@ -59,7 +59,7 @@ Run `just --list` to see available recipes and `just --dry-run gen-doc` to inspe
 resolved documentation commands.
 
 The source input is pinned to tagged `nmdc-schema` release **11.26.0**. With
-projection **1.3.0**, the current target is `11.26.0+flat.1.3.0` and has 63 table
+projection **1.4.0**, the current target is `11.26.0+flat.1.4.0` and has 64 table
 classes. See the [upgrade guidance](src/docs/schema-workflow.md#adopting-source-release-11260)
 for changed fields, release verification, and production preflight requirements.
 The package also ships matching 11.25, 11.24.0 and 11.23.0 compatibility artifacts.

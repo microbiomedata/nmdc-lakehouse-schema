@@ -11,10 +11,10 @@ projection rules apply to every supported version:
 
 | Source package | Packaged flat artifact | Flat version | Tables |
 | --- | --- | --- | --- |
-| 11.26.0 (canonical) | `schema/nmdc_schema_flattened.yaml` | `11.26.0+flat.1.3.0` | 63 |
-| 11.25 (compatibility) | `schema/compat/11.25/nmdc_schema_flattened.yaml` | `11.25+flat.1.3.0` | 62 |
-| 11.24.0 (compatibility) | `schema/compat/11.24.0/nmdc_schema_flattened.yaml` | `11.24.0+flat.1.3.0` | 61 |
-| 11.23.0 (compatibility) | `schema/compat/11.23.0/nmdc_schema_flattened.yaml` | `11.23.0+flat.1.3.0` | 60 |
+| 11.26.0 (canonical) | `schema/nmdc_schema_flattened.yaml` | `11.26.0+flat.1.4.0` | 64 |
+| 11.25 (compatibility) | `schema/compat/11.25/nmdc_schema_flattened.yaml` | `11.25+flat.1.4.0` | 63 |
+| 11.24.0 (compatibility) | `schema/compat/11.24.0/nmdc_schema_flattened.yaml` | `11.24.0+flat.1.4.0` | 61 |
+| 11.23.0 (compatibility) | `schema/compat/11.23.0/nmdc_schema_flattened.yaml` | `11.23.0+flat.1.4.0` | 60 |
 
 The older model has no DataGeneration credit-association helper. It retains
 `principal_investigator` fields and credit `applies_to_person`/PersonValue fields

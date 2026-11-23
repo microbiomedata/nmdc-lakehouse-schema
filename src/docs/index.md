@@ -4,11 +4,12 @@ The NMDC flat-schema product defines how nested source records become lakehouse
 tables. This package contains the schema generator, runtime flattener,
 schema comparison tools, and the canonical generated LinkML target schema.
 
-Projection `1.3.0` retains TextValue strings directly on their containing records.
+Projection `1.4.0` retains TextValue strings directly on their containing records.
 For example, `BiosampleFlat.host_diet` is a multivalued string slot; there is no
 `BiosampleSetHostDiet` class or separate TextValue table. With source schema
-11.26.0, the product has 63 table classes, including the two nested substance
-helpers introduced in 1.3.0.
+11.26.0, the product has 64 table classes, including the two nested substance
+helpers introduced in 1.3.0 and the nested isotope atom fraction helper
+introduced in 1.4.0.
 
 - [Generated schema reference](elements/index.md)
 - [TextValue projection and migration](textvalue-projection.md)
