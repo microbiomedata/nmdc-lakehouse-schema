@@ -1,4 +1,4 @@
-"""Exercise the released 11.24.0 Agent shapes through real collection helpers."""
+"""Exercise the Agent shapes released in 11.24.0 through real collection helpers."""
 
 from importlib.metadata import version
 from importlib.util import find_spec
@@ -7,8 +7,13 @@ from pathlib import Path
 import pytest
 from linkml_runtime import SchemaView
 
+from nmdc_lakehouse_schema.artifacts import LATEST_SOURCE_VERSION
 from nmdc_lakehouse_schema.transforms.flatteners import flatten_record, side_table_rows
-from nmdc_lakehouse_schema.transforms.schema_generator import flatten_database_schema
+from nmdc_lakehouse_schema.transforms.schema_generator import (
+    FLATTENER_VERSION,
+    flatten_database_schema,
+)
+from tests.release_shape import assert_release_shape
 
 
 @pytest.fixture(scope="module")
@@ -19,7 +24,7 @@ def source_and_target():
             / "nmdc_materialized_patterns.yaml"
         )
     )
-    assert version("nmdc-schema") == source.schema.version == "11.24.0"
+    assert version("nmdc-schema") == source.schema.version == LATEST_SOURCE_VERSION
     return source, flatten_database_schema(
         source, source_package_version=version("nmdc-schema")
     )
@@ -84,9 +89,9 @@ def test_credit_subtype_fields_survive_in_collection_helpers(
 def test_release_shape_removes_retired_fields_and_adds_data_generation_credits(
     source_and_target,
 ):
-    _, target = source_and_target
-    assert target.version == "11.24.0+flat.1.3.0"
-    assert len(target.classes) == 61
+    source, target = source_and_target
+    assert target.version == f"{LATEST_SOURCE_VERSION}+flat.{FLATTENER_VERSION}"
+    assert_release_shape(target.classes, source)
     assert "data_generation_set_has_credit_associations" in target.classes
     assert "collection_date_inc" not in target.classes["BiosampleFlat"].attributes
     for name in ("StudyFlat", "DataGenerationFlat"):

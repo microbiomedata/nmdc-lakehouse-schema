@@ -12,6 +12,7 @@ from nmdc_lakehouse_schema.transforms.schema_generator import (
     flatten_database_schema,
     side_table_class_defs,
 )
+from tests.release_shape import assert_release_shape
 
 SCHEMA = """
 id: https://example.org/text-projection
@@ -371,6 +372,6 @@ def test_all_pinned_nmdc_textvalue_paths_have_string_columns_and_keep_primary_ty
             assert attribute.range == "string"
             assert attribute.multivalued == bool(slot.multivalued)
     assert (single, repeated) == (101, 41)
-    assert len(flat.classes) == 61
+    assert_release_shape(flat.classes, source)
     assert "biosample_set_host_diet" not in flat.classes
     assert flat.classes["BiosampleFlat"].attributes["host_diet"].multivalued is True
