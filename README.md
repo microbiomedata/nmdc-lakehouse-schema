@@ -45,7 +45,9 @@ From an updated feature checkout:
 ```sh
 just install
 just generate-flat-schema
-just generate-compat-schema
+just generate-compat-schema source-11-25
+just generate-compat-schema source-11-24
+just generate-compat-schema source-11-23
 just check-flat-schemas
 just test
 just test-dist

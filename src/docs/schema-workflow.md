@@ -100,7 +100,9 @@ Then run:
 
 ```sh
 just generate-flat-schema
-just generate-compat-schema
+just generate-compat-schema source-11-25
+just generate-compat-schema source-11-24
+just generate-compat-schema source-11-23
 just check-flat-schemas
 just test
 just test-dist
@@ -180,15 +182,15 @@ There are three separate identities:
 
 | Identity | Source | Example |
 | --- | --- | --- |
-| Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.24.0` |
-| Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.3.0` |
+| Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.26.0` |
+| Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.4.0` |
 | Python package version | Git-derived build metadata via `uv-dynamic-versioning` in `pyproject.toml` | A release tag or development version |
 
 `flat_schema_version()` combines the first two:
 
 ```text
 <source schema version>+flat.<FLATTENER_VERSION>
-11.24.0+flat.1.3.0
+11.26.0+flat.1.4.0
 ```
 
 Just and the generator do not increment the projection version automatically.
@@ -230,7 +232,7 @@ Under projection 1.4.0, moving the source from 11.25 to 11.26.0:
 
 nmdc-schema 11.25 was published on PyPI as `11.25`, so the installed version,
 the `source_package_version` annotation and the flat version
-(`11.25+flat.1.3.0`) all use the two-part form. `flat_schema_resource` accepts
+(`11.25+flat.1.4.0`) all use the two-part form. `flat_schema_resource` accepts
 `11.25` or `11.25.0`. Under projection 1.4.0, moving the source from 11.24.0 to
 11.25:
 
