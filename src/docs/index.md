@@ -7,7 +7,7 @@ schema comparison tools, and the canonical generated LinkML target schema.
 Projection `1.3.0` retains TextValue strings directly on their containing records.
 For example, `BiosampleFlat.host_diet` is a multivalued string slot; there is no
 `BiosampleSetHostDiet` class or separate TextValue table. With source schema
-11.24.0, the product has 61 table classes, including the two nested substance
+11.26.0, the product has 63 table classes, including the two nested substance
 helpers introduced in 1.3.0.
 
 - [Generated schema reference](elements/index.md)

@@ -5,10 +5,10 @@ annotations:
     value: https://w3id.org/nmdc/nmdc
   source_schema_version:
     tag: source_schema_version
-    value: '11.25'
+    value: 11.26.0
   source_package_version:
     tag: source_package_version
-    value: '11.25'
+    value: 11.26.0
   schema_generator:
     tag: schema_generator
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
@@ -17,11 +17,11 @@ annotations:
     value: 1.3.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: 'c131a9ad859ff7be4508ed0b2d0f03dee795ec8bf805ee6e0fc49f4b1da833d4'
+    value: '2524d8473d25bb58355ade2560cd5bb4bd7d1e950c5dd7320f6f60158ed4954b'
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.25+flat.1.3.0
+version: 11.26.0+flat.1.3.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -52,7 +52,7 @@ prefixes:
     prefix_reference: 'https://bioregistry.io/eccode:'
   EFO:
     prefix_prefix: EFO
-    prefix_reference: http://www.ebi.ac.uk/efo/
+    prefix_reference: http://www.ebi.ac.uk/efo/EFO_
   EGGNOG:
     prefix_prefix: EGGNOG
     prefix_reference: 'https://bioregistry.io/eggnog:'
@@ -94,7 +94,7 @@ prefixes:
     prefix_reference: 'https://bioregistry.io/reference/massive:'
   MCO:
     prefix_prefix: MCO
-    prefix_reference: http://purl.obolibrary.org/obo/MICRO_
+    prefix_reference: http://purl.obolibrary.org/obo/MCO_
   MESH:
     prefix_prefix: MESH
     prefix_reference: 'https://bioregistry.io/mesh:'
@@ -119,12 +119,18 @@ prefixes:
   NCBITaxon:
     prefix_prefix: NCBITaxon
     prefix_reference: http://purl.obolibrary.org/obo/NCBITaxon_
+  NCBI_BIOSAMPLE_ATTRIBUTE:
+    prefix_prefix: NCBI_BIOSAMPLE_ATTRIBUTE
+    prefix_reference: https://www.ncbi.nlm.nih.gov/biosample/docs/attributes/#
   NCIT:
     prefix_prefix: NCIT
     prefix_reference: http://purl.obolibrary.org/obo/NCIT_
   OBI:
     prefix_prefix: OBI
     prefix_reference: http://purl.obolibrary.org/obo/OBI_
+  OM:
+    prefix_prefix: OM
+    prefix_reference: http://www.ontology-of-units-of-measure.org/resource/om-2/
   OMIT:
     prefix_prefix: OMIT
     prefix_reference: http://purl.obolibrary.org/obo/OMIT_
@@ -284,9 +290,12 @@ prefixes:
   prov:
     prefix_prefix: prov
     prefix_reference: http://www.w3.org/ns/prov#
+  quantitykind:
+    prefix_prefix: quantitykind
+    prefix_reference: http://qudt.org/vocab/quantitykind/
   qudt:
     prefix_prefix: qudt
-    prefix_reference: http://qudt.org/1.1/schema/qudt#
+    prefix_reference: http://qudt.org/schema/qudt/
   rdf:
     prefix_prefix: rdf
     prefix_reference: http://www.w3.org/1999/02/22-rdf-syntax-ns#
@@ -302,6 +311,9 @@ prefixes:
   skos:
     prefix_prefix: skos
     prefix_reference: http://www.w3.org/2004/02/skos/core#
+  unit:
+    prefix_prefix: unit
+    prefix_reference: http://qudt.org/vocab/unit/
   wgs84:
     prefix_prefix: wgs84
     prefix_reference: http://www.w3.org/2003/01/geo/wgs84_pos#
@@ -355,6 +367,30 @@ prefixes:
     prefix_reference: http://purl.obolibrary.org/obo/TAXRANK_
 default_prefix: https://w3id.org/nmdc/nmdc-schema-flattened/
 default_range: string
+subsets:
+  pha4ge_wastewater:
+    name: pha4ge_wastewater
+    description: The slots and enums aligned to the PHA4GE Wastewater Contextual Data
+      Specification 4.4.4, so that NMDC records and PHA4GE wastewater surveillance
+      records can be crosswalked.
+    comments:
+    - The first see_also link is the specification release the alignment was made
+      against. The second is the DataHarmonizer template (cidgoh/pathogen-genomics-package
+      tag PGPv5.6.5, templates/wastewater/schema.yaml) whose slot_uris supplied the
+      GENEPIO ids in the members' close_mappings and related_mappings. When PHA4GE
+      releases a new version, update the version and the two links here; the members
+      carry no copy of them.
+    - Members are NMDC-native slots and enums in src/schema/core.yaml, basic_classes.yaml
+      and external_identifiers.yaml, which carry in_subset in their own definitions,
+      and MIxS slots in the generated src/schema/mixs.yaml, whose membership is asserted
+      in assets/yq-for-mixs-customizations.txt after the build strips the upstream
+      MIxS subsets.
+    - Each member's notes say which PHA4GE field it maps to and why the predicate
+      is close or related. No member uses exact_mappings, even where the shapes agree.
+    from_schema: https://w3id.org/nmdc/nmdc
+    see_also:
+    - https://github.com/pha4ge/wastewater-contextual-data-specification/releases/tag/v4.4.4
+    - https://github.com/cidgoh/pathogen-genomics-package/blob/PGPv5.6.5/templates/wastewater/schema.yaml
 types:
   string:
     name: string
@@ -1101,7 +1137,7 @@ enums:
         exact_mappings:
         - UO:0000027
         - wikidata:Q25267
-        - qudt:DEG_C
+        - unit:DEG_C
         - OM:degreeCelsius
       cm:
         text: cm
@@ -1971,6 +2007,59 @@ enums:
         aliases:
         - inch
         - inches
+      L/d:
+        text: L/d
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          liters per day.
+        title: liters per day
+        aliases:
+        - liters per day
+      L/min:
+        text: L/min
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          liters per minute.
+        title: liters per minute
+        aliases:
+        - liters per minute
+      m3/h:
+        text: m3/h
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          cubic meters per hour.
+        title: cubic meters per hour
+        aliases:
+        - cubic meters per hour
+      10*6.[gal_us]/d:
+        text: 10*6.[gal_us]/d
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          million US gallons per day, the flow unit United States wastewater utilities
+          report.
+        title: million US gallons per day
+        aliases:
+        - MGD
+        - million gallons per day
+      '{copies}/L':
+        text: '{copies}/L'
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          gene or genome copies per liter, written with a UCUM annotation because
+          a copy count is dimensionless.
+        title: copies per liter
+        aliases:
+        - copies per liter
+        - gene copies per liter
+      '{copies}/mL':
+        text: '{copies}/mL'
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          gene or genome copies per milliliter.
+        title: copies per milliliter
+        aliases:
+        - copies per milliliter
+      '{copies}/g':
+        text: '{copies}/g'
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          gene or genome copies per gram, used for wastewater solids.
+        title: copies per gram
+        aliases:
+        - copies per gram
   MetadataBadgeEnum:
     name: MetadataBadgeEnum
     description: Metadata quality badges that a Biosample can be awarded.
@@ -2393,7 +2482,7 @@ enums:
         description: GTDBTK archaeal summary
       GTDBTK Summary JSON:
         text: GTDBTK Summary JSON
-        description: GTDBTK bacterial and archaeal summary in JSON format
+        description: Log file for running GTDBTK, in JSON format
         annotations:
           file_name_pattern:
             tag: file_name_pattern
@@ -2992,6 +3081,14 @@ enums:
         text: SeqCenter
         meaning: https://www.seqcenter.com/
         title: SeqCenter
+      Aalborg_University:
+        text: Aalborg_University
+        meaning: ror:04m5j1k67
+        title: Aalborg University
+      Georgia_Institute_of_Technology:
+        text: Georgia_Institute_of_Technology
+        meaning: ror:01zkghx44
+        title: Georgia Institute of Technology
   DataCategoryEnum:
     name: DataCategoryEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -3281,23 +3378,33 @@ enums:
           source: https://gold.jgi.doe.gov/
       novaseq_x:
         text: novaseq_x
+        meaning: OBI:0003663
         is_a: novaseq
         comments:
-        - Possible flowcell versions are 1.5B, 10B, 25B. Only difference between X
-          and X Plus is 2 flowcells for X Plus versus 1 flowcell for X.
+        - Possible flowcell versions are 1.5B, 10B, 25B. The NovaSeq X runs a single
+          flowcell whereas the NovaSeq X Plus runs two flowcells.
         see_also:
         - https://www.illumina.com/systems/sequencing-platforms/novaseq-x-plus/specifications.html
         aliases:
+        - NovaSeq X
         - Illumina NovaSeq X
-        - Illumina NovaSeq X Plus
         structured_aliases:
         - literal_form: Illumina NovaSeq X 25B
           predicate: NARROW_SYNONYM
           source: https://gold.jgi.doe.gov/
-        exact_mappings:
-        - OBI:0003663
-        narrow_mappings:
-        - OBI:0003664
+      novaseq_x_plus:
+        text: novaseq_x_plus
+        meaning: OBI:0003664
+        is_a: novaseq
+        comments:
+        - Possible flowcell versions are 1.5B, 10B, 25B. The NovaSeq X Plus runs two
+          flowcells, versus one for the NovaSeq X. Illumina markets the NovaSeq X
+          and NovaSeq X Plus together as the NovaSeq X Series.
+        see_also:
+        - https://www.illumina.com/systems/sequencing-platforms/novaseq-x-plus/specifications.html
+        aliases:
+        - NovaSeq X Plus
+        - Illumina NovaSeq X Plus
       hiseq:
         text: hiseq
         meaning: OBI:0003683
@@ -4700,6 +4807,24 @@ enums:
         text: no presence of mold visible
       presence of mold visible:
         text: presence of mold visible
+  NegContTypeEnum:
+    name: NegContTypeEnum
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      DNA-free PCR mix:
+        text: DNA-free PCR mix
+      distilled water:
+        text: distilled water
+      empty collection device:
+        text: empty collection device
+      empty collection tube:
+        text: empty collection tube
+      phosphate buffer:
+        text: phosphate buffer
+      sterile swab:
+        text: sterile swab
+      sterile syringe:
+        text: sterile syringe
   OccupDocumentEnum:
     name: OccupDocumentEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -4966,14 +5091,19 @@ enums:
         text: cloudy
       foggy:
         text: foggy
+        meaning: ENVO:01000844
       hail:
         text: hail
+        meaning: ENVO:01000874
       rain:
         text: rain
+        meaning: ENVO:01001564
       sleet:
         text: sleet
+        meaning: ENVO:03400014
       snow:
         text: snow
+        meaning: ENVO:01000895
       sunny:
         text: sunny
       windy:
@@ -6299,6 +6429,124 @@ enums:
       xylose:
         text: xylose
         meaning: CHEBI:18222
+  WastewaterSystemTypeEnum:
+    name: WastewaterSystemTypeEnum
+    description: The kinds of wastewater collection system a sample can come from.
+    comments:
+    - We add `meaning` mappings to permissible values only when the corresponding
+      ENVO class is in a released ENVO version. The sewer system, septic tank and
+      cesspit classes that PHA4GE pins (ENVO:03501451 to ENVO:03501454) and the wastewater
+      waste tank class (GENEPIO:0102057) are not released, so those values stay unmapped
+      until they are.
+    in_subset:
+    - pha4ge_wastewater
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      combined sewer system:
+        text: combined sewer system
+        description: A sewer system that carries sewage and stormwater runoff in the
+          same pipes.
+      sanitary sewer system:
+        text: sanitary sewer system
+        description: A sewer system that carries sewage only, with stormwater carried
+          separately. NCBI submissions have also called this a separated system.
+      waste stabilization pond:
+        text: waste stabilization pond
+        description: A pond or lagoon in which wastewater is held and treated by natural
+          processes.
+        meaning: ENVO:03600076
+      latrine:
+        text: latrine
+        meaning: ENVO:01000519
+      septic tank:
+        text: septic tank
+        description: An underground tank in which sewage from a building settles and
+          partly decomposes.
+      cesspit:
+        text: cesspit
+        description: A pit or underground container that receives sewage without treatment.
+      chemical toilet:
+        text: chemical toilet
+        meaning: ENVO:01000529
+      composting toilet:
+        text: composting toilet
+        meaning: ENVO:01000550
+      plumbing drain:
+        text: plumbing drain
+        meaning: ENVO:01000924
+      wastewater waste tank:
+        text: wastewater waste tank
+        description: A tank that holds wastewater for later collection, for example
+          on a ship or an aircraft.
+  ExperimentalSpecimenRoleTypeEnum:
+    name: ExperimentalSpecimenRoleTypeEnum
+    description: The roles a sample can play in an experiment other than being a sample
+      under study.
+    in_subset:
+    - pha4ge_wastewater
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      positive experimental control:
+        text: positive experimental control
+        description: The sample was included to confirm that the process detects what
+          it should.
+        meaning: GENEPIO:0101018
+      negative experimental control:
+        text: negative experimental control
+        description: The sample was included to show that the process does not detect
+          anything when nothing is there.
+        meaning: GENEPIO:0101019
+      technical replicate:
+        text: technical replicate
+        description: The sample is a repeat measurement of the same material as another
+          sample.
+        meaning: EFO:0002090
+      biological replicate:
+        text: biological replicate
+        description: The sample is an independent sample of the same kind of material
+          as another sample.
+        meaning: EFO:0002091
+  FecalContaminationIndicatorEnum:
+    name: FecalContaminationIndicatorEnum
+    description: Genes, viruses, bacteria and substances measured as indicators of
+      fecal contamination of water.
+    comments:
+    - The HF183, Lachno3 and F+ coliphage values stay unmapped because the GENEPIO
+      classes PHA4GE pins for them (GENEPIO:0101000 to GENEPIO:0101002) are not in
+      a released GENEPIO version.
+    in_subset:
+    - pha4ge_wastewater
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      crAssphage:
+        text: crAssphage
+        description: A bacteriophage of human gut Bacteroides that is abundant in
+          human feces.
+        meaning: NCBITaxon:1211417
+      pepper mild mottle virus:
+        text: pepper mild mottle virus
+        description: A plant virus that enters sewage through diet and is used as
+          a human fecal indicator and process control.
+        meaning: NCBITaxon:12239
+        aliases:
+        - PMMoV
+      Bacteroides HF183:
+        text: Bacteroides HF183
+        description: The HF183 16S rRNA gene marker of human-associated Bacteroides.
+      Lachnospiraceae Lachno3:
+        text: Lachnospiraceae Lachno3
+        description: The Lachno3 16S rRNA gene marker of human-associated Lachnospiraceae.
+      F+ coliphages:
+        text: F+ coliphages
+        description: Bacteriophages that infect Escherichia coli through the F pilus,
+          used as fecal indicators.
+        aliases:
+        - male-specific coliphages
+      stercobilin:
+        text: stercobilin
+        description: A bile pigment that gives feces their color, measured chemically
+          as a fecal marker.
+        meaning: CHEBI:26756
   MetaproteomicsAnalysisCategoryEnum:
     name: MetaproteomicsAnalysisCategoryEnum
     description: The category of metaproteomics analysis being performed.
@@ -7778,6 +8026,18 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      catchment_population:
+        name: catchment_population
+        description: 'The number of people whose wastewater contributes to the sample:
+          the human population of the sewershed or catchment area served by the sampling
+          site.'
+        range: integer
+        multivalued: false
+      catchment_population_method:
+        name: catchment_population_method
+        description: How the catchment population was measured or estimated.
+        range: string
+        multivalued: false
       ceil_area_has_maximum_numeric_value:
         name: ceil_area_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -8012,6 +8272,12 @@ classes:
         range: string
         required: false
         multivalued: true
+      collected_by:
+        name: collected_by
+        description: The organization, or the person acting for an organization, that
+          collected the sample.
+        range: string
+        multivalued: false
       collected_from:
         name: collected_from
         description: The Site from which a Biosample was collected Reference by identifier;
@@ -9188,6 +9454,13 @@ classes:
         range: string
         required: false
         multivalued: false
+      experimental_specimen_role_type:
+        name: experimental_specimen_role_type
+        description: 'The role the sample plays in the experiment when it is not simply
+          a sample under study: a positive or negative control, or a technical or
+          biological replicate of another sample.'
+        range: ExperimentalSpecimenRoleTypeEnum
+        multivalued: false
       ext_door:
         name: ext_door
         description: The number of exterior doors in the built structure String projected
@@ -9216,6 +9489,52 @@ classes:
           International Soil Reference and Information Centre (ISRIC). The list of
           available soil classifications can be found at https://www.isric.org/explore/world-soil-distribution
         range: FaoClassEnum
+        multivalued: false
+      fecal_contamination_indicator:
+        name: fecal_contamination_indicator
+        description: The gene, virus, bacterium or substance that was measured as
+          an indicator of fecal contamination of the sample, for example crAssphage
+          or pepper mild mottle virus.
+        range: FecalContaminationIndicatorEnum
+        multivalued: false
+      fecal_contamination_method:
+        name: fecal_contamination_method
+        description: The assay or protocol used to measure the fecal contamination
+          indicator, as a name, reference or URL.
+        range: string
+        multivalued: false
+      fecal_contamination_value_has_maximum_numeric_value:
+        name: fecal_contamination_value_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'fecal_contamination_value.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_minimum_numeric_value:
+        name: fecal_contamination_value_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'fecal_contamination_value.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_numeric_value:
+        name: fecal_contamination_value_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'fecal_contamination_value.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_raw_value:
+        name: fecal_contamination_value_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'fecal_contamination_value.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_unit:
+        name: fecal_contamination_value_has_unit
+        description: The unit of the quantity Flattened from nested slot 'fecal_contamination_value.has_unit'.
+        range: UnitEnum
+        required: false
         multivalued: false
       fertilizer_regm:
         name: fertilizer_regm
@@ -10641,6 +10960,39 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      instantaneous_flow_rate_has_maximum_numeric_value:
+        name: instantaneous_flow_rate_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'instantaneous_flow_rate.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_minimum_numeric_value:
+        name: instantaneous_flow_rate_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'instantaneous_flow_rate.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_numeric_value:
+        name: instantaneous_flow_rate_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'instantaneous_flow_rate.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_raw_value:
+        name: instantaneous_flow_rate_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'instantaneous_flow_rate.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_unit:
+        name: instantaneous_flow_rate_has_unit
+        description: The unit of the quantity Flattened from nested slot 'instantaneous_flow_rate.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
       int_wall_cond:
         name: int_wall_cond
         description: The physical condition of the wall at the time of sampling; photos
@@ -11176,6 +11528,11 @@ classes:
       ncbi_taxonomy_name:
         name: ncbi_taxonomy_name
         range: string
+        multivalued: false
+      neg_cont_type:
+        name: neg_cont_type
+        description: The substance or equipment used as a negative control in an investigation
+        range: NegContTypeEnum
         multivalued: false
       neon_biosample_identifiers:
         name: neon_biosample_identifiers
@@ -12139,6 +12496,12 @@ classes:
         range: string
         required: false
         multivalued: false
+      pos_cont_type:
+        name: pos_cont_type
+        description: The substance, mixture, product, or apparatus used to verify
+          that a process which is part of an investigation delivers a true positive
+        range: string
+        multivalued: false
       potassium_has_maximum_numeric_value:
         name: potassium_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -12218,6 +12581,12 @@ classes:
         description: The type and number of animals or insects present in the sampling
           space
         range: string
+        multivalued: false
+      presampling_weather:
+        name: presampling_weather
+        description: The weather in the period before sample collection, when it may
+          have affected the sample, for example rain that diluted the wastewater.
+        range: SampWeatherEnum
         multivalued: false
       pressure_has_maximum_numeric_value:
         name: pressure_has_maximum_numeric_value
@@ -13048,6 +13417,11 @@ classes:
         range: string
         required: false
         multivalued: false
+      samp_purpose:
+        name: samp_purpose
+        description: The reason that the sample was collected
+        range: string
+        multivalued: false
       samp_room_id:
         name: samp_room_id
         description: Sampling room number. This ID should be consistent with the designations
@@ -13264,6 +13638,39 @@ classes:
         description: Name of the well (e.g. BXA1123) where sample was taken String
           projected from 'samp_well_name.has_raw_value' (TextValue).
         range: string
+        required: false
+        multivalued: false
+      sample_collection_duration_has_maximum_numeric_value:
+        name: sample_collection_duration_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'sample_collection_duration.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      sample_collection_duration_has_minimum_numeric_value:
+        name: sample_collection_duration_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'sample_collection_duration.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      sample_collection_duration_has_numeric_value:
+        name: sample_collection_duration_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'sample_collection_duration.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      sample_collection_duration_has_raw_value:
+        name: sample_collection_duration_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'sample_collection_duration.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      sample_collection_duration_has_unit:
+        name: sample_collection_duration_has_unit
+        description: The unit of the quantity Flattened from nested slot 'sample_collection_duration.has_unit'.
+        range: UnitEnum
         required: false
         multivalued: false
       sample_collection_site:
@@ -14780,6 +15187,39 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      total_daily_flow_rate_has_maximum_numeric_value:
+        name: total_daily_flow_rate_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'total_daily_flow_rate.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_minimum_numeric_value:
+        name: total_daily_flow_rate_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'total_daily_flow_rate.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_numeric_value:
+        name: total_daily_flow_rate_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'total_daily_flow_rate.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_raw_value:
+        name: total_daily_flow_rate_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'total_daily_flow_rate.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_unit:
+        name: total_daily_flow_rate_has_unit
+        description: The unit of the quantity Flattened from nested slot 'total_daily_flow_rate.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
       train_line:
         name: train_line
         description: The subway line name
@@ -15163,6 +15603,12 @@ classes:
         description: Signs of the presence of mold or mildew on a wall
         range: MoldVisibilityEnum
         multivalued: false
+      wastewater_system_type:
+        name: wastewater_system_type
+        description: The kind of wastewater system the sample was taken from, such
+          as a sanitary sewer, a combined sewer, a septic tank or a latrine.
+        range: WastewaterSystemTypeEnum
+        multivalued: false
       wastewater_type:
         name: wastewater_type
         description: The origin of wastewater such as human waste, rainfall, storm
@@ -15520,6 +15966,95 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+  biosample_set_adjacent_environment:
+    name: biosample_set_adjacent_environment
+    annotations:
+      table_name:
+        tag: table_name
+        value: biosample_set_adjacent_environment
+      source_class:
+        tag: source_class
+        value: Biosample
+    description: A controlled term or class from an ontology Flattened tabular form
+      of 'ControlledTermValue'. Attributes are the union of base-class slots and slots
+      from concrete subclasses of 'ControlledTermValue' that may appear via the 'type'
+      field.
+    attributes:
+      has_raw_value:
+        name: has_raw_value
+        description: The value that was specified for an annotation in raw form, i.e.
+          a string. E.g. "2 cm" or "2-4 cm"
+        range: string
+        multivalued: false
+      term_alternative_identifiers:
+        name: term_alternative_identifiers
+        description: A list of alternative identifiers for the entity. Flattened from
+          nested slot 'term.alternative_identifiers'.
+        range: uriorcurie
+        required: false
+        multivalued: true
+      term_alternative_names:
+        name: term_alternative_names
+        description: A list of alternative names used to refer to the entity. The
+          distinction between name and alternative names is application-specific.  This
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
+          Flattened from nested slot 'term.alternative_names'.
+        range: string
+        required: false
+        multivalued: true
+      term_definition:
+        name: term_definition
+        description: The definition of the ontology term as provided by the ontology.
+          Flattened from nested slot 'term.definition'.
+        range: string
+        required: false
+        multivalued: false
+      term_description:
+        name: term_description
+        description: a human-readable description of a thing Flattened from nested
+          slot 'term.description'.
+        range: string
+        required: false
+        multivalued: false
+      term_id:
+        name: term_id
+        description: A unique identifier for a thing. Must be either a CURIE shorthand
+          for a URI or a complete URI Flattened from nested slot 'term.id'.
+        range: uriorcurie
+        required: false
+        multivalued: false
+      term_is_obsolete:
+        name: term_is_obsolete
+        description: A boolean value indicating whether the ontology term is obsolete.
+          Flattened from nested slot 'term.is_obsolete'.
+        range: boolean
+        required: false
+        multivalued: false
+      term_is_root:
+        name: term_is_root
+        description: A boolean value indicating whether the ontology term is a root
+          term; it is not a subclass of  any other term. Flattened from nested slot
+          'term.is_root'.
+        range: boolean
+        required: false
+        multivalued: false
+      term_name:
+        name: term_name
+        description: A human readable label for an entity Flattened from nested slot
+          'term.name'.
+        range: string
+        required: false
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'Biosample' record.
+        range: string
   biosample_set_associated_studies:
     name: biosample_set_associated_studies
     annotations:

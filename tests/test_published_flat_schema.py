@@ -45,9 +45,9 @@ def test_committed_flat_schema_digest_describes_its_own_bytes(source_version) ->
     [
         ("11.23.0", [], "Canonical generation requires"),
         ("11.24.0", [], "Canonical generation requires"),
-        ("11.25", ["--compatibility"], "Compatibility generation requires"),
-        ("11.25.0", ["--compatibility"], "Compatibility generation requires"),
+        ("11.25", [], "Canonical generation requires"),
         ("11.26.0", ["--compatibility"], "Compatibility generation requires"),
+        ("11.27.0", ["--compatibility"], "Compatibility generation requires"),
     ],
 )
 def test_cli_refuses_an_incorrect_source_before_rendering(monkeypatch, capsys, installed, args, message):

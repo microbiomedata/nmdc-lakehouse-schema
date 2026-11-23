@@ -40,7 +40,7 @@ def test_resource_selects_exact_source_and_projection(source_version):
 
 
 @pytest.mark.parametrize(
-    "source_version", ["11.22.0", "11.26.0", "v11.24.0", "../11.24.0", ""]
+    "source_version", ["11.22.0", "11.27.0", "v11.24.0", "../11.24.0", ""]
 )
 def test_unsupported_versions_do_not_fall_back(source_version):
     with pytest.raises(ValueError, match="Unsupported NMDC source package version"):

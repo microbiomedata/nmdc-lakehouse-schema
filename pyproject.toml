@@ -45,13 +45,14 @@ dev = [
     "markdown-it-py>=3.0",
     "pymongo>=4.9",
 ]
-source-latest = ["nmdc-schema==11.25"]
+source-latest = ["nmdc-schema==11.26.0"]
+source-11-25 = ["nmdc-schema==11.25"]
 source-11-24 = ["nmdc-schema==11.24.0"]
 source-11-23 = ["nmdc-schema==11.23.0"]
 
 [tool.uv]
 default-groups = ["dev", "source-latest"]
-conflicts = [[{ group = "source-latest" }, { group = "source-11-24" }, { group = "source-11-23" }]]
+conflicts = [[{ group = "source-latest" }, { group = "source-11-25" }, { group = "source-11-24" }, { group = "source-11-23" }]]
 
 # See https://hatch.pypa.io/latest/config/build/#file-selection for how to
 # explicitly include files other than default into the build distributions.

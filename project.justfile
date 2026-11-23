@@ -18,7 +18,7 @@ check-flat-schema:
     @uv run python scripts/generate_flattened_schema.py --check
 
 # Build an explicitly supported older source pair without changing the latest default.
-# Usage: just generate-compat-schema source-11-24 [--check]
+# Usage: just generate-compat-schema source-11-25 [--check]
 [group('model development')]
 generate-compat-schema GROUP *ARGS:
     @uv run --no-group source-latest --group {{GROUP}} python scripts/generate_flattened_schema.py --compatibility {{ARGS}}
@@ -26,6 +26,7 @@ generate-compat-schema GROUP *ARGS:
 # Check every supported artifact using its exact locked source dependency.
 [group('model development')]
 check-flat-schemas: check-flat-schema
+    @just generate-compat-schema source-11-25 --check
     @just generate-compat-schema source-11-24 --check
     @just generate-compat-schema source-11-23 --check
 
