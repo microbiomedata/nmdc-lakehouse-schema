@@ -172,7 +172,12 @@ def main(argv: list[str] | None = None) -> None:
             raise SchemaArtifactError("Compatibility generation cannot overwrite the canonical artifact.")
         rendered = render_installed_schema()
         if args.check:
-            recipe = "just generate-compat-schema" if args.compatibility else "just generate-flat-schema"
+            if args.compatibility:
+                # The dependency group is named for the major and minor release, e.g. source-11-24.
+                group = "source-" + "-".join(installed.split(".")[:2])
+                recipe = f"just generate-compat-schema {group}"
+            else:
+                recipe = "just generate-flat-schema"
             check_schema_artifact(args.output, rendered, recipe=recipe)
             verify_content_digest(args.output.read_text(encoding="utf-8"))
             print(f"Generated schema artifact is current: {args.output}")

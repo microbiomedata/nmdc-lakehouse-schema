@@ -26,7 +26,7 @@ from linkml_runtime.linkml_model import (
     SlotDefinition,
 )
 
-from nmdc_lakehouse_schema.transforms.mobile_phases import substance_range
+from nmdc_lakehouse_schema.transforms.nested_helpers import nested_helper
 
 
 def _is_inlined(slot: SlotDefinition, schema_view: SchemaView) -> bool:
@@ -64,7 +64,7 @@ SCHEMA_GENERATOR_ID = (
 # b4e0f7a8). A consumer holding two of those tables could not tell them apart, which is the
 # question a consumer asks first. Raise the minor part when a shape changes, the patch part when
 # only descriptions or annotations move.
-FLATTENER_VERSION = "1.3.0"
+FLATTENER_VERSION = "1.4.0"
 
 # Filled in after rendering, because a document cannot contain its own digest. The generator
 # renders with this placeholder in place, hashes that exact text, then substitutes. Verifying
@@ -185,6 +185,7 @@ def flatten_database_schema(
     """
     source_schema_id = schema_view.schema.id or "unidentified"
     source_schema_version = schema_view.schema.version or "unversioned"
+    enums = deepcopy(schema_view.schema.enums)
     out = SchemaDefinition(
         id=schema_id,
         name=schema_name,
@@ -223,7 +224,8 @@ def flatten_database_schema(
         },
         imports=list(schema_view.schema.imports),
         types=deepcopy(schema_view.schema.types),
-        enums=deepcopy(schema_view.schema.enums),
+        enums=enums,
+        subsets=_referenced_subsets(schema_view, enums),
         default_range="string",
     )
 
@@ -246,6 +248,27 @@ def flatten_database_schema(
             _add_target_class(out, side_class)
 
     return out
+
+
+def _referenced_subsets(schema_view: SchemaView, enums) -> dict:
+    """Copy the source subset definitions that the copied enums name.
+
+    Enums are copied whole, including ``in_subset`` on the enum and on its
+    permissible values. Without the matching definitions the flat schema
+    names subsets it does not define, which LinkML tooling rejects. Only
+    referenced subsets are copied, so a source whose enums name no subset
+    produces the same flat schema as before.
+    """
+    names = set()
+    for enum in enums.values():
+        names.update(enum.in_subset or [])
+        for value in (enum.permissible_values or {}).values():
+            names.update(value.in_subset or [])
+    source = schema_view.schema.subsets or {}
+    missing = sorted(names - set(source))
+    if missing:
+        raise ValueError(f"Copied enums name undefined source subsets: {missing}")
+    return {name: deepcopy(source[name]) for name in sorted(names)}
 
 
 def _annotate_target_class(
@@ -334,25 +357,30 @@ def side_table_class_defs(
                     range="string",
                     description=f"Identifier of the parent '{root_class}' record.",
                 )
-                nested_range = substance_range(schema_view, slot)
-                if nested_range is not None:
-                    _add_occurrence_index(child_flat, "mobile_phase_index")
-                    nested_name = f"{table_name}_substances_used"
+                helper = nested_helper(schema_view, slot)
+                if helper is not None:
+                    parent_index = (
+                        helper.parent_index,
+                        helper.parent_index_description,
+                    )
+                    nested_index = (
+                        helper.nested_index,
+                        helper.nested_index_description,
+                    )
+                    _add_occurrence_index(child_flat, *parent_index)
+                    nested_name = f"{table_name}_{helper.nested_slot}"
                     nested_flat = flatten_class_def(
                         schema_view,
-                        nested_range,
+                        helper.nested_range,
                         target_name=nested_name,
                         expand_embedded_refs=True,
                     )
                     nested_flat.attributes["parent_id"] = deepcopy(
                         child_flat.attributes["parent_id"]
                     )
-                    _add_occurrence_index(nested_flat, "mobile_phase_index")
-                    _add_occurrence_index(nested_flat, "substance_index")
-                    nested_flat.description += (
-                        " Join to its mobile phase using parent_id and mobile_phase_index; "
-                        "substance_index preserves the source list order and duplicates."
-                    )
+                    _add_occurrence_index(nested_flat, *parent_index)
+                    _add_occurrence_index(nested_flat, *nested_index)
+                    nested_flat.description += helper.join_note
                     result.append((nested_name, nested_flat))
                 result.append((table_name, child_flat))
             elif range_class is not None:
@@ -381,20 +409,16 @@ def side_table_class_defs(
     return result
 
 
-def _add_occurrence_index(cls: ClassDefinition, name: str) -> None:
+def _add_occurrence_index(cls: ClassDefinition, name: str, description: str) -> None:
     """Add an explicit list position without overwriting a source field."""
     if name in cls.attributes:
-        raise ValueError("Mobile-phase occurrence index conflicts with a source field.")
+        raise ValueError(f"Occurrence index {name} conflicts with a source field.")
     cls.attributes[name] = SlotDefinition(
         name=name,
         range="integer",
         required=True,
         minimum_value=0,
-        description=(
-            "Zero-based source list position of this mobile phase within its root record."
-            if name == "mobile_phase_index"
-            else "Zero-based source list position of this substance within its mobile phase."
-        ),
+        description=description,
     )
 
 

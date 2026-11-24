@@ -9,8 +9,13 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+import yaml
 from linkml_runtime import SchemaView
 
+from nmdc_lakehouse_schema.artifacts import (
+    SUPPORTED_SOURCE_VERSIONS,
+    flat_schema_resource,
+)
 from nmdc_lakehouse_schema.transforms import schema_generator as _sg
 from nmdc_lakehouse_schema.transforms.flatteners import side_table_rows
 from nmdc_lakehouse_schema.transforms.schema_generator import (
@@ -372,3 +377,54 @@ def test_class_descriptions_do_not_name_a_producing_loader() -> None:
         or "DirectMongoToParquetJob" in (definition.get("description") or "")
     ]
     assert offenders == []
+
+
+_SUBSET_YAML = (
+    _SCHEMA_YAML
+    + """
+subsets:
+  enum_subset:
+    description: Named by an enum.
+  value_subset:
+    description: Named by a permissible value.
+  unused_subset:
+    description: Named by nothing that is copied.
+
+enums:
+  Colour:
+    in_subset:
+      - enum_subset
+    permissible_values:
+      red:
+        in_subset:
+          - value_subset
+      blue:
+"""
+)
+
+
+def test_copied_enums_bring_the_subsets_they_name():
+    flat = flatten_database_schema(SchemaView(_SUBSET_YAML))
+    assert sorted(flat.subsets) == ["enum_subset", "value_subset"]
+    assert flat.subsets["enum_subset"].description == "Named by an enum."
+
+
+def test_enums_naming_no_subset_add_no_subsets(sv):
+    assert not flatten_database_schema(sv).subsets
+
+
+def test_an_enum_naming_an_undefined_subset_is_refused():
+    broken = _SUBSET_YAML.replace("      - enum_subset", "      - not_defined")
+    with pytest.raises(ValueError, match="not_defined"):
+        flatten_database_schema(SchemaView(broken))
+
+
+@pytest.mark.parametrize("source_version", SUPPORTED_SOURCE_VERSIONS)
+def test_published_artifacts_define_every_subset_their_enums_name(source_version):
+    document = yaml.safe_load(flat_schema_resource(source_version).read_text())
+    named = set()
+    for enum in (document.get("enums") or {}).values():
+        named.update(enum.get("in_subset") or [])
+        for value in (enum.get("permissible_values") or {}).values():
+            named.update((value or {}).get("in_subset") or [])
+    assert named <= set(document.get("subsets") or {})

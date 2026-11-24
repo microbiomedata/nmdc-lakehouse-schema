@@ -8,8 +8,12 @@ and, when the source schema is available, every primary table to a
 schema implies, so a missing or stray table still fails.
 """
 
-# The one nested helper the flattener supports: substances inside mobile phases.
-NESTED_HELPERS = {("MobilePhaseSegment", "ordered_mobile_phases"): "substances_used"}
+# The nested helpers the flattener supports, written out here rather than
+# imported, so the check stays independent of the flattener.
+NESTED_HELPERS = {
+    ("MobilePhaseSegment", "ordered_mobile_phases"): "substances_used",
+    ("IsotopologAddition", "added_isotopologs"): "isotope_atom_fractions",
+}
 
 
 def _annotation(cls, tag):

@@ -4,8 +4,8 @@ from importlib.resources import files
 
 from packaging.version import InvalidVersion, Version
 
-LATEST_SOURCE_VERSION = "11.24.0"
-SUPPORTED_SOURCE_VERSIONS = ("11.23.0", LATEST_SOURCE_VERSION)
+LATEST_SOURCE_VERSION = "11.26.0"
+SUPPORTED_SOURCE_VERSIONS = ("11.23.0", "11.24.0", "11.25", LATEST_SOURCE_VERSION)
 
 
 def supported_source_version(source_package_version: str) -> str | None:

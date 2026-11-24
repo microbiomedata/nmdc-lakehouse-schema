@@ -5,23 +5,23 @@ annotations:
     value: https://w3id.org/nmdc/nmdc
   source_schema_version:
     tag: source_schema_version
-    value: 11.24.0
+    value: 11.26.0
   source_package_version:
     tag: source_package_version
-    value: 11.24.0
+    value: 11.26.0
   schema_generator:
     tag: schema_generator
     value: nmdc_lakehouse_schema.transforms.schema_generator.flatten_database_schema
   flattener_version:
     tag: flattener_version
-    value: 1.3.0
+    value: 1.4.0
   flat_schema_sha256:
     tag: flat_schema_sha256
-    value: '13fcb0f3625020c76021030a9175beaa48ae7f697dc858234366cd196e6aea7f'
+    value: 'a1a9c6a0ae6471e7aa5b37505c214fa7ba48aaa1f98f7ea38b4b8a7328597080'
 description: Flattened LinkML schema describing primary and side-table output for
   every schema-specified collection. Generated; do not edit by hand.
 id: https://w3id.org/nmdc/nmdc-schema-flattened
-version: 11.24.0+flat.1.3.0
+version: 11.26.0+flat.1.4.0
 prefixes:
   BFO:
     prefix_prefix: BFO
@@ -52,7 +52,7 @@ prefixes:
     prefix_reference: 'https://bioregistry.io/eccode:'
   EFO:
     prefix_prefix: EFO
-    prefix_reference: http://www.ebi.ac.uk/efo/
+    prefix_reference: http://www.ebi.ac.uk/efo/EFO_
   EGGNOG:
     prefix_prefix: EGGNOG
     prefix_reference: 'https://bioregistry.io/eggnog:'
@@ -94,7 +94,7 @@ prefixes:
     prefix_reference: 'https://bioregistry.io/reference/massive:'
   MCO:
     prefix_prefix: MCO
-    prefix_reference: http://purl.obolibrary.org/obo/MICRO_
+    prefix_reference: http://purl.obolibrary.org/obo/MCO_
   MESH:
     prefix_prefix: MESH
     prefix_reference: 'https://bioregistry.io/mesh:'
@@ -119,12 +119,18 @@ prefixes:
   NCBITaxon:
     prefix_prefix: NCBITaxon
     prefix_reference: http://purl.obolibrary.org/obo/NCBITaxon_
+  NCBI_BIOSAMPLE_ATTRIBUTE:
+    prefix_prefix: NCBI_BIOSAMPLE_ATTRIBUTE
+    prefix_reference: https://www.ncbi.nlm.nih.gov/biosample/docs/attributes/#
   NCIT:
     prefix_prefix: NCIT
     prefix_reference: http://purl.obolibrary.org/obo/NCIT_
   OBI:
     prefix_prefix: OBI
     prefix_reference: http://purl.obolibrary.org/obo/OBI_
+  OM:
+    prefix_prefix: OM
+    prefix_reference: http://www.ontology-of-units-of-measure.org/resource/om-2/
   OMIT:
     prefix_prefix: OMIT
     prefix_reference: http://purl.obolibrary.org/obo/OMIT_
@@ -284,9 +290,12 @@ prefixes:
   prov:
     prefix_prefix: prov
     prefix_reference: http://www.w3.org/ns/prov#
+  quantitykind:
+    prefix_prefix: quantitykind
+    prefix_reference: http://qudt.org/vocab/quantitykind/
   qudt:
     prefix_prefix: qudt
-    prefix_reference: http://qudt.org/1.1/schema/qudt#
+    prefix_reference: http://qudt.org/schema/qudt/
   rdf:
     prefix_prefix: rdf
     prefix_reference: http://www.w3.org/1999/02/22-rdf-syntax-ns#
@@ -302,6 +311,9 @@ prefixes:
   skos:
     prefix_prefix: skos
     prefix_reference: http://www.w3.org/2004/02/skos/core#
+  unit:
+    prefix_prefix: unit
+    prefix_reference: http://qudt.org/vocab/unit/
   wgs84:
     prefix_prefix: wgs84
     prefix_reference: http://www.w3.org/2003/01/geo/wgs84_pos#
@@ -344,11 +356,41 @@ prefixes:
   nbrc:
     prefix_prefix: nbrc
     prefix_reference: http://www.nbrc.nite.go.jp/NBRC2/NBRCCatalogueDetailServlet?ID=NBRC&CAT=
+  chrono:
+    prefix_prefix: chrono
+    prefix_reference: http://rs.tdwg.org/chrono/terms/
+  dc:
+    prefix_prefix: dc
+    prefix_reference: http://purl.org/dc/elements/1.1/
   TAXRANK:
     prefix_prefix: TAXRANK
     prefix_reference: http://purl.obolibrary.org/obo/TAXRANK_
 default_prefix: https://w3id.org/nmdc/nmdc-schema-flattened/
 default_range: string
+subsets:
+  pha4ge_wastewater:
+    name: pha4ge_wastewater
+    description: The slots and enums aligned to the PHA4GE Wastewater Contextual Data
+      Specification 4.4.4, so that NMDC records and PHA4GE wastewater surveillance
+      records can be crosswalked.
+    comments:
+    - The first see_also link is the specification release the alignment was made
+      against. The second is the DataHarmonizer template (cidgoh/pathogen-genomics-package
+      tag PGPv5.6.5, templates/wastewater/schema.yaml) whose slot_uris supplied the
+      GENEPIO ids in the members' close_mappings and related_mappings. When PHA4GE
+      releases a new version, update the version and the two links here; the members
+      carry no copy of them.
+    - Members are NMDC-native slots and enums in src/schema/core.yaml, basic_classes.yaml
+      and external_identifiers.yaml, which carry in_subset in their own definitions,
+      and MIxS slots in the generated src/schema/mixs.yaml, whose membership is asserted
+      in assets/yq-for-mixs-customizations.txt after the build strips the upstream
+      MIxS subsets.
+    - Each member's notes say which PHA4GE field it maps to and why the predicate
+      is close or related. No member uses exact_mappings, even where the shapes agree.
+    from_schema: https://w3id.org/nmdc/nmdc
+    see_also:
+    - https://github.com/pha4ge/wastewater-contextual-data-specification/releases/tag/v4.4.4
+    - https://github.com/cidgoh/pathogen-genomics-package/blob/PGPv5.6.5/templates/wastewater/schema.yaml
 types:
   string:
     name: string
@@ -1001,6 +1043,8 @@ enums:
         text: dna_extraction
       phenol_chloroform_extraction:
         text: phenol_chloroform_extraction
+      stable_isotope_probing:
+        text: stable_isotope_probing
   ChromatographicCategoryEnum:
     name: ChromatographicCategoryEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -1093,7 +1137,7 @@ enums:
         exact_mappings:
         - UO:0000027
         - wikidata:Q25267
-        - qudt:DEG_C
+        - unit:DEG_C
         - OM:degreeCelsius
       cm:
         text: cm
@@ -1814,6 +1858,12 @@ enums:
           grams per cubic centimeter.
         aliases:
         - grams per cubic centimeter
+      g/mL:
+        text: g/mL
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          grams per milliliter.
+        aliases:
+        - grams per milliliter
       g/L:
         text: g/L
         description: The Unified Code for Units of Measure (UCUM) representation of
@@ -1957,35 +2007,100 @@ enums:
         aliases:
         - inch
         - inches
+      L/d:
+        text: L/d
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          liters per day.
+        title: liters per day
+        aliases:
+        - liters per day
+      L/min:
+        text: L/min
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          liters per minute.
+        title: liters per minute
+        aliases:
+        - liters per minute
+      m3/h:
+        text: m3/h
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          cubic meters per hour.
+        title: cubic meters per hour
+        aliases:
+        - cubic meters per hour
+      10*6.[gal_us]/d:
+        text: 10*6.[gal_us]/d
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          million US gallons per day, the flow unit United States wastewater utilities
+          report.
+        title: million US gallons per day
+        aliases:
+        - MGD
+        - million gallons per day
+      '{copies}/L':
+        text: '{copies}/L'
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          gene or genome copies per liter, written with a UCUM annotation because
+          a copy count is dimensionless.
+        title: copies per liter
+        aliases:
+        - copies per liter
+        - gene copies per liter
+      '{copies}/mL':
+        text: '{copies}/mL'
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          gene or genome copies per milliliter.
+        title: copies per milliliter
+        aliases:
+        - copies per milliliter
+      '{copies}/g':
+        text: '{copies}/g'
+        description: The Unified Code for Units of Measure (UCUM) representation of
+          gene or genome copies per gram, used for wastewater solids.
+        title: copies per gram
+        aliases:
+        - copies per gram
   MetadataBadgeEnum:
     name: MetadataBadgeEnum
-    description: Metadata-quality badges a Biosample can be awarded. Each permissible
-      value names one badge topic and is present or absent; there are no levels or
-      tiers. Badges are awarded in two ways. A completeness badge names a badge subset
-      (a subset whose in_subset includes badge_topic) and is awarded when the record
-      populates at least that subset's badge_minimum_slots slots; a test keeps those
-      permissible values and subsets in sync. A provenance badge is awarded from a
-      recorded fact about where the metadata came from, has no subset, and names its
-      source in its own description.
+    description: Metadata quality badges that a Biosample can be awarded.
+    comments:
+    - A completeness badge has the same name as a badge subset, meaning a subset whose
+      in_subset includes badge_topic. It is awarded when the Biosample populates at
+      least badge_minimum_slots of that subset's slots. tests/test_badge_subset_sync.py
+      checks that these values and subsets match.
+    - A provenance badge is awarded from where the metadata came from. It has no subset,
+      and its comments name the slot it is awarded from.
     from_schema: https://w3id.org/nmdc/nmdc
     see_also:
     - https://github.com/microbiomedata/nmdc-schema/issues/3227
     permissible_values:
       biogeochemistry:
         text: biogeochemistry
-        description: Completeness badge. Awarded when the Biosample populates at least
-          badge_minimum_slots of the biogeochemistry subset.
+        description: A badge for a Biosample that has values for at least the minimum
+          number of slots set by the Biogeochemistry subset.
+        title: Biogeochemistry
+        comments:
+        - Completeness badge. Awarded when the Biosample populates at least badge_minimum_slots
+          of the biogeochemistry subset.
         see_also:
         - https://microbiomedata.github.io/nmdc-schema/Biogeochemistry/
       host_information:
         text: host_information
-        description: Completeness badge. Awarded when the Biosample populates at least
-          badge_minimum_slots of the host_information subset.
+        description: A badge for a Biosample that has values for at least the minimum
+          number of slots set by the Host Information subset.
+        title: Host Information
+        comments:
+        - Completeness badge. Awarded when the Biosample populates at least badge_minimum_slots
+          of the host_information subset.
         see_also:
         - https://microbiomedata.github.io/nmdc-schema/HostInformation/
       expert_curation:
         text: expert_curation
-        description: Provenance badge. Awarded when the Biosample's ProvenanceMetadata.source_system_of_record
+        description: A badge for a Biosample whose metadata was submitted through
+          the NMDC Submission Portal.
+        title: Expert Curation
+        comments:
+        - Provenance badge. Awarded when the Biosample's ProvenanceMetadata.source_system_of_record
           identifies the NMDC submission portal, rather than an ETL process over an
           external database.
         see_also:
@@ -2367,7 +2482,7 @@ enums:
         description: GTDBTK archaeal summary
       GTDBTK Summary JSON:
         text: GTDBTK Summary JSON
-        description: GTDBTK bacterial and archaeal summary in JSON format
+        description: Log file for running GTDBTK, in JSON format
         annotations:
           file_name_pattern:
             tag: file_name_pattern
@@ -2962,6 +3077,18 @@ enums:
         text: Azenta
         meaning: https://www.azenta.com/
         title: Azenta Life Sciences
+      SeqCenter:
+        text: SeqCenter
+        meaning: https://www.seqcenter.com/
+        title: SeqCenter
+      Aalborg_University:
+        text: Aalborg_University
+        meaning: ror:04m5j1k67
+        title: Aalborg University
+      Georgia_Institute_of_Technology:
+        text: Georgia_Institute_of_Technology
+        meaning: ror:01zkghx44
+        title: Georgia Institute of Technology
   DataCategoryEnum:
     name: DataCategoryEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -3242,36 +3369,42 @@ enums:
         structured_aliases:
         - literal_form: Illumina NovaSeq S2
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
         - literal_form: Illumina NovaSeq S4
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
         - literal_form: Illumina NovaSeq SP
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
       novaseq_x:
         text: novaseq_x
+        meaning: OBI:0003663
         is_a: novaseq
         comments:
-        - Possible flowcell versions are 1.5B, 10B, 25B. Only difference between X
-          and X Plus is 2 flowcells for X Plus versus 1 flowcell for X.
+        - Possible flowcell versions are 1.5B, 10B, 25B. The NovaSeq X runs a single
+          flowcell whereas the NovaSeq X Plus runs two flowcells.
         see_also:
         - https://www.illumina.com/systems/sequencing-platforms/novaseq-x-plus/specifications.html
         aliases:
+        - NovaSeq X
         - Illumina NovaSeq X
-        - Illumina NovaSeq X Plus
         structured_aliases:
         - literal_form: Illumina NovaSeq X 25B
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
-        exact_mappings:
-        - OBI:0003663
-        narrow_mappings:
-        - OBI:0003664
+          source: https://gold.jgi.doe.gov/
+      novaseq_x_plus:
+        text: novaseq_x_plus
+        meaning: OBI:0003664
+        is_a: novaseq
+        comments:
+        - Possible flowcell versions are 1.5B, 10B, 25B. The NovaSeq X Plus runs two
+          flowcells, versus one for the NovaSeq X. Illumina markets the NovaSeq X
+          and NovaSeq X Plus together as the NovaSeq X Series.
+        see_also:
+        - https://www.illumina.com/systems/sequencing-platforms/novaseq-x-plus/specifications.html
+        aliases:
+        - NovaSeq X Plus
+        - Illumina NovaSeq X Plus
       hiseq:
         text: hiseq
         meaning: OBI:0003683
@@ -3304,12 +3437,10 @@ enums:
         structured_aliases:
         - literal_form: Illumina HiSeq 2500-1TB
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
         - literal_form: Illumina HiSeq 2500-Rapid
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
       hiseq_3000:
         text: hiseq_3000
         meaning: OBI:0002048
@@ -3342,8 +3473,7 @@ enums:
         structured_aliases:
         - literal_form: Illumina MiSeq
           predicate: EXACT_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
       nextseq_1000:
         text: nextseq_1000
         meaning: OBI:0003606
@@ -3359,12 +3489,10 @@ enums:
         structured_aliases:
         - literal_form: Illumina NextSeq-HO
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
         - literal_form: Illumina NextSeq-MO
           predicate: NARROW_SYNONYM
-          contexts:
-          - https://gold.jgi.doe.gov/
+          source: https://gold.jgi.doe.gov/
       nextseq_500:
         text: nextseq_500
         meaning: OBI:0002021
@@ -3643,6 +3771,10 @@ enums:
         text: SubSamplingProcess
       WorkflowExecution:
         text: WorkflowExecution
+      DensityGradientFractionationProcess:
+        text: DensityGradientFractionationProcess
+      IsotopeLabelingProcess:
+        text: IsotopeLabelingProcess
   PloidyEnum:
     name: PloidyEnum
     description: The ploidy state of an organism's genome, drawn from the ploidy classes
@@ -4675,6 +4807,24 @@ enums:
         text: no presence of mold visible
       presence of mold visible:
         text: presence of mold visible
+  NegContTypeEnum:
+    name: NegContTypeEnum
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      DNA-free PCR mix:
+        text: DNA-free PCR mix
+      distilled water:
+        text: distilled water
+      empty collection device:
+        text: empty collection device
+      empty collection tube:
+        text: empty collection tube
+      phosphate buffer:
+        text: phosphate buffer
+      sterile swab:
+        text: sterile swab
+      sterile syringe:
+        text: sterile syringe
   OccupDocumentEnum:
     name: OccupDocumentEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -4941,14 +5091,19 @@ enums:
         text: cloudy
       foggy:
         text: foggy
+        meaning: ENVO:01000844
       hail:
         text: hail
+        meaning: ENVO:01000874
       rain:
         text: rain
+        meaning: ENVO:01001564
       sleet:
         text: sleet
+        meaning: ENVO:03400014
       snow:
         text: snow
+        meaning: ENVO:01000895
       sunny:
         text: sunny
       windy:
@@ -5435,6 +5590,38 @@ enums:
         text: middle
       top:
         text: top
+  IsotopeEnum:
+    name: IsotopeEnum
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      13C:
+        text: 13C
+        description: Carbon with 13C isotope
+      15N:
+        text: 15N
+        description: Nitrogen with 15N isotope
+      2H:
+        text: 2H
+        description: Hydrogen with 2H isotope
+      18O:
+        text: 18O
+        description: Oxygen with 18O isotope
+  IsotopologApproachEnum:
+    name: IsotopologApproachEnum
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      single:
+        text: single
+      multiple:
+        text: multiple
+  IsotopologLabelEnum:
+    name: IsotopologLabelEnum
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      isotopically labeled:
+        text: isotopically labeled
+      natural abundance:
+        text: natural abundance
   HostSexEnum:
     name: HostSexEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -5851,6 +6038,12 @@ enums:
       acetic_acid:
         text: acetic_acid
         meaning: CHEBI:15366
+        structured_aliases:
+        - literal_form: acetate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:30089
+        related_mappings:
+        - CHEBI:30089
       acetone:
         text: acetone
         meaning: CHEBI:15347
@@ -5907,6 +6100,12 @@ enums:
         comments:
         - A carboxylic acid that is the simplest aliphatic carboxylic acid, comprising
           a hydrogen atom joined to the methyl group of methanol.
+        structured_aliases:
+        - literal_form: formate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:15740
+        related_mappings:
+        - CHEBI:15740
       glucose:
         text: glucose
         meaning: CHEBI:17234
@@ -5982,6 +6181,372 @@ enums:
         - Any form of water used in an experiment including deionized water, distilled
           water, and ultrapure water. Protocol or materials and methods should be
           consulted for exact type of water used in an experiment.
+      acridine:
+        text: acridine
+        meaning: CHEBI:36420
+      alginic_acid:
+        text: alginic_acid
+        meaning: CHEBI:17548
+        structured_aliases:
+        - literal_form: alginate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:58187
+        related_mappings:
+        - CHEBI:58187
+      aspartic_acid:
+        text: aspartic_acid
+        meaning: CHEBI:22660
+        structured_aliases:
+        - literal_form: aspartate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:132943
+        related_mappings:
+        - CHEBI:132943
+      atrazine:
+        text: atrazine
+        meaning: CHEBI:15930
+      benz[a]anthracene:
+        text: benz[a]anthracene
+        meaning: CHEBI:51348
+        aliases:
+        - tetraphene
+      benzene:
+        text: benzene
+        meaning: CHEBI:16716
+      benzo[a]pyrene:
+        text: benzo[a]pyrene
+        meaning: CHEBI:29865
+      benzoic_acid:
+        text: benzoic_acid
+        meaning: CHEBI:30746
+        structured_aliases:
+        - literal_form: benzoate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:16150
+        related_mappings:
+        - CHEBI:16150
+      17beta-estradiol:
+        text: 17beta-estradiol
+        meaning: CHEBI:16469
+      biphenyl:
+        text: biphenyl
+        meaning: CHEBI:17097
+      bisphenol_A:
+        text: bisphenol_A
+        meaning: CHEBI:33216
+      bisphenol_S:
+        text: bisphenol_S
+        meaning: CHEBI:34372
+        aliases:
+        - 4,4'-sulfonyldiphenol
+      butane:
+        text: butane
+        meaning: CHEBI:37808
+      butyric_acid:
+        text: butyric_acid
+        meaning: CHEBI:30772
+        structured_aliases:
+        - literal_form: butyrate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:17968
+        related_mappings:
+        - CHEBI:17968
+      carbon_dioxide:
+        text: carbon_dioxide
+        meaning: CHEBI:16526
+      carbon_monoxide:
+        text: carbon_monoxide
+        meaning: CHEBI:17245
+      cellobiose:
+        text: cellobiose
+        meaning: CHEBI:17057
+      chloromethane:
+        text: chloromethane
+        meaning: CHEBI:36014
+      ciprofloxacin:
+        text: ciprofloxacin
+        meaning: CHEBI:100241
+      dibenzothiophene:
+        text: dibenzothiophene
+        meaning: CHEBI:23681
+      dibutyl_phthalate:
+        text: dibutyl_phthalate
+        meaning: CHEBI:34687
+      2,4-dichlorophenol:
+        text: 2,4-dichlorophenol
+        meaning: CHEBI:16738
+      dimethylsulfoniopropionate:
+        text: dimethylsulfoniopropionate
+        meaning: CHEBI:16457
+        aliases:
+        - DMSP
+        - S,S-dimethyl-beta-propiothetin
+      dinitrogen:
+        text: dinitrogen
+        meaning: CHEBI:17997
+        aliases:
+        - N2
+      1,4-dioxane:
+        text: 1,4-dioxane
+        meaning: CHEBI:47032
+      dodecane:
+        text: dodecane
+        meaning: CHEBI:28817
+      ethyl_tert-butyl_ether:
+        text: ethyl_tert-butyl_ether
+        meaning: CHEBI:141564
+        aliases:
+        - ETBE
+      fluoranthene:
+        text: fluoranthene
+        meaning: CHEBI:33083
+      glucosamine:
+        text: glucosamine
+        meaning: CHEBI:5417
+      glycerol:
+        text: glycerol
+        meaning: CHEBI:17754
+      glycine:
+        text: glycine
+        meaning: CHEBI:15428
+      hexadecane:
+        text: hexadecane
+        meaning: CHEBI:45296
+      isoprene:
+        text: isoprene
+        meaning: CHEBI:35194
+      lactic_acid:
+        text: lactic_acid
+        meaning: CHEBI:78320
+        structured_aliases:
+        - literal_form: lactate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:24996
+        related_mappings:
+        - CHEBI:24996
+      linuron:
+        text: linuron
+        meaning: CHEBI:6482
+      methane:
+        text: methane
+        meaning: CHEBI:16183
+      methionine:
+        text: methionine
+        meaning: CHEBI:16811
+      methylamine:
+        text: methylamine
+        meaning: CHEBI:16830
+        aliases:
+        - monomethylamine
+      2-methylnaphthalene:
+        text: 2-methylnaphthalene
+        meaning: CHEBI:50720
+      naphthalene:
+        text: naphthalene
+        meaning: CHEBI:16482
+      4-nitrophenol:
+        text: 4-nitrophenol
+        meaning: CHEBI:16836
+        aliases:
+        - p-nitrophenol
+      phenanthrene:
+        text: phenanthrene
+        meaning: CHEBI:28851
+      propionic_acid:
+        text: propionic_acid
+        meaning: CHEBI:30768
+        structured_aliases:
+        - literal_form: propionate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:17272
+        related_mappings:
+        - CHEBI:17272
+      pyrene:
+        text: pyrene
+        meaning: CHEBI:39106
+      sodium_bicarbonate:
+        text: sodium_bicarbonate
+        meaning: CHEBI:32139
+        aliases:
+        - sodium hydrogencarbonate
+        structured_aliases:
+        - literal_form: bicarbonate
+          predicate: RELATED_SYNONYM
+          source: https://www.ebi.ac.uk/chebi/CHEBI:17544
+        related_mappings:
+        - CHEBI:17544
+      sodium_carbonate:
+        text: sodium_carbonate
+        meaning: CHEBI:29377
+      sulfadiazine:
+        text: sulfadiazine
+        meaning: CHEBI:9328
+      sulfamethazine:
+        text: sulfamethazine
+        meaning: CHEBI:102265
+      sulfamethoxazole:
+        text: sulfamethoxazole
+        meaning: CHEBI:9332
+      6-sulfo-D-quinovose:
+        text: 6-sulfo-D-quinovose
+        meaning: CHEBI:77198
+        aliases:
+        - sulfoquinovose
+      sulfolane:
+        text: sulfolane
+        meaning: CHEBI:74794
+      taurine:
+        text: taurine
+        meaning: CHEBI:15891
+      toluene:
+        text: toluene
+        meaning: CHEBI:17578
+      3,5,6-trichloro-2-pyridinol:
+        text: 3,5,6-trichloro-2-pyridinol
+        meaning: CHEBI:143794
+      triclosan:
+        text: triclosan
+        meaning: CHEBI:164200
+      trimethylamine:
+        text: trimethylamine
+        meaning: CHEBI:18139
+      urea:
+        text: urea
+        meaning: CHEBI:16199
+      vanillin:
+        text: vanillin
+        meaning: CHEBI:18346
+      veratric_acid:
+        text: veratric_acid
+        meaning: CHEBI:296881
+        aliases:
+        - 3,4-dimethoxybenzoic acid
+      vinyl_chloride:
+        text: vinyl_chloride
+        meaning: CHEBI:28509
+        aliases:
+        - chloroethene
+      xylose:
+        text: xylose
+        meaning: CHEBI:18222
+  WastewaterSystemTypeEnum:
+    name: WastewaterSystemTypeEnum
+    description: The kinds of wastewater collection system a sample can come from.
+    comments:
+    - We add `meaning` mappings to permissible values only when the corresponding
+      ENVO class is in a released ENVO version. The sewer system, septic tank and
+      cesspit classes that PHA4GE pins (ENVO:03501451 to ENVO:03501454) and the wastewater
+      waste tank class (GENEPIO:0102057) are not released, so those values stay unmapped
+      until they are.
+    in_subset:
+    - pha4ge_wastewater
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      combined sewer system:
+        text: combined sewer system
+        description: A sewer system that carries sewage and stormwater runoff in the
+          same pipes.
+      sanitary sewer system:
+        text: sanitary sewer system
+        description: A sewer system that carries sewage only, with stormwater carried
+          separately. NCBI submissions have also called this a separated system.
+      waste stabilization pond:
+        text: waste stabilization pond
+        description: A pond or lagoon in which wastewater is held and treated by natural
+          processes.
+        meaning: ENVO:03600076
+      latrine:
+        text: latrine
+        meaning: ENVO:01000519
+      septic tank:
+        text: septic tank
+        description: An underground tank in which sewage from a building settles and
+          partly decomposes.
+      cesspit:
+        text: cesspit
+        description: A pit or underground container that receives sewage without treatment.
+      chemical toilet:
+        text: chemical toilet
+        meaning: ENVO:01000529
+      composting toilet:
+        text: composting toilet
+        meaning: ENVO:01000550
+      plumbing drain:
+        text: plumbing drain
+        meaning: ENVO:01000924
+      wastewater waste tank:
+        text: wastewater waste tank
+        description: A tank that holds wastewater for later collection, for example
+          on a ship or an aircraft.
+  ExperimentalSpecimenRoleTypeEnum:
+    name: ExperimentalSpecimenRoleTypeEnum
+    description: The roles a sample can play in an experiment other than being a sample
+      under study.
+    in_subset:
+    - pha4ge_wastewater
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      positive experimental control:
+        text: positive experimental control
+        description: The sample was included to confirm that the process detects what
+          it should.
+        meaning: GENEPIO:0101018
+      negative experimental control:
+        text: negative experimental control
+        description: The sample was included to show that the process does not detect
+          anything when nothing is there.
+        meaning: GENEPIO:0101019
+      technical replicate:
+        text: technical replicate
+        description: The sample is a repeat measurement of the same material as another
+          sample.
+        meaning: EFO:0002090
+      biological replicate:
+        text: biological replicate
+        description: The sample is an independent sample of the same kind of material
+          as another sample.
+        meaning: EFO:0002091
+  FecalContaminationIndicatorEnum:
+    name: FecalContaminationIndicatorEnum
+    description: Genes, viruses, bacteria and substances measured as indicators of
+      fecal contamination of water.
+    comments:
+    - The HF183, Lachno3 and F+ coliphage values stay unmapped because the GENEPIO
+      classes PHA4GE pins for them (GENEPIO:0101000 to GENEPIO:0101002) are not in
+      a released GENEPIO version.
+    in_subset:
+    - pha4ge_wastewater
+    from_schema: https://w3id.org/nmdc/nmdc
+    permissible_values:
+      crAssphage:
+        text: crAssphage
+        description: A bacteriophage of human gut Bacteroides that is abundant in
+          human feces.
+        meaning: NCBITaxon:1211417
+      pepper mild mottle virus:
+        text: pepper mild mottle virus
+        description: A plant virus that enters sewage through diet and is used as
+          a human fecal indicator and process control.
+        meaning: NCBITaxon:12239
+        aliases:
+        - PMMoV
+      Bacteroides HF183:
+        text: Bacteroides HF183
+        description: The HF183 16S rRNA gene marker of human-associated Bacteroides.
+      Lachnospiraceae Lachno3:
+        text: Lachnospiraceae Lachno3
+        description: The Lachno3 16S rRNA gene marker of human-associated Lachnospiraceae.
+      F+ coliphages:
+        text: F+ coliphages
+        description: Bacteriophages that infect Escherichia coli through the F pilus,
+          used as fecal indicators.
+        aliases:
+        - male-specific coliphages
+      stercobilin:
+        text: stercobilin
+        description: A bile pigment that gives feces their color, measured chemically
+          as a fecal marker.
+        meaning: CHEBI:26756
   MetaproteomicsAnalysisCategoryEnum:
     name: MetaproteomicsAnalysisCategoryEnum
     description: The category of metaproteomics analysis being performed.
@@ -6084,6 +6649,45 @@ enums:
         title: Isolate transcriptome sequencing
         broad_mappings:
         - OBI:0001177
+      proteomics:
+        text: proteomics
+        description: Mass spectrometry-based analysis of proteins from a single organism.
+      molecular structure:
+        text: molecular structure
+        description: Analysis of the configuration and arrangement of atoms within
+          molecules of a sample.
+      chemical speciation mapping:
+        text: chemical speciation mapping
+        description: Identification and/or measurement of specific forms (isotopes,
+          redox state, molecular structure, etc.) of one or more elements in a sample.
+      isotope profiling:
+        text: isotope profiling
+        description: Measurement of stable isotope ratios in a sample, typically for
+          hydrogen, carbon, nitrogen, or oxygen.
+      imaging - xray:
+        text: imaging - xray
+        description: A technique that uses X-rays to generate an image of a sample
+          based on how strongly the different components absorb X-rays. Resulting
+          images may be assembled into a 3D computer model.
+      imaging - electron:
+        text: imaging - electron
+        description: A microscopy technique that uses beams of electrons to scan a
+          sample and generate images.
+      imaging - ion:
+        text: imaging - ion
+        description: A microscopy technique that uses ions to scan a sample and generate
+          images.
+      imaging - light:
+        text: imaging - light
+        description: A microscopy technique that uses visible light to generate images
+          of a sample.
+      hydraulic properties:
+        text: hydraulic properties
+        description: Measurement of the relative permeability-saturation-capillary
+          pressure (k-s-p) relations of a sample.
+      other emsl analyses:
+        text: other emsl analyses
+        description: Other analyses planned at EMSL that are not listed here.
   SubmissionStatusEnum:
     name: SubmissionStatusEnum
     from_schema: https://w3id.org/nmdc/nmdc
@@ -6417,7 +7021,7 @@ classes:
         name: alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
         range: string
         multivalued: true
       aminopept_act_has_maximum_numeric_value:
@@ -6893,12 +7497,7 @@ classes:
         multivalued: false
       badges:
         name: badges
-        description: 'Metadata-quality badges awarded to this record. Each value names
-          one badge, which is present or absent; there are no levels or tiers. Most
-          badges name a completeness subset, but not all do: expert_curation is awarded
-          from provenance instead. Awarded by a downstream service, not asserted by
-          submitters, and recalculated whenever the record''s ProvenanceMetadata.mod_date
-          changes.'
+        description: Metadata quality badges awarded to this record.
         range: MetadataBadgeEnum
         multivalued: true
       barometric_press_has_maximum_numeric_value:
@@ -7427,6 +8026,18 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      catchment_population:
+        name: catchment_population
+        description: 'The number of people whose wastewater contributes to the sample:
+          the human population of the sewershed or catchment area served by the sampling
+          site.'
+        range: integer
+        multivalued: false
+      catchment_population_method:
+        name: catchment_population_method
+        description: How the catchment population was measured or estimated.
+        range: string
+        multivalued: false
       ceil_area_has_maximum_numeric_value:
         name: ceil_area_has_maximum_numeric_value
         description: The maximum value part, expressed as number, of the quantity
@@ -7661,6 +8272,12 @@ classes:
         range: string
         required: false
         multivalued: true
+      collected_by:
+        name: collected_by
+        description: The organization, or the person acting for an organization, that
+          collected the sample.
+        range: string
+        multivalued: false
       collected_from:
         name: collected_from
         description: The Site from which a Biosample was collected Reference by identifier;
@@ -7678,12 +8295,6 @@ classes:
         name: collection_time
         description: The time of sampling, either as an instance (single point) or
           interval.
-        range: string
-        multivalued: false
-      collection_time_inc:
-        name: collection_time_inc
-        description: Time the incubation was harvested/collected/ended. Only relevant
-          for incubation samples.
         range: string
         multivalued: false
       community:
@@ -8474,7 +9085,7 @@ classes:
         name: env_broad_scale_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'env_broad_scale.term.alternative_names'.
         range: string
         required: false
@@ -8540,7 +9151,7 @@ classes:
         name: env_local_scale_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'env_local_scale.term.alternative_names'.
         range: string
         required: false
@@ -8606,7 +9217,7 @@ classes:
         name: env_medium_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'env_medium.term.alternative_names'.
         range: string
         required: false
@@ -8795,7 +9406,7 @@ classes:
         name: experimental_factor_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'experimental_factor.term.alternative_names'.
         range: string
         required: false
@@ -8843,6 +9454,13 @@ classes:
         range: string
         required: false
         multivalued: false
+      experimental_specimen_role_type:
+        name: experimental_specimen_role_type
+        description: 'The role the sample plays in the experiment when it is not simply
+          a sample under study: a positive or negative control, or a technical or
+          biological replicate of another sample.'
+        range: ExperimentalSpecimenRoleTypeEnum
+        multivalued: false
       ext_door:
         name: ext_door
         description: The number of exterior doors in the built structure String projected
@@ -8871,6 +9489,52 @@ classes:
           International Soil Reference and Information Centre (ISRIC). The list of
           available soil classifications can be found at https://www.isric.org/explore/world-soil-distribution
         range: FaoClassEnum
+        multivalued: false
+      fecal_contamination_indicator:
+        name: fecal_contamination_indicator
+        description: The gene, virus, bacterium or substance that was measured as
+          an indicator of fecal contamination of the sample, for example crAssphage
+          or pepper mild mottle virus.
+        range: FecalContaminationIndicatorEnum
+        multivalued: false
+      fecal_contamination_method:
+        name: fecal_contamination_method
+        description: The assay or protocol used to measure the fecal contamination
+          indicator, as a name, reference or URL.
+        range: string
+        multivalued: false
+      fecal_contamination_value_has_maximum_numeric_value:
+        name: fecal_contamination_value_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'fecal_contamination_value.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_minimum_numeric_value:
+        name: fecal_contamination_value_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'fecal_contamination_value.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_numeric_value:
+        name: fecal_contamination_value_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'fecal_contamination_value.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_raw_value:
+        name: fecal_contamination_value_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'fecal_contamination_value.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      fecal_contamination_value_has_unit:
+        name: fecal_contamination_value_has_unit
+        description: The unit of the quantity Flattened from nested slot 'fecal_contamination_value.has_unit'.
+        range: UnitEnum
+        required: false
         multivalued: false
       fertilizer_regm:
         name: fertilizer_regm
@@ -9277,7 +9941,7 @@ classes:
         name: growth_facil_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'growth_facil.term.alternative_names'.
         range: string
         required: false
@@ -9569,7 +10233,7 @@ classes:
         name: host_body_product_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'host_body_product.term.alternative_names'.
         range: string
         required: false
@@ -9635,7 +10299,7 @@ classes:
         name: host_body_site_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'host_body_site.term.alternative_names'.
         range: string
         required: false
@@ -9905,7 +10569,7 @@ classes:
         name: host_phenotype_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'host_phenotype.term.alternative_names'.
         range: string
         required: false
@@ -10024,7 +10688,7 @@ classes:
         name: host_taxid_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'host_taxid.term.alternative_names'.
         range: string
         required: false
@@ -10293,6 +10957,39 @@ classes:
       inside_lux_has_unit:
         name: inside_lux_has_unit
         description: The unit of the quantity Flattened from nested slot 'inside_lux.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_maximum_numeric_value:
+        name: instantaneous_flow_rate_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'instantaneous_flow_rate.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_minimum_numeric_value:
+        name: instantaneous_flow_rate_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'instantaneous_flow_rate.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_numeric_value:
+        name: instantaneous_flow_rate_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'instantaneous_flow_rate.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_raw_value:
+        name: instantaneous_flow_rate_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'instantaneous_flow_rate.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      instantaneous_flow_rate_has_unit:
+        name: instantaneous_flow_rate_has_unit
+        description: The unit of the quantity Flattened from nested slot 'instantaneous_flow_rate.has_unit'.
         range: UnitEnum
         required: false
         multivalued: false
@@ -10831,6 +11528,11 @@ classes:
       ncbi_taxonomy_name:
         name: ncbi_taxonomy_name
         range: string
+        multivalued: false
+      neg_cont_type:
+        name: neg_cont_type
+        description: The substance or equipment used as a negative control in an investigation
+        range: NegContTypeEnum
         multivalued: false
       neon_biosample_identifiers:
         name: neon_biosample_identifiers
@@ -11650,7 +12352,7 @@ classes:
         name: plant_growth_med_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'plant_growth_med.term.alternative_names'.
         range: string
         required: false
@@ -11729,7 +12431,7 @@ classes:
         name: plant_struc_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'plant_struc.term.alternative_names'.
         range: string
         required: false
@@ -11793,6 +12495,12 @@ classes:
           (TextValue).
         range: string
         required: false
+        multivalued: false
+      pos_cont_type:
+        name: pos_cont_type
+        description: The substance, mixture, product, or apparatus used to verify
+          that a process which is part of an investigation delivers a true positive
+        range: string
         multivalued: false
       potassium_has_maximum_numeric_value:
         name: potassium_has_maximum_numeric_value
@@ -11873,6 +12581,12 @@ classes:
         description: The type and number of animals or insects present in the sampling
           space
         range: string
+        multivalued: false
+      presampling_weather:
+        name: presampling_weather
+        description: The weather in the period before sample collection, when it may
+          have affected the sample, for example rain that diluted the wastewater.
+        range: SampWeatherEnum
         multivalued: false
       pressure_has_maximum_numeric_value:
         name: pressure_has_maximum_numeric_value
@@ -12603,7 +13317,7 @@ classes:
         name: samp_mat_process_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'samp_mat_process.term.alternative_names'.
         range: string
         required: false
@@ -12702,6 +13416,11 @@ classes:
           projected from 'samp_preserv.has_raw_value' (TextValue).
         range: string
         required: false
+        multivalued: false
+      samp_purpose:
+        name: samp_purpose
+        description: The reason that the sample was collected
+        range: string
         multivalued: false
       samp_room_id:
         name: samp_room_id
@@ -12825,7 +13544,7 @@ classes:
         name: samp_taxon_id_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'samp_taxon_id.term.alternative_names'.
         range: string
         required: false
@@ -12921,6 +13640,39 @@ classes:
         range: string
         required: false
         multivalued: false
+      sample_collection_duration_has_maximum_numeric_value:
+        name: sample_collection_duration_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'sample_collection_duration.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      sample_collection_duration_has_minimum_numeric_value:
+        name: sample_collection_duration_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'sample_collection_duration.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      sample_collection_duration_has_numeric_value:
+        name: sample_collection_duration_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'sample_collection_duration.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      sample_collection_duration_has_raw_value:
+        name: sample_collection_duration_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'sample_collection_duration.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      sample_collection_duration_has_unit:
+        name: sample_collection_duration_has_unit
+        description: The unit of the quantity Flattened from nested slot 'sample_collection_duration.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
       sample_collection_site:
         name: sample_collection_site
         description: 'Free-text description of the place where the sample was collected:
@@ -12959,8 +13711,7 @@ classes:
       season:
         name: season
         description: The season when sampling occurred. Any of the four periods into
-          which the year is divided by the equinoxes and solstices. This field accepts
-          terms listed under season (http://purl.obolibrary.org/obo/NCIT_C94729)
+          which the year is divided by the equinoxes and solstices.
         range: SeasonEnum
         multivalued: false
       season_environment:
@@ -13569,9 +14320,8 @@ classes:
         multivalued: false
       store_cond:
         name: store_cond
-        description: Explain how and for how long the soil sample was stored before
-          DNA extraction (fresh/frozen/other) String projected from 'store_cond.has_raw_value'
-          (TextValue).
+        description: How and for how long the sample was stored before DNA extraction.
+          String projected from 'store_cond.has_raw_value' (TextValue).
         range: string
         required: false
         multivalued: false
@@ -14437,6 +15187,39 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+      total_daily_flow_rate_has_maximum_numeric_value:
+        name: total_daily_flow_rate_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'total_daily_flow_rate.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_minimum_numeric_value:
+        name: total_daily_flow_rate_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'total_daily_flow_rate.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_numeric_value:
+        name: total_daily_flow_rate_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'total_daily_flow_rate.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_raw_value:
+        name: total_daily_flow_rate_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'total_daily_flow_rate.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      total_daily_flow_rate_has_unit:
+        name: total_daily_flow_rate_has_unit
+        description: The unit of the quantity Flattened from nested slot 'total_daily_flow_rate.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
       train_line:
         name: train_line
         description: The subway line name
@@ -14820,6 +15603,12 @@ classes:
         description: Signs of the presence of mold or mildew on a wall
         range: MoldVisibilityEnum
         multivalued: false
+      wastewater_system_type:
+        name: wastewater_system_type
+        description: The kind of wastewater system the sample was taken from, such
+          as a sanitary sewer, a combined sewer, a septic tank or a latrine.
+        range: WastewaterSystemTypeEnum
+        multivalued: false
       wastewater_type:
         name: wastewater_type
         description: The origin of wastewater such as human waste, rainfall, storm
@@ -15177,6 +15966,95 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+  biosample_set_adjacent_environment:
+    name: biosample_set_adjacent_environment
+    annotations:
+      table_name:
+        tag: table_name
+        value: biosample_set_adjacent_environment
+      source_class:
+        tag: source_class
+        value: Biosample
+    description: A controlled term or class from an ontology Flattened tabular form
+      of 'ControlledTermValue'. Attributes are the union of base-class slots and slots
+      from concrete subclasses of 'ControlledTermValue' that may appear via the 'type'
+      field.
+    attributes:
+      has_raw_value:
+        name: has_raw_value
+        description: The value that was specified for an annotation in raw form, i.e.
+          a string. E.g. "2 cm" or "2-4 cm"
+        range: string
+        multivalued: false
+      term_alternative_identifiers:
+        name: term_alternative_identifiers
+        description: A list of alternative identifiers for the entity. Flattened from
+          nested slot 'term.alternative_identifiers'.
+        range: uriorcurie
+        required: false
+        multivalued: true
+      term_alternative_names:
+        name: term_alternative_names
+        description: A list of alternative names used to refer to the entity. The
+          distinction between name and alternative names is application-specific.  This
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
+          Flattened from nested slot 'term.alternative_names'.
+        range: string
+        required: false
+        multivalued: true
+      term_definition:
+        name: term_definition
+        description: The definition of the ontology term as provided by the ontology.
+          Flattened from nested slot 'term.definition'.
+        range: string
+        required: false
+        multivalued: false
+      term_description:
+        name: term_description
+        description: a human-readable description of a thing Flattened from nested
+          slot 'term.description'.
+        range: string
+        required: false
+        multivalued: false
+      term_id:
+        name: term_id
+        description: A unique identifier for a thing. Must be either a CURIE shorthand
+          for a URI or a complete URI Flattened from nested slot 'term.id'.
+        range: uriorcurie
+        required: false
+        multivalued: false
+      term_is_obsolete:
+        name: term_is_obsolete
+        description: A boolean value indicating whether the ontology term is obsolete.
+          Flattened from nested slot 'term.is_obsolete'.
+        range: boolean
+        required: false
+        multivalued: false
+      term_is_root:
+        name: term_is_root
+        description: A boolean value indicating whether the ontology term is a root
+          term; it is not a subclass of  any other term. Flattened from nested slot
+          'term.is_root'.
+        range: boolean
+        required: false
+        multivalued: false
+      term_name:
+        name: term_name
+        description: A human readable label for an entity Flattened from nested slot
+          'term.name'.
+        range: string
+        required: false
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'Biosample' record.
+        range: string
   biosample_set_associated_studies:
     name: biosample_set_associated_studies
     annotations:
@@ -15229,7 +16107,7 @@ classes:
         name: term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'term.alternative_names'.
         range: string
         required: false
@@ -15633,7 +16511,7 @@ classes:
         multivalued: false
       qc_failure_where:
         name: qc_failure_where
-        description: Describes the nmdc schema class that corresonds to where the
+        description: Describes the nmdc schema class that corresponds to where the
           failure occurred. Most commonly this would be the same as Class that generated
           the results.
         range: FailureWhereEnum
@@ -16507,7 +17385,7 @@ classes:
         multivalued: false
       qc_failure_where:
         name: qc_failure_where
-        description: Describes the nmdc schema class that corresonds to where the
+        description: Describes the nmdc schema class that corresponds to where the
           failure occurred. Most commonly this would be the same as Class that generated
           the results.
         range: FailureWhereEnum
@@ -16927,7 +17805,7 @@ classes:
         name: feature_category_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'feature_category.term.alternative_names'.
         range: string
         required: false
@@ -17013,7 +17891,7 @@ classes:
         name: encodes
         description: The gene product encoded by this feature. Typically this is used
           for a CDS feature or gene feature which will encode a protein. It can also
-          be used by a nc transcript ot gene feature that encoded a ncRNA Reference
+          be used by a nc transcript or gene feature that encoded a ncRNA Reference
           by identifier; original range was class 'GeneProduct'.
         range: string
         multivalued: false
@@ -17041,7 +17919,7 @@ classes:
         name: feature_category_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'feature_category.term.alternative_names'.
         range: string
         required: false
@@ -17496,6 +18374,45 @@ classes:
           Reference by identifier; original range was class 'Instrument'.
         range: string
         multivalued: true
+      internal_standard_method_analysis_type:
+        name: internal_standard_method_analysis_type
+        description: Select all the data types associated or available for this biosample
+          Flattened from nested slot 'internal_standard_method.analysis_type'.. Polymorphic
+          subclass-specific slot (from 'DensityGradientFractionationProcess').
+        range: AnalysisTypeEnum
+        required: false
+        multivalued: true
+      internal_standard_method_description:
+        name: internal_standard_method_description
+        description: a human-readable description of a thing Flattened from nested
+          slot 'internal_standard_method.description'.. Polymorphic subclass-specific
+          slot (from 'DensityGradientFractionationProcess').
+        range: string
+        required: false
+        multivalued: false
+      internal_standard_method_name:
+        name: internal_standard_method_name
+        description: A human readable label for an entity Flattened from nested slot
+          'internal_standard_method.name'.. Polymorphic subclass-specific slot (from
+          'DensityGradientFractionationProcess').
+        range: string
+        required: false
+        multivalued: false
+      internal_standard_method_protocol_for:
+        name: internal_standard_method_protocol_for
+        description: The type of planned process that the protocol describes. Flattened
+          from nested slot 'internal_standard_method.protocol_for'.. Polymorphic subclass-specific
+          slot (from 'DensityGradientFractionationProcess').
+        range: ProtocolForEnum
+        required: false
+        multivalued: false
+      internal_standard_method_url:
+        name: internal_standard_method_url
+        description: Flattened from nested slot 'internal_standard_method.url'.. Polymorphic
+          subclass-specific slot (from 'DensityGradientFractionationProcess').
+        range: string
+        required: false
+        multivalued: false
       is_pressurized:
         name: is_pressurized
         description: Whether or not pressure was applied to a thing or process.. Polymorphic
@@ -17508,6 +18425,53 @@ classes:
         description: Is the (RNA) library stranded or non-stranded (unstranded)..
           Polymorphic subclass-specific slot (from 'LibraryPreparation').
         range: boolean
+        required: false
+        multivalued: false
+      isotopolog_approach:
+        name: isotopolog_approach
+        description: The labelling approach of this SIP experiment. Details if multiple
+          isotopically labelled isotopologs were added to samples ("multiple"), or
+          was only one isotopolog added to each sample ("single").. Polymorphic subclass-specific
+          slot (from 'IsotopeLabelingProcess').
+        range: IsotopologApproachEnum
+        required: false
+        multivalued: false
+      isotopolog_incu_time_has_maximum_numeric_value:
+        name: isotopolog_incu_time_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_incu_time.has_maximum_numeric_value'..
+          Polymorphic subclass-specific slot (from 'IsotopeLabelingProcess').
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_incu_time_has_minimum_numeric_value:
+        name: isotopolog_incu_time_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_incu_time.has_minimum_numeric_value'..
+          Polymorphic subclass-specific slot (from 'IsotopeLabelingProcess').
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_incu_time_has_numeric_value:
+        name: isotopolog_incu_time_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'isotopolog_incu_time.has_numeric_value'..
+          Polymorphic subclass-specific slot (from 'IsotopeLabelingProcess').
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_incu_time_has_raw_value:
+        name: isotopolog_incu_time_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'isotopolog_incu_time.has_raw_value'..
+          Polymorphic subclass-specific slot (from 'IsotopeLabelingProcess').
+        range: string
+        required: false
+        multivalued: false
+      isotopolog_incu_time_has_unit:
+        name: isotopolog_incu_time_has_unit
+        description: The unit of the quantity Flattened from nested slot 'isotopolog_incu_time.has_unit'..
+          Polymorphic subclass-specific slot (from 'IsotopeLabelingProcess').
+        range: UnitEnum
         required: false
         multivalued: false
       lib_layout:
@@ -17707,7 +18671,7 @@ classes:
         multivalued: false
       stranded_orientation:
         name: stranded_orientation
-        description: Lists the strand orientiation for a stranded RNA library preparation..
+        description: Lists the strand orientation for a stranded RNA library preparation..
           Polymorphic subclass-specific slot (from 'LibraryPreparation').
         range: StrandedOrientationEnum
         required: false
@@ -17848,6 +18812,178 @@ classes:
         range: UnitEnum
         required: false
         multivalued: false
+  material_processing_set_added_isotopologs:
+    name: material_processing_set_added_isotopologs
+    annotations:
+      table_name:
+        tag: table_name
+        value: material_processing_set_added_isotopologs
+      source_class:
+        tag: source_class
+        value: MaterialProcessing
+    description: One isotopolog, or one heterogeneous material with no compound identifier,
+      added during an isotope labeling process, with the isotope it carries, whether
+      it was isotopically labeled or at natural abundance, the atom fraction and position
+      of the label, and the dose. Flattened tabular form of 'IsotopologAddition'.
+      Attributes are the union of base-class slots and slots from concrete subclasses
+      of 'IsotopologAddition' that may appear via the 'type' field.
+    attributes:
+      hetero_isotopolog:
+        name: hetero_isotopolog
+        description: 'An input to the labeling that has no ChEBI identifier, described
+          in free text: an undefined mixture such as root exudates or plant litter,
+          or cells or biomass such as T4 phages. A defined compound with a ChEBI identifier
+          goes in isotopolog instead.'
+        range: string
+        multivalued: false
+      isotopolog:
+        name: isotopolog
+        description: Isotopolog (isotope source/substrate/molecule) added to the biological
+          sample.
+        range: ChemicalEntityEnum
+        multivalued: false
+      isotopolog_atom_pos:
+        name: isotopolog_atom_pos
+        description: InChI label designating set of all isotopically enriched atoms
+          in isotopolog. This slot should be omitted for natural abundance samples
+        range: string
+        multivalued: false
+      isotopolog_dose_has_maximum_numeric_value:
+        name: isotopolog_dose_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_dose.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_dose_has_minimum_numeric_value:
+        name: isotopolog_dose_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_dose.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_dose_has_numeric_value:
+        name: isotopolog_dose_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'isotopolog_dose.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_dose_has_raw_value:
+        name: isotopolog_dose_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'isotopolog_dose.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      isotopolog_dose_has_unit:
+        name: isotopolog_dose_has_unit
+        description: The unit of the quantity Flattened from nested slot 'isotopolog_dose.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      isotopolog_label:
+        name: isotopolog_label
+        description: List whether the isotopolog added to this biological sample was
+          heavy-labelled or natural abundance
+        range: IsotopologLabelEnum
+        required: true
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'MaterialProcessing' record.
+        range: string
+      isotopolog_index:
+        name: isotopolog_index
+        description: Zero-based source list position of this isotopolog addition within
+          its root record.
+        range: integer
+        required: true
+        minimum_value: 0
+  material_processing_set_added_isotopologs_isotope_atom_fractions:
+    name: material_processing_set_added_isotopologs_isotope_atom_fractions
+    annotations:
+      table_name:
+        tag: table_name
+        value: material_processing_set_added_isotopologs_isotope_atom_fractions
+      source_class:
+        tag: source_class
+        value: MaterialProcessing
+    description: Contains the isotopes used and at what fraction. Flattened tabular
+      form of 'IsotopologComposition'. Attributes are the union of base-class slots
+      and slots from concrete subclasses of 'IsotopologComposition' that may appear
+      via the 'type' field. Join to its isotopolog addition using parent_id and isotopolog_index.
+      isotope_atom_fraction_index preserves the source list order and duplicates.
+    attributes:
+      isotope:
+        name: isotope
+        description: The element and mass number of the stable isotope used in isotopolog
+          labeling.
+        range: IsotopeEnum
+        required: true
+        multivalued: false
+      isotopolog_atom_frac_has_maximum_numeric_value:
+        name: isotopolog_atom_frac_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_atom_frac.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_minimum_numeric_value:
+        name: isotopolog_atom_frac_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'isotopolog_atom_frac.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_numeric_value:
+        name: isotopolog_atom_frac_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'isotopolog_atom_frac.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_raw_value:
+        name: isotopolog_atom_frac_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'isotopolog_atom_frac.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      isotopolog_atom_frac_has_unit:
+        name: isotopolog_atom_frac_has_unit
+        description: The unit of the quantity Flattened from nested slot 'isotopolog_atom_frac.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      type:
+        name: type
+        description: the class_uri of the class that has been instantiated
+        range: uriorcurie
+        required: true
+        multivalued: false
+      parent_id:
+        name: parent_id
+        description: Identifier of the parent 'MaterialProcessing' record.
+        range: string
+      isotopolog_index:
+        name: isotopolog_index
+        description: Zero-based source list position of this isotopolog addition within
+          its root record.
+        range: integer
+        required: true
+        minimum_value: 0
+      isotope_atom_fraction_index:
+        name: isotope_atom_fraction_index
+        description: Zero-based source list position of this isotope atom fraction
+          within its isotopolog addition.
+        range: integer
+        required: true
+        minimum_value: 0
   material_processing_set_has_failure_categorization:
     name: material_processing_set_has_failure_categorization
     annotations:
@@ -17869,7 +19005,7 @@ classes:
         multivalued: false
       qc_failure_where:
         name: qc_failure_where
-        description: Describes the nmdc schema class that corresonds to where the
+        description: Describes the nmdc schema class that corresponds to where the
           failure occurred. Most commonly this would be the same as Class that generated
           the results.
         range: FailureWhereEnum
@@ -18480,7 +19616,7 @@ classes:
         name: host_taxid_term_alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
           Flattened from nested slot 'host_taxid.term.alternative_names'.
         range: string
         required: false
@@ -18647,10 +19783,7 @@ classes:
       source_class:
         tag: source_class
         value: Organism
-    description: A material entity that is a living or once-living individual. Organism
-      instances represent the biological identity of what is in a sample, not the
-      sample itself. Sub-species identity (strain, cultivar, lab isolate) is captured
-      by slots on this class rather than via a separate Strain subclass. Flattened
+    description: A material entity that is a living or once-living individual. Flattened
       tabular form of 'Organism'. Attributes are the union of base-class slots and
       slots from concrete subclasses of 'Organism' that may appear via the 'type'
       field.
@@ -18734,14 +19867,10 @@ classes:
       source_class:
         tag: source_class
         value: Organism
-    description: A taxonomy term from NCBI Taxonomy. NcbiTaxon instances are identified
-      by NCBITaxon CURIEs (e.g. NCBITaxon:511145) and stored in ontology_class_set
-      alongside other OntologyClass instances. No NMDC-minted identifiers are assigned.
-      Support for additional taxonomic authorities (GTDB, LPSN, SeqCode) would be
-      represented by separate classes or by widening this class's id_prefixes in a
-      follow-on PR. Flattened tabular form of 'NcbiTaxon'. Attributes are the union
-      of base-class slots and slots from concrete subclasses of 'NcbiTaxon' that may
-      appear via the 'type' field.
+    description: A taxon from NCBI Taxonomy, identified by its NCBITaxon CURIE. Flattened
+      tabular form of 'NcbiTaxon'. Attributes are the union of base-class slots and
+      slots from concrete subclasses of 'NcbiTaxon' that may appear via the 'type'
+      field.
     attributes:
       alternative_identifiers:
         name: alternative_identifiers
@@ -18752,7 +19881,7 @@ classes:
         name: alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
         range: string
         multivalued: true
       definition:
@@ -18869,6 +19998,79 @@ classes:
         description: Link to corresponding identifier in external database
         range: external_identifier
         multivalued: true
+      gradient_pos_density_has_maximum_numeric_value:
+        name: gradient_pos_density_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'gradient_pos_density.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      gradient_pos_density_has_minimum_numeric_value:
+        name: gradient_pos_density_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'gradient_pos_density.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      gradient_pos_density_has_numeric_value:
+        name: gradient_pos_density_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'gradient_pos_density.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      gradient_pos_density_has_raw_value:
+        name: gradient_pos_density_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'gradient_pos_density.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      gradient_pos_density_has_unit:
+        name: gradient_pos_density_has_unit
+        description: The unit of the quantity Flattened from nested slot 'gradient_pos_density.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      gradient_pos_rel_am_has_maximum_numeric_value:
+        name: gradient_pos_rel_am_has_maximum_numeric_value
+        description: The maximum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'gradient_pos_rel_am.has_maximum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      gradient_pos_rel_am_has_minimum_numeric_value:
+        name: gradient_pos_rel_am_has_minimum_numeric_value
+        description: The minimum value part, expressed as number, of the quantity
+          value when the value covers a range. Flattened from nested slot 'gradient_pos_rel_am.has_minimum_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      gradient_pos_rel_am_has_numeric_value:
+        name: gradient_pos_rel_am_has_numeric_value
+        description: The number part of the quantity Flattened from nested slot 'gradient_pos_rel_am.has_numeric_value'.
+        range: decimal
+        required: false
+        multivalued: false
+      gradient_pos_rel_am_has_raw_value:
+        name: gradient_pos_rel_am_has_raw_value
+        description: Unnormalized atomic string representation, should in syntax {number}
+          {unit} Flattened from nested slot 'gradient_pos_rel_am.has_raw_value'.
+        range: string
+        required: false
+        multivalued: false
+      gradient_pos_rel_am_has_unit:
+        name: gradient_pos_rel_am_has_unit
+        description: The unit of the quantity Flattened from nested slot 'gradient_pos_rel_am.has_unit'.
+        range: UnitEnum
+        required: false
+        multivalued: false
+      gradient_position:
+        name: gradient_position
+        description: A number designating the gradient position from heaviest (=1)
+          to lightest. Unfractionated samples, from which fractionated samples were
+          derived, should be denoted with -1.
+        range: integer
+        multivalued: false
       id:
         name: id
         description: A unique identifier for a thing. Must be either a CURIE shorthand
@@ -18881,6 +20083,11 @@ classes:
         name: name
         description: A human readable label for an entity
         range: string
+        multivalued: false
+      nucleobase_atom_frac:
+        name: nucleobase_atom_frac
+        description: Excess atom fraction of the nucleobases in this fraction.
+        range: float
         multivalued: false
       sampled_portion:
         name: sampled_portion
@@ -19071,7 +20278,7 @@ classes:
         multivalued: false
       qc_failure_where:
         name: qc_failure_where
-        description: Describes the nmdc schema class that corresonds to where the
+        description: Describes the nmdc schema class that corresponds to where the
           failure occurred. Most commonly this would be the same as Class that generated
           the results.
         range: FailureWhereEnum
@@ -19325,7 +20532,7 @@ classes:
         name: alternative_names
         description: A list of alternative names used to refer to the entity. The
           distinction between name and alternative names is application-specific.  This
-          should not be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)
+          should not be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)
         range: string
         multivalued: true
       alternative_titles:
@@ -19556,7 +20763,7 @@ classes:
         multivalued: false
       doi_value:
         name: doi_value
-        description: A digital object identifier, which is intended to persistantly
+        description: A digital object identifier, which is intended to persistently
           identify some resource on the web.
         range: uriorcurie
         required: true
@@ -20121,7 +21328,7 @@ classes:
       processing_institution_workflow_metadata:
         name: processing_institution_workflow_metadata
         description: Information about how workflow results were generated when the
-          processing is done by an external organziation (e.g., JGI) such as software
+          processing is done by an external organization (e.g., JGI) such as software
           tool name and version or pipeline name and version.
         range: string
         multivalued: false
@@ -20368,7 +21575,7 @@ classes:
         multivalued: false
       qc_failure_where:
         name: qc_failure_where
-        description: Describes the nmdc schema class that corresonds to where the
+        description: Describes the nmdc schema class that corresponds to where the
           failure occurred. Most commonly this would be the same as Class that generated
           the results.
         range: FailureWhereEnum

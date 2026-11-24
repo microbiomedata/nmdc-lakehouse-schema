@@ -148,7 +148,9 @@ Regenerate and verify the artifact and documentation in this repository:
 
 ```sh
 just generate-flat-schema
-just generate-compat-schema
+just generate-compat-schema source-11-25
+just generate-compat-schema source-11-24
+just generate-compat-schema source-11-23
 just check-flat-schemas
 just test
 just gen-doc

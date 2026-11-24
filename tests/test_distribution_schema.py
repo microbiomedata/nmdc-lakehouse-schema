@@ -23,7 +23,10 @@ def checker(monkeypatch):
 
 
 @pytest.mark.parametrize("kind", ["wheel", "sdist"])
-@pytest.mark.parametrize("relative", ["nmdc_schema_flattened.yaml", "compat/11.23.0/nmdc_schema_flattened.yaml"])
+@pytest.mark.parametrize(
+    "relative",
+    ["nmdc_schema_flattened.yaml", "compat/11.25/nmdc_schema_flattened.yaml", "compat/11.24.0/nmdc_schema_flattened.yaml", "compat/11.23.0/nmdc_schema_flattened.yaml"],
+)
 @pytest.mark.parametrize(
     "contents",
     [[], [b"old schema"], [b"current schema"], [b"current schema", b"current schema"]],

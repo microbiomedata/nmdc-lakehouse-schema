@@ -7,7 +7,7 @@ from typing import Any, Iterable, Iterator
 from linkml_runtime import SchemaView
 from linkml_runtime.linkml_model import ClassDefinition, SlotDefinition
 
-from nmdc_lakehouse_schema.transforms.mobile_phases import substance_range
+from nmdc_lakehouse_schema.transforms.nested_helpers import nested_helper
 
 
 def flatten_record(record: dict, schema_view: SchemaView, root_class: str) -> dict:
@@ -288,11 +288,14 @@ def side_table_rows(
     Scalar and TextValue multivalued slots are stored as native Parquet ARRAY
     columns in the containing table and do NOT produce side table rows.
 
-    ``table_name`` is ``{collection}_{slot_name}``, except the explicitly
-    supported mobile-phase substances helper, which adds ``_substances_used``.
-    Mobile phases carry a zero-based ``mobile_phase_index``; their substances
-    carry that index and a zero-based ``substance_index``. Together with the
-    root ``parent_id``, these identify occurrences without collapsing duplicates.
+    ``table_name`` is ``{collection}_{slot_name}``. The nested lists listed in
+    :mod:`nmdc_lakehouse_schema.transforms.nested_helpers` (mobile-phase
+    substances and isotope atom fractions) get their own table, named
+    ``{collection}_{slot_name}_{nested_slot}``. Parent elements carry a
+    zero-based position (for example ``mobile_phase_index``), and nested rows
+    carry that position plus their own (for example ``substance_index``).
+    Together with the root ``parent_id``, these identify occurrences without
+    collapsing duplicates.
 
     Args:
         record: A dict representation of a ``root_class`` instance.
@@ -331,44 +334,42 @@ def side_table_rows(
 
         if range_class is not None and _is_inlined(slot, schema_view):
             # Inlined multivalued → child side table
-            nested_range = substance_range(schema_view, slot)
+            helper = nested_helper(schema_view, slot)
             for child_index, child in enumerate(value):
                 if not isinstance(child, dict):
-                    if nested_range is not None:
-                        raise TypeError(
-                            "Mobile-phase projection requires object list elements."
-                        )
+                    if helper is not None:
+                        raise TypeError(helper.parent_type_error)
                     continue
                 row = _expand_inlined(
                     child, range_class, schema_view, include_type=True
                 )
                 row["parent_id"] = parent_id
-                if nested_range is not None:
-                    row["mobile_phase_index"] = child_index
+                if helper is not None:
+                    row[helper.parent_index] = child_index
                 yield table_name, row
-                if nested_range is not None:
-                    nested = child.get("substances_used")
+                if helper is not None:
+                    nested = child.get(helper.nested_slot)
                     if nested is None:
                         continue
                     if not isinstance(nested, list):
                         nested = [nested]
-                    for substance_index, substance in enumerate(nested):
-                        if not isinstance(substance, dict):
-                            raise TypeError(
-                                "Substance projection requires object list elements."
-                            )
+                    for nested_index, element in enumerate(nested):
+                        if not isinstance(element, dict):
+                            raise TypeError(helper.nested_type_error)
                         nested_row = _expand_inlined(
-                            substance,
-                            schema_view.get_class(nested_range),
+                            element,
+                            schema_view.get_class(helper.nested_range),
                             schema_view,
                             include_type=True,
                         )
                         nested_row.update(
-                            parent_id=parent_id,
-                            mobile_phase_index=child_index,
-                            substance_index=substance_index,
+                            {
+                                "parent_id": parent_id,
+                                helper.parent_index: child_index,
+                                helper.nested_index: nested_index,
+                            }
                         )
-                        yield f"{table_name}_substances_used", nested_row
+                        yield f"{table_name}_{helper.nested_slot}", nested_row
         elif range_class is not None:
             # Ref-class multivalued → junction table (ARRAY also in primary)
             for v in value:

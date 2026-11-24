@@ -3,12 +3,12 @@
 This repository owns the NMDC flat-schema generator, the runtime flattener,
 and the checked-in schema describing their output. The source model comes from
 the separate `nmdc-schema` package. The current input is tagged release
-**v11.24.0**, with projection **1.3.0**. Upgrades select the latest tagged source
+**v11.26.0**, with projection **1.4.0**. Upgrades select the latest tagged source
 release deliberately and pin it; ordinary regeneration never follows upstream
 main or selects a newer release automatically.
 
-A separately packaged 11.23.0 compatibility artifact supports production before
-its migration. See [choosing a source release](source-versions.md) for the exact
+Separately packaged 11.25, 11.24.0 and 11.23.0 compatibility artifacts support
+consumers that still run an older source release. See [choosing a source release](source-versions.md) for the exact
 artifact paths, generation commands, and source/target pairing rules.
 
 ## Which repository generates what?
@@ -50,13 +50,15 @@ These files are under `src/nmdc_lakehouse_schema/schema/`:
 
 | File | Role |
 | --- | --- |
-| `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.24.0 with projection 1.3.0 has 61 table classes: 19 primary and 42 non-TextValue side tables. Includes version, source provenance, and a content digest. |
-| `compat/11.23.0/nmdc_schema_flattened.yaml` | Matching production compatibility artifact: source 11.23.0, projection 1.3.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records. |
+| `nmdc_schema_flattened.yaml` | The canonical generated NMDC product. Source 11.26.0 with projection 1.4.0 has 64 table classes: 19 primary and 45 non-TextValue side tables. Includes version, source provenance, and a content digest. |
+| `compat/11.25/nmdc_schema_flattened.yaml` | Compatibility artifact: source 11.25, projection 1.4.0, 63 classes (19 primary and 44 helpers). |
+| `compat/11.24.0/nmdc_schema_flattened.yaml` | Compatibility artifact: source 11.24.0, projection 1.4.0, 61 classes (19 primary and 42 helpers). Same tables and columns as the canonical artifact released in 0.5.0. Only its version string and digest differ. |
+| `compat/11.23.0/nmdc_schema_flattened.yaml` | Compatibility artifact: source 11.23.0, projection 1.4.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records. |
 | `nmdc_lakehouse_schema.yaml` | Leftover LinkML project-template example with `NamedThing`, `Person`, `PersonCollection`, and `PersonStatus`. It is not the NMDC source model or an input to the flat-schema generator. |
 
 `scripts/generate_flattened_schema.py` reads the installed
 `nmdc_schema/nmdc_materialized_patterns.yaml` and writes the canonical product.
-The default `source-latest` dependency group pins `nmdc-schema==11.24.0` in `pyproject.toml` and
+The default `source-latest` dependency group pins `nmdc-schema==11.26.0` in `pyproject.toml` and
 `uv.lock`; regeneration does not select the newest upstream schema automatically.
 
 The template's removal is tracked in
@@ -98,7 +100,9 @@ Then run:
 
 ```sh
 just generate-flat-schema
-just generate-compat-schema
+just generate-compat-schema source-11-25
+just generate-compat-schema source-11-24
+just generate-compat-schema source-11-23
 just check-flat-schemas
 just test
 just test-dist
@@ -178,15 +182,15 @@ There are three separate identities:
 
 | Identity | Source | Example |
 | --- | --- | --- |
-| Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.24.0` |
-| Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.3.0` |
+| Upstream schema version | The loaded `nmdc-schema` schema's `version` | `11.26.0` |
+| Projection version | Manually maintained `FLATTENER_VERSION` in `transforms/schema_generator.py` | `1.4.0` |
 | Python package version | Git-derived build metadata via `uv-dynamic-versioning` in `pyproject.toml` | A release tag or development version |
 
 `flat_schema_version()` combines the first two:
 
 ```text
 <source schema version>+flat.<FLATTENER_VERSION>
-11.24.0+flat.1.3.0
+11.26.0+flat.1.4.0
 ```
 
 Just and the generator do not increment the projection version automatically.
@@ -203,6 +207,7 @@ version update changes the first component; it does not by itself require changi
 | `1.1.0` | [PR #15](https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/15) extracted raw strings, but still kept repeated TextValues in child tables. |
 | `1.2.0` | [PR #18](https://github.com/microbiomedata/nmdc-lakehouse-schema/pull/18) corrected that representation: parent string-array columns replace all 41 TextValue-only child tables. |
 | `1.3.0` | [Mobile-phase substances](mobile-phase-substances.md) adds two nested helpers and explicit phase/substance occurrence positions. |
+| `1.4.0` | Adds a nested helper for `added_isotopologs[*].isotope_atom_fractions[*]` (sources 11.25 and later), with `isotopolog_index` and `isotope_atom_fraction_index` positions. Artifacts for sources without isotopolog additions change only in version and digest. |
 
 The earlier child-table implementation did not satisfy the intended parent-column
 projection. The [TextValue contract](textvalue-projection.md) describes the final
@@ -214,6 +219,32 @@ updates it; it is not another manually assigned version. Use the canonical
 repository/package artifact for byte-level digest checks. The website's
 `schema/` download is a LinkML-expanded rendering produced by `gen-yaml`, so it
 is not the same byte stream even though it carries the source annotations.
+
+## Adopting source release 11.26.0
+
+Under projection 1.4.0, moving the source from 11.25 to 11.26.0:
+
+- adds `biosample_set_adjacent_environment`, a ControlledTermValue helper table (63 to 64 tables);
+- adds 31 Biosample columns, including wastewater fields such as `catchment_population`, `wastewater_system_type`, `fecal_contamination_*`, `instantaneous_flow_rate_*` and `total_daily_flow_rate_*`, plus `collected_by`, `samp_purpose`, `neg_cont_type` and `pos_cont_type`; and
+- removes no tables or columns.
+
+## Adopting source release 11.25
+
+nmdc-schema 11.25 was published on PyPI as `11.25`, so the installed version,
+the `source_package_version` annotation and the flat version
+(`11.25+flat.1.4.0`) all use the two-part form. `flat_schema_resource` accepts
+`11.25` or `11.25.0`. Under projection 1.4.0, moving the source from 11.24.0 to
+11.25:
+
+- adds `material_processing_set_added_isotopologs` and its nested helper
+  `material_processing_set_added_isotopologs_isotope_atom_fractions` (61 to 63 tables);
+- adds `internal_standard_method_*` and `isotopolog_*` columns to MaterialProcessing
+  and `gradient_pos_*`, `gradient_position` and `nucleobase_atom_frac` to
+  ProcessedSample;
+- removes `collection_time_inc` from Biosample. The 11.24.1 to 11.25.0 migrator
+  stops if any Biosample still has that field, so a migrated database has none
+  to drop; and
+- changes descriptions only elsewhere (spelling fixes and shorter text).
 
 ## Adopting source release 11.24.0
 

@@ -29,6 +29,7 @@ contains exactly one scalar, as in a strictly normalized relational design.
 | Single embedded wrapper containing a second single embedded object | Another prefix level, such as `env_broad_scale_term_id` and `env_broad_scale_term_name`. | No, within the depth limit |
 | Repeated embedded non-TextValue objects, directly on the collection record | One child row per object, with `parent_id` and the child's supported flattened fields. | Yes |
 | `ordered_mobile_phases[*].substances_used[*]` | A phase helper and a substance helper with compound occurrence keys and explicit list positions. | Yes; this exact nested shape has a dedicated transformation |
+| `added_isotopologs[*].isotope_atom_fractions[*]` | An isotopolog addition helper and an isotope atom fraction helper with compound occurrence keys and explicit list positions (projection 1.4.0, sources 11.25 and later). | Yes; this exact nested shape has a dedicated transformation |
 | Inheritance and class-based polymorphism | Induced inherited slots plus optional columns for subclass fields; runtime selects a known class using `type`. | Follows the slot rules above |
 
 The only wrapper-specific scalar extraction is for a slot whose range is exactly
@@ -107,6 +108,20 @@ substance fields and QuantityValue members. The join key to a phase is
 within that phase. See the [complete contract and migration
 instructions](mobile-phase-substances.md). Projection 1.2.0 omitted these objects;
 that historical behavior is no longer the contract for this particular path.
+
+Projection 1.4.0 adds the same treatment for isotope atom fractions, which
+sources 11.25 and later define:
+
+```text
+material_processing_set
+  added_isotopologs[*]          -> isotopolog addition helper, with isotopolog_index
+    isotope_atom_fractions[*]   -> isotope atom fraction helper, with both list positions
+```
+
+The join key to an isotopolog addition is `(parent_id, isotopolog_index)`.
+`isotope_atom_fraction_index` retains order and duplicates within that addition.
+The supported nested paths are listed in
+`src/nmdc_lakehouse_schema/transforms/nested_helpers.py`.
 
 The source-shape inspection also found `organism_set.classified_as[*].relations[*]`
 and deeper `term.relations[*]` paths in controlled-term wrappers. The earlier 11.23.0 inventory found twenty distinct
