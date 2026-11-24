@@ -28,22 +28,9 @@ source_schema_dir := env_var_or_default("LINKML_SCHEMA_SOURCE_DIR", "")
 # template behaves unchanged; set LINKML_DOC_SCHEMA_NAME to document a different
 # schema (here: the flattened product schema rather than the datamodel boilerplate).
 doc_schema_name := env_var_or_default("LINKML_DOC_SCHEMA_NAME", schema_name)
-config_yaml := if env_var_or_default("LINKML_GENERATORS_CONFIG_YAML", "") != "" {
-  "--config-file " + env_var_or_default("LINKML_GENERATORS_CONFIG_YAML", "")
-} else {
-  ""
-}
 gen_doc_args := env_var_or_default("LINKML_GENERATORS_DOC_ARGS", "")
-gen_java_args := env_var_or_default("LINKML_GENERATORS_JAVA_ARGS", "")
-gen_owl_args := env_var_or_default("LINKML_GENERATORS_OWL_ARGS", "")
-gen_pydantic_args := env_var_or_default("LINKML_GENERATORS_PYDANTIC_ARGS", "")
-gen_ts_args := env_var_or_default("LINKML_GENERATORS_TYPESCRIPT_ARGS", "")
 
 # Directory variables
-src := "src"
-dest := "project"
-pymodel := src / schema_name / "datamodel"
-source_schema_path := source_schema_dir / schema_name + ".yaml"
 doc_schema_path := source_schema_dir / doc_schema_name + ".yaml"
 docs_src := "src/docs"  # Authored documentation sources (version controlled)
 docs_build := "docs"  # Assembled mkdocs build dir (regenerated, git-ignored)
@@ -86,13 +73,9 @@ _wsl2_compat_check:
 setup: _wsl2_compat_check _check-config _git-init install _git-add && _setup_part2
   git commit -m "Initialise git with minimal project" -a || true
 
-_setup_part2: gen-project gen-doc
+_setup_part2: gen-doc
   @echo
   @echo '=== Setup completed! ==='
-  @echo 'Various model representations have been created under directory "project". By default'
-  @echo 'they are ignored by git. You decide whether you want to add them to git tracking or'
-  @echo 'continue to git-ignore them as they can be regenerated if needed.'
-  @echo 'For tracking specific subfolders, add !project/[foldername]/* line(s) to ".gitignore".'
 
 # Install project dependencies
 [group('project management')]
@@ -105,13 +88,13 @@ update: _update-template _update-linkml
 
 # Clean all generated files
 [group('project management')]
-clean: _wsl2_compat_check _clean_project
+clean: _wsl2_compat_check
   rm -rf tmp
   rm -rf {{docs_build}}
 
-# (Re-)Generate project and documentation locally
+# Generate the documentation site locally
 [group('model development')]
-site: gen-project gen-doc
+site: gen-doc
 
 # Deploy documentation site to Github Pages
 [group('deployment')]
@@ -120,7 +103,7 @@ deploy: site
 
 # Run all tests
 [group('model development')]
-test: _test-schema _test-python _test-examples
+test: _test-schema _test-python
 
 # Build distributions and verify their canonical schema bytes.
 test-dist: check-flat-schemas
@@ -153,32 +136,6 @@ _copy-docs:
 # Build docs and run test server
 [group('model development')]
 testdoc: gen-doc _serve
-
-# Generate the Python data models (dataclasses & pydantic)
-gen-python:
-  uv run gen-project -d  {{pymodel}} -I python {{source_schema_path}}
-  uv run gen-pydantic {{gen_pydantic_args}} {{source_schema_path}} > {{pymodel}}/{{schema_name}}_pydantic.py
-
-# Generate project files including Python data model
-[group('model development')]
-gen-project:
-  uv run gen-project {{config_yaml}} -d {{dest}} {{source_schema_path}}
-  mkdir -p {{pymodel}}
-  mv {{dest}}/*.py {{pymodel}}/
-  uv run gen-pydantic {{gen_pydantic_args}} {{source_schema_path}} > {{pymodel}}/{{schema_name}}_pydantic.py
-
-  @# Some generators ignore config_yaml or cannot create directories, so we run them separately.
-  uv run gen-java {{gen_java_args}} --output-directory {{dest}}/java/ {{source_schema_path}}
-
-  @if [ ! -d "{{dest}}/typescript" ]; then \
-    mkdir -p {{dest}}/typescript ; \
-  fi
-  uv run gen-typescript {{gen_ts_args}} {{source_schema_path}} > {{dest}}/typescript/{{schema_name}}.ts
-
-  @if [ ! -d "{{dest}}/owl" ]; then \
-    mkdir -p {{dest}}/owl ; \
-  fi
-  uv run gen-owl {{gen_owl_args}} {{source_schema_path}} > "{{dest}}/owl/{{schema_name}}.owl.ttl"
 
 # ============== Migrations recipes for Copier ==============
 
@@ -216,7 +173,7 @@ _post_upgrade_v020py:
 # Show current project status
 _status: _wsl2_status_check _check-config
   @echo "Project: {{schema_name}}"
-  @echo "Source: {{source_schema_path}}"
+  @echo "Product schema: {{doc_schema_path}}"
 
 # Check project configuration
 _check-config:
@@ -236,25 +193,13 @@ _update-template:
 _update-linkml:
   uv lock --upgrade-package linkml-runtime --upgrade-package linkml
 
-# Test schema generation
+# Check that LinkML can load and render the product schema
 _test-schema:
-  uv run gen-project {{config_yaml}} -d tmp {{source_schema_path}}
+  uv run gen-yaml {{doc_schema_path}} > /dev/null
 
 # Run Python unit tests with pytest
-_test-python: gen-python
+_test-python:
   uv run python -m pytest
-
-# Run example tests
-_test-examples: _ensure_examples_output
-  uv run linkml-run-examples \
-    --input-formats json \
-    --input-formats yaml \
-    --output-formats json \
-    --output-formats yaml \
-    --counter-example-input-directory tests/data/invalid \
-    --input-directory tests/data/valid \
-    --output-directory examples/output \
-    --schema {{source_schema_path}} > examples/output/README.md
 
 # Add the merged model to docs/schema.
 _gen-yaml:
@@ -283,28 +228,6 @@ _git-commit:
 # Show git status
 _git-status:
   git status
-
-_clean_project:
-    #!{{shebang}}
-    import shutil, pathlib
-    # remove the generated project files
-    for d in pathlib.Path("{{dest}}").iterdir():
-        if d.is_dir():
-            print(f'removing "{d}"')
-            shutil.rmtree(d, ignore_errors=True)
-    # remove the generated python data model
-    for d in pathlib.Path("{{pymodel}}").iterdir():
-        if d.name == "__init__.py":
-            continue
-        print(f'removing "{d}"')
-        if d.is_dir():
-            shutil.rmtree(d, ignore_errors=True)
-        else:
-            d.unlink()
-
-_ensure_examples_output:  # Ensure a clean examples/output directory exists
-  -mkdir -p examples/output
-  -rm -rf examples/output/*.*
 
 # ============== Include project-specific recipes ==============
 

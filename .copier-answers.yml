@@ -1,7 +1,7 @@
 # Changes here will be overwritten by Copier
 _commit: v0.5.0
 _src_path: https://github.com/linkml/linkml-project-copier
-add_example: true
+add_example: false
 copyright_year: '2026'
 email: smoxon@lbl.gov
 existing_license_file: ''
