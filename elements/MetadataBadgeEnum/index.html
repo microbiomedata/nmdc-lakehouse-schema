@@ -549,6 +549,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -620,7 +631,7 @@
 
 
 <h1 id="enum-metadatabadgeenum">Enum: MetadataBadgeEnum</h1>
-<p><em>Metadata-quality badges a Biosample can be awarded. Each permissible value names one badge topic and is present or absent; there are no levels or tiers. Badges are awarded in two ways. A completeness badge names a badge subset (a subset whose in_subset includes badge_topic) and is awarded when the record populates at least that subset's badge_minimum_slots slots; a test keeps those permissible values and subsets in sync. A provenance badge is awarded from a recorded fact about where the metadata came from, has no subset, and names its source in its own description.</em></p>
+<p><em>Metadata quality badges that a Biosample can be awarded.</em></p>
 <div>
 <p>URI: <a href="https://w3id.org/nmdc/nmdc-schema-flattened/MetadataBadgeEnum">https://w3id.org/nmdc/nmdc-schema-flattened/MetadataBadgeEnum</a></p>
 <h2 id="permissible-values">Permissible Values</h2>
@@ -630,23 +641,27 @@
 <th>Value</th>
 <th>Meaning</th>
 <th>Description</th>
+<th>Additional Info</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>biogeochemistry</td>
 <td>None</td>
-<td>Completeness badge</td>
+<td>A badge for a Biosample that has values for at least the minimum number of sl...</td>
+<td>Title: Biogeochemistry<br></td>
 </tr>
 <tr>
 <td>host_information</td>
 <td>None</td>
-<td>Completeness badge</td>
+<td>A badge for a Biosample that has values for at least the minimum number of sl...</td>
+<td>Title: Host Information<br></td>
 </tr>
 <tr>
 <td>expert_curation</td>
 <td>None</td>
-<td>Provenance badge</td>
+<td>A badge for a Biosample whose metadata was submitted through the NMDC Submiss...</td>
+<td>Title: Expert Curation<br></td>
 </tr>
 </tbody>
 </table>
@@ -661,10 +676,15 @@
 <tbody>
 <tr>
 <td><a href="../badges/">badges</a></td>
-<td>Metadata-quality badges awarded to this record</td>
+<td>Metadata quality badges awarded to this record</td>
 </tr>
 </tbody>
 </table>
+<h2 id="comments">Comments</h2>
+<ul>
+<li>A completeness badge has the same name as a badge subset, meaning a subset whose in_subset includes badge_topic. It is awarded when the Biosample populates at least badge_minimum_slots of that subset's slots. tests/test_badge_subset_sync.py checks that these values and subsets match.</li>
+<li>A provenance badge is awarded from where the metadata came from. It has no subset, and its comments name the slot it is awarded from.</li>
+</ul>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="https://github.com/microbiomedata/nmdc-schema/issues/3227">https://github.com/microbiomedata/nmdc-schema/issues/3227</a></li>
@@ -677,13 +697,14 @@
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetadataBadgeEnum</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Metadata-quality badges a Biosample can be awarded. Each permissible</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">value names one badge topic and is present or absent; there are no levels or tiers.</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Badges are awarded in two ways. A completeness badge names a badge subset (a subset</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">whose in_subset includes badge_topic) and is awarded when the record populates at</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">least that subset&#39;s badge_minimum_slots slots; a test keeps those permissible values</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">and subsets in sync. A provenance badge is awarded from a recorded fact about where</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">the metadata came from, has no subset, and names its source in its own description.</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Metadata quality badges that a Biosample can be awarded.</span>
+<span class="nt">comments</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A completeness badge has the same name as a badge subset, meaning a subset whose</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">in_subset includes badge_topic. It is awarded when the Biosample populates at least</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">badge_minimum_slots of that subset&#39;s slots. tests/test_badge_subset_sync.py checks</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">that these values and subsets match.</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A provenance badge is awarded from where the metadata came from. It has no subset,</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">and its comments name the slot it is awarded from.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="nt">see_also</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/microbiomedata/nmdc-schema/issues/3227</span>
@@ -691,19 +712,31 @@
 <span class="nt">permissible_values</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">biogeochemistry</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biogeochemistry</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Completeness badge. Awarded when the Biosample populates at least</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">badge_minimum_slots of the biogeochemistry subset.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A badge for a Biosample that has values for at least the minimum</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">number of slots set by the Biogeochemistry subset.</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Biogeochemistry</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Completeness badge. Awarded when the Biosample populates at least badge_minimum_slots</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">of the biogeochemistry subset.</span>
 <span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://microbiomedata.github.io/nmdc-schema/Biogeochemistry/</span>
 <span class="w">  </span><span class="nt">host_information</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host_information</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Completeness badge. Awarded when the Biosample populates at least</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">badge_minimum_slots of the host_information subset.</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A badge for a Biosample that has values for at least the minimum</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">number of slots set by the Host Information subset.</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Host Information</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Completeness badge. Awarded when the Biosample populates at least badge_minimum_slots</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">of the host_information subset.</span>
 <span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://microbiomedata.github.io/nmdc-schema/HostInformation/</span>
 <span class="w">  </span><span class="nt">expert_curation</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">expert_curation</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Provenance badge. Awarded when the Biosample&#39;s ProvenanceMetadata.source_system_of_record</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A badge for a Biosample whose metadata was submitted through the</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">NMDC Submission Portal.</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Expert Curation</span>
+<span class="w">    </span><span class="nt">comments</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Provenance badge. Awarded when the Biosample&#39;s ProvenanceMetadata.source_system_of_record</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">identifies the NMDC submission portal, rather than an ETL process over an external</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">database.</span>
 <span class="w">    </span><span class="nt">see_also</span><span class="p">:</span>

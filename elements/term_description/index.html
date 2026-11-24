@@ -585,23 +585,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Identifier and Mapping Information">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-source" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Schema Source
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -648,7 +631,6 @@
 
 
 <h1 id="slot-term_description">Slot: term_description</h1>
-<p><em>a human-readable description of a thing Flattened from nested slot 'term.description'.</em></p>
 <div>
 <p>URI: <a href="https://w3id.org/nmdc/nmdc-schema-flattened/term_description">https://w3id.org/nmdc/nmdc-schema-flattened/term_description</a></p>
 <!-- no inheritance hierarchy -->
@@ -662,6 +644,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="../BiosampleSetAdjacentEnvironment/">BiosampleSetAdjacentEnvironment</a></td>
+<td>A controlled term or class from an ontology Flattened tabular form of 'Contro...</td>
+<td>no</td>
+</tr>
 <tr>
 <td><a href="../BiosampleSetChemAdministration/">BiosampleSetChemAdministration</a></td>
 <td>A controlled term or class from an ontology Flattened tabular form of 'Contro...</td>
@@ -685,7 +672,7 @@
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../BiosampleSetChemAdministration/">BiosampleSetChemAdministration</a></td>
+<td><a href="../BiosampleSetAdjacentEnvironment/">BiosampleSetAdjacentEnvironment</a>, <a href="../BiosampleSetChemAdministration/">BiosampleSetChemAdministration</a></td>
 </tr>
 </tbody>
 </table>
@@ -699,30 +686,12 @@
 </thead>
 <tbody>
 <tr>
-<td>### Slot Characteristics</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Owner</td>
-<td><a href="../BiosampleSetChemAdministration/">BiosampleSetChemAdministration</a></td>
-</tr>
-</tbody>
-</table>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
-<h3 id="schema-source">Schema Source</h3>
-<ul>
-<li>from schema: <a href="https://w3id.org/nmdc/nmdc-schema-flattened">https://w3id.org/nmdc/nmdc-schema-flattened</a></li>
-</ul>
 <h2 id="mappings">Mappings</h2>
 <table>
 <thead>
@@ -745,15 +714,10 @@
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">term_description</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">a human-readable description of a thing Flattened from nested slot &#39;term.description&#39;.</span>
-<span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
-<span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="nt">domain_of</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
-<span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
 </details>
 </div>

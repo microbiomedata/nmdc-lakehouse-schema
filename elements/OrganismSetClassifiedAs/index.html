@@ -349,7 +349,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-organismsetclassifiedas">Class: OrganismSetClassifiedAs</h1>
-<p><em>A taxonomy term from NCBI Taxonomy. NcbiTaxon instances are identified by NCBITaxon CURIEs (e.g. NCBITaxon:511145) and stored in ontology_class_set alongside other OntologyClass instances. No NMDC-minted identifiers are assigned. Support for additional taxonomic authorities (GTDB, LPSN, SeqCode) would be represented by separate classes or by widening this class's id_prefixes in a follow-on PR. Flattened tabular form of 'NcbiTaxon'. Attributes are the union of base-class slots and slots from concrete subclasses of 'NcbiTaxon' that may appear via the 'type' field.</em></p>
+<p><em>A taxon from NCBI Taxonomy, identified by its NCBITaxon CURIE. Flattened tabular form of 'NcbiTaxon'. Attributes are the union of base-class slots and slots from concrete subclasses of 'NcbiTaxon' that may appear via the 'type' field.</em></p>
 <div>
 <p>URI: <a href="https://w3id.org/nmdc/nmdc-schema-flattened/OrganismSetClassifiedAs">https://w3id.org/nmdc/nmdc-schema-flattened/OrganismSetClassifiedAs</a></p>
 <pre class="mermaid"><code> classDiagram
@@ -505,11 +505,7 @@
 <span class="w">  </span><span class="nt">source_class</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_class</span>
 <span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Organism</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A taxonomy term from NCBI Taxonomy. NcbiTaxon instances are identified</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">by NCBITaxon CURIEs (e.g. NCBITaxon:511145) and stored in ontology_class_set alongside</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">other OntologyClass instances. No NMDC-minted identifiers are assigned. Support</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">for additional taxonomic authorities (GTDB, LPSN, SeqCode) would be represented</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">by separate classes or by widening this class's id_prefixes in a follow-on PR. Flattened</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A taxon from NCBI Taxonomy, identified by its NCBITaxon CURIE. Flattened</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">tabular form of 'NcbiTaxon'. Attributes are the union of base-class slots and slots</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">from concrete subclasses of 'NcbiTaxon' that may appear via the 'type' field.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
@@ -543,7 +539,7 @@
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alternative_names</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A list of alternative names used to refer to the entity. The distinction</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">between name and alternative names is application-specific.  This should not</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)</span>
 <span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
@@ -663,6 +659,7 @@
 <span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_misc_param</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_organism_count</span>
@@ -683,6 +680,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InstrumentFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManifestFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MaterialProcessingFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs_isotope_atom_fractions</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_failure_categorization</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases_substances_used</span>
@@ -711,6 +710,7 @@
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Identifier of the parent 'Organism' record.</span>
 <span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_associated_studies</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_misc_param</span>
@@ -728,6 +728,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_generation_set_instrument_used</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_object_set_in_manifest</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">field_research_site_set_part_of</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs_isotope_atom_fractions</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_failure_categorization</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_input</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_output</span>
@@ -766,11 +768,7 @@
 <span class="w">  </span><span class="nt">source_class</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_class</span>
 <span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Organism</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A taxonomy term from NCBI Taxonomy. NcbiTaxon instances are identified</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">by NCBITaxon CURIEs (e.g. NCBITaxon:511145) and stored in ontology_class_set alongside</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">other OntologyClass instances. No NMDC-minted identifiers are assigned. Support</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">for additional taxonomic authorities (GTDB, LPSN, SeqCode) would be represented</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">by separate classes or by widening this class's id_prefixes in a follow-on PR. Flattened</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A taxon from NCBI Taxonomy, identified by its NCBITaxon CURIE. Flattened</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">tabular form of 'NcbiTaxon'. Attributes are the union of base-class slots and slots</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">from concrete subclasses of 'NcbiTaxon' that may appear via the 'type' field.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
@@ -805,7 +803,7 @@
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alternative_names</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A list of alternative names used to refer to the entity. The distinction</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">between name and alternative names is application-specific.  This should not</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">be used for identifers which have their own slots (e.g., bioproject:PRJNA406974)</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">be used for identifiers which have their own slots (e.g., bioproject:PRJNA406974)</span>
 <span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">organism_set_classified_as</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
@@ -933,6 +931,7 @@
 <span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">organism_set_classified_as</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_misc_param</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_organism_count</span>
@@ -953,6 +952,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InstrumentFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManifestFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MaterialProcessingFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs_isotope_atom_fractions</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_failure_categorization</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases_substances_used</span>
@@ -982,6 +983,7 @@
 <span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">organism_set_classified_as</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_associated_studies</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_misc_param</span>
@@ -999,6 +1001,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_generation_set_instrument_used</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data_object_set_in_manifest</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">field_research_site_set_part_of</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs_isotope_atom_fractions</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_failure_categorization</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_input</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_output</span>

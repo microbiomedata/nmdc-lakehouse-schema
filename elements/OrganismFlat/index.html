@@ -349,7 +349,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="class-organismflat">Class: OrganismFlat</h1>
-<p><em>A material entity that is a living or once-living individual. Organism instances represent the biological identity of what is in a sample, not the sample itself. Sub-species identity (strain, cultivar, lab isolate) is captured by slots on this class rather than via a separate Strain subclass. Flattened tabular form of 'Organism'. Attributes are the union of base-class slots and slots from concrete subclasses of 'Organism' that may appear via the 'type' field.</em></p>
+<p><em>A material entity that is a living or once-living individual. Flattened tabular form of 'Organism'. Attributes are the union of base-class slots and slots from concrete subclasses of 'Organism' that may appear via the 'type' field.</em></p>
 <div>
 <p>URI: <a href="https://w3id.org/nmdc/nmdc-schema-flattened/OrganismFlat">https://w3id.org/nmdc/nmdc-schema-flattened/OrganismFlat</a></p>
 <pre class="mermaid"><code> classDiagram
@@ -521,12 +521,9 @@
 <span class="w">  </span><span class="nt">source_class</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_class</span>
 <span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Organism</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A material entity that is a living or once-living individual. Organism</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">instances represent the biological identity of what is in a sample, not the sample</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">itself. Sub-species identity (strain, cultivar, lab isolate) is captured by slots</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">on this class rather than via a separate Strain subclass. Flattened tabular form</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">of 'Organism'. Attributes are the union of base-class slots and slots from concrete</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">subclasses of 'Organism' that may appear via the 'type' field.</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A material entity that is a living or once-living individual. Flattened</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">tabular form of 'Organism'. Attributes are the union of base-class slots and slots</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">from concrete subclasses of 'Organism' that may appear via the 'type' field.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="nt">attributes</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">alternative_identifiers</span><span class="p">:</span>
@@ -707,6 +704,7 @@
 <span class="w">    </span><span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_misc_param</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_organism_count</span>
@@ -727,6 +725,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InstrumentFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManifestFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MaterialProcessingFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs_isotope_atom_fractions</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_failure_categorization</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases_substances_used</span>
@@ -762,12 +762,9 @@
 <span class="w">  </span><span class="nt">source_class</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source_class</span>
 <span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Organism</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A material entity that is a living or once-living individual. Organism</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">instances represent the biological identity of what is in a sample, not the sample</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">itself. Sub-species identity (strain, cultivar, lab isolate) is captured by slots</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">on this class rather than via a separate Strain subclass. Flattened tabular form</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">of 'Organism'. Attributes are the union of base-class slots and slots from concrete</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">subclasses of 'Organism' that may appear via the 'type' field.</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A material entity that is a living or once-living individual. Flattened</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">tabular form of 'Organism'. Attributes are the union of base-class slots and slots</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">from concrete subclasses of 'Organism' that may appear via the 'type' field.</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/nmdc/nmdc-schema-flattened</span>
 <span class="nt">attributes</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">alternative_identifiers</span><span class="p">:</span>
@@ -960,6 +957,7 @@
 <span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OrganismFlat</span>
 <span class="w">    </span><span class="nt">domain_of</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BiosampleFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_adjacent_environment</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_chem_administration</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_misc_param</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">biosample_set_organism_count</span>
@@ -980,6 +978,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InstrumentFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ManifestFlat</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MaterialProcessingFlat</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_added_isotopologs_isotope_atom_fractions</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_has_failure_categorization</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material_processing_set_ordered_mobile_phases_substances_used</span>
