@@ -74,12 +74,10 @@ PyPI publishes 11.25 as `11.25` rather than `11.25.0`. See
 | --- | --- |
 | `src/nmdc_lakehouse_schema/transforms/` | Generator, runtime flattener, and schema-diff implementation. |
 | `src/nmdc_lakehouse_schema/schema/nmdc_schema_flattened.yaml` | Canonical generated product; regenerate it instead of editing by hand. |
-| `src/nmdc_lakehouse_schema/schema/nmdc_lakehouse_schema.yaml` | Remaining Person/PersonCollection template example; removal tracked in [#16](https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/16). |
-| `src/nmdc_lakehouse_schema/datamodel/` | Generated models for that template example, not the NMDC flat product. |
+| `src/nmdc_lakehouse_schema/schema/compat/` | Flat schemas for older supported source releases. |
 | `src/docs/` | Authored documentation; edit these sources. |
 | `docs/`, `site/` | Ignored assembled Markdown and built HTML. |
-| `tests/` | Projection/artifact regression tests and remaining template fixtures. |
-| `project/`, `examples/output/` | Ignored output from template-generation/example recipes. |
+| `tests/` | Projection and artifact regression tests. |
 
 ## Credits
 
