@@ -921,38 +921,20 @@ Consumers need matching runtime, target artifact, and source-schema versions.</p
 <td><code>compat/11.23.0/nmdc_schema_flattened.yaml</code></td>
 <td>Compatibility artifact: source 11.23.0, projection 1.4.0, 60 classes (19 primary and 41 helpers). Retains the older source fields without migrating records.</td>
 </tr>
-<tr>
-<td><code>nmdc_lakehouse_schema.yaml</code></td>
-<td>Leftover LinkML project-template example with <code>NamedThing</code>, <code>Person</code>, <code>PersonCollection</code>, and <code>PersonStatus</code>. It is not the NMDC source model or an input to the flat-schema generator.</td>
-</tr>
 </tbody>
 </table>
 <p><code>scripts/generate_flattened_schema.py</code> reads the installed
 <code>nmdc_schema/nmdc_materialized_patterns.yaml</code> and writes the canonical product.
 The default <code>source-latest</code> dependency group pins <code>nmdc-schema==11.26.0</code> in <code>pyproject.toml</code> and
 <code>uv.lock</code>; regeneration does not select the newest upstream schema automatically.</p>
-<p>The template's removal is tracked in
-<a href="https://github.com/microbiomedata/nmdc-lakehouse-schema/issues/16">issue #16</a>.
-Deleting only that YAML would leave these dependencies broken or misleading:</p>
-<ul>
-<li><code>gen-project</code>, <code>gen-python</code>, <code>_test-schema</code>, and <code>_test-examples</code> still select
-  it through <code>LINKML_SCHEMA_NAME</code> and <code>source_schema_path</code>. <code>just test</code>, <code>site</code>,
-  and the existing <code>deploy</code> recipe depend on those recipes; CI runs <code>just test</code>.</li>
-<li>Generated modules in <code>src/nmdc_lakehouse_schema/datamodel/</code> implement the
-  Person example. Their initializer re-exports those classes and exposes
-  <code>MAIN_SCHEMA_PATH</code> pointing to the example YAML.</li>
-<li><code>tests/test_data.py</code>, Person fixtures, and example documentation exercise
-  that template model. Retire or replace them alongside the model.</li>
-<li>Package resources/imports may have external consumers. Remove or deprecate
-  them deliberately, and inspect the wheel and source distribution.</li>
-<li>Generator configuration, generated-file lint exclusions, README instructions,
-  and Copier's <code>add_example: true</code> setting need coordinated cleanup.</li>
-</ul>
-<p>Do not simply rename <code>LINKML_SCHEMA_NAME</code>: it also determines the Python
-package/datamodel output directory. The flat-product generator and <code>just gen-doc</code>
-already have independent inputs and do not need the Person schema. The inspected
-lakehouse package-adoption code uses <code>transforms.*</code> and the flat product's
-resource path, not the example datamodel.</p>
+<p>The package no longer ships the LinkML project template's example schema
+(<code>nmdc_lakehouse_schema.yaml</code>, with <code>Person</code> and <code>PersonCollection</code>) or the
+<code>nmdc_lakehouse_schema.datamodel</code> module generated from it, including
+<code>MAIN_SCHEMA_PATH</code>. Code that imported them must stop. nmdc-lakehouse never did.
+<code>just test</code> runs pytest and checks that LinkML can load the canonical flat
+schema. <code>just site</code> builds the documentation. No recipe generates Python, Java,
+TypeScript or OWL models, and <code>.copier-answers.yml</code> sets <code>add_example: false</code>
+so a template update does not add the example back.</p>
 <h2 id="regenerate-the-checked-in-schema-and-local-documentation">Regenerate the checked-in schema and local documentation</h2>
 <p>From a checkout containing the current main branch, with Git, uv, and Just
 installed, create a feature branch for changes:</p>
@@ -975,11 +957,9 @@ uv<span class="w"> </span>run<span class="w"> </span>mkdocs<span class="w"> </sp
 <p>These commands were exercised for projection 1.3.0 on 2026-09-23. With unchanged
 inputs, schema generation reproduces the checked-in bytes. <code>just check-flat-schema</code>
 checks both reproducibility and the artifact's digest. <code>just test</code> also includes
-those guards, runtime/generator tests, and the remaining template example tests.
-The template Python generator can rewrite its generated timestamp; review that
-separately from intended changes.</p>
+those guards and the runtime and generator tests.</p>
 <p><code>just test-dist</code> builds a wheel and source archive in a temporary directory and
-checks regeneration and exact packaged bytes for both supported source artifacts. The same
+checks regeneration and exact packaged bytes for every supported source artifact. The same
 check gates package publication, before the archives are uploaded to PyPI.</p>
 <p>Edit authored documentation under <code>src/docs/</code>. Commit source/generator changes,
 the regenerated canonical YAML when it changes, and authored docs through a PR.
@@ -987,8 +967,6 @@ the regenerated canonical YAML when it changes, and authored docs through a PR.
 build. Do not hand-edit generated element pages or the canonical flat YAML.
 Use <code>uv run mkdocs serve</code> to preview the assembled docs, or <code>just testdoc</code> to
 regenerate them and start the server.</p>
-<p><code>just gen-project</code> and <code>just site</code> still generate the template products described
-above. For the NMDC product, use the explicit sequence shown here.</p>
 <p>A source-schema upgrade requires changing the pin/lockfile deliberately,
 regenerating, and reviewing the resulting shape and compatibility. It is more
 than refreshing documentation. Candidate-source checks and automated update PRs

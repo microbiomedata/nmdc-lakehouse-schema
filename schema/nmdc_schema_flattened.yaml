@@ -51658,7 +51658,7 @@ classes:
     class_uri: https://w3id.org/nmdc/nmdc-schema-flattened/WorkflowExecutionSetWasInformedBy
 metamodel_version: 1.11.0
 source_file: nmdc_schema_flattened.yaml
-source_file_date: '2026-11-24T00:02:29'
+source_file_date: '2026-11-24T01:09:42'
 source_file_size: 880611
-generation_date: '2026-11-24T00:02:39'
+generation_date: '2026-11-24T01:09:52'
 
